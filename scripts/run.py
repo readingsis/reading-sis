@@ -109,7 +109,10 @@ def get_schedule() -> tuple[datetime.timedelta | None, bool, bool]:
         print("Saturday — silent day, exiting.")
         return None, False, False
     is_sunday = (day == 6)
-    hours = 72 if is_sunday else 24
+    # Overlapping window on purpose: GitHub cron fires late and manual runs
+    # shift the anchor, so a sharp 24h cutoff drops episodes. The tracker
+    # dedupes anything already handled, so overlap is safe.
+    hours = 72 if is_sunday else 36
     return datetime.timedelta(hours=hours), True, is_sunday
 
 
