@@ -37,8 +37,4 @@ jobs:
           GREENAPI_API_TOKEN:   ${{ secrets.GREENAPI_API_TOKEN }}
           GREENAPI_GROUP_ID:    ${{ secrets.GREENAPI_GROUP_ID }}
           YOUTUBE_API_KEY:      ${{ secrets.YOUTUBE_API_KEY }}
-          TWILIO_ACCOUNT_SID:   ${{ secrets.TWILIO_ACCOUNT_SID }}
-          TWILIO_AUTH_TOKEN:    ${{ secrets.TWILIO_AUTH_TOKEN }}
-          TWILIO_WHATSAPP_FROM: ${{ secrets.TWILIO_WHATSAPP_FROM }}
-          WHATSAPP_TO_NOAM:     ${{ secrets.WHATSAPP_TO_NOAM }}
         run: /usr/local/bin/python3.11 scripts/run.py
