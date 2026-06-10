@@ -32,6 +32,12 @@ ANTHROPIC_KEY    = os.environ["ANTHROPIC_API_KEY"]
 GREENAPI_ID      = os.environ.get("GREENAPI_INSTANCE_ID", "")
 GREENAPI_TOKEN   = os.environ.get("GREENAPI_API_TOKEN", "")
 GREENAPI_GROUP   = os.environ.get("GREENAPI_GROUP_ID", "")
+# Twilio copy to Noam: Green API posts from Noam's own WhatsApp, and WhatsApp
+# never notifies you of your own messages — so he'd miss every digest.
+TWILIO_SID       = os.environ.get("TWILIO_ACCOUNT_SID", "")
+TWILIO_TOKEN     = os.environ.get("TWILIO_AUTH_TOKEN", "")
+TWILIO_FROM      = os.environ.get("TWILIO_WHATSAPP_FROM", "")
+TWILIO_TO_NOAM   = os.environ.get("WHATSAPP_TO_NOAM", "")
 
 REPO       = "readingsis/reading-sis"
 PAGES_BASE = "https://readingsis.github.io/reading-sis"
@@ -676,6 +682,24 @@ def send_whatsapp(episode: dict, content: dict, page_url: str) -> None:
     r = requests.post(url, json={"chatId": GREENAPI_GROUP, "message": message}, timeout=15)
     r.raise_for_status()
     print(f"  WhatsApp sent ✓  {r.json()}")
+
+    # Notification copy to Noam via Twilio (separate sender → he gets pinged)
+    if all([TWILIO_SID, TWILIO_TOKEN, TWILIO_FROM, TWILIO_TO_NOAM]):
+        try:
+            tw = requests.post(
+                f"https://api.twilio.com/2010-04-01/Accounts/{TWILIO_SID}/Messages.json",
+                auth=(TWILIO_SID, TWILIO_TOKEN),
+                data={
+                    "From": f"whatsapp:{TWILIO_FROM}",
+                    "To":   f"whatsapp:{TWILIO_TO_NOAM}",
+                    "Body": message,
+                },
+                timeout=15,
+            )
+            tw.raise_for_status()
+            print(f"  Twilio copy to Noam ✓  status={tw.json().get('status')}")
+        except Exception as e:
+            print(f"  Twilio copy failed: {e}")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
