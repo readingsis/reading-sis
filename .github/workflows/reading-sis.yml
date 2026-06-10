@@ -31,4 +31,7 @@ jobs:
           GREENAPI_INSTANCE_ID: ${{ secrets.GREENAPI_INSTANCE_ID }}
           GREENAPI_API_TOKEN:   ${{ secrets.GREENAPI_API_TOKEN }}
           GREENAPI_GROUP_ID:    ${{ secrets.GREENAPI_GROUP_ID }}
+          YOUTUBE_API_KEY:      ${{ secrets.YOUTUBE_API_KEY }}
+          WEBSHARE_PROXY_USERNAME: ${{ secrets.WEBSHARE_PROXY_USERNAME }}
+          WEBSHARE_PROXY_PASSWORD: ${{ secrets.WEBSHARE_PROXY_PASSWORD }}
         run: python scripts/run.py
