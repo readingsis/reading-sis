@@ -1,0 +1,80 @@
+name: backfill-temp
+on: workflow_dispatch
+jobs:
+  backfill:
+    runs-on: self-hosted
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "/usr/local/bin" >> "$GITHUB_PATH"
+          echo "$HOME/Library/Python/3.11/bin" >> "$GITHUB_PATH"
+      - run: /usr/local/bin/python3.11 -m pip install --user --quiet -r scripts/requirements.txt
+      - env:
+          GH_PAT:               ${{ secrets.GH_PAT }}
+          ANTHROPIC_API_KEY:    ${{ secrets.ANTHROPIC_API_KEY }}
+          GREENAPI_INSTANCE_ID: ${{ secrets.GREENAPI_INSTANCE_ID }}
+          GREENAPI_API_TOKEN:   ${{ secrets.GREENAPI_API_TOKEN }}
+          GREENAPI_GROUP_ID:    ${{ secrets.GREENAPI_GROUP_ID }}
+        run: |
+          /usr/local/bin/python3.11 - <<'PYEOF'
+          import sys, time, datetime
+          sys.path.insert(0, "scripts")
+          import run
+          import feedparser, requests
+
+          feed = feedparser.parse("https://lexfridman.com/feed/podcast/")
+          entry = next(e for e in feed.entries if "Steinberger" in e.title)
+          pub = datetime.datetime(*entry.published_parsed[:6]) + datetime.timedelta(hours=3)
+          episode = {
+              "id": f"lex-fridman-{pub.strftime('%Y-%m-%d')}",
+              "podcast": "Lex Fridman Podcast",
+              "title": entry.title,
+              "description": getattr(entry, "summary", ""),
+              "pub_dt": pub,
+              "date": pub.strftime("%Y-%m-%d"),
+              "spotify_show": "",
+              "lex_filter": True,
+          }
+          ep_id = episode["id"]; filename = ep_id + ".html"
+          page_url = f"{run.PAGES_BASE}/{filename}"
+          print("Episode:", entry.title)
+
+          video_id = run.find_youtube_id(episode["title"], episode["podcast"])
+          print("YouTube:", video_id or "not found")
+          transcript = run.get_transcript(video_id) if video_id else []
+          print("Transcript:", len(transcript), "segments")
+          content = run.generate_content(episode, transcript, video_id or "")
+          assert content, "content generation failed"
+          assert not content.get("skip"), f"lex filter skipped: {content.get('skip_reason')}"
+          print("Guest:", content.get("guest"))
+
+          html = run.build_html(episode, content, video_id or "")
+          run.gh_put(filename, html.encode("utf-8"), f"feat: add {ep_id} (backfill)")
+          print("Pushed:", page_url)
+
+          deadline = time.time() + 300
+          while time.time() < deadline:
+              try:
+                  if requests.head(page_url, timeout=10).status_code == 200:
+                      print("Page is live"); break
+              except requests.RequestException:
+                  pass
+              time.sleep(10)
+
+          tracker, sha = run.get_tracker()
+          ids = {(e["id"] if isinstance(e, dict) else e) for e in tracker.get("processed", [])}
+          if ep_id not in ids:
+              tracker.setdefault("processed", []).append({
+                  "id": ep_id, "podcast": episode["podcast"], "guest": content.get("guest"),
+                  "title": episode["title"], "date": episode["date"], "page_url": page_url,
+                  "pushed_at": str(datetime.date.today()),
+              })
+          tracker.setdefault("pending_send", []).append({
+              "id": ep_id, "podcast": episode["podcast"], "guest": content.get("guest", ""),
+              "title": episode["title"], "date_str": pub.strftime("%-d %b %Y"),
+              "page_url": page_url,
+          })
+          run.save_tracker(tracker, sha)
+          print("Tracker updated — queued for the next send phase.")
+          PYEOF
