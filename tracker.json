@@ -35,6 +35,15 @@
       "date": "2026-06-09",
       "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-09.html",
       "pushed_at": "2026-06-10"
+    },
+    {
+      "id": "lex-fridman-2026-02-12",
+      "podcast": "Lex Fridman Podcast",
+      "guest": "Peter Steinberger",
+      "title": "#491 – OpenClaw: The Viral AI Agent that Broke the Internet – Peter Steinberger",
+      "date": "2026-02-12",
+      "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html",
+      "pushed_at": "2026-06-10"
     }
   ],
   "queued": [
@@ -47,6 +56,16 @@
       "pub_dt": "2026-06-10T06:04:00",
       "spotify_show": "",
       "lex_filter": false
+    }
+  ],
+  "pending_send": [
+    {
+      "id": "lex-fridman-2026-02-12",
+      "podcast": "Lex Fridman Podcast",
+      "guest": "Peter Steinberger",
+      "title": "#491 – OpenClaw: The Viral AI Agent that Broke the Internet – Peter Steinberger",
+      "date_str": "12 Feb 2026",
+      "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html"
     }
   ]
 }
