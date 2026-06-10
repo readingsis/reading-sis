@@ -32,12 +32,10 @@ ANTHROPIC_KEY    = os.environ["ANTHROPIC_API_KEY"]
 GREENAPI_ID      = os.environ.get("GREENAPI_INSTANCE_ID", "")
 GREENAPI_TOKEN   = os.environ.get("GREENAPI_API_TOKEN", "")
 GREENAPI_GROUP   = os.environ.get("GREENAPI_GROUP_ID", "")
-# Twilio copy to Noam: Green API posts from Noam's own WhatsApp, and WhatsApp
-# never notifies you of your own messages — so he'd miss every digest.
-TWILIO_SID       = os.environ.get("TWILIO_ACCOUNT_SID", "")
-TWILIO_TOKEN     = os.environ.get("TWILIO_AUTH_TOKEN", "")
-TWILIO_FROM      = os.environ.get("TWILIO_WHATSAPP_FROM", "")
-TWILIO_TO_NOAM   = os.environ.get("WHATSAPP_TO_NOAM", "")
+# GoatCounter analytics. Just the site code (the "xxxxx" in xxxxx.goatcounter.com).
+# Public by nature (it's visible in page source), so a plain env var is fine —
+# no secret needed. When unset, no tracking is injected and pages still work.
+GOATCOUNTER_CODE = os.environ.get("GOATCOUNTER_CODE", "")
 
 REPO       = "readingsis/reading-sis"
 PAGES_BASE = "https://readingsis.github.io/reading-sis"
@@ -407,6 +405,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="description" content="TLDR_FIRST_SENTENCE">
   <title>Reading.Sis — EPISODE_TITLE</title>
+GOATCOUNTER_SCRIPT
   <style>
     :root {
       --bg: #111111; --card-bg: #181816; --green: #0EB88A;
@@ -516,7 +515,7 @@ TAKEAWAYS_HTML
 </div>
 
 <div class="bottom-bar">
-  <a class="icon-btn" href="YOUTUBE_URL" target="_blank" aria-label="Watch on YouTube">
+  <a class="icon-btn" href="YOUTUBE_URL" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
       <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
     </svg>
@@ -528,7 +527,7 @@ TAKEAWAYS_HTML
       <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
     </svg>
   </button>
-  <a class="icon-btn" href="SPOTIFY_URL" target="_blank" aria-label="Listen on Spotify">
+  <a class="icon-btn" href="SPOTIFY_URL" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
     </svg>
@@ -539,8 +538,19 @@ TAKEAWAYS_HTML
   var PAGE_URL   = 'PAGE_URL_JS';
   var PAGE_TITLE = 'EPISODE_TITLE_JS — Reading.Sis';
 
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
   function handleSave() {
     var btn = document.getElementById('bookmarkBtn');
+    gcEvent('save');
     if (navigator.share) {
       navigator.share({title: PAGE_TITLE, url: PAGE_URL})
         .then(function() { btn.classList.add('saved'); }).catch(function() {});
@@ -552,6 +562,7 @@ TAKEAWAYS_HTML
 
   function handleShare() {
     var btn = document.getElementById('shareBtn');
+    gcEvent('share');
     if (navigator.share) {
       navigator.share({title: PAGE_TITLE, url: PAGE_URL}).catch(function() {});
     } else {
@@ -576,6 +587,17 @@ TAKEAWAYS_HTML
 def _t(s: Any) -> str:
     """Escape HTML special chars for text content (not attributes)."""
     return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def goatcounter_script() -> str:
+    """GoatCounter tracking tag, or '' when no site code is configured."""
+    if not GOATCOUNTER_CODE:
+        return ""
+    endpoint = f"https://{GOATCOUNTER_CODE}.goatcounter.com/count"
+    return (
+        f'  <script data-goatcounter="{endpoint}" '
+        f'async src="//gc.zgo.at/count.js"></script>'
+    )
 
 
 def build_html(episode: dict, content: dict, video_id: str) -> str:
@@ -650,7 +672,134 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
     html = html.replace("YOUTUBE_URL",        yt_url)
     html = html.replace("SPOTIFY_URL",        spotify)
     html = html.replace("PAGE_URL",           page_url)   # meta tag
+    html = html.replace("GOATCOUNTER_SCRIPT", goatcounter_script())
     return html
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PUBLIC LIBRARY (index.html)
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Shareable landing page: every published episode, newest first. No analytics
+# numbers are shown here — this link is meant for the WhatsApp group. Traffic is
+# tracked silently via the same GoatCounter tag and viewed in GoatCounter's UI.
+LIBRARY_TEMPLATE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Reading.Sis — the library of podcast digests.">
+  <title>Reading.Sis — Library</title>
+GOATCOUNTER_SCRIPT
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 60px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .hero { padding: 24px 18px 18px; border-bottom: 1px solid var(--divider); }
+    .hero h1 { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.4px; margin-bottom: 6px; }
+    .hero p { font-size: 13px; color: var(--text-muted); }
+    .lib-list { padding: 8px 18px; }
+    .lib-item { display: block; text-decoration: none; padding: 16px 0; border-bottom: 1px solid var(--divider); }
+    .lib-item:active { opacity: 0.7; }
+    .lib-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 9px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; margin-bottom: 8px; }
+    .lib-title { font-size: 15px; font-weight: 600; color: var(--text-primary); line-height: 1.35; margin-bottom: 4px; letter-spacing: -0.2px; }
+    .lib-guest { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+    .lib-date { font-size: 11px; color: var(--text-dim); }
+    .empty { padding: 40px 18px; text-align: center; color: var(--text-dim); font-size: 13px; }
+    .footer { padding: 24px 18px; text-align: center; font-size: 11px; color: var(--text-faint); }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="app-bar">
+    <div class="logo">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>Library</h1>
+    <p>EPISODE_COUNT podcast digests, newest first.</p>
+  </div>
+
+  <div class="lib-list">
+ITEMS_HTML
+  </div>
+
+  <div class="footer">Reading.Sis — podcast highlights, distilled.</div>
+</div>
+</body>
+</html>"""
+
+
+def build_library(tracker: dict) -> str:
+    """Render the public index.html from processed episodes (newest first)."""
+    eps = [
+        ep for ep in tracker.get("processed", [])
+        if isinstance(ep, dict) and ep.get("page_url") and ep.get("title")
+        and not ep.get("skipped")
+    ]
+    # Newest first: prefer pushed_at, fall back to the episode date.
+    eps.sort(key=lambda e: (e.get("pushed_at") or "", e.get("date") or ""), reverse=True)
+
+    items = ""
+    for ep in eps:
+        guest = ep.get("guest") or ""
+        guest_html = ""
+        if guest and guest.lower() != "various":
+            guest_html = f'      <div class="lib-guest">{_t(guest)}</div>\n'
+        date_disp = ep.get("date") or ""
+        try:
+            date_disp = datetime.datetime.strptime(
+                ep["date"], "%Y-%m-%d"
+            ).strftime("%-d %b %Y")
+        except (ValueError, KeyError, TypeError):
+            pass
+        items += (
+            f'    <a class="lib-item" href="{ep["page_url"]}">\n'
+            f'      <div class="lib-badge">{_t(ep.get("podcast", ""))}</div>\n'
+            f'      <div class="lib-title">{_t(ep["title"])}</div>\n'
+            f'{guest_html}'
+            f'      <div class="lib-date">{date_disp}</div>\n'
+            f'    </a>\n'
+        )
+    if not items:
+        items = '    <div class="empty">No digests published yet.</div>\n'
+
+    html = LIBRARY_TEMPLATE
+    html = html.replace("ITEMS_HTML", items)
+    html = html.replace("EPISODE_COUNT", str(len(eps)))
+    html = html.replace("GOATCOUNTER_SCRIPT", goatcounter_script())
+    return html
+
+
+def push_library(tracker: dict) -> None:
+    """Build and publish index.html, updating in place if it already exists."""
+    html = build_library(tracker)
+    sha = None
+    try:
+        sha = gh_get("index.html").get("sha")
+    except requests.HTTPError:
+        pass  # First publish — no existing file.
+    gh_put("index.html", html.encode("utf-8"), "chore: update library", sha)
+    print(f"  Library updated: {PAGES_BASE}/")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -682,24 +831,6 @@ def send_whatsapp(episode: dict, content: dict, page_url: str) -> None:
     r = requests.post(url, json={"chatId": GREENAPI_GROUP, "message": message}, timeout=15)
     r.raise_for_status()
     print(f"  WhatsApp sent ✓  {r.json()}")
-
-    # Notification copy to Noam via Twilio (separate sender → he gets pinged)
-    if all([TWILIO_SID, TWILIO_TOKEN, TWILIO_FROM, TWILIO_TO_NOAM]):
-        try:
-            tw = requests.post(
-                f"https://api.twilio.com/2010-04-01/Accounts/{TWILIO_SID}/Messages.json",
-                auth=(TWILIO_SID, TWILIO_TOKEN),
-                data={
-                    "From": f"whatsapp:{TWILIO_FROM}",
-                    "To":   f"whatsapp:{TWILIO_TO_NOAM}",
-                    "Body": message,
-                },
-                timeout=15,
-            )
-            tw.raise_for_status()
-            print(f"  Twilio copy to Noam ✓  status={tw.json().get('status')}")
-        except Exception as e:
-            print(f"  Twilio copy failed: {e}")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -866,9 +997,20 @@ def main() -> None:
     if tracker_dirty:
         save_tracker(tracker, tracker_sha)
         print("Tracker saved.")
+        # Refresh the public library whenever the episode list changed.
+        try:
+            push_library(tracker)
+        except Exception as e:
+            print(f"  Library update failed: {e}")
 
     print("\nDone.")
 
 
 if __name__ == "__main__":
-    main()
+    # `--library` rebuilds and publishes index.html from the current tracker
+    # without running the full pipeline (handy for the first deploy / backfill).
+    if "--library" in sys.argv:
+        tracker, _ = get_tracker()
+        push_library(tracker)
+    else:
+        main()
