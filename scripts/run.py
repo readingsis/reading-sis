@@ -239,8 +239,31 @@ def fetch_new_episodes(
 # ══════════════════════════════════════════════════════════════════════════════
 
 def find_youtube_id(title: str, podcast_name: str) -> str | None:
-    """Search YouTube via yt-dlp and return the video ID."""
+    """Search YouTube for the episode video ID.
+
+    Tries the official Data API first (works from datacenter IPs, needs
+    YOUTUBE_API_KEY), then falls back to yt-dlp scraping (often blocked
+    on GitHub Actions runners).
+    """
     query = f"{podcast_name} {title}"
+
+    api_key = os.environ.get("YOUTUBE_API_KEY", "")
+    if api_key:
+        try:
+            r = requests.get(
+                "https://www.googleapis.com/youtube/v3/search",
+                params={"part": "id", "q": query, "type": "video",
+                        "maxResults": 1, "key": api_key},
+                timeout=20,
+            )
+            r.raise_for_status()
+            items = r.json().get("items", [])
+            if items:
+                return items[0]["id"]["videoId"]
+            return None
+        except Exception as e:
+            print(f"  YouTube Data API error: {e} — falling back to yt-dlp")
+
     try:
         result = subprocess.run(
             ["yt-dlp", f"ytsearch1:{query}", "--print", "%(id)s", "--no-download", "--quiet"],
@@ -256,13 +279,31 @@ def find_youtube_id(title: str, podcast_name: str) -> str | None:
 
 
 def get_transcript(video_id: str, max_words: int = 6000) -> list[dict]:
-    """Fetch YouTube auto/manual transcript. Returns list of {t, text} dicts."""
+    """Fetch YouTube auto/manual transcript. Returns list of {t, text} dicts.
+
+    Supports both youtube-transcript-api 1.x (instance .fetch) and the old
+    0.6.x static API. Uses a Webshare residential proxy when configured —
+    YouTube blocks transcript requests from datacenter IPs.
+    """
     try:
-        raw    = YouTubeTranscriptApi.get_transcript(video_id)
+        if hasattr(YouTubeTranscriptApi, "get_transcript"):   # 0.6.x
+            raw = YouTubeTranscriptApi.get_transcript(video_id)
+            segs = [(seg["start"], seg["text"]) for seg in raw]
+        else:                                                  # 1.x
+            proxy_config = None
+            ws_user = os.environ.get("WEBSHARE_PROXY_USERNAME", "")
+            ws_pass = os.environ.get("WEBSHARE_PROXY_PASSWORD", "")
+            if ws_user and ws_pass:
+                from youtube_transcript_api.proxies import WebshareProxyConfig
+                proxy_config = WebshareProxyConfig(
+                    proxy_username=ws_user, proxy_password=ws_pass)
+            api = YouTubeTranscriptApi(proxy_config=proxy_config)
+            segs = [(s.start, s.text) for s in api.fetch(video_id)]
+
         result, words = [], 0
-        for seg in raw:
-            result.append({"t": int(seg["start"]), "text": seg["text"].strip()})
-            words += len(seg["text"].split())
+        for start, text in segs:
+            result.append({"t": int(start), "text": text.strip()})
+            words += len(text.split())
             if words >= max_words:
                 break
         return result
