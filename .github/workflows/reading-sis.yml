@@ -2,10 +2,23 @@ name: Reading.Sis
 
 on:
   schedule:
-    # 3:00 AM UTC = 6:00 AM Israel (UTC+3)
-    # Days 0-5 = Sun, Mon, Tue, Wed, Thu, Fri  (skips Saturday = day 6)
+    # Times are UTC; Israel = UTC+3. Days 0-5 = Sun-Fri (skips Saturday).
+    # 3:00 UTC = 6:00 IL — generate phase: discover episodes, build + push pages.
     - cron: '0 3 * * 0-5'
-  workflow_dispatch:   # also triggerable manually from GitHub Actions tab
+    # 4:00 UTC = 7:00 IL — send phase: verify every page URL is live, then
+    # send the WhatsApp messages. The hour gap gives GitHub Pages plenty of
+    # time to finish deploying everything.
+    - cron: '0 4 * * 0-5'
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: 'Phase to run'
+        type: choice
+        options:
+          - generate
+          - send
+          - library
+        default: generate
 
 jobs:
   run:
@@ -37,4 +50,19 @@ jobs:
           GREENAPI_API_TOKEN:   ${{ secrets.GREENAPI_API_TOKEN }}
           GREENAPI_GROUP_ID:    ${{ secrets.GREENAPI_GROUP_ID }}
           YOUTUBE_API_KEY:      ${{ secrets.YOUTUBE_API_KEY }}
-        run: /usr/local/bin/python3.11 scripts/run.py
+          GOATCOUNTER_CODE:     ${{ vars.GOATCOUNTER_CODE }}
+        run: |
+          PHASE="${{ inputs.phase }}"
+          if [ -z "$PHASE" ]; then
+            if [ "${{ github.event.schedule }}" = "0 4 * * 0-5" ]; then
+              PHASE=send
+            else
+              PHASE=generate
+            fi
+          fi
+          echo "Phase: $PHASE"
+          case "$PHASE" in
+            send)    /usr/local/bin/python3.11 scripts/run.py --send ;;
+            library) /usr/local/bin/python3.11 scripts/run.py --library ;;
+            *)       /usr/local/bin/python3.11 scripts/run.py ;;
+          esac
