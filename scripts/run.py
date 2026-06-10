@@ -53,7 +53,7 @@ PODCASTS = [
     {
         "name": "Pivot",
         "slug": "pivot",
-        "rss": "https://feeds.megaphone.fm/pivotpodcast",
+        "rss": "https://feeds.megaphone.fm/pivot",
         "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
         "lex_filter": False,
     },
