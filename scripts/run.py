@@ -46,7 +46,7 @@ PODCASTS = [
     {
         "name": "Lenny's Podcast",
         "slug": "lennys",
-        "rss": "https://feeds.transistor.fm/lenny-s-podcast",
+        "rss": "https://api.substack.com/feed/podcast/10845.rss",
         "spotify_show": "https://open.spotify.com/show/2dR1MUZEHCOnz1LVfNac0j",
         "lex_filter": False,
     },
@@ -60,7 +60,7 @@ PODCASTS = [
     {
         "name": "All-In",
         "slug": "all-in",
-        "rss": "https://feeds.megaphone.fm/all-in-with-chamath-jason-sacks-friedberg",
+        "rss": "https://rss.libsyn.com/shows/254861/destinations/1928300.xml",
         "spotify_show": "",
         "lex_filter": False,
     },
@@ -74,7 +74,7 @@ PODCASTS = [
     {
         "name": "Design Better",
         "slug": "design-better",
-        "rss": "https://feeds.simplecast.com/Ug8mQh3g",
+        "rss": "https://feeds.megaphone.fm/designbetter",
         "spotify_show": "",
         "lex_filter": False,
     },
