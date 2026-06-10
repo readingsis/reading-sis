@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Trump is floating a government equity stake in AI companies, a move that would blur the line between regulator and investor in ways that could distort the entire sector.">
+  <title>Reading.Sis — Trump's AI Stake, SpaceX's IPO Froth, and Apple's Siri Overhaul</title>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; position: relative; min-height: 170px; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; margin-bottom: 28px; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <div class="logo">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </div>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">Pivot</div>
+    <h1 class="episode-title">Trump's AI Stake, SpaceX's IPO Froth, and Apple's Siri Overhaul</h1>
+    <div class="guest-name">Kara Swisher &amp; Scott Galloway</div>
+    <div class="meta">
+      <span>9 Jun 2026</span>
+      <span>3 min read</span>
+      <span>1h 05m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Trump is floating a government equity stake in AI companies, a move that would blur the line between regulator and investor in ways that could distort the entire sector. Meanwhile, SpaceX is barreling toward a blockbuster IPO after inking a major deal with Google, and Apple is attempting a credibility reset with a sweeping overhaul of Siri after years of falling behind.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Kara Swisher</div>
+        <div class="moment-quote">&ldquo;[No transcript — approximate] The 60 Minutes situation is less about journalism and more about what CBS's corporate owners are willing to tolerate when political pressure meets business interests.&rdquo;</div>
+        <div class="moment-context">Opening segment discussing the fallout from the 60 Minutes controversy and its business implications.</div>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Scott Galloway</div>
+        <div class="moment-quote">&ldquo;[No transcript — approximate] SpaceX doing a deal with Google right before an IPO is a very deliberate move — you are pricing in legitimacy and you are signaling to institutional investors that this is a real business.&rdquo;</div>
+        <div class="moment-context">Discussing the strategic timing of SpaceX's Google deal ahead of its anticipated IPO.</div>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Kara Swisher</div>
+        <div class="moment-quote">&ldquo;[No transcript — approximate] Apple overhauling Siri is an admission — it's them saying we got this wrong, and the question is whether they can actually execute given how far behind they are.&rdquo;</div>
+        <div class="moment-context">Reacting to Apple's announced Siri redesign and what it signals about the company's AI strategy.</div>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Scott Galloway</div>
+        <div class="moment-quote">&ldquo;[No transcript — approximate] A government stake in AI companies is an extraordinary idea — you are essentially saying the state should profit from the same companies it is supposed to regulate, and that is a conflict of interest of historic proportions.&rdquo;</div>
+        <div class="moment-context">Analyzing Trump's proposal for the government to take equity positions in AI firms.</div>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Kara Swisher</div>
+        <div class="moment-quote">&ldquo;[No transcript — approximate] Hunter Biden finding a second act on X is one of those only-in-this-moment stories — it tells you everything about how platform power and political rehabilitation now work together.&rdquo;</div>
+        <div class="moment-context">Closing discussion on Hunter Biden's presence on X and what it reflects about the current media landscape.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About the show</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">Pivot is a twice-weekly podcast hosted by Kara Swisher and Scott Galloway, covering the intersection of technology, business, and politics. Kara is a veteran tech journalist and Scott is a professor of marketing at NYU Stern and serial entrepreneur. Together they offer sharp, opinionated takes on the week's biggest stories in Silicon Valley and beyond.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>Government AI equity stake warps regulation incentives </strong>Trump's idea of the federal government taking ownership stakes in AI companies would create a structural conflict: the regulator becomes a beneficiary of the regulated. For tech and product professionals, this means the policy environment around AI could become driven by portfolio returns rather than public interest, distorting competitive dynamics for any company that does or doesn't receive a stake.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>SpaceX-Google deal is pre-IPO credibility engineering </strong>Landing a major cloud and infrastructure partnership with Google ahead of a public offering is a deliberate signal to institutional investors about revenue diversification and enterprise legitimacy. The deal suggests SpaceX is actively shaping its IPO narrative beyond launch spectacle, which has implications for how its valuation will be justified to public market investors.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Apple's Siri overhaul is a reset, not an upgrade </strong>Apple reframing Siri from the ground up is an acknowledgment that iterative improvements failed to keep pace with LLM-native competitors like ChatGPT and Gemini. For product teams, this is a case study in the danger of defending legacy architecture too long — Apple's tight hardware-software integration, usually a moat, may have slowed the radical rethinking Siri needed years earlier.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/results?search_query=Pivot%20Trump%27s%20AI%20Stake%2C%20SpaceX%27s%20IPO%20Froth%2C%20and%20Apple%27s%20Siri%20Overhaul" target="_blank" aria-label="Watch on YouTube">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci" target="_blank" aria-label="Listen on Spotify">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var https://readingsis.github.io/reading-sis/pivot-2026-06-09.html   = 'https://readingsis.github.io/reading-sis/pivot-2026-06-09.html';
+  var PAGE_TITLE = 'Trump\'s AI Stake, SpaceX\'s IPO Froth, and Apple\'s Siri Overhaul — Reading.Sis';
+
+  function handleSave() {
+    var btn = document.getElementById('bookmarkBtn');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: https://readingsis.github.io/reading-sis/pivot-2026-06-09.html})
+        .then(function() { btn.classList.add('saved'); }).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(https://readingsis.github.io/reading-sis/pivot-2026-06-09.html)
+        .then(function() { btn.classList.add('saved'); });
+    }
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: https://readingsis.github.io/reading-sis/pivot-2026-06-09.html}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(https://readingsis.github.io/reading-sis/pivot-2026-06-09.html).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
