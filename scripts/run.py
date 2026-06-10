@@ -4,6 +4,8 @@ Reading.Sis — Automated podcast digest pipeline.
 Runs via GitHub Actions Mon–Fri + Sun at 6 AM Israel time.
 Finds new podcast episodes, generates HTML pages, pushes to GitHub Pages,
 sends WhatsApp notification to the Reading.Sis group via Green API.
+Also maintains a public library index.html and tracks traffic via GoatCounter
+(pageviews + save/share/click events). Run with `--library` to rebuild the index.
 """
 
 from __future__ import annotations
@@ -806,31 +808,66 @@ def push_library(tracker: dict) -> None:
 # WHATSAPP (GREEN API)
 # ══════════════════════════════════════════════════════════════════════════════
 
-def send_whatsapp(episode: dict, content: dict, page_url: str) -> None:
-    if not all([GREENAPI_ID, GREENAPI_TOKEN, GREENAPI_GROUP]):
-        print("  Green API not configured — skipping WhatsApp")
-        return
-
-    # Compact format: podcast, guest, episode, date, link.
-    guest  = content.get("guest", "")
-    pub_dt = episode.get("pub_dt")
-    date_str = (
-        pub_dt.strftime("%-d %b %Y") if isinstance(pub_dt, datetime.datetime)
-        else episode.get("date", "")
-    )
-    lines = [f"\U0001f399️ *{episode['podcast']}*"]
-    if guest and guest.lower() != "various":
-        lines.append(guest)
-    lines += [f"_{episode['title']}_", date_str, page_url]
-    message = "\n".join(lines)
-
+def send_group_message(message: str) -> dict:
     url = (
         f"https://api.green-api.com"
         f"/waInstance{GREENAPI_ID}/sendMessage/{GREENAPI_TOKEN}"
     )
     r = requests.post(url, json={"chatId": GREENAPI_GROUP, "message": message}, timeout=15)
     r.raise_for_status()
-    print(f"  WhatsApp sent ✓  {r.json()}")
+    return r.json()
+
+
+def send_pending() -> None:
+    """7 AM phase (`--send`): deliver messages for pages the 6 AM generate
+    phase produced, but only after verifying each URL is actually live.
+    Anything not live (or failing to send) stays pending for the next run."""
+    if not all([GREENAPI_ID, GREENAPI_TOKEN, GREENAPI_GROUP]):
+        print("Green API not configured — cannot send.")
+        return
+
+    tracker, tracker_sha = get_tracker()
+    pending = tracker.get("pending_send", [])
+    if not pending:
+        print("Nothing pending to send.")
+        return
+
+    remaining = []
+    for p in pending:
+        page_url = p["page_url"]
+        print(f"── {p['id']} ──")
+
+        deadline = time.time() + 300
+        live = False
+        while time.time() < deadline:
+            try:
+                if requests.head(page_url, timeout=10).status_code == 200:
+                    live = True
+                    break
+            except requests.RequestException:
+                pass
+            time.sleep(10)
+        if not live:
+            print(f"  Page not live — keeping for next send run: {page_url}")
+            remaining.append(p)
+            continue
+
+        # Compact format: podcast, guest, episode, date, link.
+        lines = [f"\U0001f399️ *{p['podcast']}*"]
+        guest = p.get("guest", "")
+        if guest and guest.lower() != "various":
+            lines.append(guest)
+        lines += [f"_{p['title']}_", p.get("date_str", ""), page_url]
+        try:
+            resp = send_group_message("\n".join(lines))
+            print(f"  WhatsApp sent ✓  {resp}")
+        except Exception as e:
+            print(f"  WhatsApp failed: {e} — keeping for next send run")
+            remaining.append(p)
+
+    tracker["pending_send"] = remaining
+    save_tracker(tracker, tracker_sha)
+    print(f"\nDone. {len(pending) - len(remaining)} sent, {len(remaining)} still pending.")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -960,24 +997,18 @@ def main() -> None:
             print(f"  GitHub push failed: {e} — skipping\n")
             continue
 
-        # GitHub Pages takes 30-90s to deploy — don't send a link that 404s.
-        deadline = time.time() + 300
-        while time.time() < deadline:
-            try:
-                if requests.head(page_url, timeout=10).status_code == 200:
-                    print("  Page is live")
-                    break
-            except requests.RequestException:
-                pass
-            time.sleep(10)
-        else:
-            print("  Page still not live after 5 min — sending anyway")
-
-        # ── Send WhatsApp ─────────────────────────────────────────────────────
-        try:
-            send_whatsapp(episode, content, page_url)
-        except Exception as e:
-            print(f"  WhatsApp failed: {e}")
+        # ── Queue WhatsApp for the 7 AM send phase ────────────────────────────
+        # Messages go out an hour later (run.py --send) so GitHub Pages has
+        # comfortably finished deploying and every URL is verified live first.
+        tracker.setdefault("pending_send", []).append({
+            "id":       ep_id,
+            "podcast":  episode.get("podcast"),
+            "guest":    content.get("guest", ""),
+            "title":    episode.get("title"),
+            "date_str": pub_dt.strftime("%-d %b %Y"),
+            "page_url": page_url,
+        })
+        print("  Queued for 7 AM send")
 
         # ── Update tracker ────────────────────────────────────────────────────
         tracker.setdefault("processed", []).append({
@@ -1007,9 +1038,12 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    # `--send` delivers pending WhatsApp messages (7 AM phase).
     # `--library` rebuilds and publishes index.html from the current tracker
     # without running the full pipeline (handy for the first deploy / backfill).
-    if "--library" in sys.argv:
+    if "--send" in sys.argv:
+        send_pending()
+    elif "--library" in sys.argv:
         tracker, _ = get_tracker()
         push_library(tracker)
     else:
