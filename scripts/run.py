@@ -530,23 +530,34 @@ def _t(s: Any) -> str:
 
 def build_html(episode: dict, content: dict, video_id: str) -> str:
     """Populate the HTML template with generated content."""
-    yt_url   = f"https://www.youtube.com/watch?v={video_id}" if video_id else "#"
+    # Fall back to search URLs so the YouTube/Spotify buttons always lead
+    # somewhere useful ("#" just reloads the page).
+    search_q = requests.utils.quote(f"{episode['podcast']} {episode['title']}")
+    yt_url = (
+        f"https://www.youtube.com/watch?v={video_id}" if video_id
+        else f"https://www.youtube.com/results?search_query={search_q}"
+    )
     pub_dt: datetime.datetime = episode["pub_dt"]
     page_url = f"{PAGES_BASE}/{episode['id']}.html"
-    spotify  = episode.get("spotify_show") or "#"
+    spotify  = episode.get("spotify_show") or f"https://open.spotify.com/search/{search_q}"
 
-    # Build moments carousel
+    # Build moments carousel. Timestamp badge only when we have a real video
+    # position — a 0:00 badge or a "#" link is worse than no badge.
     moments_html = ""
     for m in content.get("moments", []):
-        ts    = m.get("timestamp_seconds", 0)
-        ts_url = f"{yt_url}&t={ts}" if video_id else "#"
+        ts = m.get("timestamp_seconds", 0) or 0
+        ts_html = ""
+        if video_id and ts > 0:
+            ts_html = (
+                f'        <a class="moment-timestamp" href="{yt_url}&t={ts}" target="_blank">'
+                f'&#9654; {_t(m["timestamp_display"])}</a>\n'
+            )
         moments_html += (
             f'      <div class="moment-card">\n'
             f'        <div class="moment-speaker">{_t(m["speaker"])}</div>\n'
             f'        <div class="moment-quote">&ldquo;{_t(m["quote"])}&rdquo;</div>\n'
             f'        <div class="moment-context">{_t(m["context"])}</div>\n'
-            f'        <a class="moment-timestamp" href="{ts_url}" target="_blank">'
-            f'&#9654; {_t(m["timestamp_display"])}</a>\n'
+            + ts_html +
             f'      </div>\n'
         )
 
@@ -567,24 +578,27 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
     duration  = content.get("duration_str", "")
 
     html = HTML_TEMPLATE
-    # Text content
+    # JS/longer placeholders first: EPISODE_TITLE_JS and PAGE_URL_JS contain
+    # EPISODE_TITLE / PAGE_URL as substrings and would be corrupted otherwise.
+    js_title = episode["title"].replace("\\", "\\\\").replace("'", "\\'")
+    html = html.replace("EPISODE_TITLE_JS",   js_title)
+    html = html.replace("PAGE_URL_JS",        page_url)
     html = html.replace("TLDR_FIRST_SENTENCE", _t(tldr_first))
+    # Text content
     html = html.replace("EPISODE_TITLE",       _t(episode["title"]))
     html = html.replace("PODCAST_NAME",        _t(episode["podcast"]))
     html = html.replace("GUEST_LINE",          _t(content.get("guest_line", "")))
     html = html.replace("PUBLISH_DATE_FORMATTED", pub_dt.strftime("%-d %b %Y"))
     html = html.replace("READ_TIME",           str(read_time))
     html = html.replace("EPISODE_DURATION",    _t(duration))
-    html = html.replace("TLDR",               _t(tldr))
+    html = html.replace("TLDR",                _t(tldr))
     html = html.replace("MOMENTS_HTML",       moments_html)
     html = html.replace("BIO_SECTION_TITLE",  _t(content.get("bio_section_title", "About")))
     html = html.replace("BIO_TEXT",           _t(content.get("bio_text", "")))
     html = html.replace("TAKEAWAYS_HTML",     takeaways_html)
-    # URLs / JS (not HTML-escaped)
+    # URLs (not HTML-escaped)
     html = html.replace("YOUTUBE_URL",        yt_url)
     html = html.replace("SPOTIFY_URL",        spotify)
-    html = html.replace("PAGE_URL_JS",        page_url)
-    html = html.replace("EPISODE_TITLE_JS",   episode["title"].replace("'", "\\'"))
     html = html.replace("PAGE_URL",           page_url)   # meta tag
     return html
 
@@ -598,12 +612,18 @@ def send_whatsapp(episode: dict, content: dict, page_url: str) -> None:
         print("  Green API not configured — skipping WhatsApp")
         return
 
-    teaser  = content.get("whatsapp_teaser", "")
-    message = (
-        f"\U0001f399️ *{episode['podcast']}* · _{episode['title']}_\n\n"
-        f"{teaser}\n\n"
-        f"\U0001f449 {page_url}"
+    # Compact format: podcast, guest, episode, date, link.
+    guest  = content.get("guest", "")
+    pub_dt = episode.get("pub_dt")
+    date_str = (
+        pub_dt.strftime("%-d %b %Y") if isinstance(pub_dt, datetime.datetime)
+        else episode.get("date", "")
     )
+    lines = [f"\U0001f399️ *{episode['podcast']}*"]
+    if guest and guest.lower() != "various":
+        lines.append(guest)
+    lines += [f"_{episode['title']}_", date_str, page_url]
+    message = "\n".join(lines)
 
     url = (
         f"https://api.green-api.com"
@@ -741,8 +761,18 @@ def main() -> None:
             print(f"  GitHub push failed: {e} — skipping\n")
             continue
 
-        # Brief pause before sending WhatsApp
-        time.sleep(3)
+        # GitHub Pages takes 30-90s to deploy — don't send a link that 404s.
+        deadline = time.time() + 300
+        while time.time() < deadline:
+            try:
+                if requests.head(page_url, timeout=10).status_code == 200:
+                    print("  Page is live")
+                    break
+            except requests.RequestException:
+                pass
+            time.sleep(10)
+        else:
+            print("  Page still not live after 5 min — sending anyway")
 
         # ── Send WhatsApp ─────────────────────────────────────────────────────
         try:
