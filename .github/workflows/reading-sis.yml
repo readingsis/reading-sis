@@ -34,4 +34,8 @@ jobs:
           YOUTUBE_API_KEY:      ${{ secrets.YOUTUBE_API_KEY }}
           WEBSHARE_PROXY_USERNAME: ${{ secrets.WEBSHARE_PROXY_USERNAME }}
           WEBSHARE_PROXY_PASSWORD: ${{ secrets.WEBSHARE_PROXY_PASSWORD }}
+          TWILIO_ACCOUNT_SID:   ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN:    ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_WHATSAPP_FROM: ${{ secrets.TWILIO_WHATSAPP_FROM }}
+          WHATSAPP_TO_NOAM:     ${{ secrets.WHATSAPP_TO_NOAM }}
         run: python scripts/run.py
