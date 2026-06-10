@@ -58,14 +58,5 @@
       "lex_filter": false
     }
   ],
-  "pending_send": [
-    {
-      "id": "lex-fridman-2026-02-12",
-      "podcast": "Lex Fridman Podcast",
-      "guest": "Peter Steinberger",
-      "title": "#491 – OpenClaw: The Viral AI Agent that Broke the Internet – Peter Steinberger",
-      "date_str": "12 Feb 2026",
-      "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html"
-    }
-  ]
+  "pending_send": []
 }
