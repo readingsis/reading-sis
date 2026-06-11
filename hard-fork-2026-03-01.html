@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Anthropic refused the Pentagon's demands to drop safeguards against mass domestic surveillance and autonomous weapons, leading to threats of a supply chain risk designation.">
+  <title>Reading.Sis — At the Pentagon, OpenAI is In and Anthropic Is Out</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; position: relative; min-height: 170px; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; margin-bottom: 28px; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <div class="logo">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </div>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">Hard Fork</div>
+    <h1 class="episode-title">At the Pentagon, OpenAI is In and Anthropic Is Out</h1>
+    <div class="guest-name">Kevin Roose &amp; Casey Newton</div>
+    <div class="meta">
+      <span>1 Mar 2026</span>
+      <span>14 min read</span>
+      <span>41m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Anthropic refused the Pentagon's demands to drop safeguards against mass domestic surveillance and autonomous weapons, leading to threats of a supply chain risk designation. Within hours, OpenAI signed a deal claiming identical protections—but the language suggests OpenAI may have agreed to looser constraints using legal workarounds, raising questions about whether one company was punished for ideology while the other got preferential treatment.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Dario Amodei (via Kevin Roose)</div>
+        <div class="moment-quote">&ldquo;These threats do not change our position. We cannot in good conscience accede to their request.&rdquo;</div>
+        <div class="moment-context">Anthropic's CEO issued this statement on Thursday as the Pentagon deadline approached, drawing rare praise for invoking conscience in tech policy</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Zj35mEtwUvY&t=209" target="_blank">&#9654; 3:29</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">President Trump (via Kevin Roose)</div>
+        <div class="moment-quote">&ldquo;The United States of America will never allow a radical left woke company to dictate how our great military fights and wins wars.&rdquo;</div>
+        <div class="moment-context">Trump's Truth Social post late Friday escalated tensions by ordering federal agencies to cease using Anthropic's technology, though notably did not invoke the supply chain risk designation</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Zj35mEtwUvY&t=293" target="_blank">&#9654; 4:53</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Casey Newton</div>
+        <div class="moment-quote">&ldquo;the Pentagon has said, Well, you know, we're not going to domestically surveil people. That's illegal. Hmm, well, at the same time, Kev, there are other federal agencies right now that have mounted what amounts to a social media dragnet looking through the social media posts of people trying to immigrate to this country&rdquo;</div>
+        <div class="moment-context">Newton explains why Anthropic's red line on mass domestic surveillance matters even though the Pentagon claims it won't do it—legal gaps enable functionally equivalent surveillance</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Zj35mEtwUvY&t=670" target="_blank">&#9654; 11:10</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Kevin Roose</div>
+        <div class="moment-quote">&ldquo;I have not seen them try to kill a company for what as far as I can tell are contractual disputes and ideological differences.&rdquo;</div>
+        <div class="moment-context">Roose contextualizes the severity of the Pentagon's actions against Anthropic compared to historical precedent of US government actions against companies</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Zj35mEtwUvY&t=1049" target="_blank">&#9654; 17:29</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Casey Newton</div>
+        <div class="moment-quote">&ldquo;My fear is, though, that either through naivete or deception, he has misled us, and we are going to find out sooner or later that in fact those two use cases are not only legal, but they're happening.&rdquo;</div>
+        <div class="moment-context">Newton expresses skepticism about whether Sam Altman's safety claims will hold up, noting Altman's history of telling people what they want to hear</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Zj35mEtwUvY&t=1504" target="_blank">&#9654; 25:04</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About the show</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">Hard Fork is a podcast from The New York Times that breaks down the biggest news in tech and AI. Kevin Roose and Casey Newton dive deep into complex stories like Pentagon contracts, corporate governance, and the intersection of technology and government power.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>The legal/illegal distinction obscures real surveillance </strong>Anthropic's refusal to accept an 'all lawful use' clause reveals a crucial gap: mass surveillance of Americans via data brokers is technically legal, so legal language won't prevent it. Without new privacy laws, AI safeguards are cosmetic. The Pentagon can buy data on millions of Americans and feed it to AI without violating any statute.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>Political vendetta or substantive disagreement? </strong>The core mystery is whether OpenAI agreed to materially weaker terms using legalese, or if both companies agreed to identical protections and Anthropic was punished for ideology and personality conflicts. Without seeing the actual contracts, no one—including employees—can verify if these safeguards are real or security theater.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Regulatory capture through political pressure </strong>OpenAI gained a Pentagon contract by accepting the government's terms; Anthropic was threatened with supply chain risk designation for refusing. This creates a chilling effect: any AI company that wants government work must comply with whatever the current administration demands, regardless of ethical concerns. Employee activism and public pressure may be the only remaining accountability mechanism.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=Zj35mEtwUvY" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/hard-fork-2026-03-01.html';
+  var PAGE_TITLE = 'At the Pentagon, OpenAI is In and Anthropic Is Out — Reading.Sis';
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  function handleSave() {
+    var btn = document.getElementById('bookmarkBtn');
+    gcEvent('save');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl})
+        .then(function() { btn.classList.add('saved'); }).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
+        .then(function() { btn.classList.add('saved'); });
+    }
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
