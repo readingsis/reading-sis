@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Anthropic is on a generational run with successive product releases (Claude, Opus 4.">
+  <title>Reading.Sis — Anthropic's Generational Run, OpenAI Panics, AI Moats, Meta Loses Lawsuits</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; position: relative; min-height: 170px; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; margin-bottom: 28px; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <div class="logo">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </div>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">All-In</div>
+    <h1 class="episode-title">Anthropic's Generational Run, OpenAI Panics, AI Moats, Meta Loses Lawsuits</h1>
+    <div class="guest-name">with Jason Calacanis, David Sacks, David Friedberg, Chamath Palihapitiya</div>
+    <div class="meta">
+      <span>27 Mar 2026</span>
+      <span>28 min read</span>
+      <span>1h 43m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Anthropic is on a generational run with successive product releases (Claude, Opus 4.6, computer use) that are establishing enterprise dominance, while OpenAI is in "panic mode" losing consumer market share to competitors and retreating from moonshot projects like Sora. The fundamental question facing all AI companies and investors is whether to price for superintelligence disruption (making most cash flows temporary) or durable competitive advantages.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Jason Calacanis</div>
+        <div class="moment-quote">&ldquo;Anthropic on a generational run. And OpenAI crashing out a bit, boys. Let's chop it up here.&rdquo;</div>
+        <div class="moment-context">Opening the main segment on AI market dynamics</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=4Gmd5UTF4rk&t=145" target="_blank">&#9654; 2:25</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">David Sacks</div>
+        <div class="moment-quote">&ldquo;The company made a big bet on coding as the kind of big breakout use case. Whether that was done for business reasons or ideological reasons, I'm not sure. Anthropic is sort of the most AGI pilled of all the frontier labs and I think they made this bet on coding as their way to get to recursive self-improvement.&rdquo;</div>
+        <div class="moment-context">Explaining Anthropic's strategic focus on coding as a path to both enterprise revenue and AGI goals</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=4Gmd5UTF4rk&t=283" target="_blank">&#9654; 4:43</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Chamath Palihapitiya</div>
+        <div class="moment-quote">&ldquo;From an enterprise lens, which is where I see most of the action, particularly through 80/90, it's all Anthropic all the time. And I agree with Sachs. My philosophical issues with the management aside around their ideology and sometimes how they use some of the capital for things other than tech and R&amp;D. I have issues with those things. But in terms of the quality of that technical team and what they create it's head and shoulders above anything else.&rdquo;</div>
+        <div class="moment-context">Defending Anthropic's technical superiority in enterprise despite ideological disagreements</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=4Gmd5UTF4rk&t=566" target="_blank">&#9654; 9:26</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Chamath Palihapitiya</div>
+        <div class="moment-quote">&ldquo;I don't think that it's going to be free. I think there's 290 million subscribers for Spotify. They're paying What are they paying? 20 bucks a month or something? Netflix has 325 million paid subscribers. And AI that can book your travel, answer questions for you, track your calendar, do your email, etc. etc. etc. is likely going to be the most valuable, call it meta service that consumers have ever seen.&rdquo;</div>
+        <div class="moment-context">Arguing against the assumption that consumer AI will be free, comparing to entertainment and telecom subscriptions</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=4Gmd5UTF4rk&t=1271" target="_blank">&#9654; 21:11</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Chamath Palihapitiya</div>
+        <div class="moment-quote">&ldquo;If super intelligence is coming, we have to be very careful about what we're willing to pay for these things... the market is completely flipped the other way [for Mag 7]. And what they're saying is, we believe that these cash flows are essentially monopolistically durable forever.&rdquo;</div>
+        <div class="moment-context">Explaining why SaaS stocks are being re-rated downward while Mag 7 companies maintain high valuations</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=4Gmd5UTF4rk&t=1944" target="_blank">&#9654; 32:24</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About the show</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">All-In is a weekly podcast featuring four tech entrepreneurs and investors discussing the latest news in AI, business, and politics. The hosts debate market trends, corporate strategy, and the implications of emerging technologies with candid, informed perspectives.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>Anthropic's coding bet drives enterprise moat </strong>By focusing on code generation as the breakout use case, Anthropic unlocked both a philosophical path to AGI and a practical bridge into enterprise IT budgets. This enabled rapid revenue growth and natural product extensions (CloudCraft → Co-Work → Computer Use agents) that keep enterprises sticky and deepen competitive advantages.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>OpenAI losing market share across consumer </strong>ChatGPT's consumer market share dropped from 100% (2023) to 75% (2025) as Apple, Meta, and Windows enter with free/integrated alternatives. Meanwhile, OpenAI is cutting moonshot projects (Sora) and pivoting to enterprise, suggesting leadership acknowledges they cannot win consumer long-term against platform players willing to subsidize AI.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Valuation crisis hinges on superintelligence belief </strong>If superintelligence arrives soon, all business cash flows become temporary, collapsing SaaS multiples (Snowflake down 50% from 100-year payback). But if durability persists, Mag 7 valuations are justified. This binary creates asymmetric risk: PE firms buying up service businesses to own the AI transition, while SaaS investors demand higher near-term cash yields over equity upside.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=4Gmd5UTF4rk" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/All-In%20Anthropic%27s%20Generational%20Run%2C%20OpenAI%20Panics%2C%20AI%20Moats%2C%20Meta%20Loses%20Lawsuits" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/all-in-2026-03-27.html';
+  var PAGE_TITLE = 'Anthropic\'s Generational Run, OpenAI Panics, AI Moats, Meta Loses Lawsuits — Reading.Sis';
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  function handleSave() {
+    var btn = document.getElementById('bookmarkBtn');
+    gcEvent('save');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl})
+        .then(function() { btn.classList.add('saved'); }).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
+        .then(function() { btn.classList.add('saved'); });
+    }
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
