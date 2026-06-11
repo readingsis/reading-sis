@@ -1,0 +1,56 @@
+name: fix-held-temp
+on: workflow_dispatch
+jobs:
+  fix:
+    runs-on: self-hosted
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "/usr/local/bin" >> "$GITHUB_PATH"
+          echo "$HOME/Library/Python/3.11/bin" >> "$GITHUB_PATH"
+      - run: /usr/local/bin/python3.11 -m pip install --user --quiet -r scripts/requirements.txt
+      - env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
+        run: |
+          /usr/local/bin/python3.11 - <<'PYEOF'
+          import sys, datetime
+          sys.path.insert(0,"scripts")
+          import run, feedparser
+          feed = feedparser.parse("https://api.substack.com/feed/podcast/10845.rss")
+          entry=None; pub_il=None
+          for e in feed.entries:
+              pub = datetime.datetime(*e.published_parsed[:6]) + datetime.timedelta(hours=3)
+              if pub.strftime("%Y-%m-%d")=="2026-02-01":
+                  entry=e; pub_il=pub; break
+          assert entry, "episode not found in feed"
+          ep = {"id":"lennys-2026-02-01","podcast":"Lenny's Podcast","title":entry.title,
+                "description":getattr(entry,"summary",""),"pub_dt":pub_il,"date":"2026-02-01",
+                "duration_sec":run._parse_duration(getattr(entry,"itunes_duration",None)),
+                "spotify_show":"https://open.spotify.com/show/2dR1MUZEHCOnz1LVfNac0j","lex_filter":False}
+          print("Title:", entry.title)
+          vid = run.find_youtube_id(ep["title"], ep["podcast"])
+          dur=None
+          if vid and run.verify_youtube_match(vid, ep): dur,_=run.youtube_meta(vid)
+          elif vid: vid=None
+          tr = run.get_transcript(vid) if vid else []
+          print("video:", vid, "segs:", len(tr))
+          content = run.generate_content(ep, tr, vid or "", model=run.MODEL)  # Sonnet
+          assert content and not content.get("skip")
+          passed, html, content, issues = run.qa_episode(ep, content, vid, dur, tr, gen_model=run.MODEL)
+          for l,m in issues: print("QA",l,m)
+          assert passed, "still failing QA on Sonnet!"
+          run.gh_put("lennys-2026-02-01.html", html.encode("utf-8"), "feat: add lennys-2026-02-01 (Sonnet regen of QA-held page)")
+          print("Pushed lennys-2026-02-01")
+          tracker, sha = run.get_tracker()
+          if not any((e.get("id") if isinstance(e,dict) else e)=="lennys-2026-02-01" for e in tracker.get("processed",[])):
+              tracker.setdefault("processed",[]).append({"id":"lennys-2026-02-01","podcast":ep["podcast"],
+                  "guest":content.get("guest"),"title":ep["title"],"date":"2026-02-01",
+                  "page_url":f"{run.PAGES_BASE}/lennys-2026-02-01.html","pushed_at":str(datetime.date.today())})
+              sha = run.save_tracker(tracker, sha)
+          run.push_library(tracker)
+          print("Library rebuilt. Done.")
+          PYEOF
