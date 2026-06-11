@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Despite the rise of expressive individualism and the decline of religion, biblical scholarship shows overwhelming historical evidence for Jesus's existence, the reliability of Gospel accounts, and the eyewitness testimony of his resurrection—backed by earlier source material (Paul) and corroborating details that predate competing accounts of figures like Emperor Tiberius.">
+  <title>Reading.Sis — No.1 Christianity Expert: The Truth About Christianity! The Case For Jesus (Historian's Proof)</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; position: relative; min-height: 170px; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; margin-bottom: 28px; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <div class="logo">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </div>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">The Diary Of A CEO</div>
+    <h1 class="episode-title">No.1 Christianity Expert: The Truth About Christianity! The Case For Jesus (Historian's Proof)</h1>
+    <div class="guest-name">with Wesley</div>
+    <div class="meta">
+      <span>9 Mar 2026</span>
+      <span>24 min read</span>
+      <span>2h 15m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Despite the rise of expressive individualism and the decline of religion, biblical scholarship shows overwhelming historical evidence for Jesus's existence, the reliability of Gospel accounts, and the eyewitness testimony of his resurrection—backed by earlier source material (Paul) and corroborating details that predate competing accounts of figures like Emperor Tiberius. The crisis of meaning plaguing modern society stems from removing transcendent anchors; Christianity uniquely offers community, purpose, and answers to metaphysical questions that pure materialism cannot address.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Wesley</div>
+        <div class="moment-quote">&ldquo;I'm convinced beyond a reasonable doubt that there's actual evidence for the existence of God, the historical reliability of the Bible, and the philosophical explanations for meaning and purpose.&rdquo;</div>
+        <div class="moment-context">Wesley summarizes his investigation findings after years of study as a historian and theologian</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=nrwNSSyKuD4&t=76" target="_blank">&#9654; 1:16</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Wesley</div>
+        <div class="moment-quote">&ldquo;everybody kind of agrees that there was a guy called Jesus from Nazareth and that he was a real historical person&rdquo;</div>
+        <div class="moment-context">Wesley explains the scholarly consensus on Jesus's historical existence, even among skeptics</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=nrwNSSyKuD4&t=914" target="_blank">&#9654; 15:14</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Wesley</div>
+        <div class="moment-quote">&ldquo;they go back to Jerusalem, which is the scene of the crime. So, they go back to the exact place where Jesus was crucified and start telling people he was risen from the dead. If there is some aspect of say disingenuousness and making up a story, don't go back to the place where everybody could have seen that thing happen&rdquo;</div>
+        <div class="moment-context">Wesley argues that the disciples' decision to proclaim resurrection in Jerusalem—where crucifixion was witnessed—demonstrates the credibility of their testimony</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=nrwNSSyKuD4&t=1597" target="_blank">&#9654; 26:37</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Host</div>
+        <div class="moment-quote">&ldquo;the decline of religion has started to level off and actually increase a little bit. And now 63% of US adults identify as Christian, which is roughly 160 million people. In 2025, Bible sales hit a 21-year high in the United States with 19 million units sold.&rdquo;</div>
+        <div class="moment-context">Host presents statistical data showing Christianity's unexpected resurgence after decades of decline</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=nrwNSSyKuD4&t=153" target="_blank">&#9654; 2:33</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Wesley</div>
+        <div class="moment-quote">&ldquo;I think we are created for community. I think we are as human beings a creature that is created for community. Ultimately, like cards on the table as a Christian because I believe we are created in the image of a God who exists in a set of living loving relationships.&rdquo;</div>
+        <div class="moment-context">Wesley explains the theological foundation for why isolation and individualism are causing mental health crises</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=nrwNSSyKuD4&t=540" target="_blank">&#9654; 9:00</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About Wesley</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">Wesley is a historian and theologian who studies ancient biblical manuscripts and their historical reliability. He was raised Christian, became agnostic/atheist during the 'new atheism' movement, and has since conducted extensive research into the historical evidence for Jesus and the Bible's authenticity. His work focuses on comparative analysis of ancient biographical sources and the eyewitness testimony embedded in the Gospels.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>Eyewitness proximity validates Gospel reliability </strong>The Gospels were written 40-60 years after Jesus's death during the lifetime of eyewitnesses, making them earlier and more proximate sources than biographies of Emperor Tiberius (written in the 2nd century). The inclusion of verifiable names and details—like Joseph of Arimathea's sons—suggests deliberate sourcing that could be checked by the original audience, similar to how Tiberius accounts relied on paid propagandists.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>Oral culture transmission defeated Chinese whispers risk </strong>Unlike the telephone game (one-way whispers), Gospel accounts emerged in oral cultures with constant story repetition and mass verification. Events like the feeding of 5,000 had thousands of potential witnesses who could corroborate or contradict claims in real-time, and disciples preached in Jerusalem itself—the exact place where events occurred—making fabrication logically untenable.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Meaning crisis drives Christianity's unexpected resurgence </strong>As expressive individualism and removal of transcendent anchors increased anxiety and depression, Gen Z and millennials—unanchored from community and purpose—are rediscovering religion as an antidote. Bible sales hit 21-year highs and Christian identity rebounded in 2024-25, suggesting the 'new atheism' movement's utilitarian worldview failed to deliver the promised meaning and fulfillment.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=nrwNSSyKuD4" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/The%20Diary%20Of%20A%20CEO%20No.1%20Christianity%20Expert%3A%20The%20Truth%20About%20Christianity%21%20The%20Case%20For%20Jesus%20%28Historian%27s%20Proof%29" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/doac-2026-03-09.html';
+  var PAGE_TITLE = 'No.1 Christianity Expert: The Truth About Christianity! The Case For Jesus (Historian\'s Proof) — Reading.Sis';
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  function handleSave() {
+    var btn = document.getElementById('bookmarkBtn');
+    gcEvent('save');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl})
+        .then(function() { btn.classList.add('saved'); }).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
+        .then(function() { btn.classList.add('saved'); });
+    }
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
