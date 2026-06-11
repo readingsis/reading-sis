@@ -44,6 +44,15 @@
       "date": "2026-02-12",
       "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html",
       "pushed_at": "2026-06-10"
+    },
+    {
+      "id": "design-better-2026-06-10",
+      "podcast": "Design Better",
+      "guest": "Tina Roth Eisenberg",
+      "title": "Tina Roth Eisenberg: Creative Mornings founder on building communities that run on trust",
+      "date": "2026-06-10",
+      "page_url": "https://readingsis.github.io/reading-sis/design-better-2026-06-10.html",
+      "pushed_at": "2026-06-11"
     }
   ],
   "queued": [
@@ -58,5 +67,14 @@
       "lex_filter": false
     }
   ],
-  "pending_send": []
+  "pending_send": [
+    {
+      "id": "design-better-2026-06-10",
+      "podcast": "Design Better",
+      "guest": "Tina Roth Eisenberg",
+      "title": "Tina Roth Eisenberg: Creative Mornings founder on building communities that run on trust",
+      "date_str": "10 Jun 2026",
+      "page_url": "https://readingsis.github.io/reading-sis/design-better-2026-06-10.html"
+    }
+  ]
 }
