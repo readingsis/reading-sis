@@ -51,6 +51,7 @@ jobs:
           GREENAPI_GROUP_ID:    ${{ secrets.GREENAPI_GROUP_ID }}
           YOUTUBE_API_KEY:      ${{ secrets.YOUTUBE_API_KEY }}
           GOATCOUNTER_CODE:     ${{ vars.GOATCOUNTER_CODE }}
+          WHATSAPP_TO_NOAM:     ${{ secrets.WHATSAPP_TO_NOAM }}
         run: |
           PHASE="${{ inputs.phase }}"
           if [ -z "$PHASE" ]; then
