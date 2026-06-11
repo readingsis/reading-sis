@@ -36,6 +36,10 @@ ANTHROPIC_KEY    = os.environ["ANTHROPIC_API_KEY"]
 GREENAPI_ID      = os.environ.get("GREENAPI_INSTANCE_ID", "")
 GREENAPI_TOKEN   = os.environ.get("GREENAPI_API_TOKEN", "")
 GREENAPI_GROUP   = os.environ.get("GREENAPI_GROUP_ID", "")
+# Noam's own number — QA failures DM him privately via the bot (not the group).
+ALERT_TO_NOAM    = os.environ.get("WHATSAPP_TO_NOAM", "")
+
+MODEL = "claude-sonnet-4-6"
 # GoatCounter analytics. Just the site code (the "xxxxx" in xxxxx.goatcounter.com).
 # Public by nature (it's visible in page source), so a plain env var is fine —
 # no secret needed. When unset, no tracking is injected and pages still work.
@@ -85,6 +89,16 @@ PODCASTS = [
         "rss": "https://lexfridman.com/feed/podcast/",
         "spotify_show": "",
         "lex_filter": True,  # Only tech/AI/science/business guests
+    },
+    {
+        "name": "The Diary Of A CEO",
+        "slug": "doac",
+        "rss": "https://rss2.flightcast.com/xmsftuzjjykcmqwolaqn6mdn",
+        "spotify_show": "",
+        "lex_filter": False,
+        # Skip the Friday "Most Replayed Moment" clip episodes — they're short
+        # recaps of older episodes, not new full episodes.
+        "skip_title_re": r"most replayed|moment[s]?:|highlight",
     },
 ]
 
@@ -206,6 +220,7 @@ def fetch_new_episodes(
         print(f"  RSS error: {e}")
         return []
 
+    skip_re = podcast.get("skip_title_re")
     episodes = []
     for entry in feed.entries:
         if not getattr(entry, "published_parsed", None):
@@ -216,6 +231,11 @@ def fetch_new_episodes(
 
         if pub_il < cutoff:
             break  # RSS is newest-first
+
+        # Per-podcast title filter (e.g. DOAC "Most Replayed Moment" clip eps).
+        if skip_re and re.search(skip_re, entry.title, re.IGNORECASE):
+            print(f"  Skipping clip/recap episode: {entry.title[:60]}")
+            continue
 
         ep_id = f"{podcast['slug']}-{pub_il.strftime('%Y-%m-%d')}"
         if ep_id in processed_ids or ep_id in queued_ids:
@@ -258,13 +278,9 @@ def _parse_duration(s: Any) -> int | None:
     return sec
 
 
-def verify_youtube_match(video_id: str, episode: dict) -> bool:
-    """The video must be the SAME episode as the RSS item — verified by
-    upload date (within days of the RSS publish date) and duration (when the
-    RSS provides one). A lookalike video poisons transcript, quotes, and
-    timestamps, which is far worse than shipping without video links.
-    (Real case: Design Better search returned a 2014 conference talk by the
-    same guest.) Reject on any doubt or metadata failure."""
+def youtube_meta(video_id: str) -> tuple[int | None, datetime.date | None]:
+    """Return (duration_seconds, upload_date) for a YouTube video, or
+    (None, None) on any failure."""
     try:
         result = subprocess.run(
             ["yt-dlp", f"https://www.youtube.com/watch?v={video_id}",
@@ -272,23 +288,37 @@ def verify_youtube_match(video_id: str, episode: dict) -> bool:
             capture_output=True, text=True, timeout=60,
         )
         if result.returncode != 0:
-            print("  Video metadata fetch failed — rejecting video")
-            return False
+            return None, None
         dur_s, upload_s = result.stdout.strip().splitlines()[-1].split("|")
-        upload = datetime.datetime.strptime(upload_s, "%Y%m%d").date()
-        pub = episode["pub_dt"].date()
-        if abs((upload - pub).days) > 5:
-            print(f"  Rejecting video {video_id}: uploaded {upload}, episode published {pub}")
-            return False
-        rss_dur = episode.get("duration_sec")
-        if rss_dur and dur_s.isdigit():
-            if abs(int(dur_s) - rss_dur) > max(180, int(rss_dur * 0.08)):
-                print(f"  Rejecting video {video_id}: duration {dur_s}s vs RSS {rss_dur}s")
-                return False
-        return True
+        dur = int(dur_s) if dur_s.isdigit() else None
+        upload = datetime.datetime.strptime(upload_s, "%Y%m%d").date() if upload_s.isdigit() else None
+        return dur, upload
     except Exception as e:
-        print(f"  Video verification error: {e} — rejecting video")
+        print(f"  Video metadata error: {e}")
+        return None, None
+
+
+def verify_youtube_match(video_id: str, episode: dict) -> bool:
+    """The video must be the SAME episode as the RSS item — verified by
+    upload date (within days of the RSS publish date) and duration (when the
+    RSS provides one). A lookalike video poisons transcript, quotes, and
+    timestamps, which is far worse than shipping without video links.
+    (Real case: Design Better search returned a 2014 conference talk by the
+    same guest.) Reject on any doubt or metadata failure."""
+    dur, upload = youtube_meta(video_id)
+    if upload is None:
+        print("  Video metadata fetch failed — rejecting video")
         return False
+    pub = episode["pub_dt"].date()
+    if abs((upload - pub).days) > 5:
+        print(f"  Rejecting video {video_id}: uploaded {upload}, episode published {pub}")
+        return False
+    rss_dur = episode.get("duration_sec")
+    if rss_dur and dur:
+        if abs(dur - rss_dur) > max(180, int(rss_dur * 0.08)):
+            print(f"  Rejecting video {video_id}: duration {dur}s vs RSS {rss_dur}s")
+            return False
+    return True
 
 
 def find_youtube_id(title: str, podcast_name: str) -> str | None:
@@ -657,6 +687,146 @@ def validate_inline_js(html: str) -> bool:
     return True
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# QA STAGE — runs on every page before it ships. Auto-fixes what it can; a page
+# only publishes once clean, and its WhatsApp message waits until then.
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Distinctive template tokens that must all be consumed by build_html. Chosen to
+# never collide with real episode text (unlike e.g. "TLDR" which a guest might say).
+PLACEHOLDER_TOKENS = [
+    "TLDR_FIRST_SENTENCE", "PUBLISH_DATE_FORMATTED", "BIO_SECTION_TITLE",
+    "MOMENTS_HTML", "TAKEAWAYS_HTML", "GOATCOUNTER_SCRIPT",
+    "PAGE_URL_JS", "EPISODE_TITLE_JS", "YOUTUBE_URL", "SPOTIFY_URL",
+]
+
+
+def alert_noam(text: str) -> None:
+    """DM Noam privately via the bot (separate from the group)."""
+    if not all([GREENAPI_ID, GREENAPI_TOKEN, ALERT_TO_NOAM]):
+        return
+    chat = re.sub(r"\D", "", ALERT_TO_NOAM) + "@c.us"
+    try:
+        requests.post(
+            f"https://api.green-api.com/waInstance{GREENAPI_ID}/sendMessage/{GREENAPI_TOKEN}",
+            json={"chatId": chat, "message": text}, timeout=15,
+        )
+    except Exception as e:
+        print(f"  Alert DM failed: {e}")
+
+
+def _fix_timestamps(content: dict, video_duration: int | None, issues: list) -> dict:
+    """Drop any moment timestamp that lands past the video's end — a sign of a
+    hallucinated or wrong-video timestamp. Setting seconds to 0 makes build_html
+    omit the badge rather than link to a bogus position."""
+    if not video_duration:
+        return content
+    for m in content.get("moments", []):
+        ts = m.get("timestamp_seconds", 0) or 0
+        if ts > video_duration + 5:
+            issues.append(("fixed", f"dropped out-of-range timestamp {ts}s (video is {video_duration}s)"))
+            m["timestamp_seconds"] = 0
+    return content
+
+
+def qa_content_review(episode: dict, content: dict, transcript: list[dict]) -> dict | None:
+    """One Claude call to catch content bugs: fabricated quotes, wrong guest,
+    generic TL;DR. Returns a structured verdict, or None if the call fails."""
+    transcript_text = "\n".join(s["text"] for s in transcript)[:24000]
+    quotes = [{"index": i, "speaker": m.get("speaker", ""), "quote": m.get("quote", "")}
+              for i, m in enumerate(content.get("moments", []))]
+    prompt = f"""You are the QA reviewer for Reading.Sis. Check the generated content against the episode transcript and flag problems.
+
+Episode title: {episode["title"]}
+Podcast: {episode["podcast"]}
+Stated guest: {content.get("guest", "")}
+TL;DR: {content.get("tldr", "")}
+
+Quotes used (must be VERBATIM from the transcript):
+{json.dumps(quotes, ensure_ascii=False)}
+
+Transcript (may be truncated — only flag a quote if it appears fabricated or materially altered, NOT merely absent from this excerpt):
+{transcript_text}
+
+Return a single JSON object, no markdown:
+{{
+  "guest_ok": true/false,
+  "guest_correction": "correct full name, or empty if guest_ok",
+  "bad_quote_indexes": [list of indexes whose quote looks fabricated or materially altered],
+  "tldr_ok": true/false,
+  "overall_ok": true/false,
+  "summary": "one short line on what's wrong, or 'clean'"
+}}
+
+Set overall_ok=false if the guest is wrong or any quote is fabricated. A generic TL;DR alone (tldr_ok=false) is a warning, not a failure."""
+    try:
+        client = Anthropic(api_key=ANTHROPIC_KEY)
+        msg = client.messages.create(
+            model=MODEL, max_tokens=600,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        raw = msg.content[0].text.strip()
+        raw = re.sub(r"^```(?:json)?\s*", "", raw)
+        raw = re.sub(r"\s*```$", "", raw)
+        return json.loads(raw)
+    except Exception as e:
+        print(f"  QA content review error: {e}")
+        return None
+
+
+def qa_episode(episode: dict, content: dict, video_id: str | None,
+               video_duration: int | None, transcript: list[dict]) -> tuple[bool, str, dict, list]:
+    """Run the full QA stage on one episode. Auto-fixes timestamps and, on a
+    content-review failure, regenerates the content once. Returns
+    (passed, html, content, issues). passed=False means real blockers remain
+    and the page must not ship yet."""
+    issues: list = []
+
+    content = _fix_timestamps(content, video_duration, issues)
+
+    # Content review (only meaningful when we have a transcript to check against).
+    if transcript:
+        review = qa_content_review(episode, content, transcript)
+        if review and not review.get("overall_ok", True):
+            issues.append(("content", f"review: {review.get('summary', 'content issue')}"))
+            regen = generate_content(episode, transcript, video_id or "")
+            if regen and not regen.get("skip"):
+                regen = _fix_timestamps(regen, video_duration, [])
+                recheck = qa_content_review(episode, regen, transcript)
+                if recheck and recheck.get("overall_ok", True):
+                    content = regen
+                    issues.append(("fixed", "regenerated content — QA now clean"))
+                else:
+                    issues.append(("blocker", "content still failing after one regeneration"))
+            else:
+                issues.append(("blocker", "content regeneration failed"))
+
+    # Structural checks on the rendered page.
+    html = build_html(episode, content, video_id or "")
+    leftover = [t for t in PLACEHOLDER_TOKENS if t in html]
+    if leftover:
+        issues.append(("blocker", f"unfilled placeholders: {leftover}"))
+    if not validate_inline_js(html):
+        issues.append(("blocker", "invalid inline JS"))
+    if 'href="#"' in html:
+        issues.append(("blocker", 'dead "#" links present'))
+
+    passed = not any(level == "blocker" for level, _ in issues)
+    return passed, html, content, issues
+
+
+def qa_live_page(page_url: str) -> bool:
+    """Final guard in the send phase: re-check the *published* page for valid
+    JS and no leftover placeholders before its message goes out."""
+    try:
+        html = requests.get(page_url, timeout=15).text
+    except Exception:
+        return False
+    if any(t in html for t in PLACEHOLDER_TOKENS):
+        return False
+    return validate_inline_js(html)
+
+
 def _t(s: Any) -> str:
     """Escape HTML special chars for text content (not attributes)."""
     return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
@@ -923,6 +1093,14 @@ def send_pending() -> None:
             remaining.append(p)
             continue
 
+        # Final QA gate on the published page — never message a broken page.
+        if not qa_live_page(page_url):
+            print(f"  Live page failed QA — holding message: {page_url}")
+            alert_noam(f"⚠️ Reading.Sis: {p['id']} is live but failed QA "
+                       f"(bad JS or unfilled placeholder). Message held.")
+            remaining.append(p)
+            continue
+
         # Compact format: podcast, guest, episode, date, link.
         lines = [f"\U0001f399️ *{p['podcast']}*"]
         guest = p.get("guest", "")
@@ -944,6 +1122,22 @@ def send_pending() -> None:
 # ══════════════════════════════════════════════════════════════════════════════
 # MAIN
 # ══════════════════════════════════════════════════════════════════════════════
+
+def _queue_entry(episode: dict, pub_dt: datetime.datetime) -> dict:
+    """A tracker `queued` record — carries everything a later run needs to
+    re-process the episode without re-reading the RSS feed."""
+    return {
+        "id":           episode["id"],
+        "podcast":      episode.get("podcast"),
+        "title":        episode.get("title"),
+        "date":         episode.get("date"),
+        "description":  episode.get("description", ""),
+        "pub_dt":       pub_dt.isoformat(),
+        "duration_sec": episode.get("duration_sec"),
+        "spotify_show": episode.get("spotify_show", ""),
+        "lex_filter":   episode.get("lex_filter", False),
+    }
+
 
 def main() -> None:
     window, should_run, is_sunday = get_schedule()
@@ -1024,25 +1218,19 @@ def main() -> None:
         if not should_send_today(send_date, today, is_sunday):
             print(f"  Not send day yet (target: {send_date}) — queuing")
             if ep_id not in queued_ids:
-                tracker.setdefault("queued", []).append({
-                    "id":           ep_id,
-                    "podcast":      episode.get("podcast"),
-                    "title":        episode.get("title"),
-                    "date":         episode.get("date"),
-                    "description":  episode.get("description", ""),
-                    "pub_dt":       pub_dt.isoformat(),
-                    "duration_sec": episode.get("duration_sec"),
-                    "spotify_show": episode.get("spotify_show", ""),
-                    "lex_filter":   episode.get("lex_filter", False),
-                })
+                tracker.setdefault("queued", []).append(_queue_entry(episode, pub_dt))
                 queued_ids.add(ep_id)
                 tracker_dirty = True
             continue
 
         # ── Find YouTube video (and verify it IS this episode) ───────────────
         video_id = find_youtube_id(episode["title"], episode["podcast"])
-        if video_id and not verify_youtube_match(video_id, episode):
-            video_id = None
+        video_duration = None
+        if video_id:
+            if verify_youtube_match(video_id, episode):
+                video_duration, _ = youtube_meta(video_id)
+            else:
+                video_id = None
         print(f"  YouTube: {video_id or 'not found / not verified'}")
 
         # ── Get transcript ────────────────────────────────────────────────────
@@ -1064,11 +1252,29 @@ def main() -> None:
 
         print(f"  Guest: {content.get('guest', '?')}")
 
-        # ── Build and push HTML ───────────────────────────────────────────────
-        html = build_html(episode, content, video_id or "")
-        if not validate_inline_js(html):
-            print("  Page failed JS validation — not publishing\n")
+        # ── QA stage: auto-fix and gate ───────────────────────────────────────
+        passed, html, content, qa_issues = qa_episode(
+            episode, content, video_id, video_duration, transcript)
+        for level, msg in qa_issues:
+            print(f"  QA [{level}]: {msg}")
+        if not passed:
+            # Hold the episode: don't publish broken, keep it queued for a retry
+            # next run, and DM Noam. Its WhatsApp message waits until it's clean.
+            q = next((x for x in tracker.setdefault("queued", []) if x["id"] == ep_id), None)
+            if q is None:
+                q = _queue_entry(episode, pub_dt)
+                tracker["queued"].append(q)
+                queued_ids.add(ep_id)
+            q["qa_attempts"] = q.get("qa_attempts", 0) + 1
+            blockers = "; ".join(m for l, m in qa_issues if l in ("blocker", "content"))
+            print(f"  QA HELD (attempt {q['qa_attempts']}) — not publishing: {blockers}\n")
+            if q["qa_attempts"] in (1, 3, 6):
+                alert_noam(f"⚠️ Reading.Sis QA held {ep_id} (attempt {q['qa_attempts']}). "
+                           f"Not sent until fixed.\nIssues: {blockers}")
+            tracker_dirty = True
             continue
+
+        # ── Push HTML ─────────────────────────────────────────────────────────
         try:
             gh_put(filename, html.encode("utf-8"), f"feat: add {ep_id}")
             print(f"  Pushed: {page_url}")
