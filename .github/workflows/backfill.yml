@@ -1,0 +1,28 @@
+name: Reading.Sis Backfill
+on:
+  workflow_dispatch:
+    inputs:
+      since:
+        description: 'Backfill episodes published on/after this date (YYYY-MM-DD)'
+        type: string
+        default: '2026-01-01'
+
+jobs:
+  backfill:
+    runs-on: self-hosted
+    timeout-minutes: 300   # ~200 episodes on Haiku takes 1-2h; daily 30m cap too short
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add local bins to PATH
+        run: |
+          echo "/usr/local/bin" >> "$GITHUB_PATH"
+          echo "$HOME/Library/Python/3.11/bin" >> "$GITHUB_PATH"
+      - name: Install dependencies
+        run: /usr/local/bin/python3.11 -m pip install --user --quiet -r scripts/requirements.txt
+      - name: Run backfill (silent — no WhatsApp)
+        env:
+          GH_PAT:            ${{ secrets.GH_PAT }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          YOUTUBE_API_KEY:   ${{ secrets.YOUTUBE_API_KEY }}
+          GOATCOUNTER_CODE:  ${{ vars.GOATCOUNTER_CODE }}
+        run: /usr/local/bin/python3.11 scripts/run.py --backfill "SINCE=${{ inputs.since }}"
