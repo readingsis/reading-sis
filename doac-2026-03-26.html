@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="AI companies operate as "empires"—claiming intellectual property, exploiting labor, monopolizing research, and using existential risk narratives to justify anti-democratic development.">
+  <title>Reading.Sis — AI Whistleblower: We Are Being Gaslit By The AI Companies! They’re Hiding The Truth About AI</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; position: relative; min-height: 170px; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; margin-bottom: 28px; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <div class="logo">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </div>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">The Diary Of A CEO</div>
+    <h1 class="episode-title">AI Whistleblower: We Are Being Gaslit By The AI Companies! They’re Hiding The Truth About AI</h1>
+    <div class="guest-name">with Karen Hao</div>
+    <div class="meta">
+      <span>26 Mar 2026</span>
+      <span>28 min read</span>
+      <span>2h 2m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">AI companies operate as "empires"—claiming intellectual property, exploiting labor, monopolizing research, and using existential risk narratives to justify anti-democratic development. Sam Altman manipulates narratives and people to advance OpenAI's agenda, while the industry gaslights the public by controlling which researchers get funded and censoring inconvenient findings.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Karen Hao</div>
+        <div class="moment-quote">&ldquo;They profit enormously off of this myth. You know, I have all these internal documents showing that they're purposely trying to create that feeling within the public so that they can extract and exploit and extract and exploit.&rdquo;</div>
+        <div class="moment-context">Explaining how AI companies manufacture existential risk narratives to justify their resource accumulation and control</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Cn8HBj8QAbk&t=19" target="_blank">&#9654; 0:19</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Karen Hao</div>
+        <div class="moment-quote">&ldquo;either they think he's the greatest tech leader of this generation akin to the Steve Jobs of the modern era or they think that he's really manipulative and an abuser and a liar.&rdquo;</div>
+        <div class="moment-context">Describing the extreme polarization among OpenAI insiders about Sam Altman's character and leadership</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Cn8HBj8QAbk&t=939" target="_blank">&#9654; 15:39</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Karen Hao</div>
+        <div class="moment-quote">&ldquo;if most of the climate scientists in the world were bankrolled by fossil fuel companies, do you think we would get an accurate picture of the climate crisis?&rdquo;</div>
+        <div class="moment-context">Drawing parallel between AI researcher capture and fossil fuel industry influence on climate science</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Cn8HBj8QAbk&t=1643" target="_blank">&#9654; 27:23</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Karen Hao</div>
+        <div class="moment-quote">&ldquo;Empire is the only metaphor that I've ever found to fully encapsulate all of the dimensions of what these companies do and the scale that they operate and what motivates them to do what they do.&rdquo;</div>
+        <div class="moment-context">Explaining why she frames AI corporations as 'empires' rather than standard tech companies</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Cn8HBj8QAbk&t=1557" target="_blank">&#9654; 25:57</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Karen Hao</div>
+        <div class="moment-quote">&ldquo;They lay claim to resources that are not their own in the pursuit of training these models. That's the data of individuals, the intellectual property of artists, writers, and creators.&rdquo;</div>
+        <div class="moment-context">Detailing the first parallel between AI empires and historical empires: resource appropriation</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Cn8HBj8QAbk&t=1575" target="_blank">&#9654; 26:15</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About Karen Hao</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">Karen Hao is an investigative journalist who spent over 8 years covering the AI industry, including roles at MIT Technology Review. She interviewed over 250 people—90+ current and former OpenAI employees—to research her book "Empire of AI: Dreams and Nightmares in Sam Altman's OpenAI." Her work exposes how AI companies operate like empires, claiming resources, exploiting labor, and monopolizing knowledge production while gaslighting the public about their true intentions.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>**AI narrative capture enables undemocratic development** </strong>AI companies fund ~90% of AI researchers globally, setting agenda through money flows and censoring inconvenient findings (e.g., Google firing Timnit Gebru). The industry manufactures dual myths—utopian upside + existential downside—to justify why only they can safely develop AGI. This gaslighting strategy suppresses public participation in technology decisions that affect billions.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>**Sam Altman's persuasion masks misalignment with allies** </strong>Altman convinced Elon Musk to co-found OpenAI by mirroring Musk's existential AI fears, then maneuvered to become CEO instead. Similarly, Dario Amodei (now CEO of competing Anthropic) felt manipulated into building systems contradicting his own values. Altman's success hinges on narrative elasticity—different definitions of AGI for Congress, consumers, and investors—not technical clarity.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>**Why building human-replacement AGI is a choice, not destiny** </strong>The premise that AI = statistical models mimicking brains (Ilya Sutskever's hypothesis) drives decisions to scale models indefinitely. But this is unproven science, not consensus. Alternative approaches exist for focused AI systems (drug discovery, healthcare) without labor automation. Questioning "why AGI?" instead of accepting the industry's premise is essential before accepting the harmful side effects as inevitable.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=Cn8HBj8QAbk" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/The%20Diary%20Of%20A%20CEO%20AI%20Whistleblower%3A%20We%20Are%20Being%20Gaslit%20By%20The%20AI%20Companies%21%20They%E2%80%99re%20Hiding%20The%20Truth%20About%20AI" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/doac-2026-03-26.html';
+  var PAGE_TITLE = 'AI Whistleblower: We Are Being Gaslit By The AI Companies! They’re Hiding The Truth About AI — Reading.Sis';
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  function handleSave() {
+    var btn = document.getElementById('bookmarkBtn');
+    gcEvent('save');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl})
+        .then(function() { btn.classList.add('saved'); }).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
+        .then(function() { btn.classList.add('saved'); });
+    }
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
