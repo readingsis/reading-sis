@@ -472,7 +472,7 @@ Hard rules:
 - Provide exactly 5 moments and exactly 3 takeaways.
 - Verbatim quotes only — never clean up or paraphrase. Keep "um", "like", filler words.
 - Only use timestamps that actually appear in the transcript. If uncertain, use 0.
-- For Lex Fridman episodes: set skip=true if the guest is an athlete, entertainer, pure philosopher, or politician with no AI/tech/science relevance. Give skip_reason.
+- For Lex Fridman episodes ONLY: keep the episode (skip=false) only if the guest's work is clearly in technology, AI/ML, computing, engineering, hard science (physics/biology/chemistry/math), business, startups, or economics. Set skip=true for everyone else — including historians, explorers, naturalists, musicians, artists, athletes, entertainers, religious figures, pure philosophers, and politicians — and give skip_reason. When in doubt for a Lex episode, skip.
 - Return pure JSON. No markdown. No explanation."""
 
     try:
