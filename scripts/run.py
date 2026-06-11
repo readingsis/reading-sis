@@ -223,7 +223,8 @@ def fetch_new_episodes(
         return []
 
     skip_re = podcast.get("skip_title_re")
-    date_counts: dict[str, int] = {}
+    seen_keys: set[str] = set()          # episode identities seen this fetch
+    date_distinct: dict[str, int] = {}   # date -> count of DISTINCT episodes
     episodes = []
     for entry in feed.entries:
         if not getattr(entry, "published_parsed", None):
@@ -240,14 +241,20 @@ def fetch_new_episodes(
             print(f"  Skipping clip/recap episode: {entry.title[:60]}")
             continue
 
-        # Collision-safe ID: when a show drops 2+ episodes on one day, the
-        # first keeps slug-date (back-compat with existing pages), the rest
-        # get -2, -3… Counting happens before the dedup check so IDs stay
-        # stable across runs regardless of what's already processed.
-        base = f"{podcast['slug']}-{pub_il.strftime('%Y-%m-%d')}"
-        n = date_counts.get(base, 0)
-        date_counts[base] = n + 1
-        ep_id = base if n == 0 else f"{base}-{n + 1}"
+        # Episode identity = RSS guid (preferred) or title. Some feeds list the
+        # same episode twice; that's a true duplicate, not a second episode.
+        key = (getattr(entry, "id", None) or entry.title or "").strip()
+        if key in seen_keys:
+            continue  # duplicate feed entry — skip, do NOT mint a -2 page
+        seen_keys.add(key)
+
+        # Collision-safe ID: only DISTINCT episodes on the same day get a
+        # suffix. First keeps slug-date (back-compat); 2nd+ get -2, -3…
+        date_str = pub_il.strftime("%Y-%m-%d")
+        idx = date_distinct.get(date_str, 0)
+        date_distinct[date_str] = idx + 1
+        base = f"{podcast['slug']}-{date_str}"
+        ep_id = base if idx == 0 else f"{base}-{idx + 1}"
         if ep_id in processed_ids or ep_id in queued_ids:
             continue
 
