@@ -39,7 +39,8 @@ GREENAPI_GROUP   = os.environ.get("GREENAPI_GROUP_ID", "")
 # Noam's own number — QA failures DM him privately via the bot (not the group).
 ALERT_TO_NOAM    = os.environ.get("WHATSAPP_TO_NOAM", "")
 
-MODEL = "claude-sonnet-4-6"
+MODEL = "claude-sonnet-4-6"        # daily pipeline + QA review
+HAIKU = "claude-haiku-4-5"         # backfill generation (cheap, bulk)
 # GoatCounter analytics. Just the site code (the "xxxxx" in xxxxx.goatcounter.com).
 # Public by nature (it's visible in page source), so a plain env var is fine —
 # no secret needed. When unset, no tracking is injected and pages still work.
@@ -198,9 +199,10 @@ def get_tracker() -> tuple[dict, str]:
         return {"processed": [], "queued": []}, ""
 
 
-def save_tracker(tracker: dict, sha: str) -> None:
+def save_tracker(tracker: dict, sha: str) -> str:
     content = json.dumps(tracker, indent=2, ensure_ascii=False).encode()
-    gh_put("tracker.json", content, "chore: update tracker", sha or None)
+    resp = gh_put("tracker.json", content, "chore: update tracker", sha or None)
+    return resp.get("content", {}).get("sha", "")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -221,6 +223,7 @@ def fetch_new_episodes(
         return []
 
     skip_re = podcast.get("skip_title_re")
+    date_counts: dict[str, int] = {}
     episodes = []
     for entry in feed.entries:
         if not getattr(entry, "published_parsed", None):
@@ -237,7 +240,14 @@ def fetch_new_episodes(
             print(f"  Skipping clip/recap episode: {entry.title[:60]}")
             continue
 
-        ep_id = f"{podcast['slug']}-{pub_il.strftime('%Y-%m-%d')}"
+        # Collision-safe ID: when a show drops 2+ episodes on one day, the
+        # first keeps slug-date (back-compat with existing pages), the rest
+        # get -2, -3… Counting happens before the dedup check so IDs stay
+        # stable across runs regardless of what's already processed.
+        base = f"{podcast['slug']}-{pub_il.strftime('%Y-%m-%d')}"
+        n = date_counts.get(base, 0)
+        date_counts[base] = n + 1
+        ep_id = base if n == 0 else f"{base}-{n + 1}"
         if ep_id in processed_ids or ep_id in queued_ids:
             continue
 
@@ -399,8 +409,10 @@ def get_transcript(video_id: str, max_words: int = 6000) -> list[dict]:
 # CONTENT GENERATION (CLAUDE API)
 # ══════════════════════════════════════════════════════════════════════════════
 
-def generate_content(episode: dict, transcript: list[dict], video_id: str) -> dict | None:
-    """Call Claude to generate all page content. Returns structured dict or None."""
+def generate_content(episode: dict, transcript: list[dict], video_id: str,
+                     model: str = MODEL) -> dict | None:
+    """Call Claude to generate all page content. Returns structured dict or None.
+    `model` lets the backfill use cheaper Haiku; daily pipeline uses MODEL."""
     client = Anthropic(api_key=ANTHROPIC_KEY)
 
     if transcript:
@@ -458,7 +470,7 @@ Hard rules:
 
     try:
         msg = client.messages.create(
-            model="claude-sonnet-4-6",
+            model=model,
             max_tokens=2500,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -775,11 +787,13 @@ Set overall_ok=false if the guest is wrong or any quote is fabricated. A generic
 
 
 def qa_episode(episode: dict, content: dict, video_id: str | None,
-               video_duration: int | None, transcript: list[dict]) -> tuple[bool, str, dict, list]:
+               video_duration: int | None, transcript: list[dict],
+               gen_model: str = MODEL) -> tuple[bool, str, dict, list]:
     """Run the full QA stage on one episode. Auto-fixes timestamps and, on a
     content-review failure, regenerates the content once. Returns
     (passed, html, content, issues). passed=False means real blockers remain
-    and the page must not ship yet."""
+    and the page must not ship yet. The review itself always uses MODEL
+    (Sonnet) for reliability; `gen_model` is used only for regeneration."""
     issues: list = []
 
     content = _fix_timestamps(content, video_duration, issues)
@@ -789,7 +803,7 @@ def qa_episode(episode: dict, content: dict, video_id: str | None,
         review = qa_content_review(episode, content, transcript)
         if review and not review.get("overall_ok", True):
             issues.append(("content", f"review: {review.get('summary', 'content issue')}"))
-            regen = generate_content(episode, transcript, video_id or "")
+            regen = generate_content(episode, transcript, video_id or "", model=gen_model)
             if regen and not regen.get("skip"):
                 regen = _fix_timestamps(regen, video_duration, [])
                 recheck = qa_content_review(episode, regen, transcript)
@@ -1139,6 +1153,106 @@ def _queue_entry(episode: dict, pub_dt: datetime.datetime) -> dict:
     }
 
 
+def backfill(since: datetime.date, model: str = HAIKU) -> None:
+    """One-time bulk fill: generate a page for every episode published since
+    `since`, across all podcasts, to populate the public library.
+
+    Differences from the daily pipeline:
+      • ignores the send-day gate — processes everything since `since`
+      • NEVER queues WhatsApp messages (no pending_send) — silent, no blast
+      • uses cheap Haiku for generation (QA review still uses Sonnet)
+      • resumable: skips pages already live (gh_exists) or already processed
+    Run via a dedicated high-timeout workflow_dispatch, not the daily cron."""
+    cutoff = datetime.datetime(since.year, since.month, since.day)
+    print(f"Backfill since {since} using {model}\n")
+
+    tracker, tracker_sha = get_tracker()
+    processed_ids: set[str] = {
+        (ep["id"] if isinstance(ep, dict) else ep) for ep in tracker.get("processed", [])
+    }
+
+    candidates: list[dict] = []
+    for podcast in PODCASTS:
+        print(f"Scanning {podcast['name']}…")
+        # Pass empty queued set so we consider every not-yet-processed episode.
+        eps = fetch_new_episodes(podcast, cutoff, processed_ids, set())
+        print(f"  {len(eps)} to consider")
+        candidates.extend(eps)
+
+    print(f"\n{len(candidates)} episode(s) to backfill.\n")
+    done = 0
+
+    for episode in candidates:
+        ep_id    = episode["id"]
+        filename = f"{ep_id}.html"
+        page_url = f"{PAGES_BASE}/{filename}"
+        print(f"── {ep_id} ──")
+
+        if gh_exists(filename):
+            print("  Already live — marking processed")
+            if ep_id not in processed_ids:
+                tracker.setdefault("processed", []).append({"id": ep_id})
+                processed_ids.add(ep_id)
+            continue
+
+        video_id = find_youtube_id(episode["title"], episode["podcast"])
+        video_duration = None
+        if video_id:
+            if verify_youtube_match(video_id, episode):
+                video_duration, _ = youtube_meta(video_id)
+            else:
+                video_id = None
+        print(f"  YouTube: {video_id or 'none'}")
+
+        transcript = get_transcript(video_id) if video_id else []
+        content = generate_content(episode, transcript, video_id or "", model=model)
+        if not content:
+            print("  Generation failed — skipping\n")
+            continue
+        if content.get("skip"):
+            print(f"  Lex filter skip: {content.get('skip_reason')}")
+            tracker.setdefault("processed", []).append({"id": ep_id, "skipped": True})
+            processed_ids.add(ep_id)
+            continue
+
+        passed, html, content, qa_issues = qa_episode(
+            episode, content, video_id, video_duration, transcript, gen_model=model)
+        for level, msg in qa_issues:
+            print(f"  QA [{level}]: {msg}")
+        if not passed:
+            print("  QA blocker — skipping (retry on next backfill run)\n")
+            continue
+
+        try:
+            gh_put(filename, html.encode("utf-8"), f"feat: backfill {ep_id}")
+            print(f"  Pushed: {page_url}")
+        except Exception as e:
+            print(f"  Push failed: {e} — skipping\n")
+            continue
+
+        # Backfill is SILENT — deliberately no pending_send entry.
+        tracker.setdefault("processed", []).append({
+            "id":        ep_id,
+            "podcast":   episode.get("podcast"),
+            "guest":     content.get("guest"),
+            "title":     episode.get("title"),
+            "date":      episode.get("date"),
+            "page_url":  page_url,
+            "pushed_at": str(datetime.date.today()),
+        })
+        processed_ids.add(ep_id)
+        done += 1
+        if done % 10 == 0:
+            tracker_sha = save_tracker(tracker, tracker_sha)
+            print(f"  …{done} pages done, tracker checkpointed")
+        print()
+
+    save_tracker(tracker, tracker_sha)
+    print(f"\nBackfill complete: {done} new page(s). Rebuilding library…")
+    push_library(tracker)
+    print("Done.")
+
+
 def main() -> None:
     window, should_run, is_sunday = get_schedule()
     if not should_run:
@@ -1324,12 +1438,19 @@ def main() -> None:
 
 if __name__ == "__main__":
     # `--send` delivers pending WhatsApp messages (7 AM phase).
-    # `--library` rebuilds and publishes index.html from the current tracker
-    # without running the full pipeline (handy for the first deploy / backfill).
+    # `--library` rebuilds and publishes index.html from the current tracker.
+    # `--backfill SINCE=YYYY-MM-DD` bulk-generates pages since that date
+    #   (silent — no WhatsApp). Default SINCE=2026-01-01.
     if "--send" in sys.argv:
         send_pending()
     elif "--library" in sys.argv:
         tracker, _ = get_tracker()
         push_library(tracker)
+    elif "--backfill" in sys.argv:
+        since_str = "2026-01-01"
+        for arg in sys.argv:
+            if arg.startswith("SINCE="):
+                since_str = arg.split("=", 1)[1]
+        backfill(datetime.datetime.strptime(since_str, "%Y-%m-%d").date())
     else:
         main()
