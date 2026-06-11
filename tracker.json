@@ -40,7 +40,7 @@
       "id": "lex-fridman-2026-02-12",
       "podcast": "Lex Fridman Podcast",
       "guest": "Peter Steinberger",
-      "title": "#491 \u2013 OpenClaw: The Viral AI Agent that Broke the Internet \u2013 Peter Steinberger",
+      "title": "#491 – OpenClaw: The Viral AI Agent that Broke the Internet – Peter Steinberger",
       "date": "2026-02-12",
       "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html",
       "pushed_at": "2026-06-10"
@@ -58,7 +58,7 @@
       "id": "pivot-2026-06-05",
       "podcast": "Pivot",
       "guest": "Various",
-      "title": "'60 Minutes' Meltdown, Trump's Intel Chief Pick, and Apple\u2019s Next Big Bet",
+      "title": "'60 Minutes' Meltdown, Trump's Intel Chief Pick, and Apple’s Next Big Bet",
       "date": "2026-06-05",
       "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-05.html",
       "pushed_at": "2026-06-11"
@@ -76,7 +76,7 @@
       "id": "pivot-2026-05-29",
       "podcast": "Pivot",
       "guest": "Various",
-      "title": "Pope Leo\u2019s AI Warning, UFC at the White House, and CBS Shakeups",
+      "title": "Pope Leo’s AI Warning, UFC at the White House, and CBS Shakeups",
       "date": "2026-05-29",
       "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-05-29.html",
       "pushed_at": "2026-06-11"
@@ -175,7 +175,7 @@
       "id": "lex-fridman-2026-05-29",
       "podcast": "Lex Fridman Podcast",
       "guest": "Don Lincoln",
-      "title": "#497 \u2013 Biggest Mysteries in Physics: Antimatter, Dark Energy & ToE \u2013 Don Lincoln",
+      "title": "#497 – Biggest Mysteries in Physics: Antimatter, Dark Energy & ToE – Don Lincoln",
       "date": "2026-05-29",
       "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-05-29.html",
       "pushed_at": "2026-06-11"
@@ -223,6 +223,96 @@
       "title": "EMERGENCY DEBATE: The Economy Is About To Collapse! The 2026 AI Crisis Nobody Sees Coming",
       "date": "2026-05-28",
       "page_url": "https://readingsis.github.io/reading-sis/doac-2026-05-28.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-05-24",
+      "podcast": "Lenny's Podcast",
+      "guest": "Dan Shipper",
+      "title": "The AI paradox: More automation, more humans, more work | Dan Shipper",
+      "date": "2026-05-24",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-05-24.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-05-17",
+      "podcast": "Lenny's Podcast",
+      "guest": "Caitlin Kalinowski",
+      "title": "Why we’re at the beginning of the AI hardware boom | Caitlin Kalinowski (ex–OpenAI, Meta, Apple)",
+      "date": "2026-05-17",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-05-17.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-05-10",
+      "podcast": "Lenny's Podcast",
+      "guest": "Eric Ries",
+      "title": "How to build a company that withstands any era | Eric Ries, Lean Startup author",
+      "date": "2026-05-10",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-05-10.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-05-03",
+      "podcast": "Lenny's Podcast",
+      "guest": "Max Schoening",
+      "title": "Why cultivating agency matters more than cultivating skills in the AI era | Max Schoening (Head of Product, Notion)",
+      "date": "2026-05-03",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-05-03.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-04-26",
+      "podcast": "Lenny's Podcast",
+      "guest": "Evan Spiegel",
+      "title": "Snapchat CEO: Why distribution has become the most important moat | Evan Spiegel",
+      "date": "2026-04-26",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-04-26.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-04-23",
+      "podcast": "Lenny's Podcast",
+      "guest": "Cat Wu",
+      "title": "How Anthropic’s product team moves faster than anyone else | Cat Wu (Head of Product, Claude Code)",
+      "date": "2026-04-23",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-04-23.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-04-19",
+      "podcast": "Lenny's Podcast",
+      "guest": "Nikhyl Singhal",
+      "title": "Why half of product managers are in trouble | Nikhyl Singhal (Meta, Google)",
+      "date": "2026-04-19",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-04-19.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-04-12",
+      "podcast": "Lenny's Podcast",
+      "guest": "Keith Rabois",
+      "title": "Hard truths about building in the AI era | Keith Rabois (Khosla Ventures)",
+      "date": "2026-04-12",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-04-12.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-04-05",
+      "podcast": "Lenny's Podcast",
+      "guest": "Amol Avasare",
+      "title": "Head of Growth (Anthropic): “Claude is growing itself at this point” | Amol Avasare",
+      "date": "2026-04-05",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-04-05.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-04-02",
+      "podcast": "Lenny's Podcast",
+      "guest": "Simon Willison",
+      "title": "An AI state of the union: We’ve passed the inflection point, dark factories are coming, and automation timelines | Simon Willison",
+      "date": "2026-04-02",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-04-02.html",
       "pushed_at": "2026-06-11"
     }
   ],
