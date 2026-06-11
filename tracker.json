@@ -67,14 +67,5 @@
       "lex_filter": false
     }
   ],
-  "pending_send": [
-    {
-      "id": "design-better-2026-06-10",
-      "podcast": "Design Better",
-      "guest": "Tina Roth Eisenberg",
-      "title": "Tina Roth Eisenberg: Creative Mornings founder on building communities that run on trust",
-      "date_str": "10 Jun 2026",
-      "page_url": "https://readingsis.github.io/reading-sis/design-better-2026-06-10.html"
-    }
-  ]
+  "pending_send": []
 }
