@@ -1394,6 +1394,96 @@
       "date": "2026-03-01",
       "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-03-01.html",
       "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "hard-fork-2026-02-27",
+      "podcast": "Hard Fork",
+      "guest": "Anton Korinek",
+      "title": "Is A.I. Eating the Labor Market? + The Latest on the Pentagon, OpenClaw and Alpha School",
+      "date": "2026-02-27",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-02-27.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "hard-fork-2026-02-20",
+      "podcast": "Hard Fork",
+      "guest": "Various",
+      "title": "The Pentagon vs. Anthropic + An A.I. Agent Slandered Me + Hot Mess Express",
+      "date": "2026-02-20",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-02-20.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "hard-fork-2026-02-13",
+      "podcast": "Hard Fork",
+      "guest": "Various",
+      "title": "‘Something Big Is Happening’ + A.I. Rocks the Romance Novel Industry + One Good Thing",
+      "date": "2026-02-13",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-02-13.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "hard-fork-2026-02-06",
+      "podcast": "Hard Fork",
+      "guest": "Various",
+      "title": "Elon Musk’s Mega-Merger + We Test Google’s Project Genie + What’s Next for Moltbook Creator",
+      "date": "2026-02-06",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-02-06.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "hard-fork-2026-02-04",
+      "podcast": "Hard Fork",
+      "guest": "Various",
+      "title": "Moltbook Mania Explained",
+      "date": "2026-02-04",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-02-04.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "hard-fork-2026-01-30",
+      "podcast": "Hard Fork",
+      "guest": "Various",
+      "title": "Tech Grapples With ICE + Casey Tries Clawdbot, a Risky New A.I. Assistant + HatGPT",
+      "date": "2026-01-30",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-01-30.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "hard-fork-2026-01-23",
+      "podcast": "Hard Fork",
+      "guest": "Various",
+      "title": "Will ChatGPT Ads Change OpenAI? + Amanda Askell Explains Claude's New Constitution",
+      "date": "2026-01-23",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-01-23.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "hard-fork-2026-01-16",
+      "podcast": "Hard Fork",
+      "guest": "Jonathan Haidt",
+      "title": "Jonathan Haidt Strikes Again + What You Vibecoded + An Update on the Forkiverse",
+      "date": "2026-01-16",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-01-16.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "hard-fork-2026-01-13",
+      "podcast": "Hard Fork",
+      "guest": "Various",
+      "title": "Can We Build a Better Social Network?",
+      "date": "2026-01-13",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-01-13.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "hard-fork-2026-01-09",
+      "podcast": "Hard Fork",
+      "guest": "Various",
+      "title": "Grok’s Undressing Scandal + Claude Code Capers + Casey Busts a Reddit Hoax",
+      "date": "2026-01-09",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-01-09.html",
+      "pushed_at": "2026-06-11"
     }
   ],
   "queued": [],
