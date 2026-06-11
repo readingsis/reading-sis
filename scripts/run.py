@@ -420,6 +420,20 @@ def get_transcript(video_id: str, max_words: int = 6000) -> list[dict]:
 # CONTENT GENERATION (CLAUDE API)
 # ══════════════════════════════════════════════════════════════════════════════
 
+def _extract_json(raw: str) -> str:
+    """Pull the JSON object out of a model response that may wrap it in
+    markdown fences or surround it with prose. json.loads() reports
+    'Expecting value: line 1 column 1' for ANY non-JSON-leading string, so we
+    must locate the object rather than assume the response starts with '{'."""
+    raw = raw.strip()
+    raw = re.sub(r"^```(?:json)?\s*", "", raw)
+    raw = re.sub(r"\s*```$", "", raw)
+    start, end = raw.find("{"), raw.rfind("}")
+    if start != -1 and end > start:
+        return raw[start:end + 1]
+    return raw
+
+
 def generate_content(episode: dict, transcript: list[dict], video_id: str,
                      model: str = MODEL) -> dict | None:
     """Call Claude to generate all page content. Returns structured dict or None.
@@ -485,11 +499,8 @@ Hard rules:
             max_tokens=2500,
             messages=[{"role": "user", "content": prompt}],
         )
-        raw = msg.content[0].text.strip()
-        # Strip accidental markdown fences
-        raw = re.sub(r"^```(?:json)?\s*", "", raw)
-        raw = re.sub(r"\s*```$", "", raw)
-        return json.loads(raw)
+        raw = msg.content[0].text if msg.content else ""
+        return json.loads(_extract_json(raw))
     except Exception as e:
         print(f"  Claude error: {e}")
         return None
@@ -792,11 +803,10 @@ Set overall_ok=false if the guest is wrong or any quote is fabricated. A generic
                 model=MODEL, max_tokens=600,
                 messages=[{"role": "user", "content": prompt}],
             )
-            raw = (msg.content[0].text if msg.content else "").strip()
-            raw = re.sub(r"^```(?:json)?\s*", "", raw)
-            raw = re.sub(r"\s*```$", "", raw)
-            if raw:
-                return json.loads(raw)
+            raw = msg.content[0].text if msg.content else ""
+            extracted = _extract_json(raw)
+            if extracted:
+                return json.loads(extracted)
             print(f"  QA review empty response (attempt {attempt + 1})")
         except Exception as e:
             print(f"  QA content review error (attempt {attempt + 1}): {e}")
