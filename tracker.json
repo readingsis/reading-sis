@@ -314,6 +314,96 @@
       "date": "2026-04-02",
       "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-04-02.html",
       "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-03-29",
+      "podcast": "Lenny's Podcast",
+      "guest": "Claire Vo",
+      "title": "From skeptic to true believer: How OpenClaw changed my life | Claire Vo",
+      "date": "2026-03-29",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-03-29.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-03-22",
+      "podcast": "Lenny's Podcast",
+      "guest": "Jessica Fain",
+      "title": "The art of influence: The single most important skill that AI can’t replace | Jessica Fain (Webflow, ex-Slack)",
+      "date": "2026-03-22",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-03-22.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-03-15",
+      "podcast": "Lenny's Podcast",
+      "guest": "Jacob Warwick",
+      "title": "The tactical playbook for getting 20-40% more comp (without sounding greedy) | Jacob Warwick (Executive Negotiator)",
+      "date": "2026-03-15",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-03-15.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-03-12",
+      "podcast": "Lenny's Podcast",
+      "guest": "Michelle Rial",
+      "title": "How I built a 1M+ subscriber newsletter and top 10 tech podcast | Lenny Rachitsky",
+      "date": "2026-03-12",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-03-12.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-03-08",
+      "podcast": "Lenny's Podcast",
+      "guest": "Qasar Younis",
+      "title": "The most successful AI company you’ve never heard of | Qasar Younis",
+      "date": "2026-03-08",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-03-08.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-03-01",
+      "podcast": "Lenny's Podcast",
+      "guest": "Jenny Wen",
+      "title": "The design process is dead. Here’s what’s replacing it. | Jenny Wen (head of design at Claude)",
+      "date": "2026-03-01",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-03-01.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-02-26",
+      "podcast": "Lenny's Podcast",
+      "guest": "Jeetu Patel",
+      "title": "AI is critical for humanity’s survival: Cisco president on the AI revolution | Jeetu Patel",
+      "date": "2026-02-26",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-02-26.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-02-19",
+      "podcast": "Lenny's Podcast",
+      "guest": "Boris Cherny",
+      "title": "Head of Claude Code: What happens after coding is solved | Boris Cherny",
+      "date": "2026-02-19",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-02-19.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-02-15",
+      "podcast": "Lenny's Podcast",
+      "guest": "Brian Halligan",
+      "title": "Sequoia CEO coach: Why it’s never been easier to start a company, and never been harder to scale one | Brian Halligan (co-founder, HubSpot)",
+      "date": "2026-02-15",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-02-15.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-02-12",
+      "podcast": "Lenny's Podcast",
+      "guest": "Sherwin Wu",
+      "title": "“Engineers are becoming sorcerers” | The future of software development with OpenAI’s Sherwin Wu",
+      "date": "2026-02-12",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-02-12.html",
+      "pushed_at": "2026-06-11"
     }
   ],
   "queued": [],
