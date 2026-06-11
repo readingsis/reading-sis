@@ -778,19 +778,26 @@ Return a single JSON object, no markdown:
 }}
 
 Set overall_ok=false if the guest is wrong or any quote is fabricated. A generic TL;DR alone (tldr_ok=false) is a warning, not a failure."""
-    try:
-        client = Anthropic(api_key=ANTHROPIC_KEY)
-        msg = client.messages.create(
-            model=MODEL, max_tokens=600,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        raw = msg.content[0].text.strip()
-        raw = re.sub(r"^```(?:json)?\s*", "", raw)
-        raw = re.sub(r"\s*```$", "", raw)
-        return json.loads(raw)
-    except Exception as e:
-        print(f"  QA content review error: {e}")
-        return None
+    client = Anthropic(api_key=ANTHROPIC_KEY)
+    # Retry: the review occasionally returns an empty/non-JSON body. A None
+    # here makes qa_episode fail-open (publishes unreviewed), so retry before
+    # giving up rather than silently skipping the review.
+    for attempt in range(3):
+        try:
+            msg = client.messages.create(
+                model=MODEL, max_tokens=600,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            raw = (msg.content[0].text if msg.content else "").strip()
+            raw = re.sub(r"^```(?:json)?\s*", "", raw)
+            raw = re.sub(r"\s*```$", "", raw)
+            if raw:
+                return json.loads(raw)
+            print(f"  QA review empty response (attempt {attempt + 1})")
+        except Exception as e:
+            print(f"  QA content review error (attempt {attempt + 1}): {e}")
+        time.sleep(2)
+    return None
 
 
 def qa_episode(episode: dict, content: dict, video_id: str | None,
