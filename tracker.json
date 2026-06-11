@@ -40,7 +40,7 @@
       "id": "lex-fridman-2026-02-12",
       "podcast": "Lex Fridman Podcast",
       "guest": "Peter Steinberger",
-      "title": "#491 \u2013 OpenClaw: The Viral AI Agent that Broke the Internet \u2013 Peter Steinberger",
+      "title": "#491 – OpenClaw: The Viral AI Agent that Broke the Internet – Peter Steinberger",
       "date": "2026-02-12",
       "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html",
       "pushed_at": "2026-06-10"
@@ -52,6 +52,96 @@
       "title": "Dan Dreyfus: America's Critical Minerals Crisis is Here",
       "date": "2026-06-10",
       "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-10.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "pivot-2026-06-05",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "'60 Minutes' Meltdown, Trump's Intel Chief Pick, and Apple’s Next Big Bet",
+      "date": "2026-06-05",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-05.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "pivot-2026-06-02",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "Anthropic's IPO, Platner's Campaign Controversies, and Blue Origin's Setback",
+      "date": "2026-06-02",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-02.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "pivot-2026-05-29",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "Pope Leo’s AI Warning, UFC at the White House, and CBS Shakeups",
+      "date": "2026-05-29",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-05-29.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "all-in-2026-06-10-2",
+      "podcast": "All-In",
+      "guest": "Various",
+      "title": "Dan Dreyfus: America's Critical Minerals Crisis is Here",
+      "date": "2026-06-10",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-10-2.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "all-in-2026-06-08",
+      "podcast": "All-In",
+      "guest": "Various",
+      "title": "Nikesh Arora: Mythos is Real, Analytical SaaS is Dead, and Google can be a $10T company",
+      "date": "2026-06-08",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-08.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "all-in-2026-06-07",
+      "podcast": "All-In",
+      "guest": "Various",
+      "title": "Inside the Private Stock Market Boom: SpaceX, Anthropic, OpenAI & the Rise of Secondaries",
+      "date": "2026-06-07",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-07.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "all-in-2026-06-06",
+      "podcast": "All-In",
+      "guest": "Various",
+      "title": "The IPO Comeback: Why Tech Giants Are Finally Going Public | All-In Liquidity IPO Panel",
+      "date": "2026-06-06",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-06.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "all-in-2026-06-05",
+      "podcast": "All-In",
+      "guest": "Dan Loeb",
+      "title": "Dan Loeb: The Lost Art of Short Selling, and Why Stock Picking is Back",
+      "date": "2026-06-05",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-05.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "all-in-2026-06-04",
+      "podcast": "All-In",
+      "guest": "Thomas Laffont",
+      "title": "Thomas Laffont: The $4T AI IPO Wave, 2026's Unicorn Economy, and the 10X Paradox",
+      "date": "2026-06-04",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-04.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "all-in-2026-06-03",
+      "podcast": "All-In",
+      "guest": "Bill Ackman",
+      "title": "Bill Ackman: Investment Strategy, What the Market is Missing, How AI Breaks Businesses",
+      "date": "2026-06-03",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-03.html",
       "pushed_at": "2026-06-11"
     }
   ],
