@@ -1,0 +1,43 @@
+name: qa-diag-temp
+on: workflow_dispatch
+jobs:
+  d:
+    runs-on: self-hosted
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "/usr/local/bin" >> "$GITHUB_PATH"
+          echo "$HOME/Library/Python/3.11/bin" >> "$GITHUB_PATH"
+      - run: /usr/local/bin/python3.11 -m pip install --user --quiet -r scripts/requirements.txt
+      - env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          /usr/local/bin/python3.11 - <<'PYEOF'
+          import sys, datetime
+          sys.path.insert(0,"scripts")
+          import run, feedparser
+          from anthropic import Anthropic
+          feed=feedparser.parse("https://rss.libsyn.com/shows/254861/destinations/1928300.xml")
+          ent=[ (datetime.datetime(*e.published_parsed[:6])+datetime.timedelta(hours=3), e) for e in feed.entries]
+          ent=[x for x in ent if x[0].strftime("%Y-%m-%d")=="2026-06-10"]
+          ent.sort(key=lambda x:x[0]); pub,entry=ent[1]
+          ep={"id":"x","podcast":"All-In","title":entry.title,"pub_dt":pub,"date":"2026-06-10"}
+          vid=run.find_youtube_id(ep["title"],ep["podcast"])
+          tr=run.get_transcript(vid)
+          content=run.generate_content(ep,tr,vid,model=run.MODEL)
+          # Replicate the review call RAW to inspect the response object
+          transcript_text="\n".join(s["text"] for s in tr)[:24000]
+          quotes=[{"index":i,"speaker":m.get("speaker",""),"quote":m.get("quote","")} for i,m in enumerate(content.get("moments",[]))]
+          prompt=f"Review. Title:{ep['title']} guest:{content.get('guest')} quotes:{json.dumps(quotes)[:500]} transcript:{transcript_text[:2000]} Return JSON {{\"overall_ok\":true,\"summary\":\"x\"}}"
+          c=Anthropic(api_key=run.ANTHROPIC_KEY)
+          msg=c.messages.create(model=run.MODEL,max_tokens=600,messages=[{"role":"user","content":prompt}])
+          print("STOP_REASON:", msg.stop_reason)
+          print("N_BLOCKS:", len(msg.content))
+          for i,b in enumerate(msg.content):
+              print(f"  block{i} type={getattr(b,'type','?')} text={repr(getattr(b,'text',None))[:200]}")
+          # now the REAL prompt to see if length triggers empty
+          msg2=c.messages.create(model=run.MODEL,max_tokens=600,messages=[{"role":"user","content":run.qa_content_review.__doc__ or ''}]) if False else None
+          PYEOF
