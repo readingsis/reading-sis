@@ -65,14 +65,5 @@
     }
   ],
   "queued": [],
-  "pending_send": [
-    {
-      "id": "all-in-2026-06-10",
-      "podcast": "All-In",
-      "guest": "Dan Dreyfus",
-      "title": "Dan Dreyfus: America's Critical Minerals Crisis is Here",
-      "date_str": "10 Jun 2026",
-      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-10.html"
-    }
-  ]
+  "pending_send": []
 }
