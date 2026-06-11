@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Bill Ackman argues that high-quality businesses are trading at historically cheap valuations while markets chase AI hype, creating a major arbitrage opportunity.">
+  <title>Reading.Sis — Bill Ackman: Investment Strategy, What the Market is Missing, How AI Breaks Businesses</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; position: relative; min-height: 170px; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; margin-bottom: 28px; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <div class="logo">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </div>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">All-In</div>
+    <h1 class="episode-title">Bill Ackman: Investment Strategy, What the Market is Missing, How AI Breaks Businesses</h1>
+    <div class="guest-name">with Bill Ackman</div>
+    <div class="meta">
+      <span>3 Jun 2026</span>
+      <span>23 min read</span>
+      <span>1h 58m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Bill Ackman argues that high-quality businesses are trading at historically cheap valuations while markets chase AI hype, creating a major arbitrage opportunity. He emphasizes that AI dramatically increases disruption risk across all industries, but founder-led companies with skin-in-the-game navigate change better than professional CEOs. His new strategy mirrors Berkshire Hathaway: building a permanent capital vehicle using insurance float as cheap capital to compound returns over decades.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Bill Ackman</div>
+        <div class="moment-quote">&ldquo;some of the best businesses in the world are trading at the lowest multiples&rdquo;</div>
+        <div class="moment-context">Explaining current market dislocations where quality is overlooked</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=_TJFqEhxQg4&t=15" target="_blank">&#9654; 0:15</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Bill Ackman</div>
+        <div class="moment-quote">&ldquo;This is the greatest era in history to to build a business, right? There's unlimited access to compute, you know, certainly for a startup, uh unlimited access to capital, uh and a lot of incredible talent, which means that the probability of your being disrupted has gone up enormously.&rdquo;</div>
+        <div class="moment-context">Discussing how AI has fundamentally changed risk assessment for long-term investors</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=_TJFqEhxQg4&t=326" target="_blank">&#9654; 5:26</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Bill Ackman</div>
+        <div class="moment-quote">&ldquo;I think the problem is that the average life of an S&amp;P 500 CEO is probably I don't know, 4 years or 3 or 3 and 1/2 years or something like this. And you're focused on, you know, kind of shorter term compensation. You don't generally don't have a big economic stake in the business. You're a founder, this is your entire life.&rdquo;</div>
+        <div class="moment-context">Explaining why founder-led companies outperform in volatile environments versus hired executives</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=_TJFqEhxQg4&t=1012" target="_blank">&#9654; 16:52</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Bill Ackman</div>
+        <div class="moment-quote">&ldquo;Buffett started with a crappy textile business. He effectively liquidated it over time, reinvested in insurance, and then invested the assets well... The goal is to build it into a trillion dollar thing over time. Compounding.&rdquo;</div>
+        <div class="moment-context">Describing his strategy with Howard Hughes—repurposing real estate assets into an insurance-backed investment vehicle</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=_TJFqEhxQg4&t=1238" target="_blank">&#9654; 20:38</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Bill Ackman</div>
+        <div class="moment-quote">&ldquo;I think there have been sort of monopolistic type profit taking off of customers when someone had a kind of a niche software product that charging, you know, 30,000 a year or something like this. I think those companies are really at risk.&rdquo;</div>
+        <div class="moment-context">Warning about which SaaS companies face existential AI threats versus those with sustainable pricing power</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=_TJFqEhxQg4&t=434" target="_blank">&#9654; 7:14</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About Bill Ackman</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">Bill Ackman is the CEO and founder of Pershing Square, one of the most prominent activist investment firms in the world. Known for his high-conviction bets and willingness to take public positions on market dislocations, Ackman has built a reputation as a legendary investor who combines deep fundamental analysis with activist shareholder engagement. Recently, he's shifted toward building permanent capital vehicles inspired by Berkshire Hathaway's model, focusing on business quality, durable competitive advantages, and long-term value creation.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>AI disruption risk has fundamentally changed investment thesis </strong>The rise of unrestricted compute, capital, and talent access means startup disruption risk is now the dominant factor in valuation. Investors must spend 80% of their time understanding disruption risk rather than traditional financial metrics. This shifts the analysis framework from DCF models toward talent, founder resilience, and competitive moats.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>Founder-led companies have structural advantages in AI era </strong>Founder-led businesses outperform because founders have total economic stake, multi-decade time horizons, and board authority to make radical pivots without career risk. Professional CEOs optimizing for 3-4 year tenure and quarterly earnings cannot navigate the speed of AI-driven disruption. This suggests founder retention and founder-friendly cap structures should be primary investment filters.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Permanent capital vehicles compound at scale inefficiently </strong>By taking Pershing Square public with a 2% flat fee instead of traditional 2%/20% structure, Ackman demonstrated permanent capital removes fee drag that compounds over decades. Insurance float-backed investment vehicles (Howard Hughes model) offer the cheapest capital to redeploy at scale. This model may replace traditional hedge funds as the future structure for large-scale activist investing.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=_TJFqEhxQg4" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/All-In%20Bill%20Ackman%3A%20Investment%20Strategy%2C%20What%20the%20Market%20is%20Missing%2C%20How%20AI%20Breaks%20Businesses" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/all-in-2026-06-03.html';
+  var PAGE_TITLE = 'Bill Ackman: Investment Strategy, What the Market is Missing, How AI Breaks Businesses — Reading.Sis';
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  function handleSave() {
+    var btn = document.getElementById('bookmarkBtn');
+    gcEvent('save');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl})
+        .then(function() { btn.classList.add('saved'); }).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
+        .then(function() { btn.classList.add('saved'); });
+    }
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
