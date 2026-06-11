@@ -404,6 +404,96 @@
       "date": "2026-02-12",
       "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-02-12.html",
       "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-02-08",
+      "podcast": "Lenny's Podcast",
+      "guest": "Lazar Jovanovic",
+      "title": "The rise of the professional vibe coder (a new AI-era job) | Lazar Jovanovic (Professional Vibe Coder)",
+      "date": "2026-02-08",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-02-08.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-01-29",
+      "podcast": "Lenny's Podcast",
+      "guest": "Marc Andreessen",
+      "title": "Marc Andreessen: The real AI boom hasn’t even started yet",
+      "date": "2026-01-29",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-01-29.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-01-25",
+      "podcast": "Lenny's Podcast",
+      "guest": "Jason Cohen",
+      "title": "5 questions to ask when your product stops growing | Jason Cohen (2x unicorn founder)",
+      "date": "2026-01-25",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-01-25.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-01-18",
+      "podcast": "Lenny's Podcast",
+      "guest": "Zevi Arnovitz",
+      "title": "The non-technical PM’s guide to building with Cursor | Zevi Arnovitz (Meta)",
+      "date": "2026-01-18",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-01-18.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-01-15",
+      "podcast": "Lenny's Podcast",
+      "guest": "Sam Lessin",
+      "title": "How to show up in any room with a low heart rate: Silicon Valley’s missing etiquette playbook | Sam Lessin",
+      "date": "2026-01-15",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-01-15.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-01-11",
+      "podcast": "Lenny's Podcast",
+      "guest": "Aishwaria Raanti and Kiti Bottom",
+      "title": "Why most AI products fail: Lessons from 50+ AI deployments at OpenAI, Google, and Amazon",
+      "date": "2026-01-11",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-01-11.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-01-04",
+      "podcast": "Lenny's Podcast",
+      "guest": "Molly Graham",
+      "title": "The high-growth handbook: Molly Graham’s frameworks for leading through chaos, change, and scale",
+      "date": "2026-01-04",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-01-04.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lennys-2026-01-01",
+      "podcast": "Lenny's Podcast",
+      "guest": "Jason Lemkin",
+      "title": "We replaced our sales team with 20 AI agents—here’s what happened | Jason Lemkin (SaaStr)",
+      "date": "2026-01-01",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-01-01.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "pivot-2026-05-26",
+      "podcast": "Pivot",
+      "guest": "Heather Cox Richardson",
+      "title": "Grading America's First 250 Years: America, Actually with Astead Herndon",
+      "date": "2026-05-26",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-05-26.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "pivot-2026-05-22",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "James Murdoch & Vox Media, SpaceX IPO Predictions, and Bezos Gets Defensive",
+      "date": "2026-05-22",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-05-22.html",
+      "pushed_at": "2026-06-11"
     }
   ],
   "queued": [],
