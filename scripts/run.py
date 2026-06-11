@@ -223,38 +223,42 @@ def fetch_new_episodes(
         return []
 
     skip_re = podcast.get("skip_title_re")
-    seen_keys: set[str] = set()          # episode identities seen this fetch
-    date_distinct: dict[str, int] = {}   # date -> count of DISTINCT episodes
-    episodes = []
+
+    # Pass 1: collect all in-window, distinct episodes (dedupe true duplicates).
+    seen_keys: set[str] = set()
+    raw: list[tuple[datetime.datetime, Any]] = []
     for entry in feed.entries:
         if not getattr(entry, "published_parsed", None):
             continue
-
-        pub_utc = datetime.datetime(*entry.published_parsed[:6])
-        pub_il  = pub_utc + datetime.timedelta(hours=3)
-
+        pub_il = datetime.datetime(*entry.published_parsed[:6]) + datetime.timedelta(hours=3)
         if pub_il < cutoff:
             break  # RSS is newest-first
-
-        # Per-podcast title filter (e.g. DOAC "Most Replayed Moment" clip eps).
         if skip_re and re.search(skip_re, entry.title, re.IGNORECASE):
             print(f"  Skipping clip/recap episode: {entry.title[:60]}")
             continue
-
-        # Episode identity = RSS guid (preferred) or title. Some feeds list the
-        # same episode twice; that's a true duplicate, not a second episode.
+        # Identity = RSS guid (preferred) or title. Some feeds list the same
+        # episode twice; that's a true duplicate, not a second episode.
         key = (getattr(entry, "id", None) or entry.title or "").strip()
         if key in seen_keys:
-            continue  # duplicate feed entry — skip, do NOT mint a -2 page
+            continue
         seen_keys.add(key)
+        raw.append((pub_il, entry))
 
-        # Collision-safe ID: only DISTINCT episodes on the same day get a
-        # suffix. First keeps slug-date (back-compat); 2nd+ get -2, -3…
+    # Collision-safe IDs by CHRONOLOGICAL rank within a day, NOT feed order:
+    # the earliest episode of a day keeps slug-date, later ones get -2, -3…
+    # This is stable — an episode's ID never changes when another same-day
+    # episode is published later (which would otherwise shift feed positions).
+    by_date: dict[str, list[tuple[datetime.datetime, Any]]] = {}
+    for pub_il, entry in raw:
+        by_date.setdefault(pub_il.strftime("%Y-%m-%d"), []).append((pub_il, entry))
+
+    episodes = []
+    for pub_il, entry in raw:
         date_str = pub_il.strftime("%Y-%m-%d")
-        idx = date_distinct.get(date_str, 0)
-        date_distinct[date_str] = idx + 1
+        same_day = sorted(by_date[date_str], key=lambda x: x[0])  # earliest first
+        rank = [e for _, e in same_day].index(entry)
         base = f"{podcast['slug']}-{date_str}"
-        ep_id = base if idx == 0 else f"{base}-{idx + 1}"
+        ep_id = base if rank == 0 else f"{base}-{rank + 1}"
         if ep_id in processed_ids or ep_id in queued_ids:
             continue
 
@@ -265,7 +269,7 @@ def fetch_new_episodes(
             "title":        entry.title,
             "description":  getattr(entry, "summary", ""),
             "pub_dt":       pub_il,
-            "date":         pub_il.strftime("%Y-%m-%d"),
+            "date":         date_str,
             "duration_sec": _parse_duration(getattr(entry, "itunes_duration", None)),
             "spotify_show": podcast["spotify_show"],
             "lex_filter":   podcast["lex_filter"],
