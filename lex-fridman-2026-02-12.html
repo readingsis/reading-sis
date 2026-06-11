@@ -177,7 +177,7 @@
 </div>
 
 <script>
-  var https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html   = 'https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html';
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html';
   var PAGE_TITLE = '#491 – OpenClaw: The Viral AI Agent that Broke the Internet – Peter Steinberger — Reading.Sis';
 
   // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
@@ -194,10 +194,10 @@
     var btn = document.getElementById('bookmarkBtn');
     gcEvent('save');
     if (navigator.share) {
-      navigator.share({title: PAGE_TITLE, url: https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html})
+      navigator.share({title: PAGE_TITLE, url: pageUrl})
         .then(function() { btn.classList.add('saved'); }).catch(function() {});
     } else {
-      navigator.clipboard && navigator.clipboard.writeText(https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html)
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
         .then(function() { btn.classList.add('saved'); });
     }
   }
@@ -206,9 +206,9 @@
     var btn = document.getElementById('shareBtn');
     gcEvent('share');
     if (navigator.share) {
-      navigator.share({title: PAGE_TITLE, url: https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html}).catch(function() {});
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
     } else {
-      navigator.clipboard && navigator.clipboard.writeText(https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html).then(function() {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
         btn.classList.add('flash');
         setTimeout(function() { btn.classList.remove('flash'); }, 2000);
       });
