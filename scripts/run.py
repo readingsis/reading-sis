@@ -15,8 +15,10 @@ import datetime
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from typing import Any
 
@@ -75,13 +77,6 @@ PODCASTS = [
         "slug": "hard-fork",
         "rss": "https://feeds.simplecast.com/l2i9YnTd",
         "spotify_show": "https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj",
-        "lex_filter": False,
-    },
-    {
-        "name": "Design Better",
-        "slug": "design-better",
-        "rss": "https://feeds.megaphone.fm/designbetter",
-        "spotify_show": "",
         "lex_filter": False,
     },
     {
@@ -234,6 +229,7 @@ def fetch_new_episodes(
             "description":  getattr(entry, "summary", ""),
             "pub_dt":       pub_il,
             "date":         pub_il.strftime("%Y-%m-%d"),
+            "duration_sec": _parse_duration(getattr(entry, "itunes_duration", None)),
             "spotify_show": podcast["spotify_show"],
             "lex_filter":   podcast["lex_filter"],
         })
@@ -244,6 +240,56 @@ def fetch_new_episodes(
 # ══════════════════════════════════════════════════════════════════════════════
 # YOUTUBE
 # ══════════════════════════════════════════════════════════════════════════════
+
+def _parse_duration(s: Any) -> int | None:
+    """'HH:MM:SS' / 'MM:SS' / plain seconds → seconds."""
+    if not s:
+        return None
+    s = str(s).strip()
+    if s.isdigit():
+        return int(s)
+    try:
+        parts = [int(p) for p in s.split(":")]
+    except ValueError:
+        return None
+    sec = 0
+    for p in parts:
+        sec = sec * 60 + p
+    return sec
+
+
+def verify_youtube_match(video_id: str, episode: dict) -> bool:
+    """The video must be the SAME episode as the RSS item — verified by
+    upload date (within days of the RSS publish date) and duration (when the
+    RSS provides one). A lookalike video poisons transcript, quotes, and
+    timestamps, which is far worse than shipping without video links.
+    (Real case: Design Better search returned a 2014 conference talk by the
+    same guest.) Reject on any doubt or metadata failure."""
+    try:
+        result = subprocess.run(
+            ["yt-dlp", f"https://www.youtube.com/watch?v={video_id}",
+             "--print", "%(duration)s|%(upload_date)s", "--no-download", "--quiet"],
+            capture_output=True, text=True, timeout=60,
+        )
+        if result.returncode != 0:
+            print("  Video metadata fetch failed — rejecting video")
+            return False
+        dur_s, upload_s = result.stdout.strip().splitlines()[-1].split("|")
+        upload = datetime.datetime.strptime(upload_s, "%Y%m%d").date()
+        pub = episode["pub_dt"].date()
+        if abs((upload - pub).days) > 5:
+            print(f"  Rejecting video {video_id}: uploaded {upload}, episode published {pub}")
+            return False
+        rss_dur = episode.get("duration_sec")
+        if rss_dur and dur_s.isdigit():
+            if abs(int(dur_s) - rss_dur) > max(180, int(rss_dur * 0.08)):
+                print(f"  Rejecting video {video_id}: duration {dur_s}s vs RSS {rss_dur}s")
+                return False
+        return True
+    except Exception as e:
+        print(f"  Video verification error: {e} — rejecting video")
+        return False
+
 
 def find_youtube_id(title: str, podcast_name: str) -> str | None:
     """Search YouTube for the episode video ID.
@@ -538,7 +584,7 @@ TAKEAWAYS_HTML
 </div>
 
 <script>
-  var PAGE_URL   = 'PAGE_URL_JS';
+  var pageUrl    = 'PAGE_URL_JS';
   var PAGE_TITLE = 'EPISODE_TITLE_JS — Reading.Sis';
 
   // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
@@ -555,10 +601,10 @@ TAKEAWAYS_HTML
     var btn = document.getElementById('bookmarkBtn');
     gcEvent('save');
     if (navigator.share) {
-      navigator.share({title: PAGE_TITLE, url: PAGE_URL})
+      navigator.share({title: PAGE_TITLE, url: pageUrl})
         .then(function() { btn.classList.add('saved'); }).catch(function() {});
     } else {
-      navigator.clipboard && navigator.clipboard.writeText(PAGE_URL)
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
         .then(function() { btn.classList.add('saved'); });
     }
   }
@@ -567,9 +613,9 @@ TAKEAWAYS_HTML
     var btn = document.getElementById('shareBtn');
     gcEvent('share');
     if (navigator.share) {
-      navigator.share({title: PAGE_TITLE, url: PAGE_URL}).catch(function() {});
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
     } else {
-      navigator.clipboard && navigator.clipboard.writeText(PAGE_URL).then(function() {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
         btn.classList.add('flash');
         setTimeout(function() { btn.classList.remove('flash'); }, 2000);
       });
@@ -585,6 +631,30 @@ TAKEAWAYS_HTML
 </script>
 </body>
 </html>"""
+
+
+def validate_inline_js(html: str) -> bool:
+    """Syntax-check every inline <script> with node before publishing.
+
+    A single syntax error (bad escaping, placeholder collision) silently
+    kills Save/Share/About on the whole page — refuse to ship that. Skips
+    validation when node isn't available rather than blocking the pipeline.
+    """
+    node = shutil.which("node")
+    if not node:
+        return True
+    for m in re.finditer(r"<script>(.*?)</script>", html, re.S):
+        with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as f:
+            f.write(m.group(1))
+            path = f.name
+        try:
+            r = subprocess.run([node, "--check", path], capture_output=True, text=True, timeout=15)
+        finally:
+            os.unlink(path)
+        if r.returncode != 0:
+            print(f"  Inline JS syntax error: {r.stderr.strip()[:300]}")
+            return False
+    return True
 
 
 def _t(s: Any) -> str:
@@ -961,6 +1031,7 @@ def main() -> None:
                     "date":         episode.get("date"),
                     "description":  episode.get("description", ""),
                     "pub_dt":       pub_dt.isoformat(),
+                    "duration_sec": episode.get("duration_sec"),
                     "spotify_show": episode.get("spotify_show", ""),
                     "lex_filter":   episode.get("lex_filter", False),
                 })
@@ -968,9 +1039,11 @@ def main() -> None:
                 tracker_dirty = True
             continue
 
-        # ── Find YouTube video ────────────────────────────────────────────────
+        # ── Find YouTube video (and verify it IS this episode) ───────────────
         video_id = find_youtube_id(episode["title"], episode["podcast"])
-        print(f"  YouTube: {video_id or 'not found'}")
+        if video_id and not verify_youtube_match(video_id, episode):
+            video_id = None
+        print(f"  YouTube: {video_id or 'not found / not verified'}")
 
         # ── Get transcript ────────────────────────────────────────────────────
         transcript = get_transcript(video_id) if video_id else []
@@ -993,6 +1066,9 @@ def main() -> None:
 
         # ── Build and push HTML ───────────────────────────────────────────────
         html = build_html(episode, content, video_id or "")
+        if not validate_inline_js(html):
+            print("  Page failed JS validation — not publishing\n")
+            continue
         try:
             gh_put(filename, html.encode("utf-8"), f"feat: add {ep_id}")
             print(f"  Pushed: {page_url}")
