@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="CoreWeave CEO Michael Trendler explains how GPU infrastructure companies are financing massive compute buildouts using structured debt boxes tied to long-term customer contracts, enabling rapid scaling while driving down capital costs by 600 basis points.">
+  <title>Reading.Sis — Four CEOs on the Future of AI: CoreWeave, Perplexity, Mistral, and IREN</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; position: relative; min-height: 170px; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; margin-bottom: 28px; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <div class="logo">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </div>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">All-In</div>
+    <h1 class="episode-title">Four CEOs on the Future of AI: CoreWeave, Perplexity, Mistral, and IREN</h1>
+    <div class="guest-name">with Michael Trendler (CoreWeave), Aravind Srinivas (Perplexity), and others</div>
+    <div class="meta">
+      <span>23 Mar 2026</span>
+      <span>18 min read</span>
+      <span>2h 15m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">CoreWeave CEO Michael Trendler explains how GPU infrastructure companies are financing massive compute buildouts using structured debt boxes tied to long-term customer contracts, enabling rapid scaling while driving down capital costs by 600 basis points. The conversation reveals that GPU scarcity remains extreme and long-lasting—contracts average 5 years, older chips retain value, and memory is now the real bottleneck, not compute itself.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Michael Trendler</div>
+        <div class="moment-quote">&ldquo;the the the GPU depreciation debate is that it's nonsense right? It's a debate that is being brought to the forefront by some traders that have a short position in the stock and they're trying to talk down.&rdquo;</div>
+        <div class="moment-context">Trendler dismisses claims that GPUs become obsolete in 16-18 months, citing CoreWeave's actual customer contracts averaging 5 years.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=-JBhTBu9ZbA&t=639" target="_blank">&#9654; 10:39</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Michael Trendler</div>
+        <div class="moment-quote">&ldquo;So, what we do is we go out and we find a client. Let's use Microsoft. You brought them up before, right? And Microsoft comes to us and says, "We'd like to buy some thing." And we say, "Okay, great. We're going to sign a contract." Once I have a contract in hand, then what I do is I create something It's not a particularly creative name. It's called the box, yeah, right?&rdquo;</div>
+        <div class="moment-context">Trendler explains CoreWeave's innovative financing structure that structures debt around customer contracts and GPU purchases.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=-JBhTBu9ZbA&t=1143" target="_blank">&#9654; 19:03</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Michael Trendler</div>
+        <div class="moment-quote">&ldquo;within 2 and 1/2 years of a 5-year deal, we have paid for everything. The principal's been paid off. Well, the principal's been paid off. The interest has been paid off.&rdquo;</div>
+        <div class="moment-context">Demonstrating how the box structure achieves cash flow payoff well before contract maturity, giving lenders confidence.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=-JBhTBu9ZbA&t=1232" target="_blank">&#9654; 20:32</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Michael Trendler</div>
+        <div class="moment-quote">&ldquo;we have dropped our cost of capital by 600 basis points. Wow. It is enormous, right?&rdquo;</div>
+        <div class="moment-context">CoreWeave's financing innovation has enabled the company to reduce borrowing costs substantially over two years as lenders gain confidence in the structured deals.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=-JBhTBu9ZbA&t=1316" target="_blank">&#9654; 21:56</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Michael Trendler</div>
+        <div class="moment-quote">&ldquo;the depth of the demand for the service we provide has been relentless and overwhelms the global capacity of the world to deliver enough compute to enable all of the demand for artificial intelligence to be stated.&rdquo;</div>
+        <div class="moment-context">When asked about demand levels and whether constraints like GPU availability could suddenly disappear, Trendler emphasizes sustained, overwhelming demand for four years straight.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=-JBhTBu9ZbA&t=1461" target="_blank">&#9654; 24:21</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About the show</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">All-In is a podcast featuring four successful investors and entrepreneurs discussing the latest in technology, business, and culture. This episode, recorded at Nvidia's GTC conference, features interviews with CEOs building the infrastructure and applications powering the AI era, including CoreWeave's GPU cloud platform and Perplexity's AI search engine.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>The 'box' finances AI infrastructure at scale </strong>CoreWeave structures debt by bundling customer contracts, GPU purchases, and data center agreements into discrete cash flow vehicles. This allows the company to borrow against blue-chip customer commitments (Microsoft, OpenAI) rather than equity, achieving 5-year contracts that pay back principal and interest within 2.5 years. The approach has enabled CoreWeave to raise $35B in 18 months and reduce cost of capital 600bps.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>GPU lifespan extends well beyond 2 years </strong>Despite Wall Street speculation that GPUs depreciate in 16-18 months, CoreWeave's customer contracts average 5 years, and older-generation chips (A100s, Ampere) are appreciating in price as new companies find use cases for them. The real constraint isn't obsolescence but secondary-market demand from startups and smaller enterprises priced out of cutting-edge silicon.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Memory becomes the new GPU bottleneck </strong>While GPU allocation was the constraint in 2023-2024, memory, power, networking, and optical components now limit AI infrastructure scaling. The memory market's cyclical fab-capacity dynamics mean investment decisions made in 2023 can't meet 2026 demand surges, creating structural shortages that favor early infrastructure builders with locked-in long-term contracts.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=-JBhTBu9ZbA" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/All-In%20Four%20CEOs%20on%20the%20Future%20of%20AI%3A%20CoreWeave%2C%20Perplexity%2C%20Mistral%2C%20and%20IREN" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/all-in-2026-03-23.html';
+  var PAGE_TITLE = 'Four CEOs on the Future of AI: CoreWeave, Perplexity, Mistral, and IREN — Reading.Sis';
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  function handleSave() {
+    var btn = document.getElementById('bookmarkBtn');
+    gcEvent('save');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl})
+        .then(function() { btn.classList.add('saved'); }).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
+        .then(function() { btn.classList.add('saved'); });
+    }
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
