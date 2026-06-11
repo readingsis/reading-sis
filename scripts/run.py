@@ -147,9 +147,10 @@ def get_send_date(pub_dt: datetime.datetime) -> datetime.date:
 
 
 def should_send_today(send_date: datetime.date, today: datetime.date, is_sunday: bool) -> bool:
-    if is_sunday:
-        return send_date <= today   # flush everything overdue
-    return send_date == today
+    # <= rather than ==: if a run was missed on the target day (Mac asleep,
+    # cron skipped), the episode is overdue and should go out now, not wait
+    # for the Sunday flush.
+    return send_date <= today
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -899,19 +900,21 @@ def main() -> None:
         print(f"  {len(eps)} new episode(s)")
         candidates.extend(eps)
 
-    # ── On Sunday: also flush queued episodes ─────────────────────────────────
-    if is_sunday:
-        existing_ids = {c["id"] for c in candidates}
-        for q in tracker.get("queued", []):
-            if q["id"] not in existing_ids and q["id"] not in processed_ids:
-                # Rebuild pub_dt from stored ISO string
-                raw_dt = q.get("pub_dt")
-                if isinstance(raw_dt, str):
-                    try:
-                        q["pub_dt"] = datetime.datetime.fromisoformat(raw_dt)
-                    except ValueError:
-                        q["pub_dt"] = datetime.datetime.strptime(q["date"], "%Y-%m-%d")
-                candidates.append(q)
+    # ── Re-evaluate queued episodes every run ─────────────────────────────────
+    # RSS discovery skips anything already queued, so queued episodes must be
+    # fed back in here or they'd sit until Sunday. The send-day gate below
+    # decides whether today is actually their day.
+    existing_ids = {c["id"] for c in candidates}
+    for q in tracker.get("queued", []):
+        if q["id"] not in existing_ids and q["id"] not in processed_ids:
+            # Rebuild pub_dt from stored ISO string
+            raw_dt = q.get("pub_dt")
+            if isinstance(raw_dt, str):
+                try:
+                    q["pub_dt"] = datetime.datetime.fromisoformat(raw_dt)
+                except ValueError:
+                    q["pub_dt"] = datetime.datetime.strptime(q["date"], "%Y-%m-%d")
+            candidates.append(q)
 
     if not candidates:
         print("\nNo new episodes today.")
