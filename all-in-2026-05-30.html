@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="The Pope's AI encyclical mirrors failed 1891 predictions about industrialization, yet raises valid concerns about centralized power.">
+  <title>Reading.Sis — Anthropic's Digital God, Pope vs AI, Job Loss Narrative Flips, Open Source Crackdown Coming?</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; position: relative; min-height: 170px; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; margin-bottom: 28px; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <div class="logo">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </div>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">All-In</div>
+    <h1 class="episode-title">Anthropic's Digital God, Pope vs AI, Job Loss Narrative Flips, Open Source Crackdown Coming?</h1>
+    <div class="guest-name">with Bill Gurley, David Sacks, and Chamath Palihapitiya</div>
+    <div class="meta">
+      <span>30 May 2026</span>
+      <span>8 min read</span>
+      <span>2h 15m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">The Pope's AI encyclical mirrors failed 1891 predictions about industrialization, yet raises valid concerns about centralized power. The real threat isn't AI itself but regulatory capture and government overreach—competition and antitrust enforcement are better safeguards than new regulators. Young workers using AI as a learning tool (not a shortcut) will thrive; the job loss narrative is flipping as trillion-dollar AI opportunities emerge.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Jason Calacanis</div>
+        <div class="moment-quote">&ldquo;Let your winners ride.&rdquo;</div>
+        <div class="moment-context">Opening show philosophy before diving into substantive topics</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=4oq91rzQcO8&t=41" target="_blank">&#9654; 0:41</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Bill Gurley</div>
+        <div class="moment-quote">&ldquo;The single most marketable skill in the economy right now has got to be proficiency in Claude. If you're going into a firm right now and you're the only one who knows Claude, it would be like you're the only one who knows how to work a spreadsheet, you know, or word processor, the advantage would be enormous.&rdquo;</div>
+        <div class="moment-context">Discussing competitive advantage for new college graduates entering the workforce</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=4oq91rzQcO8&t=665" target="_blank">&#9654; 11:05</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">David Sacks</div>
+        <div class="moment-quote">&ldquo;I very much agree with the Pope that the biggest risk of AI is a centralization of power and then its misuse against us um in some Orwellian way. I think it's government that's going to do that.&rdquo;</div>
+        <div class="moment-context">Responding to the Pope's AI encyclical and regulatory concerns</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=4oq91rzQcO8&t=1210" target="_blank">&#9654; 20:10</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Bill Gurley</div>
+        <div class="moment-quote">&ldquo;The work week went from over 60 hours to 34 hours globally. Real wages went up 8 to 10x adjusted for inflation... All those things happened because of technology, innovation, and capitalism, which is exactly what Leo the 13th was warning against. So he got it dead wrong.&rdquo;</div>
+        <div class="moment-context">Countering the Pope's reliance on a failed 1891 encyclical's logic about technological disruption</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=4oq91rzQcO8&t=1535" target="_blank">&#9654; 25:35</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Bill Gurley</div>
+        <div class="moment-quote">&ldquo;I've never ever seen a company that is both leading their field and the most negatively outspoken commenter on what they do... they're, you know, very close to achieving that. Like they have stirred up, you know, a frantic position, especially in America.&rdquo;</div>
+        <div class="moment-context">Presenting the 'Dr. Frankenstein theory' about Anthropic's regulatory strategy</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=4oq91rzQcO8&t=1616" target="_blank">&#9654; 26:56</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About the show</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">All-In is a weekly podcast featuring four prominent tech investors and entrepreneurs discussing the latest developments in AI, startups, and business. This episode covers the Pope's 42,000-word encyclical on AI, the flipping narrative around job loss, Anthropic's philosophy, and open-source regulation concerns.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>Competition beats regulation for AI safety </strong>Rather than creating an FDA-style AI regulator (which will eventually expand its definition of 'safety' to censorship), enforce antitrust aggressively to keep the market competitive. Five frontier labs competing checks each other's power better than any government agency, and consumers can switch if one company overreaches.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>AI proficiency is the new spreadsheet skill </strong>New graduates with hands-on Claude/ChatGPT experience have 10x advantage over peers. The multiplier comes not from using AI as a shortcut, but as a learning accelerator—asking it to build prompts, iterate on systems thinking, and supervise its own outputs. This skill compounds as workers learn to get better with these tools over time.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Job loss narrative is flipping as opportunities scale </strong>The 2023-2024 AI doom narrative failed to account for trillion-dollar infrastructure builds creating massive job growth. Young workers are shifting from 'will AI replace me?' to 'how do I use AI to do my job better?'—a mindset change driven by high agency and fascination with the work itself, not fear of disruption.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=4oq91rzQcO8" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/All-In%20Anthropic%27s%20Digital%20God%2C%20Pope%20vs%20AI%2C%20Job%20Loss%20Narrative%20Flips%2C%20Open%20Source%20Crackdown%20Coming%3F" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/all-in-2026-05-30.html';
+  var PAGE_TITLE = 'Anthropic\'s Digital God, Pope vs AI, Job Loss Narrative Flips, Open Source Crackdown Coming? — Reading.Sis';
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  function handleSave() {
+    var btn = document.getElementById('bookmarkBtn');
+    gcEvent('save');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl})
+        .then(function() { btn.classList.add('saved'); }).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
+        .then(function() { btn.classList.add('saved'); });
+    }
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
