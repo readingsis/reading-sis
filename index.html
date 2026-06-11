@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Reading.Sis — the library of podcast digests.">
+  <title>Reading.Sis — Library</title>
+
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 60px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .hero { padding: 24px 18px 18px; border-bottom: 1px solid var(--divider); }
+    .hero h1 { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.4px; margin-bottom: 6px; }
+    .hero p { font-size: 13px; color: var(--text-muted); }
+    .lib-list { padding: 8px 18px; }
+    .lib-item { display: block; text-decoration: none; padding: 16px 0; border-bottom: 1px solid var(--divider); }
+    .lib-item:active { opacity: 0.7; }
+    .lib-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 9px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; margin-bottom: 8px; }
+    .lib-title { font-size: 15px; font-weight: 600; color: var(--text-primary); line-height: 1.35; margin-bottom: 4px; letter-spacing: -0.2px; }
+    .lib-guest { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+    .lib-date { font-size: 11px; color: var(--text-dim); }
+    .empty { padding: 40px 18px; text-align: center; color: var(--text-dim); font-size: 13px; }
+    .footer { padding: 24px 18px; text-align: center; font-size: 11px; color: var(--text-faint); }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="app-bar">
+    <div class="logo">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>Library</h1>
+    <p>6 podcast digests, newest first.</p>
+  </div>
+
+  <div class="lib-list">
+    <a class="lib-item" href="https://readingsis.github.io/reading-sis/design-better-2026-06-10.html">
+      <div class="lib-badge">Design Better</div>
+      <div class="lib-title">Tina Roth Eisenberg: Creative Mornings founder on building communities that run on trust</div>
+      <div class="lib-guest">Tina Roth Eisenberg</div>
+      <div class="lib-date">10 Jun 2026</div>
+    </a>
+    <a class="lib-item" href="https://readingsis.github.io/reading-sis/pivot-2026-06-09.html">
+      <div class="lib-badge">Pivot</div>
+      <div class="lib-title">Trump's AI Stake, SpaceX's IPO Froth, and Apple's Siri Overhaul</div>
+      <div class="lib-date">9 Jun 2026</div>
+    </a>
+    <a class="lib-item" href="https://readingsis.github.io/reading-sis/all-in-2026-06-09.html">
+      <div class="lib-badge">All-In</div>
+      <div class="lib-title">Bill Maris: How Google Could Crush AI Competitors, Why Small Funds Win, and AI's Atari Stage</div>
+      <div class="lib-guest">Bill Maris</div>
+      <div class="lib-date">9 Jun 2026</div>
+    </a>
+    <a class="lib-item" href="https://readingsis.github.io/reading-sis/lennys-2026-06-07.html">
+      <div class="lib-badge">Lenny's Podcast</div>
+      <div class="lib-title">Father of the iPod and iPhone on building taste, judgment, and creativity in the AI era</div>
+      <div class="lib-guest">Tony Fadell</div>
+      <div class="lib-date">7 Jun 2026</div>
+    </a>
+    <a class="lib-item" href="https://readingsis.github.io/reading-sis/lennys-2026-05-31.html">
+      <div class="lib-badge">Lenny's Podcast</div>
+      <div class="lib-title">A rational conversation on where AI is actually going</div>
+      <div class="lib-guest">Benedict Evans</div>
+      <div class="lib-date">31 May 2026</div>
+    </a>
+    <a class="lib-item" href="https://readingsis.github.io/reading-sis/lex-fridman-2026-02-12.html">
+      <div class="lib-badge">Lex Fridman Podcast</div>
+      <div class="lib-title">#491 – OpenClaw: The Viral AI Agent that Broke the Internet – Peter Steinberger</div>
+      <div class="lib-guest">Peter Steinberger</div>
+      <div class="lib-date">12 Feb 2026</div>
+    </a>
+
+  </div>
+
+  <div class="footer">Reading.Sis — podcast highlights, distilled.</div>
+</div>
+</body>
+</html>
