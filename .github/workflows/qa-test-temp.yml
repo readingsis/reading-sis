@@ -1,0 +1,33 @@
+name: qa-test-temp
+on: workflow_dispatch
+jobs:
+  qa:
+    runs-on: self-hosted
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "/usr/local/bin" >> "$GITHUB_PATH"
+          echo "$HOME/Library/Python/3.11/bin" >> "$GITHUB_PATH"
+      - run: /usr/local/bin/python3.11 -m pip install --user --quiet -r scripts/requirements.txt
+      - env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          /usr/local/bin/python3.11 - <<'PYEOF'
+          import sys, datetime
+          sys.path.insert(0,"scripts")
+          import run
+          vid = run.find_youtube_id("OpenClaw Peter Steinberger", "Lex Fridman Podcast")
+          print("video:", vid)
+          tr = run.get_transcript(vid)
+          print("transcript segs:", len(tr))
+          ep = {"id":"x","podcast":"Lex Fridman Podcast","title":"OpenClaw: Peter Steinberger","pub_dt":datetime.datetime(2026,2,12),"date":"2026-02-12"}
+          real = " ".join(s["text"] for s in tr[10:14])
+          good = {"guest":"Peter Steinberger","tldr":"x","moments":[{"speaker":"Peter","quote":real[:120]}]}
+          bad  = {"guest":"Elon Musk","tldr":"x","moments":[{"speaker":"Peter","quote":"I built a time machine out of bananas and it works perfectly every Tuesday"}]}
+          g = run.qa_content_review(ep, good, tr)
+          b = run.qa_content_review(ep, bad, tr)
+          print("GOOD review overall_ok:", g and g.get("overall_ok"), "| guest_ok:", g and g.get("guest_ok"))
+          print("BAD  review overall_ok:", b and b.get("overall_ok"), "| guest_ok:", b and b.get("guest_ok"), "| bad_quotes:", b and b.get("bad_quote_indexes"))
+          PYEOF
