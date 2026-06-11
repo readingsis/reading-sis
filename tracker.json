@@ -1484,6 +1484,96 @@
       "date": "2026-01-09",
       "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-01-09.html",
       "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "hard-fork-2026-01-02",
+      "podcast": "Hard Fork",
+      "guest": "Various",
+      "title": "Our 2026 Tech Resolutions + We Answer Your Questions",
+      "date": "2026-01-02",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-01-02.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lex-fridman-2026-05-07",
+      "podcast": "Lex Fridman Podcast",
+      "guest": "Jean-Baptiste Kempf and Kieran Kunhya",
+      "title": "#496 – FFmpeg: The Incredible Technology Behind Video on the Internet",
+      "date": "2026-05-07",
+      "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-05-07.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lex-fridman-2026-04-09",
+      "podcast": "Lex Fridman Podcast",
+      "guest": "Lars Brownworth",
+      "title": "#495 – Vikings, Ragnar, Berserkers, Valhalla & the Warriors of the Viking Age",
+      "date": "2026-04-09",
+      "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-04-09.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lex-fridman-2026-03-23",
+      "podcast": "Lex Fridman Podcast",
+      "guest": "Jensen Huang",
+      "title": "#494 – Jensen Huang: NVIDIA – The $4 Trillion Company & the AI Revolution",
+      "date": "2026-03-23",
+      "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-03-23.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lex-fridman-2026-03-11",
+      "podcast": "Lex Fridman Podcast",
+      "guest": "Jeff Kaplan",
+      "title": "#493 – Jeff Kaplan: World of Warcraft, Overwatch, Blizzard, and Future of Gaming",
+      "date": "2026-03-11",
+      "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-03-11.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lex-fridman-2026-03-01",
+      "podcast": "Lex Fridman Podcast",
+      "guest": "Rick Beato",
+      "title": "#492 – Rick Beato: Greatest Guitarists of All Time, History & Future of Music",
+      "date": "2026-03-01",
+      "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-03-01.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lex-fridman-2026-02-01",
+      "podcast": "Lex Fridman Podcast",
+      "guest": "Sebastian Raschka and Nathan Lambert",
+      "title": "#490 – State of AI in 2026: LLMs, Coding, Scaling Laws, China, Agents, GPUs, AGI",
+      "date": "2026-02-01",
+      "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-02-01.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lex-fridman-2026-01-13",
+      "podcast": "Lex Fridman Podcast",
+      "guest": "Paul Rosolie",
+      "title": "#489 – Paul Rosolie: Uncontacted Tribes in the Amazon Jungle",
+      "date": "2026-01-13",
+      "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-01-13.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "lex-fridman-2026-01-01",
+      "podcast": "Lex Fridman Podcast",
+      "guest": "Joel David Hamkins",
+      "title": "#488 – Infinity, Paradoxes that Broke Mathematics, Gödel Incompleteness & the Multiverse – Joel David Hamkins",
+      "date": "2026-01-01",
+      "page_url": "https://readingsis.github.io/reading-sis/lex-fridman-2026-01-01.html",
+      "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "doac-2026-05-25",
+      "podcast": "The Diary Of A CEO",
+      "guest": "Bruno Fernandes",
+      "title": "Bruno Fernandes: Roy Keane Twisted My Words. They Offered Me £200M, I Said No.",
+      "date": "2026-05-25",
+      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-05-25.html",
+      "pushed_at": "2026-06-11"
     }
   ],
   "queued": [],
