@@ -171,16 +171,16 @@
 </div>
 
 <script>
-  var https://readingsis.github.io/reading-sis/pivot-2026-06-09.html   = 'https://readingsis.github.io/reading-sis/pivot-2026-06-09.html';
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/pivot-2026-06-09.html';
   var PAGE_TITLE = 'Trump\'s AI Stake, SpaceX\'s IPO Froth, and Apple\'s Siri Overhaul — Reading.Sis';
 
   function handleSave() {
     var btn = document.getElementById('bookmarkBtn');
     if (navigator.share) {
-      navigator.share({title: PAGE_TITLE, url: https://readingsis.github.io/reading-sis/pivot-2026-06-09.html})
+      navigator.share({title: PAGE_TITLE, url: pageUrl})
         .then(function() { btn.classList.add('saved'); }).catch(function() {});
     } else {
-      navigator.clipboard && navigator.clipboard.writeText(https://readingsis.github.io/reading-sis/pivot-2026-06-09.html)
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
         .then(function() { btn.classList.add('saved'); });
     }
   }
@@ -188,9 +188,9 @@
   function handleShare() {
     var btn = document.getElementById('shareBtn');
     if (navigator.share) {
-      navigator.share({title: PAGE_TITLE, url: https://readingsis.github.io/reading-sis/pivot-2026-06-09.html}).catch(function() {});
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
     } else {
-      navigator.clipboard && navigator.clipboard.writeText(https://readingsis.github.io/reading-sis/pivot-2026-06-09.html).then(function() {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
         btn.classList.add('flash');
         setTimeout(function() { btn.classList.remove('flash'); }, 2000);
       });
