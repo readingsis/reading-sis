@@ -55,10 +55,14 @@ GH_HEADERS = {
 }
 
 # Podcasts to monitor. Update RSS URLs here if feeds move.
+# Order matters: the library's green→gold show-color ramp is computed by each
+# show's index here (see show_color), so reordering re-spaces the ramp.
+# `chip` = the initials shown on the library's color square.
 PODCASTS = [
     {
         "name": "Lenny's Podcast",
         "slug": "lennys",
+        "chip": "LP",
         "rss": "https://api.substack.com/feed/podcast/10845.rss",
         "spotify_show": "https://open.spotify.com/show/2dR1MUZEHCOnz1LVfNac0j",
         "lex_filter": False,
@@ -66,6 +70,7 @@ PODCASTS = [
     {
         "name": "Pivot",
         "slug": "pivot",
+        "chip": "PV",
         "rss": "https://feeds.megaphone.fm/pivot",
         "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
         "lex_filter": False,
@@ -73,6 +78,7 @@ PODCASTS = [
     {
         "name": "All-In",
         "slug": "all-in",
+        "chip": "AI",
         "rss": "https://rss.libsyn.com/shows/254861/destinations/1928300.xml",
         "spotify_show": "",
         "lex_filter": False,
@@ -80,26 +86,29 @@ PODCASTS = [
     {
         "name": "Hard Fork",
         "slug": "hard-fork",
+        "chip": "HF",
         "rss": "https://feeds.simplecast.com/l2i9YnTd",
         "spotify_show": "https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj",
         "lex_filter": False,
     },
     {
-        "name": "Lex Fridman Podcast",
-        "slug": "lex-fridman",
-        "rss": "https://lexfridman.com/feed/podcast/",
-        "spotify_show": "",
-        "lex_filter": True,  # Only tech/AI/science/business guests
-    },
-    {
         "name": "The Diary Of A CEO",
         "slug": "doac",
+        "chip": "DOAC",
         "rss": "https://rss2.flightcast.com/xmsftuzjjykcmqwolaqn6mdn",
         "spotify_show": "",
         "lex_filter": False,
         # Skip the Friday "Most Replayed Moment" clip episodes — they're short
         # recaps of older episodes, not new full episodes.
         "skip_title_re": r"most replayed|moment[s]?:|highlight",
+    },
+    {
+        "name": "Lex Fridman Podcast",
+        "slug": "lex-fridman",
+        "chip": "LX",
+        "rss": "https://lexfridman.com/feed/podcast/",
+        "spotify_show": "",
+        "lex_filter": True,  # Only tech/AI/science/business guests
     },
 ]
 
@@ -650,6 +659,7 @@ TAKEAWAYS_HTML
 <script>
   var pageUrl    = 'PAGE_URL_JS';
   var PAGE_TITLE = 'EPISODE_TITLE_JS — Reading.Sis';
+  var EP = {id:'EPISODE_ID_JS', title:'EPISODE_TITLE_JS', show:'EPISODE_SHOW_JS', date:'EPISODE_DATE_JS', url:pageUrl};
 
   // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
   // Path is scoped to this episode so events break down per page. No-op when
@@ -661,16 +671,21 @@ TAKEAWAYS_HTML
     }
   }
 
-  function handleSave() {
+  // Save = bookmark to localStorage (anonymous, per-device). The library's
+  // "Saved" page reads this same key. Toggles on repeat tap.
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
     var btn = document.getElementById('bookmarkBtn');
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
     gcEvent('save');
-    if (navigator.share) {
-      navigator.share({title: PAGE_TITLE, url: pageUrl})
-        .then(function() { btn.classList.add('saved'); }).catch(function() {});
-    } else {
-      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
-        .then(function() { btn.classList.add('saved'); });
-    }
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
   }
 
   function handleShare() {
@@ -692,6 +707,8 @@ TAKEAWAYS_HTML
     chevron.classList.toggle('open');
     content.classList.toggle('open');
   }
+
+  renderSaveBtn();
 </script>
 </body>
 </html>"""
@@ -731,7 +748,8 @@ def validate_inline_js(html: str) -> bool:
 PLACEHOLDER_TOKENS = [
     "TLDR_FIRST_SENTENCE", "PUBLISH_DATE_FORMATTED", "BIO_SECTION_TITLE",
     "MOMENTS_HTML", "TAKEAWAYS_HTML", "GOATCOUNTER_SCRIPT",
-    "PAGE_URL_JS", "EPISODE_TITLE_JS", "YOUTUBE_URL", "SPOTIFY_URL",
+    "PAGE_URL_JS", "EPISODE_TITLE_JS", "EPISODE_ID_JS", "EPISODE_SHOW_JS",
+    "EPISODE_DATE_JS", "YOUTUBE_URL", "SPOTIFY_URL",
 ]
 
 
@@ -937,8 +955,13 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
     html = HTML_TEMPLATE
     # JS/longer placeholders first: EPISODE_TITLE_JS and PAGE_URL_JS contain
     # EPISODE_TITLE / PAGE_URL as substrings and would be corrupted otherwise.
-    js_title = episode["title"].replace("\\", "\\\\").replace("'", "\\'")
+    def _js(s: str) -> str:
+        return str(s).replace("\\", "\\\\").replace("'", "\\'")
+    js_title = _js(episode["title"])
     html = html.replace("EPISODE_TITLE_JS",   js_title)
+    html = html.replace("EPISODE_ID_JS",      _js(episode["id"]))
+    html = html.replace("EPISODE_SHOW_JS",    _js(episode["podcast"]))
+    html = html.replace("EPISODE_DATE_JS",    _js(_fmt_date(episode.get("date", ""))))
     html = html.replace("PAGE_URL_JS",        page_url)
     html = html.replace("TLDR_FIRST_SENTENCE", _t(tldr_first))
     # Text content
@@ -968,123 +991,353 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
 # Shareable landing page: every published episode, newest first. No analytics
 # numbers are shown here — this link is meant for the WhatsApp group. Traffic is
 # tracked silently via the same GoatCounter tag and viewed in GoatCounter's UI.
-LIBRARY_TEMPLATE = """<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Reading.Sis — the library of podcast digests.">
-  <title>Reading.Sis — Library</title>
-GOATCOUNTER_SCRIPT
-  <style>
+# ── Color ramp + show metadata ────────────────────────────────────────────────
+
+def _hex_lerp(c1: str, c2: str, t: float) -> str:
+    a = [int(c1[i:i + 2], 16) for i in (1, 3, 5)]
+    b = [int(c2[i:i + 2], 16) for i in (1, 3, 5)]
+    return "#%02X%02X%02X" % tuple(round(a[i] + (b[i] - a[i]) * t) for i in range(3))
+
+
+def show_color(index: int, total: int) -> str:
+    """One stop along the gold→green ramp by the show's index in PODCASTS
+    (first show = gold, last = green)."""
+    if total <= 1:
+        return "#15B98A"
+    return _hex_lerp("#E3B25A", "#15B98A", index / (total - 1))
+
+
+def _show_meta() -> dict:
+    """name -> {slug, chip, color, index} for every configured podcast."""
+    total = len(PODCASTS)
+    out = {}
+    for i, p in enumerate(PODCASTS):
+        chip = p.get("chip") or "".join(w[0] for w in p["name"].split()[:2]).upper()
+        out[p["name"]] = {"slug": p["slug"], "chip": chip,
+                          "color": show_color(i, total), "index": i}
+    return out
+
+
+def _fmt_date(d: str) -> str:
+    try:
+        return datetime.datetime.strptime(d, "%Y-%m-%d").strftime("%-d %b %Y")
+    except (ValueError, TypeError):
+        return d or ""
+
+
+def _library_episodes(tracker: dict) -> tuple[list, dict]:
+    """Published episodes enriched with show color/chip/slug, newest first."""
+    meta = _show_meta()
+    today = now_israel().date()
+    eps = []
+    for ep in tracker.get("processed", []):
+        if not (isinstance(ep, dict) and ep.get("page_url") and ep.get("title")
+                and not ep.get("skipped")):
+            continue
+        name = ep.get("podcast", "")
+        m = meta.get(name)
+        if not m:
+            slug = re.sub(r"-\d{4}-\d{2}-\d{2}(?:-\d+)?$", "", ep.get("id", "")) or "show"
+            m = {"slug": slug, "chip": (name[:2] or "?").upper(),
+                 "color": "#15B98A", "index": 99}
+        date = ep.get("date") or ""
+        try:
+            # "New" = published within the last ~48 hours (date granularity).
+            is_new = (today - datetime.datetime.strptime(date, "%Y-%m-%d").date()).days <= 2
+        except (ValueError, TypeError):
+            is_new = False
+        eps.append({
+            "id": ep["id"], "title": ep["title"], "guest": ep.get("guest") or "",
+            "show": name, "slug": m["slug"], "chip": m["chip"], "color": m["color"],
+            "date": date, "fdate": _fmt_date(date), "url": f"{ep['id']}.html", "new": is_new,
+        })
+    eps.sort(key=lambda e: (e["date"], e["id"]), reverse=True)
+    return eps, meta
+
+
+# ── Shared page chrome ────────────────────────────────────────────────────────
+
+LIB_CSS = """
     :root {
-      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
-      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
-      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
-      --border: #2A2A28; --divider: #222220;
+      --canvas:#0B0F0E; --surface:#131916; --raised:#1B221E; --line:#2A322C;
+      --divider:#1B221E; --tp:#ECF2EE; --tm:#94A39A; --dim:#6E7E75; --meta:#7C8C83;
+      --green:#15B98A; --gold:#E3B25A;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
-    .page { max-width: 430px; margin: 0 auto; padding-bottom: 60px; min-height: 100vh; }
-    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; padding: 14px 18px; }
-    .logo { display: flex; align-items: center; gap: 8px; }
-    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
-    .logo-text span { color: var(--green); }
-    .hero { padding: 24px 18px 18px; border-bottom: 1px solid var(--divider); }
-    .hero h1 { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.4px; margin-bottom: 6px; }
-    .hero p { font-size: 13px; color: var(--text-muted); }
-    .lib-list { padding: 8px 18px; }
-    .lib-item { display: block; text-decoration: none; padding: 16px 0; border-bottom: 1px solid var(--divider); }
-    .lib-item:active { opacity: 0.7; }
-    .lib-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 9px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; margin-bottom: 8px; }
-    .lib-title { font-size: 15px; font-weight: 600; color: var(--text-primary); line-height: 1.35; margin-bottom: 4px; letter-spacing: -0.2px; }
-    .lib-guest { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
-    .lib-date { font-size: 11px; color: var(--text-dim); }
-    .empty { padding: 40px 18px; text-align: center; color: var(--text-dim); font-size: 13px; }
-    .footer { padding: 24px 18px; text-align: center; font-size: 11px; color: var(--text-faint); }
-  </style>
-</head>
-<body>
-<div class="page">
-  <div class="app-bar">
-    <div class="logo">
-      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
-        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
-        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
-        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      <span class="logo-text">Reading<span>.Sis</span></span>
-    </div>
-  </div>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html,body { background:var(--canvas); color:var(--tp);
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; }
+    .page { max-width:430px; margin:0 auto; min-height:100vh; padding-bottom:84px; }
+    .hdr { position:sticky; top:0; z-index:50; background:var(--canvas);
+      display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+      padding:19px 18px 18px; border-bottom:1px solid var(--divider); }
+    .hside { display:flex; align-items:center; }
+    .hside.left { justify-self:start; }
+    .hside.right { justify-self:end; }
+    .hcenter { display:flex; flex-direction:column; align-items:center; gap:2px; }
+    .wm { font-size:17px; font-weight:700; color:var(--tp); letter-spacing:-0.3px; }
+    .wm span { color:var(--green); }
+    .tagline { font-size:11px; color:var(--tm); letter-spacing:0.1px; }
+    .account { width:30px; height:30px; border-radius:50%; background:var(--raised);
+      border:1px solid var(--line); color:var(--tm);
+      display:flex; align-items:center; justify-content:center; }
+    .account svg { width:16px; height:16px; }
+    .seclabel { padding:18px 18px 8px; font-size:11px; font-weight:700; letter-spacing:1px;
+      text-transform:uppercase; color:var(--dim); }
+    .rows { padding:0 18px; }
+    .row { display:flex; align-items:center; gap:13px; padding:13px 0;
+      border-bottom:1px solid var(--divider); }
+    .row:active { opacity:0.65; }
+    .chip { flex:0 0 42px; width:42px; height:42px; border-radius:11px; color:#08120D;
+      font-size:12px; font-weight:700; letter-spacing:0.2px;
+      display:flex; align-items:center; justify-content:center; }
+    .row-main { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:3px; }
+    .row-title { font-size:14px; font-weight:500; color:var(--tp); line-height:1.35;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .row-meta { font-size:11.5px; color:var(--meta); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .newtag { display:inline-block; vertical-align:1px; margin-right:7px; background:rgba(227,178,90,0.16);
+      color:var(--gold); font-size:9px; font-weight:700; letter-spacing:0.6px; padding:1px 6px; border-radius:5px; }
+    .chev { flex:0 0 auto; color:var(--dim); font-size:20px; line-height:1; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; padding:13px 18px 0; }
+    .card { display:flex; align-items:center; gap:11px; background:var(--surface);
+      border:1px solid var(--line); border-radius:14px; padding:13px; min-height:78px; }
+    .card:active { opacity:0.7; }
+    .sq { flex:0 0 38px; width:38px; height:38px; border-radius:10px; color:#08120D;
+      font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+    .card-r { display:flex; flex-direction:column; gap:3px; min-width:0; }
+    .card-name { font-size:13px; font-weight:500; color:var(--tp); line-height:1.25; }
+    .card-count { font-size:11.5px; color:var(--dim); white-space:nowrap; }
+    .empty { padding:48px 24px; text-align:center; color:var(--dim); font-size:13px; line-height:1.6; }
+    .nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px;
+      background:var(--canvas); border-top:1px solid var(--divider); display:flex;
+      padding:9px 0 calc(9px + env(safe-area-inset-bottom)); }
+    .nav-i { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+      color:var(--dim); font-size:10px; font-weight:500; }
+    .nav-i.on { color:var(--green); }
+    .nav-i svg { width:21px; height:21px; }
+    .shero { display:flex; flex-direction:column; align-items:center; text-align:center;
+      gap:11px; padding:26px 18px 16px; }
+    .shero .sq { width:60px; height:60px; flex-basis:auto; border-radius:16px; font-size:15px; }
+    .shero h1 { font-size:21px; font-weight:700; color:var(--tp); letter-spacing:-0.3px; }
+    .shero-count { font-size:12.5px; color:var(--tm); margin-top:-5px; }
+    .sortbar { display:flex; justify-content:flex-end; padding:4px 18px 6px; }
+    .sortbtn { background:var(--surface); border:1px solid var(--line); color:var(--tm);
+      font-size:12px; font-weight:500; padding:7px 13px; border-radius:9px; cursor:pointer; }
+    .searchwrap { padding:8px 18px 4px; }
+    .searchbar { display:flex; align-items:center; gap:9px; background:var(--surface);
+      border-radius:12px; padding:11px 14px; }
+    .searchbar svg { width:18px; height:18px; color:var(--dim); flex:0 0 auto; }
+    .searchbar input { flex:1; background:none; border:none; outline:none; color:var(--tp);
+      font-size:15px; font-family:inherit; caret-color:var(--green); }
+    .searchbar input::placeholder { color:var(--dim); }
+    .searchbar input::-webkit-search-cancel-button { -webkit-appearance:none; appearance:none; }
+    .clearbtn { flex:0 0 auto; background:none; border:none; color:var(--dim); cursor:pointer;
+      font-size:20px; line-height:1; padding:0 2px; display:none; }
+    .clearbtn.show { display:block; }
+"""
 
-  <div class="hero">
-    <h1>Library</h1>
-    <p>EPISODE_COUNT podcast digests, newest first.</p>
-  </div>
+_GLASSES = ('<svg width="26" height="16" viewBox="0 0 26 16" fill="none">'
+    '<circle cx="7.5" cy="8" r="4.5" stroke="#15B98A" stroke-width="1.5"/>'
+    '<circle cx="18.5" cy="8" r="4.5" stroke="#15B98A" stroke-width="1.5"/>'
+    '<line x1="12" y1="8" x2="14" y2="8" stroke="#15B98A" stroke-width="1.5" stroke-linecap="round"/>'
+    '<line x1="3" y1="8" x2="1.5" y2="8" stroke="#15B98A" stroke-width="1.5" stroke-linecap="round"/>'
+    '<line x1="23" y1="8" x2="24.5" y2="8" stroke="#15B98A" stroke-width="1.5" stroke-linecap="round"/></svg>')
 
-  <div class="lib-list">
-ITEMS_HTML
-  </div>
+_IC_HOME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>'
+_IC_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>'
+_IC_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>'
+_IC_USER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 3-5.5 6.5-5.5s6.5 1.9 6.5 5.5"/></svg>'
 
-  <div class="footer">Reading.Sis — podcast highlights, distilled.</div>
-</div>
-</body>
-</html>"""
+
+def _bottom_nav(active: str) -> str:
+    def item(key, href, label, icon):
+        on = " on" if key == active else ""
+        return f'<a class="nav-i{on}" href="{href}">{icon}<span>{label}</span></a>'
+    return ('<nav class="nav">'
+            + item("home", "index.html", "Home", _IC_HOME)
+            + item("search", "search.html", "Search", _IC_SEARCH)
+            + item("saved", "saved.html", "Saved", _IC_SAVED)
+            + '</nav>')
+
+
+def _lib_page(title: str, body: str, active: str, extra_script: str = "") -> str:
+    return (
+        '<!DOCTYPE html>\n<html lang="en">\n<head>\n'
+        '  <meta charset="UTF-8">\n'
+        '  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">\n'
+        '  <meta name="description" content="Reading.Sis — podcast highlights, distilled.">\n'
+        f'  <title>{_t(title)}</title>\n'
+        f'{goatcounter_script()}\n'
+        f'  <style>{LIB_CSS}</style>\n</head>\n<body>\n<div class="page">\n'
+        '  <header class="hdr">'
+        '<div class="hside left">' + _GLASSES + '</div>'
+        '<div class="hcenter"><span class="wm">Reading<span>.Sis</span></span>'
+        '<span class="tagline">' + _t(TAGLINE) + '</span></div>'
+        '<div class="hside right"><span class="account">' + _IC_USER + '</span></div>'
+        '</header>\n'
+        f'{body}\n</div>\n{_bottom_nav(active)}\n{extra_script}\n</body>\n</html>'
+    )
+
+
+def _episode_row(e: dict) -> str:
+    meta = e["show"]
+    if e["guest"] and e["guest"].lower() != "various":
+        meta += f" · {e['guest']}"
+    meta += f" · {e['fdate']}"
+    newtag = '<span class="newtag">NEW</span>' if e.get("new") else ""
+    return (
+        f'<a class="row" href="{e["url"]}">'
+        f'<span class="chip" style="background:{e["color"]}">{_t(e["chip"])}</span>'
+        f'<span class="row-main"><span class="row-title">{_t(e["title"])}</span>'
+        f'<span class="row-meta">{newtag}{_t(meta)}</span></span>'
+        f'<span class="chev">&rsaquo;</span></a>'
+    )
+
+
+# ── The four pages ────────────────────────────────────────────────────────────
+
+TAGLINE = "Listen less, know more."
 
 
 def build_library(tracker: dict) -> str:
-    """Render the public index.html from processed episodes (newest first)."""
-    eps = [
-        ep for ep in tracker.get("processed", [])
-        if isinstance(ep, dict) and ep.get("page_url") and ep.get("title")
-        and not ep.get("skipped")
-    ]
-    # Newest first: prefer pushed_at, fall back to the episode date.
-    eps.sort(key=lambda e: (e.get("pushed_at") or "", e.get("date") or ""), reverse=True)
+    """Home: latest 5 episodes on top, then the shows grid."""
+    eps, meta = _library_episodes(tracker)
+    counts: dict[str, int] = {}
+    for e in eps:
+        counts[e["show"]] = counts.get(e["show"], 0) + 1
 
-    items = ""
-    for ep in eps:
-        guest = ep.get("guest") or ""
-        guest_html = ""
-        if guest and guest.lower() != "various":
-            guest_html = f'      <div class="lib-guest">{_t(guest)}</div>\n'
-        date_disp = ep.get("date") or ""
-        try:
-            date_disp = datetime.datetime.strptime(
-                ep["date"], "%Y-%m-%d"
-            ).strftime("%-d %b %Y")
-        except (ValueError, KeyError, TypeError):
-            pass
-        items += (
-            f'    <a class="lib-item" href="{ep["page_url"]}">\n'
-            f'      <div class="lib-badge">{_t(ep.get("podcast", ""))}</div>\n'
-            f'      <div class="lib-title">{_t(ep["title"])}</div>\n'
-            f'{guest_html}'
-            f'      <div class="lib-date">{date_disp}</div>\n'
-            f'    </a>\n'
+    latest = "".join(_episode_row(e) for e in eps[:5]) or \
+        '<div class="empty">No digests published yet.</div>'
+
+    cards = ""
+    for p in PODCASTS:
+        name = p["name"]
+        m = meta[name]
+        n = counts.get(name, 0)
+        cards += (
+            f'<a class="card" href="{m["slug"]}.html">'
+            f'<span class="sq" style="background:{m["color"]}">{_t(m["chip"])}</span>'
+            f'<span class="card-r"><span class="card-name">{_t(name)}</span>'
+            f'<span class="card-count">{n} episode{"" if n == 1 else "s"}</span></span></a>'
         )
-    if not items:
-        items = '    <div class="empty">No digests published yet.</div>\n'
 
-    html = LIBRARY_TEMPLATE
-    html = html.replace("ITEMS_HTML", items)
-    html = html.replace("EPISODE_COUNT", str(len(eps)))
-    html = html.replace("GOATCOUNTER_SCRIPT", goatcounter_script())
-    return html
+    body = (
+        f'  <div class="seclabel">Latest episodes</div>\n  <div class="rows">{latest}</div>\n'
+        f'  <div class="seclabel">Shows</div>\n  <div class="grid">{cards}</div>\n'
+    )
+    return _lib_page("Reading.Sis — Library", body, "home")
+
+
+def build_podcast_pages(tracker: dict) -> dict:
+    """One file per show: hero + all its episodes, newest→oldest with a flip toggle.
+    Returns {filename: html}."""
+    eps, meta = _library_episodes(tracker)
+    by_slug: dict[str, list] = {}
+    for e in eps:
+        by_slug.setdefault(e["slug"], []).append(e)
+
+    pages = {}
+    for p in PODCASTS:
+        name, m = p["name"], meta[p["name"]]
+        show_eps = by_slug.get(m["slug"], [])
+        rows = "".join(_episode_row(e) for e in show_eps) or \
+            '<div class="empty">No episodes yet.</div>'
+        n = len(show_eps)
+        body = (
+            f'  <div class="shero"><span class="sq" style="background:{m["color"]}">{_t(m["chip"])}</span>'
+            f'<h1>{_t(name)}</h1><div class="shero-count">{n} episode{"" if n == 1 else "s"}</div></div>\n'
+            f'  <div class="sortbar"><button class="sortbtn" id="sortBtn" onclick="flip()">Newest first &#8645;</button></div>\n'
+            f'  <div class="rows" id="rows">{rows}</div>\n'
+        )
+        script = ('<script>var asc=false;function flip(){var r=document.getElementById("rows");'
+                  'var rows=Array.prototype.slice.call(r.querySelectorAll(".row"));'
+                  'rows.reverse().forEach(function(x){r.appendChild(x);});asc=!asc;'
+                  'document.getElementById("sortBtn").innerHTML=(asc?"Oldest first":"Newest first")+" &#8645;";}</script>')
+        pages[f"{m['slug']}.html"] = _lib_page(f"Reading.Sis — {name}", body, "home", script)
+    return pages
+
+
+def build_search_page(tracker: dict) -> str:
+    """Borderless search over an embedded offline index of every episode."""
+    eps, _ = _library_episodes(tracker)
+    index = [{"title": e["title"], "show": e["show"], "guest": e["guest"],
+              "fdate": e["fdate"], "color": e["color"], "chip": e["chip"],
+              "url": e["url"], "new": e["new"]} for e in eps]
+    body = (
+        '  <div class="searchwrap"><div class="searchbar">' + _IC_SEARCH +
+        '<input id="q" type="search" placeholder="Search episodes, guests, shows" autofocus '
+        'autocomplete="off" autocorrect="off">'
+        '<button class="clearbtn" id="clearBtn" aria-label="Clear search">&times;</button>'
+        '</div></div>\n'
+        '  <div class="rows" id="results"></div>\n'
+        '  <div class="empty" id="empty">Type to search the library.</div>\n'
+    )
+    script = (
+        '<script>\n'
+        'var EPISODES=' + json.dumps(index, ensure_ascii=False) + ';\n'
+        'function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}\n'
+        'function rowHtml(e){var meta=e.show;if(e.guest&&e.guest.toLowerCase()!=="various")meta+=" \\u00b7 "+e.guest;'
+        'meta+=" \\u00b7 "+e.fdate;var nt=e.new?\'<span class="newtag">NEW</span>\':"";'
+        'return \'<a class="row" href="\'+e.url+\'"><span class="chip" style="background:\'+e.color+\'">\'+esc(e.chip)+'
+        '\'</span><span class="row-main"><span class="row-title">\'+esc(e.title)+\'</span>\'+'
+        '\'<span class="row-meta">\'+nt+esc(meta)+\'</span></span><span class="chev">\\u203a</span></a>\';}\n'
+        'var q=document.getElementById("q"),res=document.getElementById("results"),emp=document.getElementById("empty"),clr=document.getElementById("clearBtn");\n'
+        'function run(){var t=q.value.trim().toLowerCase();clr.classList.toggle("show",q.value.length>0);\n'
+        'if(!t){res.innerHTML="";emp.style.display="block";emp.textContent="Type to search the library.";return;}\n'
+        'var m=EPISODES.filter(function(e){return (e.title+" "+e.show+" "+e.guest).toLowerCase().indexOf(t)>-1;});\n'
+        'res.innerHTML=m.map(rowHtml).join("");emp.style.display=m.length?"none":"block";emp.textContent="No matches.";}\n'
+        'q.addEventListener("input",run);clr.addEventListener("click",function(){q.value="";run();q.focus();});q.focus();\n'
+        '</script>'
+    )
+    return _lib_page("Reading.Sis — Search", body, "search", script)
+
+
+def build_saved_page(tracker: dict) -> str:
+    """Reads localStorage 'readingsis_saved' (set on episode pages) and renders
+    the saved episodes, enriched from the embedded index by id."""
+    eps, _ = _library_episodes(tracker)
+    index = {e["id"]: {"title": e["title"], "show": e["show"], "guest": e["guest"],
+                       "fdate": e["fdate"], "color": e["color"], "chip": e["chip"],
+                       "url": e["url"], "new": False} for e in eps}
+    body = (
+        '  <div class="seclabel">Saved</div>\n  <div class="rows" id="saved"></div>\n'
+        '  <div class="empty" id="empty">Nothing saved yet.<br>Tap the bookmark on any episode to keep it here.</div>\n'
+    )
+    script = (
+        '<script>\n'
+        'var INDEX=' + json.dumps(index, ensure_ascii=False) + ';\n'
+        'function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}\n'
+        'function rowHtml(e){var meta=e.show;if(e.guest&&e.guest.toLowerCase()!=="various")meta+=" \\u00b7 "+e.guest;'
+        'meta+=" \\u00b7 "+e.fdate;'
+        'return \'<a class="row" href="\'+e.url+\'"><span class="chip" style="background:\'+e.color+\'">\'+esc(e.chip)+'
+        '\'</span><span class="row-main"><span class="row-title">\'+esc(e.title)+\'</span>\'+'
+        '\'<span class="row-meta">\'+esc(meta)+\'</span></span><span class="chev">\\u203a</span></a>\';}\n'
+        'var saved=[];try{saved=JSON.parse(localStorage.getItem("readingsis_saved")||"[]");}catch(e){}\n'
+        'var out=[];for(var i=saved.length-1;i>=0;i--){var s=saved[i];var e=INDEX[s.id];'
+        'if(!e){e={title:s.title,show:s.show||"",guest:"",fdate:s.date||"",color:"#15B98A",chip:"?",url:s.url};}out.push(rowHtml(e));}\n'
+        'document.getElementById("saved").innerHTML=out.join("");\n'
+        'document.getElementById("empty").style.display=out.length?"none":"block";\n'
+        '</script>'
+    )
+    return _lib_page("Reading.Sis — Saved", body, "saved", script)
 
 
 def push_library(tracker: dict) -> None:
-    """Build and publish index.html, updating in place if it already exists."""
-    html = build_library(tracker)
-    sha = None
-    try:
-        sha = gh_get("index.html").get("sha")
-    except requests.HTTPError:
-        pass  # First publish — no existing file.
-    gh_put("index.html", html.encode("utf-8"), "chore: update library", sha)
-    print(f"  Library updated: {PAGES_BASE}/")
+    """Build and publish the whole library site: home, search, saved, per-show pages."""
+    files = {
+        "index.html": build_library(tracker),
+        "search.html": build_search_page(tracker),
+        "saved.html": build_saved_page(tracker),
+    }
+    files.update(build_podcast_pages(tracker))
+    for path, html in files.items():
+        sha = None
+        try:
+            sha = gh_get(path).get("sha")
+        except requests.HTTPError:
+            pass
+        gh_put(path, html.encode("utf-8"), "chore: update library", sha)
+    print(f"  Library updated: {PAGES_BASE}/  ({len(files)} pages)")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
