@@ -487,7 +487,10 @@ Return a single JSON object (no markdown fences) with exactly these keys:
   "takeaways": [
     {{
       "headline": "5-8 word bold headline",
-      "body": "2-3 sentence explanation for a tech/product professional"
+      "body": "2-3 sentence explanation for a tech/product professional",
+      "insight": <integer 1-10: how non-obvious / surprising vs common knowledge>,
+      "actionability": <integer 1-10: how much a listener can actually act on it>,
+      "specificity": <integer 1-10: how backed by concrete data, examples, or names>
     }}
   ],
   "whatsapp_teaser": "One punchy sentence capturing the episode's most surprising or useful argument. Starts with guest first name (or show name for panels). This is what gets people to click.",
@@ -496,7 +499,8 @@ Return a single JSON object (no markdown fences) with exactly these keys:
 }}
 
 Hard rules:
-- Provide exactly 5 moments and exactly 3 takeaways.
+- Provide exactly 5 moments.
+- Provide between 3 and 20 takeaways — extract as many DISTINCT, substantive takeaways as the episode genuinely contains (a 2-3 hour episode usually has many). Do NOT pad with filler or split one idea into several; do NOT force exactly 3. Score every takeaway 1-10 on insight, actionability, and specificity per the schema.
 - Verbatim quotes only — never clean up or paraphrase. Keep "um", "like", filler words.
 - Only use timestamps that actually appear in the transcript. If uncertain, use 0.
 - For Lex Fridman episodes ONLY: keep the episode (skip=false) only if the guest's work is clearly in technology, AI/ML, computing, engineering, hard science (physics/biology/chemistry/math), business, startups, or economics. Set skip=true for everyone else — including historians, explorers, naturalists, musicians, artists, athletes, entertainers, religious figures, pure philosophers, and politicians — and give skip_reason. When in doubt for a Lex episode, skip.
@@ -555,10 +559,11 @@ GOATCOUNTER_SCRIPT
     .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
     .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
     .moments-scroll::-webkit-scrollbar { display: none; }
-    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; position: relative; min-height: 170px; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
     .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
-    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
-    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; margin-bottom: 28px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; max-height: 9em; overflow: hidden; }
+    .moment-quote.fade { -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
     .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
     .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
     .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
@@ -570,6 +575,8 @@ GOATCOUNTER_SCRIPT
     .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
     .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
     .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .takeaways-rest[hidden] { display: none; }
+    .takeaways-toggle { margin-top: 14px; background: none; border: none; color: var(--green); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
     .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
     .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
     .icon-btn:active { opacity: 0.7; }
@@ -708,7 +715,24 @@ TAKEAWAYS_HTML
     content.classList.toggle('open');
   }
 
+  function toggleTakeaways() {
+    var rest = document.getElementById('takeawaysRest');
+    var btn = document.getElementById('takeawaysToggle');
+    if (rest.hasAttribute('hidden')) {
+      rest.removeAttribute('hidden');
+      btn.textContent = 'Show fewer';
+    } else {
+      rest.setAttribute('hidden', '');
+      btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
+    }
+  }
+
   renderSaveBtn();
+
+  // Fade only quotes that actually overflow the 6-line cap (others render full).
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-quote'), function(q) {
+    if (q.scrollHeight > q.clientHeight + 2) q.classList.add('fade');
+  });
 </script>
 </body>
 </html>"""
@@ -918,8 +942,15 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
 
     # Build moments carousel. Timestamp badge only when we have a real video
     # position — a 0:00 badge or a "#" link is worse than no badge.
+    # Carousel always runs chronologically (by the quote's position in the
+    # episode). Moments without a real timestamp keep their original order, at
+    # the end — they can't be placed on the timeline.
     moments_html = ""
-    for m in content.get("moments", []):
+    ordered = sorted(
+        enumerate(content.get("moments", [])),
+        key=lambda im: (im[1].get("timestamp_seconds", 0) or 10**9, im[0]),
+    )
+    for _, m in ordered:
         ts = m.get("timestamp_seconds", 0) or 0
         ts_html = ""
         if video_id and ts > 0:
@@ -936,15 +967,29 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
             f'      </div>\n'
         )
 
-    # Build takeaways list
-    takeaways_html = ""
-    for i, tk in enumerate(content.get("takeaways", []), 1):
-        takeaways_html += (
+    # Build takeaways: rank by insight + actionability + specificity, show the
+    # top 5, hide the rest behind a "Show all" expander.
+    def _tk_score(tk: dict) -> int:
+        return sum((tk.get(k) or 0) for k in ("insight", "actionability", "specificity"))
+
+    def _tk_html(tk: dict, i: int) -> str:
+        return (
             f'    <div class="takeaway">\n'
             f'      <div class="takeaway-num">{i}</div>\n'
             f'      <div class="takeaway-text">'
             f'<strong>{_t(tk["headline"])} </strong>{_t(tk["body"])}</div>\n'
             f'    </div>\n'
+        )
+
+    ranked = sorted(content.get("takeaways", []), key=_tk_score, reverse=True)
+    top, rest = ranked[:5], ranked[5:]
+    takeaways_html = "".join(_tk_html(tk, i) for i, tk in enumerate(top, 1))
+    if rest:
+        rest_html = "".join(_tk_html(tk, i) for i, tk in enumerate(rest, len(top) + 1))
+        takeaways_html += (
+            f'    <div class="takeaways-rest" id="takeawaysRest" hidden>\n{rest_html}    </div>\n'
+            f'    <button class="takeaways-toggle" id="takeawaysToggle" '
+            f'onclick="toggleTakeaways()">Show all {len(ranked)} takeaways</button>\n'
         )
 
     tldr      = content.get("tldr", "")
@@ -999,12 +1044,17 @@ def _hex_lerp(c1: str, c2: str, t: float) -> str:
     return "#%02X%02X%02X" % tuple(round(a[i] + (b[i] - a[i]) * t) for i in range(3))
 
 
+# Fixed "moderate" gold→green ramp, one stop per show in PODCASTS order
+# (Lenny's = gold … Lex = green). Hand-picked so all six read as distinct
+# colors. When a show is added, append a stop (and we'll revisit spacing).
+_SHOW_RAMP = ["#E3B25A", "#CEB538", "#ADBA2F", "#83BD4A", "#52BD6C", "#15B98A"]
+
+
 def show_color(index: int, total: int) -> str:
-    """One stop along the gold→green ramp by the show's index in PODCASTS
-    (first show = gold, last = green)."""
-    if total <= 1:
-        return "#15B98A"
-    return _hex_lerp("#E3B25A", "#15B98A", index / (total - 1))
+    """The show's fixed color by its index in PODCASTS."""
+    if 0 <= index < len(_SHOW_RAMP):
+        return _SHOW_RAMP[index]
+    return "#15B98A"
 
 
 def _show_meta() -> dict:
@@ -1060,7 +1110,7 @@ def _library_episodes(tracker: dict) -> tuple[list, dict]:
 LIB_CSS = """
     :root {
       --canvas:#0B0F0E; --surface:#131916; --raised:#1B221E; --line:#2A322C;
-      --divider:#1B221E; --tp:#ECF2EE; --tm:#94A39A; --dim:#6E7E75; --meta:#7C8C83;
+      --divider:#1B221E; --tp:#ECF2EE; --tm:#94A39A; --dim:#85958B; --meta:#7C8C83;
       --green:#15B98A; --gold:#E3B25A;
     }
     * { box-sizing:border-box; margin:0; padding:0; }
@@ -1079,9 +1129,29 @@ LIB_CSS = """
     .wm span { color:var(--green); }
     .tagline { font-size:11px; color:var(--tm); letter-spacing:0.1px; }
     .account { width:30px; height:30px; border-radius:50%; background:var(--raised);
-      border:1px solid var(--line); color:var(--tm);
+      border:1px solid var(--line); color:var(--tm); cursor:pointer; padding:0; font:inherit;
       display:flex; align-items:center; justify-content:center; }
+    .account:active { opacity:0.7; }
     .account svg { width:16px; height:16px; }
+    .sheet-back { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.55);
+      display:none; align-items:flex-end; justify-content:center; }
+    .sheet-back.show { display:flex; }
+    .sheet { width:100%; max-width:430px; background:var(--surface);
+      border-top-left-radius:20px; border-top-right-radius:20px;
+      border-top:1px solid var(--line); padding:10px 22px calc(26px + env(safe-area-inset-bottom)); }
+    .sheet-grip { width:36px; height:4px; border-radius:2px; background:var(--line);
+      margin:0 auto 18px; }
+    .sheet .wm { font-size:18px; display:block; margin-bottom:4px; }
+    .sheet .tagline { font-size:12px; color:var(--tm); display:block; margin-bottom:16px; }
+    .sheet p { font-size:13.5px; color:var(--tm); line-height:1.6; margin-bottom:12px; }
+    .sheet-close { width:100%; margin-top:6px; background:var(--raised); border:1px solid var(--line);
+      color:var(--tp); font-size:14px; font-weight:600; padding:12px; border-radius:11px;
+      cursor:pointer; font-family:inherit; }
+    .backrow { padding:12px 18px 0; }
+    .backlink { display:inline-flex; align-items:center; gap:5px; color:var(--tm);
+      font-size:13px; font-weight:500; }
+    .backlink .bk { font-size:18px; line-height:1; }
+    .backlink:active { opacity:0.6; }
     .seclabel { padding:18px 18px 8px; font-size:11px; font-weight:700; letter-spacing:1px;
       text-transform:uppercase; color:var(--dim); }
     .rows { padding:0 18px; }
@@ -1132,8 +1202,9 @@ LIB_CSS = """
     .searchbar input::placeholder { color:var(--dim); }
     .searchbar input::-webkit-search-cancel-button { -webkit-appearance:none; appearance:none; }
     .clearbtn { flex:0 0 auto; background:none; border:none; color:var(--dim); cursor:pointer;
-      font-size:20px; line-height:1; padding:0 2px; display:none; }
-    .clearbtn.show { display:block; }
+      font-size:20px; line-height:1; width:34px; height:34px; margin:-8px -8px -8px 0;
+      align-items:center; justify-content:center; display:none; }
+    .clearbtn.show { display:flex; }
 """
 
 _GLASSES = ('<svg width="26" height="16" viewBox="0 0 26 16" fill="none">'
@@ -1146,7 +1217,7 @@ _GLASSES = ('<svg width="26" height="16" viewBox="0 0 26 16" fill="none">'
 _IC_HOME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>'
 _IC_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>'
 _IC_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>'
-_IC_USER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 3-5.5 6.5-5.5s6.5 1.9 6.5 5.5"/></svg>'
+_IC_INFO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="12" y1="8" x2="12" y2="8"/></svg>'
 
 
 def _bottom_nav(active: str) -> str:
@@ -1173,10 +1244,34 @@ def _lib_page(title: str, body: str, active: str, extra_script: str = "") -> str
         '<div class="hside left">' + _GLASSES + '</div>'
         '<div class="hcenter"><span class="wm">Reading<span>.Sis</span></span>'
         '<span class="tagline">' + _t(TAGLINE) + '</span></div>'
-        '<div class="hside right"><span class="account">' + _IC_USER + '</span></div>'
+        '<div class="hside right"><button class="account" onclick="openAbout()" '
+        'aria-label="About Reading.Sis">' + _IC_INFO + '</button></div>'
         '</header>\n'
-        f'{body}\n</div>\n{_bottom_nav(active)}\n{extra_script}\n</body>\n</html>'
+        f'{body}\n</div>\n{_bottom_nav(active)}\n{_about_sheet()}\n{_ABOUT_SCRIPT}\n{extra_script}\n</body>\n</html>'
     )
+
+
+def _about_sheet() -> str:
+    return (
+        '<div class="sheet-back" id="aboutBack" onclick="closeAbout(event)">'
+        '<div class="sheet" role="dialog" aria-modal="true" aria-label="About Reading.Sis">'
+        '<div class="sheet-grip"></div>'
+        '<span class="wm">Reading<span>.Sis</span></span>'
+        '<span class="tagline">' + _t(TAGLINE) + '</span>'
+        '<p>The best moments and takeaways from long podcast episodes, read in a couple of '
+        'minutes instead of listened to over a couple of hours. New episodes land here daily.</p>'
+        '<p>Tap the bookmark on any episode to save it. Saves live on this device only — '
+        'no account, nothing to sign up for.</p>'
+        '<button class="sheet-close" onclick="closeAbout()">Close</button>'
+        '</div></div>'
+    )
+
+
+_ABOUT_SCRIPT = (
+    '<script>function openAbout(){document.getElementById("aboutBack").classList.add("show");}'
+    'function closeAbout(e){if(e&&e.target!==e.currentTarget)return;'
+    'document.getElementById("aboutBack").classList.remove("show");}</script>'
+)
 
 
 def _episode_row(e: dict) -> str:
@@ -1244,6 +1339,8 @@ def build_podcast_pages(tracker: dict) -> dict:
             '<div class="empty">No episodes yet.</div>'
         n = len(show_eps)
         body = (
+            '  <div class="backrow"><a class="backlink" href="index.html">'
+            '<span class="bk">&lsaquo;</span> All shows</a></div>\n'
             f'  <div class="shero"><span class="sq" style="background:{m["color"]}">{_t(m["chip"])}</span>'
             f'<h1>{_t(name)}</h1><div class="shero-count">{n} episode{"" if n == 1 else "s"}</div></div>\n'
             f'  <div class="sortbar"><button class="sortbtn" id="sortBtn" onclick="flip()">Newest first &#8645;</button></div>\n'
