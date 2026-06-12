@@ -122,54 +122,12 @@ def now_israel() -> datetime.datetime:
     return datetime.datetime.utcnow() + datetime.timedelta(hours=3)
 
 
-def get_schedule() -> tuple[datetime.timedelta | None, bool, bool]:
-    """
-    Returns (search_window, should_run, is_sunday).
-    Saturday: should_run=False (silent day).
-    Sunday: is_sunday=True (flush day — send all queued).
-    Mon–Fri: standard 24h window.
-    """
-    day = now_israel().weekday()  # 0=Mon … 5=Sat, 6=Sun
-    if day == 5:
-        print("Saturday — silent day, exiting.")
-        return None, False, False
-    is_sunday = (day == 6)
-    # Overlapping window on purpose: GitHub cron fires late and manual runs
-    # shift the anchor, so a sharp 24h cutoff drops episodes. The tracker
-    # dedupes anything already handled, so overlap is safe.
-    hours = 72 if is_sunday else 36
-    return datetime.timedelta(hours=hours), True, is_sunday
-
-
-def get_send_date(pub_dt: datetime.datetime) -> datetime.date:
-    """
-    Send-day logic:
-      Mon/Tue/Wed published → send next day
-      Thu published before noon Israel → send Friday
-      Thu published noon+ / Fri / Sat published → send Sunday
-      Sun published → send Monday
-    """
-    day  = pub_dt.weekday()   # 0=Mon … 6=Sun
-    hour = pub_dt.hour
-
-    if day in (0, 1, 2):    # Mon, Tue, Wed
-        return pub_dt.date() + datetime.timedelta(days=1)
-    elif day == 3:           # Thursday
-        delta = 1 if hour < 12 else 3   # +1=Fri  +3=Sun
-        return pub_dt.date() + datetime.timedelta(days=delta)
-    elif day == 4:           # Friday → Sunday
-        return pub_dt.date() + datetime.timedelta(days=2)
-    elif day == 5:           # Saturday → Sunday
-        return pub_dt.date() + datetime.timedelta(days=1)
-    else:                    # Sunday → Monday
-        return pub_dt.date() + datetime.timedelta(days=1)
-
-
-def should_send_today(send_date: datetime.date, today: datetime.date, is_sunday: bool) -> bool:
-    # <= rather than ==: if a run was missed on the target day (Mac asleep,
-    # cron skipped), the episode is overdue and should go out now, not wait
-    # for the Sunday flush.
-    return send_date <= today
+def get_schedule() -> datetime.timedelta:
+    """Search window for new episodes. The pipeline now runs EVERY day — no
+    weekend hold, no Sunday flush — so each episode goes out the morning after
+    it drops. The 36h overlap absorbs late crons / missed runs; the tracker
+    dedupes anything already handled, so overlap is safe."""
+    return datetime.timedelta(hours=36)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -543,7 +501,8 @@ GOATCOUNTER_SCRIPT
     html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
     .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
     .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
-    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo:active { opacity: 0.6; }
     .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
     .logo-text span { color: var(--green); }
     .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
@@ -588,7 +547,7 @@ GOATCOUNTER_SCRIPT
 <div class="page">
 
   <div class="app-bar">
-    <div class="logo">
+    <a class="logo" href="index.html" aria-label="Back to the library">
       <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
         <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
         <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
@@ -597,7 +556,7 @@ GOATCOUNTER_SCRIPT
         <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
       <span class="logo-text">Reading<span>.Sis</span></span>
-    </div>
+    </a>
     <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
@@ -894,6 +853,15 @@ def qa_episode(episode: dict, content: dict, video_id: str | None,
         issues.append(("blocker", "invalid inline JS"))
     if 'href="#"' in html:
         issues.append(("blocker", 'dead "#" links present'))
+    if 'class="logo" href="index.html"' not in html:
+        issues.append(("blocker", "logo no longer links back to the library"))
+
+    # Takeaways: we now ask for 3–20 ranked takeaways. Too few is a quality
+    # warning (still ships — better than holding); the ranking tolerates missing
+    # scores (treated as 0), so don't block on those.
+    n_tk = len(content.get("takeaways", []))
+    if not (3 <= n_tk <= 20):
+        issues.append(("warning", f"takeaways count {n_tk} outside expected 3–20"))
 
     passed = not any(level == "blocker" for level, _ in issues)
     return passed, html, content, issues
@@ -907,6 +875,8 @@ def qa_live_page(page_url: str) -> bool:
     except Exception:
         return False
     if any(t in html for t in PLACEHOLDER_TOKENS):
+        return False
+    if 'class="logo" href="index.html"' not in html:
         return False
     return validate_inline_js(html)
 
@@ -1451,6 +1421,75 @@ def send_group_message(message: str) -> dict:
     return r.json()
 
 
+def _fallback_sis_message(p: dict) -> str:
+    """Deterministic blurb if the Claude call fails — still warm, no link."""
+    guest = p.get("guest", "")
+    g = f" with {guest}" if guest and guest.lower() != "various" else ""
+    return (f"Morning — a new {p.get('podcast','')} episode{g} is up: "
+            f"{p.get('title','')}. Out {p.get('date_str','')}. Enjoy your read.")
+
+
+def generate_sis_message(p: dict, idx: int, total: int, model: str = MODEL) -> str:
+    """Write the warm, personal 'Sis' WhatsApp blurb for one episode.
+
+    idx/total = this message's position in today's batch, so openers vary and
+    don't re-greet awkwardly when 2–3 go out the same morning. Returns the text
+    WITHOUT the link (the caller appends the verified URL). Falls back to a
+    plain template on any error."""
+    guest = p.get("guest", "")
+    if guest and guest.lower() != "various":
+        guest_part = f"Guest: {guest}\n"
+    else:
+        guest_part = "Format: panel show (regular hosts, no single guest)\n"
+
+    if total > 1 and idx > 0:
+        batch_note = (f"This is message {idx + 1} of {total} you're sending the same morning. "
+                      "Do NOT open with a fresh morning greeting — frame it as another read in "
+                      "the same breath (e.g. 'and one more for you', 'also out today').")
+    elif total > 1:
+        batch_note = (f"You're sharing {total} reads this morning; this is the first. A light "
+                      "greeting is fine — the next ones will follow without re-greeting.")
+    else:
+        batch_note = "Just one read today. A light morning greeting is fine."
+
+    prompt = f"""You are "Sis", the voice of Reading.Sis — like a big sister who reads great \
+podcasts and shares the best ones with a small WhatsApp group.
+
+Voice: warm, genuine, personal — but restrained and a little polished. NOT hype-y. Minimal \
+emoji: zero, or at most one and only if it feels natural. No slang pile-ups, no exclamation \
+overload.
+
+Write ONE short WhatsApp message (1-2 sentences, ~25-45 words) introducing today's read. \
+Mention the show, the guest (if any), and briefly what it's about, in a natural way. End with \
+a soft sign-off like "enjoy your read". Do NOT include any link or URL — it's added \
+separately. Do NOT use markdown.
+
+{batch_note}
+
+Show: {p.get('podcast','')}
+{guest_part}Title: {p.get('title','')}
+Published: {p.get('date_str','')}
+What it's about: {p.get('hook','') or p.get('title','')}
+
+Return only the message text."""
+    try:
+        client = Anthropic(api_key=ANTHROPIC_KEY)
+        msg = client.messages.create(
+            model=model, max_tokens=220,
+            messages=[{"role": "user", "content": prompt}])
+        text = (msg.content[0].text if msg.content else "").strip()
+        # QA the blurb: must be non-empty, carry no leaked placeholder, add no
+        # link of its own (we append the verified one), and stay short.
+        bad = (not text or len(text) > 600 or "http" in text.lower()
+               or any(tok in text for tok in PLACEHOLDER_TOKENS))
+        if not bad:
+            return text
+        print("  Sis message failed its check — using fallback")
+    except Exception as e:
+        print(f"  Sis message gen failed: {e} — using fallback")
+    return _fallback_sis_message(p)
+
+
 def send_pending() -> None:
     """7 AM phase (`--send`): deliver messages for pages the 6 AM generate
     phase produced, but only after verifying each URL is actually live.
@@ -1465,11 +1504,14 @@ def send_pending() -> None:
         print("Nothing pending to send.")
         return
 
+    # Pass 1: figure out which pages are actually sendable (live + pass QA).
+    # We need the final count first so each message knows it's #i of N and the
+    # openers don't repeat the morning greeting.
     remaining = []
+    sendable = []
     for p in pending:
         page_url = p["page_url"]
         print(f"── {p['id']} ──")
-
         deadline = time.time() + 300
         live = False
         while time.time() < deadline:
@@ -1484,7 +1526,6 @@ def send_pending() -> None:
             print(f"  Page not live — keeping for next send run: {page_url}")
             remaining.append(p)
             continue
-
         # Final QA gate on the published page — never message a broken page.
         if not qa_live_page(page_url):
             print(f"  Live page failed QA — holding message: {page_url}")
@@ -1492,23 +1533,25 @@ def send_pending() -> None:
                        f"(bad JS or unfilled placeholder). Message held.")
             remaining.append(p)
             continue
+        sendable.append(p)
 
-        # Compact format: podcast, guest, episode, date, link.
-        lines = [f"\U0001f399️ *{p['podcast']}*"]
-        guest = p.get("guest", "")
-        if guest and guest.lower() != "various":
-            lines.append(guest)
-        lines += [f"_{p['title']}_", p.get("date_str", ""), page_url]
+    # Pass 2: generate each Sis message (aware of its position) and send.
+    total = len(sendable)
+    sent = 0
+    for idx, p in enumerate(sendable):
+        body = generate_sis_message(p, idx, total)
+        message = f"{body}\n\n{p['page_url']}"
         try:
-            resp = send_group_message("\n".join(lines))
+            resp = send_group_message(message)
             print(f"  WhatsApp sent ✓  {resp}")
+            sent += 1
         except Exception as e:
             print(f"  WhatsApp failed: {e} — keeping for next send run")
             remaining.append(p)
 
     tracker["pending_send"] = remaining
     save_tracker(tracker, tracker_sha)
-    print(f"\nDone. {len(pending) - len(remaining)} sent, {len(remaining)} still pending.")
+    print(f"\nDone. {sent} sent, {len(remaining)} still pending.")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1632,14 +1675,11 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
 
 
 def main() -> None:
-    window, should_run, is_sunday = get_schedule()
-    if not should_run:
-        return
-
+    window = get_schedule()
     now   = now_israel()
     today = now.date()
     cutoff = now - window
-    print(f"Date (Israel): {today}  |  window: {window}  |  Sunday flush: {is_sunday}\n")
+    print(f"Date (Israel): {today}  |  window: {window}  (daily send)\n")
 
     tracker, tracker_sha = get_tracker()
     processed_ids: set[str] = {
@@ -1702,16 +1742,6 @@ def main() -> None:
             if ep_id not in processed_ids:
                 tracker["processed"].append({"id": ep_id})
                 tracker["queued"] = [q for q in tracker.get("queued", []) if q["id"] != ep_id]
-                tracker_dirty = True
-            continue
-
-        # Send-day gate
-        send_date = get_send_date(pub_dt)
-        if not should_send_today(send_date, today, is_sunday):
-            print(f"  Not send day yet (target: {send_date}) — queuing")
-            if ep_id not in queued_ids:
-                tracker.setdefault("queued", []).append(_queue_entry(episode, pub_dt))
-                queued_ids.add(ep_id)
                 tracker_dirty = True
             continue
 
@@ -1783,6 +1813,7 @@ def main() -> None:
             "guest":    content.get("guest", ""),
             "title":    episode.get("title"),
             "date_str": pub_dt.strftime("%-d %b %Y"),
+            "hook":     (content.get("tldr") or "")[:300],
             "page_url": page_url,
         })
         print("  Queued for 7 AM send")
