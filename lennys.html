@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Reading.Sis — podcast highlights, distilled.">
+  <title>Reading.Sis — Lenny's Podcast</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --canvas:#0B0F0E; --surface:#131916; --raised:#1B221E; --line:#2A322C;
+      --divider:#1B221E; --tp:#ECF2EE; --tm:#94A39A; --dim:#6E7E75; --meta:#7C8C83;
+      --green:#15B98A; --gold:#E3B25A;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html,body { background:var(--canvas); color:var(--tp);
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; }
+    .page { max-width:430px; margin:0 auto; min-height:100vh; padding-bottom:84px; }
+    .hdr { position:sticky; top:0; z-index:50; background:var(--canvas);
+      display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+      padding:19px 18px 18px; border-bottom:1px solid var(--divider); }
+    .hside { display:flex; align-items:center; }
+    .hside.left { justify-self:start; }
+    .hside.right { justify-self:end; }
+    .hcenter { display:flex; flex-direction:column; align-items:center; gap:2px; }
+    .wm { font-size:17px; font-weight:700; color:var(--tp); letter-spacing:-0.3px; }
+    .wm span { color:var(--green); }
+    .tagline { font-size:11px; color:var(--tm); letter-spacing:0.1px; }
+    .account { width:30px; height:30px; border-radius:50%; background:var(--raised);
+      border:1px solid var(--line); color:var(--tm);
+      display:flex; align-items:center; justify-content:center; }
+    .account svg { width:16px; height:16px; }
+    .seclabel { padding:18px 18px 8px; font-size:11px; font-weight:700; letter-spacing:1px;
+      text-transform:uppercase; color:var(--dim); }
+    .rows { padding:0 18px; }
+    .row { display:flex; align-items:center; gap:13px; padding:13px 0;
+      border-bottom:1px solid var(--divider); }
+    .row:active { opacity:0.65; }
+    .chip { flex:0 0 42px; width:42px; height:42px; border-radius:11px; color:#08120D;
+      font-size:12px; font-weight:700; letter-spacing:0.2px;
+      display:flex; align-items:center; justify-content:center; }
+    .row-main { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:3px; }
+    .row-title { font-size:14px; font-weight:500; color:var(--tp); line-height:1.35;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .row-meta { font-size:11.5px; color:var(--meta); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .newtag { display:inline-block; vertical-align:1px; margin-right:7px; background:rgba(227,178,90,0.16);
+      color:var(--gold); font-size:9px; font-weight:700; letter-spacing:0.6px; padding:1px 6px; border-radius:5px; }
+    .chev { flex:0 0 auto; color:var(--dim); font-size:20px; line-height:1; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; padding:13px 18px 0; }
+    .card { display:flex; align-items:center; gap:11px; background:var(--surface);
+      border:1px solid var(--line); border-radius:14px; padding:13px; min-height:78px; }
+    .card:active { opacity:0.7; }
+    .sq { flex:0 0 38px; width:38px; height:38px; border-radius:10px; color:#08120D;
+      font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+    .card-r { display:flex; flex-direction:column; gap:3px; min-width:0; }
+    .card-name { font-size:13px; font-weight:500; color:var(--tp); line-height:1.25; }
+    .card-count { font-size:11.5px; color:var(--dim); white-space:nowrap; }
+    .empty { padding:48px 24px; text-align:center; color:var(--dim); font-size:13px; line-height:1.6; }
+    .nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px;
+      background:var(--canvas); border-top:1px solid var(--divider); display:flex;
+      padding:9px 0 calc(9px + env(safe-area-inset-bottom)); }
+    .nav-i { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+      color:var(--dim); font-size:10px; font-weight:500; }
+    .nav-i.on { color:var(--green); }
+    .nav-i svg { width:21px; height:21px; }
+    .shero { display:flex; flex-direction:column; align-items:center; text-align:center;
+      gap:11px; padding:26px 18px 16px; }
+    .shero .sq { width:60px; height:60px; flex-basis:auto; border-radius:16px; font-size:15px; }
+    .shero h1 { font-size:21px; font-weight:700; color:var(--tp); letter-spacing:-0.3px; }
+    .shero-count { font-size:12.5px; color:var(--tm); margin-top:-5px; }
+    .sortbar { display:flex; justify-content:flex-end; padding:4px 18px 6px; }
+    .sortbtn { background:var(--surface); border:1px solid var(--line); color:var(--tm);
+      font-size:12px; font-weight:500; padding:7px 13px; border-radius:9px; cursor:pointer; }
+    .searchwrap { padding:8px 18px 4px; }
+    .searchbar { display:flex; align-items:center; gap:9px; background:var(--surface);
+      border-radius:12px; padding:11px 14px; }
+    .searchbar svg { width:18px; height:18px; color:var(--dim); flex:0 0 auto; }
+    .searchbar input { flex:1; background:none; border:none; outline:none; color:var(--tp);
+      font-size:15px; font-family:inherit; caret-color:var(--green); }
+    .searchbar input::placeholder { color:var(--dim); }
+    .searchbar input::-webkit-search-cancel-button { -webkit-appearance:none; appearance:none; }
+    .clearbtn { flex:0 0 auto; background:none; border:none; color:var(--dim); cursor:pointer;
+      font-size:20px; line-height:1; padding:0 2px; display:none; }
+    .clearbtn.show { display:block; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="hdr"><div class="hside left"><svg width="26" height="16" viewBox="0 0 26 16" fill="none"><circle cx="7.5" cy="8" r="4.5" stroke="#15B98A" stroke-width="1.5"/><circle cx="18.5" cy="8" r="4.5" stroke="#15B98A" stroke-width="1.5"/><line x1="12" y1="8" x2="14" y2="8" stroke="#15B98A" stroke-width="1.5" stroke-linecap="round"/><line x1="3" y1="8" x2="1.5" y2="8" stroke="#15B98A" stroke-width="1.5" stroke-linecap="round"/><line x1="23" y1="8" x2="24.5" y2="8" stroke="#15B98A" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="hcenter"><span class="wm">Reading<span>.Sis</span></span><span class="tagline">Listen less, know more.</span></div><div class="hside right"><span class="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 3-5.5 6.5-5.5s6.5 1.9 6.5 5.5"/></svg></span></div></header>
+  <div class="shero"><span class="sq" style="background:#E3B25A">LP</span><h1>Lenny's Podcast</h1><div class="shero-count">31 episodes</div></div>
+  <div class="sortbar"><button class="sortbtn" id="sortBtn" onclick="flip()">Newest first &#8645;</button></div>
+  <div class="rows" id="rows"><a class="row" href="lennys-2026-06-07.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">Father of the iPod and iPhone on building taste, judgment, and creativity in the AI era</span><span class="row-meta">Lenny's Podcast · Tony Fadell · 7 Jun 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-05-31.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">A rational conversation on where AI is actually going</span><span class="row-meta">Lenny's Podcast · Benedict Evans · 31 May 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-05-24.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">The AI paradox: More automation, more humans, more work | Dan Shipper</span><span class="row-meta">Lenny's Podcast · Dan Shipper · 24 May 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-05-17.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">Why we’re at the beginning of the AI hardware boom | Caitlin Kalinowski (ex–OpenAI, Meta, Apple)</span><span class="row-meta">Lenny's Podcast · Caitlin Kalinowski · 17 May 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-05-10.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">How to build a company that withstands any era | Eric Ries, Lean Startup author</span><span class="row-meta">Lenny's Podcast · Eric Ries · 10 May 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-05-03.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">Why cultivating agency matters more than cultivating skills in the AI era | Max Schoening (Head of Product, Notion)</span><span class="row-meta">Lenny's Podcast · Max Schoening · 3 May 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-04-26.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">Snapchat CEO: Why distribution has become the most important moat | Evan Spiegel</span><span class="row-meta">Lenny's Podcast · Evan Spiegel · 26 Apr 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-04-23.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">How Anthropic’s product team moves faster than anyone else | Cat Wu (Head of Product, Claude Code)</span><span class="row-meta">Lenny's Podcast · Cat Wu · 23 Apr 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-04-19.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">Why half of product managers are in trouble | Nikhyl Singhal (Meta, Google)</span><span class="row-meta">Lenny's Podcast · Nikhyl Singhal · 19 Apr 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-04-12.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">Hard truths about building in the AI era | Keith Rabois (Khosla Ventures)</span><span class="row-meta">Lenny's Podcast · Keith Rabois · 12 Apr 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-04-05.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">Head of Growth (Anthropic): “Claude is growing itself at this point” | Amol Avasare</span><span class="row-meta">Lenny's Podcast · Amol Avasare · 5 Apr 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-04-02.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">An AI state of the union: We’ve passed the inflection point, dark factories are coming, and automation timelines | Simon Willison</span><span class="row-meta">Lenny's Podcast · Simon Willison · 2 Apr 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-03-29.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">From skeptic to true believer: How OpenClaw changed my life | Claire Vo</span><span class="row-meta">Lenny's Podcast · Claire Vo · 29 Mar 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-03-22.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">The art of influence: The single most important skill that AI can’t replace | Jessica Fain (Webflow, ex-Slack)</span><span class="row-meta">Lenny's Podcast · Jessica Fain · 22 Mar 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-03-15.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">The tactical playbook for getting 20-40% more comp (without sounding greedy) | Jacob Warwick (Executive Negotiator)</span><span class="row-meta">Lenny's Podcast · Jacob Warwick · 15 Mar 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-03-12.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">How I built a 1M+ subscriber newsletter and top 10 tech podcast | Lenny Rachitsky</span><span class="row-meta">Lenny's Podcast · Michelle Rial · 12 Mar 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-03-08.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">The most successful AI company you’ve never heard of | Qasar Younis</span><span class="row-meta">Lenny's Podcast · Qasar Younis · 8 Mar 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-03-01.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">The design process is dead. Here’s what’s replacing it. | Jenny Wen (head of design at Claude)</span><span class="row-meta">Lenny's Podcast · Jenny Wen · 1 Mar 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-02-26.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">AI is critical for humanity’s survival: Cisco president on the AI revolution | Jeetu Patel</span><span class="row-meta">Lenny's Podcast · Jeetu Patel · 26 Feb 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-02-19.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">Head of Claude Code: What happens after coding is solved | Boris Cherny</span><span class="row-meta">Lenny's Podcast · Boris Cherny · 19 Feb 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-02-15.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">Sequoia CEO coach: Why it’s never been easier to start a company, and never been harder to scale one | Brian Halligan (co-founder, HubSpot)</span><span class="row-meta">Lenny's Podcast · Brian Halligan · 15 Feb 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-02-12.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">“Engineers are becoming sorcerers” | The future of software development with OpenAI’s Sherwin Wu</span><span class="row-meta">Lenny's Podcast · Sherwin Wu · 12 Feb 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-02-08.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">The rise of the professional vibe coder (a new AI-era job) | Lazar Jovanovic (Professional Vibe Coder)</span><span class="row-meta">Lenny's Podcast · Lazar Jovanovic · 8 Feb 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-02-01.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">A child psychologist’s guide to working with difficult adults | Dr. Becky Kennedy</span><span class="row-meta">Lenny's Podcast · Dr. Becky Kennedy · 1 Feb 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-01-29.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">Marc Andreessen: The real AI boom hasn’t even started yet</span><span class="row-meta">Lenny's Podcast · Marc Andreessen · 29 Jan 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-01-25.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">5 questions to ask when your product stops growing | Jason Cohen (2x unicorn founder)</span><span class="row-meta">Lenny's Podcast · Jason Cohen · 25 Jan 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-01-18.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">The non-technical PM’s guide to building with Cursor | Zevi Arnovitz (Meta)</span><span class="row-meta">Lenny's Podcast · Zevi Arnovitz · 18 Jan 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-01-15.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">How to show up in any room with a low heart rate: Silicon Valley’s missing etiquette playbook | Sam Lessin</span><span class="row-meta">Lenny's Podcast · Sam Lessin · 15 Jan 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-01-11.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">Why most AI products fail: Lessons from 50+ AI deployments at OpenAI, Google, and Amazon</span><span class="row-meta">Lenny's Podcast · Aishwaria Raanti and Kiti Bottom · 11 Jan 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-01-04.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">The high-growth handbook: Molly Graham’s frameworks for leading through chaos, change, and scale</span><span class="row-meta">Lenny's Podcast · Molly Graham · 4 Jan 2026</span></span><span class="chev">&rsaquo;</span></a><a class="row" href="lennys-2026-01-01.html"><span class="chip" style="background:#E3B25A">LP</span><span class="row-main"><span class="row-title">We replaced our sales team with 20 AI agents—here’s what happened | Jason Lemkin (SaaStr)</span><span class="row-meta">Lenny's Podcast · Jason Lemkin · 1 Jan 2026</span></span><span class="chev">&rsaquo;</span></a></div>
+
+</div>
+<nav class="nav"><a class="nav-i on" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></a><a class="nav-i" href="search.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span>Search</span></a><a class="nav-i" href="saved.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg><span>Saved</span></a></nav>
+<script>var asc=false;function flip(){var r=document.getElementById("rows");var rows=Array.prototype.slice.call(r.querySelectorAll(".row"));rows.reverse().forEach(function(x){r.appendChild(x);});asc=!asc;document.getElementById("sortBtn").innerHTML=(asc?"Oldest first":"Newest first")+" &#8645;";}</script>
+</body>
+</html>
