@@ -189,16 +189,19 @@
     }
   }
 
-  function handleSave() {
+  var EP = {id:"lennys-2026-05-03", title:"Why cultivating agency matters more than cultivating skills in the AI era | Max Schoening (Head of Product, Notion)", show:"Lenny's Podcast", date:"2026-05-03", url:"https://readingsis.github.io/reading-sis/lennys-2026-05-03.html"};
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
     var btn = document.getElementById('bookmarkBtn');
-    gcEvent('save');
-    if (navigator.share) {
-      navigator.share({title: PAGE_TITLE, url: pageUrl})
-        .then(function() { btn.classList.add('saved'); }).catch(function() {});
-    } else {
-      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
-        .then(function() { btn.classList.add('saved'); });
-    }
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
   }
 
   function handleShare() {
@@ -220,6 +223,8 @@
     chevron.classList.toggle('open');
     content.classList.toggle('open');
   }
+
+  renderSaveBtn();
 </script>
 </body>
 </html>
