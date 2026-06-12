@@ -190,16 +190,19 @@
     }
   }
 
-  function handleSave() {
+  var EP = {id:"lex-fridman-2026-02-01", title:"#490 \u2013 State of AI in 2026: LLMs, Coding, Scaling Laws, China, Agents, GPUs, AGI", show:"Lex Fridman Podcast", date:"2026-02-01", url:"https://readingsis.github.io/reading-sis/lex-fridman-2026-02-01.html"};
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
     var btn = document.getElementById('bookmarkBtn');
-    gcEvent('save');
-    if (navigator.share) {
-      navigator.share({title: PAGE_TITLE, url: pageUrl})
-        .then(function() { btn.classList.add('saved'); }).catch(function() {});
-    } else {
-      navigator.clipboard && navigator.clipboard.writeText(pageUrl)
-        .then(function() { btn.classList.add('saved'); });
-    }
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
   }
 
   function handleShare() {
@@ -221,6 +224,8 @@
     chevron.classList.toggle('open');
     content.classList.toggle('open');
   }
+
+  renderSaveBtn();
 </script>
 </body>
 </html>
