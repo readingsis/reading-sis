@@ -1927,6 +1927,40 @@
       "pushed_at": "2026-06-11"
     }
   ],
-  "queued": [],
+  "queued": [
+    {
+      "id": "pivot-2026-06-12",
+      "podcast": "Pivot",
+      "title": "SpaceX IPO: Markets, Morals, and What It Means for You",
+      "date": "2026-06-12",
+      "description": "Kara and Scott are joined by MS NOW’s Stephanie Ruhle to unpack SpaceX’s blockbuster IPO, OpenAI’s public market ambitions, and rising inflation. Then, they discuss the White House’s Epstein headache, Paramount taking aim at Netflix, and the growing push to ban social media for teens.\n\nWatch this episode on the ⁠⁠Pivot YouTube channel⁠⁠.Follow us on Instagram and Threads at ⁠⁠@pivotpodcastofficial⁠⁠.Follow us on Bluesky at ⁠⁠@pivotpod.bsky.social⁠⁠Follow us on TikTok at ⁠⁠@pivotpodcast⁠⁠.Send us your questions by calling us at 855-51-PIVOT, or email pivot@voxmedia.com\nLearn more about your ad choices. Visit podcastchoices.com/adchoices",
+      "pub_dt": "2026-06-12T13:00:00",
+      "duration_sec": 3700,
+      "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
+      "lex_filter": false
+    },
+    {
+      "id": "all-in-2026-06-12",
+      "podcast": "All-In",
+      "title": "All-In's Best Ideas Pitch Competition: 4 Investors Present Their Top Trades Live",
+      "date": "2026-06-12",
+      "description": "<p>(0:00) Chamath explains the Best Ideas format</p> <p>(2:31) Suvretta Capital Management's Aaron Cowen pitches MGM Resorts</p> <p>(13:07) Bornite Capital's Dan Dreyfus pitches Talen Energy</p> <p>(27:19) EcoR1 Capital's Oleg Nodelman pitches Aktis Oncology</p> <p>(40:20) Multicoin Capital's Kyle Samani pitches GEODNET</p> <p>(54:50) The Besties recap the pitches and announce winners</p> <p>Thanks to our partners for making this possible!</p> <p>EY - EY helps private equity firms turn market insight into action, navigating complexity and unlocking new paths to growth and long-term value.</p> <p><a href=\"https://www.ey.com/en_us/industries/private-equity?WT.mc_id=3501315&amp;AA.tsrc=sponsorship\"> https://www.ey.com/en_us/industries/private-equity?WT.mc_id=3501315&amp;AA.tsrc=sponsorship</a></p> <p>NYSE - Thank you to our partner, the New York Stock Exchange - a modern marketplace and exchange for building the future. It all happens at the NYSE.</p> <p><a href=\"https://www.nyse.com\">https://www.nyse.com</a></p> <p>Plaud - Never miss a moment. Plaud, our official wearable AI note-taking partner at All-In Liquidity Summit, captured every insight.</p> <p><a href=\"https://www.plaud.ai\">https://www.plaud.ai</a></p> <p>Follow Aaron:</p> <p><a href=\"https://www.linkedin.com/in/aaron-cowen-0a44a450\">https://www.linkedin.com/in/aaron-cowen-0a44a450</a></p> <p>Follow Dan:</p> <p><a href=\"https://x.com/dreyfd\">https://x.com/dreyfd</a></p> <p><a href=\"https://www.linkedin.com/in/daniel-dreyfus-b65554209\">https://www.linkedin.com/in/daniel-dreyfus-b65554209</a></p> <p>Follow Oleg:</p> <p><a href=\"https://www.linkedin.com/in/oleg-nodelman-375131\">https://www.linkedin.com/in/oleg-nodelman-375131</a></p> <p>Follow Kyle:</p> <p><a href=\"https://x.com/KyleSamani\">https://x.com/KyleSamani</a></p> <p><a href=\"https://www.linkedin.com/in/kylesamani\">https://www.linkedin.com/in/kylesamani</a></p> <p>Follow the besties:</p> <p><a href=\"https://x.com/chamath\">https://x.com/chamath</a></p> <p><a href=\"https://x.com/Jason\">https://x.com/Jason</a></p> <p><a href=\"https://x.com/DavidSacks\">https://x.com/DavidSacks</a></p> <p><a href=\"https://x.com/friedberg\">https://x.com/friedberg</a></p> <p>Follow on X:</p> <p><a href=\"https://x.com/theallinpod\">https://x.com/theallinpod</a></p> <p>Follow on Instagram:</p> <p><a href=\"https://www.instagram.com/theallinpod\">https://www.instagram.com/theallinpod</a></p> <p>Follow on TikTok:</p> <p><a href=\"https://www.tiktok.com/@theallinpod\">https://www.tiktok.com/@theallinpod</a></p> <p>Follow on LinkedIn:</p> <p><a href=\"https://www.linkedin.com/company/allinpod\">https://www.linkedin.com/company/allinpod</a></p> <p>Intro Music Credit:</p> <p><a href=\"https://rb.gy/tppkzl\">https://rb.gy/tppkzl</a></p> <p><a href=\"https://x.com/yung_spielburg\">https://x.com/yung_spielburg</a></p>",
+      "pub_dt": "2026-06-12T04:25:00",
+      "duration_sec": 4077,
+      "spotify_show": "",
+      "lex_filter": false
+    },
+    {
+      "id": "hard-fork-2026-06-12",
+      "podcast": "Hard Fork",
+      "title": "‘Hard Fork’ Live, Part 1: Satya Nadella and Cindy Cohn",
+      "date": "2026-06-12",
+      "description": "A tech titan, a digital rights defender and two menacing-looking robot dogs took the stage at our second-ever live show.",
+      "pub_dt": "2026-06-12T14:01:20",
+      "duration_sec": 3955,
+      "spotify_show": "https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj",
+      "lex_filter": false
+    }
+  ],
   "pending_send": []
 }
