@@ -39,7 +39,8 @@ GREENAPI_GROUP   = os.environ.get("GREENAPI_GROUP_ID", "")
 # Noam's own number — QA failures DM him privately via the bot (not the group).
 ALERT_TO_NOAM    = os.environ.get("WHATSAPP_TO_NOAM", "")
 
-MODEL = "claude-sonnet-4-6"        # daily pipeline + QA review
+MODEL = "claude-sonnet-4-6"        # daily generation + Sis messages
+QA_MODEL = "claude-opus-4-8"       # QA content review (independent, last-line check)
 HAIKU = "claude-haiku-4-5"         # backfill generation (cheap, bulk)
 # GoatCounter analytics. Just the site code (the "xxxxx" in xxxxx.goatcounter.com).
 # Public by nature (it's visible in page source), so a plain env var is fine —
@@ -809,11 +810,18 @@ Set overall_ok=false if the guest is wrong or any quote is fabricated. A generic
     # giving up rather than silently skipping the review.
     for attempt in range(3):
         try:
+            # QA runs on Opus (independent from the Sonnet generator) with
+            # adaptive thinking — correctness matters more than cost/latency on
+            # the last-line content check. max_tokens must leave room for the
+            # thinking budget on top of the ~300-token JSON verdict.
             msg = client.messages.create(
-                model=MODEL, max_tokens=600,
+                model=QA_MODEL, max_tokens=4000,
+                thinking={"type": "adaptive"},
+                output_config={"effort": "high"},
                 messages=[{"role": "user", "content": prompt}],
             )
-            raw = msg.content[0].text if msg.content else ""
+            # With thinking on, content[0] is a thinking block — grab the text block.
+            raw = next((b.text for b in msg.content if b.type == "text"), "")
             extracted = _extract_json(raw)
             if extracted:
                 return json.loads(extracted)
@@ -830,8 +838,8 @@ def qa_episode(episode: dict, content: dict, video_id: str | None,
     """Run the full QA stage on one episode. Auto-fixes timestamps and, on a
     content-review failure, regenerates the content once. Returns
     (passed, html, content, issues). passed=False means real blockers remain
-    and the page must not ship yet. The review itself always uses MODEL
-    (Sonnet) for reliability; `gen_model` is used only for regeneration."""
+    and the page must not ship yet. The review itself always uses QA_MODEL
+    (Opus) for reliability; `gen_model` is used only for regeneration."""
     issues: list = []
 
     content = _fix_timestamps(content, video_duration, issues)
@@ -1413,17 +1421,19 @@ def build_saved_page(tracker: dict) -> str:
 
 
 def build_feedback_page() -> str:
-    """Static feedback page embedding the Tally form."""
+    """Feedback page — auto-opens Tally popup on load; button is the fallback."""
     body = (
-        '<div style="padding:20px 18px 8px;">'
-        '<p style="font-size:13.5px;color:var(--tm);line-height:1.6;">'
+        '<div style="display:flex;flex-direction:column;align-items:center;'
+        'text-align:center;padding:72px 24px 24px;gap:14px;">'
+        '<p style="font-size:15px;font-weight:600;color:var(--tp);">Share your thoughts</p>'
+        '<p style="font-size:13.5px;color:var(--tm);line-height:1.6;max-width:280px;">'
         'Help us build a better Reading.Sis — takes 2 minutes.</p>'
+        '<button data-tally-open="68VOG5" data-tally-hide-title="1" '
+        'data-tally-overlay="1" data-tally-auto-open="200" '
+        'style="margin-top:8px;background:var(--green);color:#08120D;border:none;'
+        'border-radius:11px;padding:13px 28px;font-size:15px;font-weight:700;'
+        'cursor:pointer;font-family:inherit;">Open feedback form</button>'
         '</div>'
-        '<iframe data-tally-src="https://tally.so/embed/68VOG5'
-        '?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" '
-        'loading="lazy" width="100%" height="500" frameborder="0" '
-        'marginheight="0" marginwidth="0" title="Reading.Sis Feedback" '
-        'style="display:block;"></iframe>'
     )
     return _lib_page(
         "Reading.Sis — Feedback",
