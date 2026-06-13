@@ -167,7 +167,9 @@ def get_tracker() -> tuple[dict, str]:
 
 
 def save_tracker(tracker: dict, sha: str) -> str:
-    content = json.dumps(tracker, indent=2, ensure_ascii=False).encode()
+    # default=str is a safety net: a stray datetime must never crash the save
+    # and abort the whole run (datetimes round-trip fine as ISO-ish strings).
+    content = json.dumps(tracker, indent=2, ensure_ascii=False, default=str).encode()
     resp = gh_put("tracker.json", content, "chore: update tracker", sha or None)
     return resp.get("content", {}).get("sha", "")
 
@@ -467,7 +469,10 @@ Hard rules:
     try:
         msg = client.messages.create(
             model=model,
-            max_tokens=2500,
+            # Up to 20 scored takeaways + 5 moments + bio is well past the old
+            # 2500 cap; too low truncates the JSON mid-object ("Expecting ','
+            # delimiter") and the whole episode fails to generate.
+            max_tokens=8000,
             messages=[{"role": "user", "content": prompt}],
         )
         raw = msg.content[0].text if msg.content else ""
@@ -1697,20 +1702,21 @@ def main() -> None:
         candidates.extend(eps)
 
     # ── Re-evaluate queued episodes every run ─────────────────────────────────
-    # RSS discovery skips anything already queued, so queued episodes must be
-    # fed back in here or they'd sit until Sunday. The send-day gate below
-    # decides whether today is actually their day.
+    # "queued" now only holds QA-held episodes. RSS discovery skips anything
+    # already queued, so they must be fed back in here to be retried. Work on a
+    # COPY — never mutate the stored entry, or a datetime pub_dt leaks into the
+    # tracker and breaks save_tracker if the retry also fails.
     existing_ids = {c["id"] for c in candidates}
     for q in tracker.get("queued", []):
         if q["id"] not in existing_ids and q["id"] not in processed_ids:
-            # Rebuild pub_dt from stored ISO string
-            raw_dt = q.get("pub_dt")
+            cand = dict(q)
+            raw_dt = cand.get("pub_dt")
             if isinstance(raw_dt, str):
                 try:
-                    q["pub_dt"] = datetime.datetime.fromisoformat(raw_dt)
+                    cand["pub_dt"] = datetime.datetime.fromisoformat(raw_dt)
                 except ValueError:
-                    q["pub_dt"] = datetime.datetime.strptime(q["date"], "%Y-%m-%d")
-            candidates.append(q)
+                    cand["pub_dt"] = datetime.datetime.strptime(cand["date"], "%Y-%m-%d")
+            candidates.append(cand)
 
     if not candidates:
         print("\nNo new episodes today.")
