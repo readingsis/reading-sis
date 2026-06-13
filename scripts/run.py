@@ -404,7 +404,8 @@ def _extract_json(raw: str) -> str:
 
 
 def generate_content(episode: dict, transcript: list[dict], video_id: str,
-                     model: str = MODEL) -> dict | None:
+                     model: str = MODEL,
+                     qa_feedback: str | None = None) -> dict | None:
     """Call Claude to generate all page content. Returns structured dict or None.
     `model` lets the backfill use cheaper Haiku; daily pipeline uses MODEL."""
     client = Anthropic(api_key=ANTHROPIC_KEY)
@@ -465,6 +466,9 @@ Hard rules:
 - Only use timestamps that actually appear in the transcript. If uncertain, use 0.
 - For Lex Fridman episodes ONLY: keep the episode (skip=false) only if the guest's work is clearly in technology, AI/ML, computing, engineering, hard science (physics/biology/chemistry/math), business, startups, or economics. Set skip=true for everyone else — including historians, explorers, naturalists, musicians, artists, athletes, entertainers, religious figures, pure philosophers, and politicians — and give skip_reason. When in doubt for a Lex episode, skip.
 - Return pure JSON. No markdown. No explanation."""
+
+    if qa_feedback:
+        prompt += f"\n\nCORRECTION REQUIRED — your previous attempt was rejected by QA:\n{qa_feedback}\nFix these specific issues in your response."
 
     try:
         msg = client.messages.create(
@@ -837,7 +841,15 @@ def qa_episode(episode: dict, content: dict, video_id: str | None,
         review = qa_content_review(episode, content, transcript)
         if review and not review.get("overall_ok", True):
             issues.append(("content", f"review: {review.get('summary', 'content issue')}"))
-            regen = generate_content(episode, transcript, video_id or "", model=gen_model)
+            feedback_parts = [f"- {review.get('summary', 'content issue')}"]
+            if not review.get("guest_ok", True) and review.get("guest_correction"):
+                feedback_parts.append(f"- Guest name is WRONG. Correct name: {review['guest_correction']}")
+            if review.get("bad_quote_indexes"):
+                feedback_parts.append(f"- Quotes at positions {review['bad_quote_indexes']} appear fabricated or altered — use only verbatim transcript text")
+            if not review.get("tldr_ok", True):
+                feedback_parts.append("- TL;DR is too generic — be specific about what was actually said")
+            regen = generate_content(episode, transcript, video_id or "", model=gen_model,
+                                     qa_feedback="\n".join(feedback_parts))
             if regen and not regen.get("skip"):
                 regen = _fix_timestamps(regen, video_duration, [])
                 recheck = qa_content_review(episode, regen, transcript)
