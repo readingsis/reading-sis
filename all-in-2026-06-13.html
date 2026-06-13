@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Anthropic's Fable 5 release triggered a developer revolt after it emerged the company stores all prompts for 30 days, secretly downgrades users it deems risky, and rewrites prompts without disclosure — even for enterprise customers with zero-data-retention agreements.">
+  <title>Reading.Sis — Anthropic's Fable Backlash, Nationalizing AI, Inflation Heats Up &amp; California's Broken Elections</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo:active { opacity: 0.6; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; max-height: 9em; overflow: hidden; }
+    .moment-quote.fade { -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .takeaways-rest[hidden] { display: none; }
+    .takeaways-toggle { margin-top: 14px; background: none; border: none; color: var(--green); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <a class="logo" href="index.html" aria-label="Back to the library">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </a>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">All-In</div>
+    <h1 class="episode-title">Anthropic's Fable Backlash, Nationalizing AI, Inflation Heats Up &amp; California's Broken Elections</h1>
+    <div class="guest-name">Chamath Palihapitiya, David Sacks, David Friedberg, Jason Calacanis</div>
+    <div class="meta">
+      <span>13 Jun 2026</span>
+      <span>4 min read</span>
+      <span>31m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Anthropic's Fable 5 release triggered a developer revolt after it emerged the company stores all prompts for 30 days, secretly downgrades users it deems risky, and rewrites prompts without disclosure — even for enterprise customers with zero-data-retention agreements. The hosts argue this isn't just a privacy overreach but a deliberate regulatory capture strategy: restrict the frontier models, lobby for an FDA-style AI regulator to kill open source, and lock in a duopoly. The unintended consequence is already happening — companies like Friedberg's Ohio are being forced to run Chinese open-source models locally.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">David Friedberg</div>
+        <div class="moment-quote">&ldquo;What are the best open source models today? They're Chinese. And that is a major concern. the the American open source models are not as good as the Chinese open source models. So the restrictions that Anthropic and others are putting upon themselves and upon the industry is forcing a lot of companies to go and get open source Chinese models and run them.&rdquo;</div>
+        <div class="moment-context">Friedberg explaining the direct operational consequence of Anthropic's restrictions on his genomics company Ohio</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=gH4FTjDm9FQ&t=440" target="_blank">&#9654; 7:20</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">David Sacks</div>
+        <div class="moment-quote">&ldquo;eight months ago, I said that Enthropic was engaged in a very sophisticated regulatory capture campaign based on fear-mongering. And people at the time thought that was a very spicy take. But 8 months later, I think you're hearing a lot of people say it.&rdquo;</div>
+        <div class="moment-context">Sacks reiterating his earlier prediction after the Fable 5 backlash proved his thesis mainstream</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=gH4FTjDm9FQ&t=595" target="_blank">&#9654; 9:55</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">David Sacks</div>
+        <div class="moment-quote">&ldquo;they would degrade the product. They would degrade what they show you. They would nerf their models if it decided in anthropic soul discretion that you are not worthy of having access to that level of information. So they're creating a new level of AI halves and have nots.&rdquo;</div>
+        <div class="moment-context">Sacks describing the secret model-downgrading behavior buried in Anthropic's 319-page terms document</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=gH4FTjDm9FQ&t=686" target="_blank">&#9654; 11:26</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Chamath Palihapitiya</div>
+        <div class="moment-quote">&ldquo;a gigawatt now costs a hundred billion dollars guys. Okay. So there's a huge capital mo that's a problem here as well. Saxs which even if we wanted to go and endorse and breathe life into the open source model community where the hell am I going to come up with hundred billion now when I started this project it was like four or five billion and it's increased by 20x.&rdquo;</div>
+        <div class="moment-context">Chamath revealing he owns 2,000 acres of zoned Arizona land for a 2-gigawatt data center and is now contemplating building it himself to support open-source compute</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=gH4FTjDm9FQ&t=1109" target="_blank">&#9654; 18:29</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Jason Calacanis</div>
+        <div class="moment-quote">&ldquo;I asked it about the regulations. Pull this up, Nick. I asked it about the regulations on fertilizer while you were talking and look what it said. This is the latest model too. Oh no, it switched. It downgraded me from Fable. I just got downgraded for asking a very simple question&rdquo;</div>
+        <div class="moment-context">Calacanis demonstrating live on air that asking about fertilizer bomb regulations caused Fable 5 to visibly downgrade him mid-conversation</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=gH4FTjDm9FQ&t=1837" target="_blank">&#9654; 30:37</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About the show</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">All-In is a weekly podcast hosted by tech investors and entrepreneurs Chamath Palihapitiya, David Sacks, David Friedberg, and Jason Calacanis. The four 'besties' debate the biggest stories in tech, politics, and markets from their respective perches as founders, VCs, and operators. Known for unfiltered opinions and occasional heated disagreements, the show has become a must-listen in Silicon Valley circles.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>Restrictions are pushing companies toward Chinese open-source models </strong>Friedberg's agricultural genomics company Ohio was actively using frontier models to design genetic constructs and RNA guides — work now being blocked by bioweapon-risk guardrails. The practical alternative is DeepSeek and other Chinese open-source models run locally, which are currently superior to American open-source equivalents.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>Enterprise zero-retention agreements now meaningless with Fable </strong>Enterprise customers who had signed explicit zero-data-retention agreements with Anthropic have no opt-out from the 30-day prompt storage requirement on Mythos/Fable class models. Their only choice is not to use the new models at all.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Anthropic secretly nerfs users without telling them </strong>Fable 5's terms — buried in a 319-page document — allowed Anthropic to silently downgrade users to a lesser model, rewrite their prompts in the background, and still charge full price. They only walked back the non-disclosure piece after public outrage, but the downgrading itself continues.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-text"><strong>Agent platforms amplify the data-retention risk dramatically </strong>Modern AI agents pass enormous context windows to models — stored memories, files, internal documents. Anthropic's 30-day retention policy therefore captures not just a single query but effectively an organizational memory dump, creating a far larger data-leakage surface than traditional API calls.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">5</div>
+      <div class="takeaway-text"><strong>Ben Thompson got kicked for asking about cancer and GLP-1 </strong>Stratechery's Ben Thompson was downgraded by Fable 5 for asking a straightforward question about the relationship between cancer risk and GLP-1 drugs. Sacks uses this as evidence that Anthropic's definition of 'risky' research is far broader than bioweapons — encompassing ordinary scientific and medical inquiry.</div>
+    </div>
+    <div class="takeaways-rest" id="takeawaysRest" hidden>
+    <div class="takeaway">
+      <div class="takeaway-num">6</div>
+      <div class="takeaway-text"><strong>Ark Institute's open genome language model is a working alternative </strong>The Collison-backed Ark Institute ingested global genomic data and released an open-source genome language model. Friedberg's team uses it in plant breeding to evaluate gene variants — demonstrating that domain-specific open-source models can already replace frontier LLMs for specialized scientific tasks.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">7</div>
+      <div class="takeaway-text"><strong>Compute capex has 20x'd — gigawatt now costs $100B </strong>Chamath disclosed that when he acquired and zoned 2,000 acres in Arizona for a 2-gigawatt data center, the buildout cost was roughly $4–5B. That figure has since risen approximately 20x to ~$100B per gigawatt, making independent open-source infrastructure effectively impossible without sovereign or institutional capital.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">8</div>
+      <div class="takeaway-text"><strong>Companies must now plan for single-point-of-failure AI risk </strong>Chamath frames enterprise AI strategy as analogous to insurance underwriting: a downstream employee, scientist, or API call could accidentally trigger a restriction and cut the whole company off from a key productivity tool overnight. Governance frameworks need explicit AI provider diversification policies.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">9</div>
+      <div class="takeaway-text"><strong>Daario's regulatory push is cover to kill open source </strong>Sacks argues Anthropic's CEO is lobbying for an FDA-style AI approval agency not out of pure safety concern but to create a regulatory moat. Such an agency could require model approval before release — feasible for a well-funded closed lab but effectively impossible for open-source projects, wiping out Anthropic's competitive threat from below.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">10</div>
+      <div class="takeaway-text"><strong>Lack of KYC is the tell for regulatory capture intent </strong>Chamath points out that if Anthropic genuinely wanted to prevent misuse, the straightforward solution is Know Your Customer verification — let Friedberg register as a genomics researcher, post a security bond, and get unrestricted access. They have not implemented this, suggesting their surveillance-and-downgrade architecture serves an agenda beyond safety.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">11</div>
+      <div class="takeaway-text"><strong>Strategic deals could let Anthropic invisibly favor corporations </strong>Chamath raises a subtler risk: if Anthropic has a commercial deal with Novartis but not Eli Lilly, it has an economic incentive to shape how users receive information about competing drugs — and the model's internal reasoning trace may not be auditable enough to prove manipulation after the fact.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">12</div>
+      <div class="takeaway-text"><strong>Regulation should target weapon outputs, not model inputs </strong>Friedberg argues the correct analogy is existing law: it's already illegal to create bioweapons, conduct cyberattacks, or design certain weapons. Regulation should enforce those output-side laws with better tracking mechanisms rather than gatekeeping model access upstream — the same way we regulate fertilizer sales with IDs rather than banning nitrogen chemistry.</div>
+    </div>
+    </div>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 12 takeaways</button>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=gH4FTjDm9FQ" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/All-In%20Anthropic%27s%20Fable%20Backlash%2C%20Nationalizing%20AI%2C%20Inflation%20Heats%20Up%20%26%20California%27s%20Broken%20Elections" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/all-in-2026-06-13.html';
+  var PAGE_TITLE = 'Anthropic\'s Fable Backlash, Nationalizing AI, Inflation Heats Up & California\'s Broken Elections — Reading.Sis';
+  var EP = {id:'all-in-2026-06-13', title:'Anthropic\'s Fable Backlash, Nationalizing AI, Inflation Heats Up & California\'s Broken Elections', show:'All-In', date:'13 Jun 2026', url:pageUrl};
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  // Save = bookmark to localStorage (anonymous, per-device). The library's
+  // "Saved" page reads this same key. Toggles on repeat tap.
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
+    var btn = document.getElementById('bookmarkBtn');
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
+    gcEvent('save');
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+
+  function toggleTakeaways() {
+    var rest = document.getElementById('takeawaysRest');
+    var btn = document.getElementById('takeawaysToggle');
+    if (rest.hasAttribute('hidden')) {
+      rest.removeAttribute('hidden');
+      btn.textContent = 'Show fewer';
+    } else {
+      rest.setAttribute('hidden', '');
+      btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
+    }
+  }
+
+  renderSaveBtn();
+
+  // Fade only quotes that actually overflow the 6-line cap (others render full).
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-quote'), function(q) {
+    if (q.scrollHeight > q.clientHeight + 2) q.classList.add('fade');
+  });
+</script>
+</body>
+</html>
