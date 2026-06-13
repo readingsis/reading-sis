@@ -460,7 +460,7 @@ Return a single JSON object (no markdown fences) with exactly these keys:
 
 Hard rules:
 - Provide exactly 5 moments.
-- Provide between 3 and 20 takeaways — extract as many DISTINCT, substantive takeaways as the episode genuinely contains (a 2-3 hour episode usually has many). Do NOT pad with filler or split one idea into several; do NOT force exactly 3. Score every takeaway 1-10 on insight, actionability, and specificity per the schema.
+- Provide between 3 and 10 takeaways — extract the most DISTINCT, substantive takeaways the episode genuinely contains. Quality over quantity: do NOT pad with filler or split one idea into several, and do NOT force exactly 3. Score every takeaway 1-10 on insight, actionability, and specificity per the schema.
 - Verbatim quotes only — never clean up or paraphrase. Keep "um", "like", filler words.
 - Only use timestamps that actually appear in the transcript. If uncertain, use 0.
 - For Lex Fridman episodes ONLY: keep the episode (skip=false) only if the guest's work is clearly in technology, AI/ML, computing, engineering, hard science (physics/biology/chemistry/math), business, startups, or economics. Set skip=true for everyone else — including historians, explorers, naturalists, musicians, artists, athletes, entertainers, religious figures, pure philosophers, and politicians — and give skip_reason. When in doubt for a Lex episode, skip.
@@ -861,12 +861,12 @@ def qa_episode(episode: dict, content: dict, video_id: str | None,
     if 'class="logo" href="index.html"' not in html:
         issues.append(("blocker", "logo no longer links back to the library"))
 
-    # Takeaways: we now ask for 3–20 ranked takeaways. Too few is a quality
+    # Takeaways: we now ask for 3–10 ranked takeaways. Too few is a quality
     # warning (still ships — better than holding); the ranking tolerates missing
     # scores (treated as 0), so don't block on those.
     n_tk = len(content.get("takeaways", []))
-    if not (3 <= n_tk <= 20):
-        issues.append(("warning", f"takeaways count {n_tk} outside expected 3–20"))
+    if not (3 <= n_tk <= 10):
+        issues.append(("warning", f"takeaways count {n_tk} outside expected 3–10"))
 
     passed = not any(level == "blocker" for level, _ in issues)
     return passed, html, content, issues
