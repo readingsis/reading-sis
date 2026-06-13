@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Four investors pitch their top trades live: MGM Resorts as a hidden Asian casino play with Barry Diller buying control, Talon Energy as a nuclear and gas power producer trading at a steep discount to replacement cost, and Actis Oncology as an early-stage radiopharmaceutical platform backed by Eli Lilly.">
+  <title>Reading.Sis — All-In's Best Ideas Pitch Competition: 4 Investors Present Their Top Trades Live</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo:active { opacity: 0.6; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; max-height: 9em; overflow: hidden; }
+    .moment-quote.fade { -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .takeaways-rest[hidden] { display: none; }
+    .takeaways-toggle { margin-top: 14px; background: none; border: none; color: var(--green); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <a class="logo" href="index.html" aria-label="Back to the library">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </a>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">All-In</div>
+    <h1 class="episode-title">All-In's Best Ideas Pitch Competition: 4 Investors Present Their Top Trades Live</h1>
+    <div class="guest-name">Chamath Palihapitiya, Jason Calacanis, David Friedberg, David Sacks</div>
+    <div class="meta">
+      <span>12 Jun 2026</span>
+      <span>6 min read</span>
+      <span>37m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Four investors pitch their top trades live: MGM Resorts as a hidden Asian casino play with Barry Diller buying control, Talon Energy as a nuclear and gas power producer trading at a steep discount to replacement cost, and Actis Oncology as an early-stage radiopharmaceutical platform backed by Eli Lilly. The central thread is that durable hard assets — casinos, power plants, targeted cancer drugs — are being mispriced by markets focused on near-term visibility.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Aaron (Serreta Capital)</div>
+        <div class="moment-quote">&ldquo;Rarely have I ever seen a company in 6 years buy half their float back. So you have Barry Diller who's the legend aggressively buying the stock and it's also now 80% of his NAV.&rdquo;</div>
+        <div class="moment-context">Explaining why MGM's combination of corporate buybacks and Barry Diller's aggressive accumulation makes it a compelling long even before the takeover bid.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=fO5sC7qS04E&t=273" target="_blank">&#9654; 4:33</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Aaron (Serreta Capital)</div>
+        <div class="moment-quote">&ldquo;Japan actually has a reasonably large gambling market. They have pachinko parlors and they have horses. That's about a $40 billion market. If you look at the market in Macau, that's $30 billion. And if you look at Vegas, it's only $10 billion.&rdquo;</div>
+        <div class="moment-context">Quantifying why the Osaka casino license is a transformative hidden asset — Japan's gambling market is larger than both Macau and Vegas.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=fO5sC7qS04E&t=370" target="_blank">&#9654; 6:10</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Daniel</div>
+        <div class="moment-quote">&ldquo;We do not need AI demand to keep the power markets incredibly tight for the next 20 years. AI demand just turbocharges. That's all it does. And it creates shortages.&rdquo;</div>
+        <div class="moment-context">Reframing the power thesis — the structural supply-demand imbalance in electricity exists independent of AI, making the investment case more durable.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=fO5sC7qS04E&t=892" target="_blank">&#9654; 14:52</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Daniel</div>
+        <div class="moment-quote">&ldquo;Today in the stock market, as a good speculation, you could purchase this company at a $25 billion enterprise value. the replacement cost is 45 billion. And because they've got debt, it means that the equity value uh just to get to replacement cost uh is more than a double uh from where it's trading today.&rdquo;</div>
+        <div class="moment-context">Laying out the core valuation argument for Talon Energy using Sam Zell's replacement-cost framework.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=fO5sC7qS04E&t=970" target="_blank">&#9654; 16:10</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Oleg Nelman</div>
+        <div class="moment-quote">&ldquo;unlike most of biotech there's a real moat&rdquo;</div>
+        <div class="moment-context">Concluding the Actis Oncology pitch by highlighting that radioisotopes are off-limits to Chinese generics manufacturers, creating a structural competitive barrier rare in biotech.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=fO5sC7qS04E&t=2018" target="_blank">&#9654; 33:38</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About the show</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">All-In is a weekly podcast hosted by four close friends and investors: Chamath Palihapitiya, Jason Calacanis, David Friedberg, and David Sacks. The show covers business, technology, politics, and markets with candid debate and strong opinions. This special episode features a live best ideas pitch competition modeled after the late Ira Sohn Foundation's investor conference.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>Talon Energy trades at half replacement cost </strong>Talon's 2GW nuclear + 6GW natural gas portfolio has an enterprise value of $25B against a replacement cost of $45B, meaning the equity is a 2x just to reach replacement cost — before any AI or power price upside. At $50/share of annual free cash flow on a high-$300 stock, it also trades at roughly 7x FCF versus a peer multiple of ~15x.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>MGM is an Asian casino play, not Vegas </strong>MGM holds the only Western license to open a casino in Osaka, Japan, opening in 2030. Japan's gambling market is $40B vs. Macau's $30B and Vegas's $10B, and Osaka is geographically closer to Shanghai and Beijing than either Macau or Singapore. The market is ignoring this asset — historically, investors only start pricing in new casino openings about 3 years before launch, which is now.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Radiopharmaceuticals have a real moat: no Chinese generics </strong>Unlike virtually all other drug classes, radiopharmaceuticals require handling radioactive isotopes, which is off-limits to Chinese generic manufacturers. This structural barrier, combined with $15B in recent pharma M&amp;A in the space from Bristol, Novartis, Bayer, and Lilly, makes platform companies like Actis Oncology acquisition targets with durable IP protection.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-text"><strong>Barry Diller's bid is a floor, not a ceiling, for MGM </strong>Diller bid $48/share but owns 26% and has 80% of his NAV in the stock — he is a financial buyer trying to get rich, not a strategic acquirer paying a full control premium. The presenter argues the stock is worth $100-$150 when Japan and Dubai optionality are included, making the bid a signal of value rather than an exit point.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">5</div>
+      <div class="takeaway-text"><strong>Power demand crisis exists without AI — AI just makes it worse </strong>The PJM grid operator forecasts 106 GW of new power needed in one US region in 10 years — equivalent to Japan's entire current consumption. The US started this cycle with 2x China's generation capacity and now has one-third. The structural shortfall from decommissioned industrial capacity and two decades of no demand growth means existing power assets are scarce regardless of data center growth.</div>
+    </div>
+    <div class="takeaways-rest" id="takeawaysRest" hidden>
+    <div class="takeaway">
+      <div class="takeaway-num">6</div>
+      <div class="takeaway-text"><strong>Microsoft restarted Three Mile Island — hyperscalers will pay any price for power </strong>Microsoft agreed to pay $100/megawatt hour for 20 years to restart the Three Mile Island nuclear reactor, double the prevailing market price of $50. This illustrates that hyperscalers are so desperate for firm, clean baseload power that they will subsidize restarts of assets the market had written off, dramatically changing the economics for power producers.</div>
+    </div>
+    </div>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 6 takeaways</button>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=fO5sC7qS04E" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/All-In%20All-In%27s%20Best%20Ideas%20Pitch%20Competition%3A%204%20Investors%20Present%20Their%20Top%20Trades%20Live" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/all-in-2026-06-12.html';
+  var PAGE_TITLE = 'All-In\'s Best Ideas Pitch Competition: 4 Investors Present Their Top Trades Live — Reading.Sis';
+  var EP = {id:'all-in-2026-06-12', title:'All-In\'s Best Ideas Pitch Competition: 4 Investors Present Their Top Trades Live', show:'All-In', date:'12 Jun 2026', url:pageUrl};
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  // Save = bookmark to localStorage (anonymous, per-device). The library's
+  // "Saved" page reads this same key. Toggles on repeat tap.
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
+    var btn = document.getElementById('bookmarkBtn');
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
+    gcEvent('save');
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+
+  function toggleTakeaways() {
+    var rest = document.getElementById('takeawaysRest');
+    var btn = document.getElementById('takeawaysToggle');
+    if (rest.hasAttribute('hidden')) {
+      rest.removeAttribute('hidden');
+      btn.textContent = 'Show fewer';
+    } else {
+      rest.setAttribute('hidden', '');
+      btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
+    }
+  }
+
+  renderSaveBtn();
+
+  // Fade only quotes that actually overflow the 6-line cap (others render full).
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-quote'), function(q) {
+    if (q.scrollHeight > q.clientHeight + 2) q.classList.add('fade');
+  });
+</script>
+</body>
+</html>
