@@ -1253,8 +1253,9 @@ def _about_sheet() -> str:
         'minutes instead of listened to over a couple of hours. New episodes land here daily.</p>'
         '<p>Tap the bookmark on any episode to save it. Saves live on this device only — '
         'no account, nothing to sign up for.</p>'
+        '<p>We\'re still early — your feedback helps shape what gets built next.</p>'
         '<a class="sheet-cta" href="feedback.html" onclick="closeAbout()">Share feedback</a>'
-        '<button class="sheet-close" onclick="closeAbout()">Close</button>'
+        '<button class="sheet-close" onclick="closeAbout()" style="margin-top:10px;">Close</button>'
         '</div></div>'
     )
 
