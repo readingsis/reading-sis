@@ -1952,15 +1952,5 @@
     }
   ],
   "queued": [],
-  "pending_send": [
-    {
-      "id": "all-in-2026-06-12",
-      "podcast": "All-In",
-      "guest": "Various",
-      "title": "All-In's Best Ideas Pitch Competition: 4 Investors Present Their Top Trades Live",
-      "date_str": "12 Jun 2026",
-      "hook": "Four investors pitch their top trades live: MGM Resorts as a hidden Asian casino play with Barry Diller buying control, Talon Energy as a nuclear and gas power producer trading at a steep discount to replacement cost, and Actis Oncology as an early-stage radiopharmaceutical platform backed by Eli Li",
-      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-12.html"
-    }
-  ]
+  "pending_send": []
 }
