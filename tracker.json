@@ -1925,20 +1925,24 @@
       "date": "2026-06-10",
       "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-10-2.html",
       "pushed_at": "2026-06-11"
+    },
+    {
+      "id": "all-in-2026-06-13",
+      "podcast": "All-In",
+      "guest": "Various",
+      "title": "Anthropic's Fable Backlash, Nationalizing AI, Inflation Heats Up & California's Broken Elections",
+      "date": "2026-06-13",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-13.html",
+      "pushed_at": "2026-06-13"
+    },
+    {
+      "id": "pivot-2026-06-12"
+    },
+    {
+      "id": "hard-fork-2026-06-12"
     }
   ],
   "queued": [
-    {
-      "id": "pivot-2026-06-12",
-      "podcast": "Pivot",
-      "title": "SpaceX IPO: Markets, Morals, and What It Means for You",
-      "date": "2026-06-12",
-      "description": "Kara and Scott are joined by MS NOW’s Stephanie Ruhle to unpack SpaceX’s blockbuster IPO, OpenAI’s public market ambitions, and rising inflation. Then, they discuss the White House’s Epstein headache, Paramount taking aim at Netflix, and the growing push to ban social media for teens.\n\nWatch this episode on the ⁠⁠Pivot YouTube channel⁠⁠.Follow us on Instagram and Threads at ⁠⁠@pivotpodcastofficial⁠⁠.Follow us on Bluesky at ⁠⁠@pivotpod.bsky.social⁠⁠Follow us on TikTok at ⁠⁠@pivotpodcast⁠⁠.Send us your questions by calling us at 855-51-PIVOT, or email pivot@voxmedia.com\nLearn more about your ad choices. Visit podcastchoices.com/adchoices",
-      "pub_dt": "2026-06-12T13:00:00",
-      "duration_sec": 3700,
-      "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
-      "lex_filter": false
-    },
     {
       "id": "all-in-2026-06-12",
       "podcast": "All-In",
@@ -1948,19 +1952,19 @@
       "pub_dt": "2026-06-12T04:25:00",
       "duration_sec": 4077,
       "spotify_show": "",
-      "lex_filter": false
-    },
-    {
-      "id": "hard-fork-2026-06-12",
-      "podcast": "Hard Fork",
-      "title": "‘Hard Fork’ Live, Part 1: Satya Nadella and Cindy Cohn",
-      "date": "2026-06-12",
-      "description": "A tech titan, a digital rights defender and two menacing-looking robot dogs took the stage at our second-ever live show.",
-      "pub_dt": "2026-06-12T14:01:20",
-      "duration_sec": 3955,
-      "spotify_show": "https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj",
-      "lex_filter": false
+      "lex_filter": false,
+      "qa_attempts": 1
     }
   ],
-  "pending_send": []
+  "pending_send": [
+    {
+      "id": "all-in-2026-06-13",
+      "podcast": "All-In",
+      "guest": "Various",
+      "title": "Anthropic's Fable Backlash, Nationalizing AI, Inflation Heats Up & California's Broken Elections",
+      "date_str": "13 Jun 2026",
+      "hook": "Anthropic's Fable 5 release triggered a developer revolt after it emerged the company stores all prompts for 30 days, secretly downgrades users it deems risky, and rewrites prompts without disclosure — even for enterprise customers with zero-data-retention agreements. The hosts argue this isn't just",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-13.html"
+    }
+  ]
 }
