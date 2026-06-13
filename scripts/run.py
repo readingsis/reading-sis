@@ -1192,6 +1192,10 @@ LIB_CSS = """
       font-size:20px; line-height:1; width:34px; height:34px; margin:-8px -8px -8px 0;
       align-items:center; justify-content:center; display:none; }
     .clearbtn.show { display:flex; }
+    .sheet-cta { display:block; width:100%; margin-top:14px; background:var(--green);
+      border:1px solid var(--green); color:#08120D; font-size:14px; font-weight:600;
+      padding:12px; border-radius:11px; text-align:center; font-family:inherit; }
+    .sheet-cta:active { opacity:0.8; }
 """
 
 _GLASSES = ('<svg width="26" height="16" viewBox="0 0 26 16" fill="none">'
@@ -1249,6 +1253,7 @@ def _about_sheet() -> str:
         'minutes instead of listened to over a couple of hours. New episodes land here daily.</p>'
         '<p>Tap the bookmark on any episode to save it. Saves live on this device only — '
         'no account, nothing to sign up for.</p>'
+        '<a class="sheet-cta" href="feedback.html" onclick="closeAbout()">Share feedback</a>'
         '<button class="sheet-close" onclick="closeAbout()">Close</button>'
         '</div></div>'
     )
@@ -1406,12 +1411,34 @@ def build_saved_page(tracker: dict) -> str:
     return _lib_page("Reading.Sis — Saved", body, "saved", script)
 
 
+def build_feedback_page() -> str:
+    """Static feedback page embedding the Tally form."""
+    body = (
+        '<div style="padding:20px 18px 8px;">'
+        '<p style="font-size:13.5px;color:var(--tm);line-height:1.6;">'
+        'Help us build a better Reading.Sis — takes 2 minutes.</p>'
+        '</div>'
+        '<iframe data-tally-src="https://tally.so/embed/68VOG5'
+        '?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" '
+        'loading="lazy" width="100%" height="500" frameborder="0" '
+        'marginheight="0" marginwidth="0" title="Reading.Sis Feedback" '
+        'style="display:block;"></iframe>'
+    )
+    return _lib_page(
+        "Reading.Sis — Feedback",
+        body,
+        "home",
+        '<script src="https://tally.so/widgets/embed.js"></script>',
+    )
+
+
 def push_library(tracker: dict) -> None:
     """Build and publish the whole library site: home, search, saved, per-show pages."""
     files = {
         "index.html": build_library(tracker),
         "search.html": build_search_page(tracker),
         "saved.html": build_saved_page(tracker),
+        "feedback.html": build_feedback_page(),
     }
     files.update(build_podcast_pages(tracker))
     for path, html in files.items():
