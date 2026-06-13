@@ -1956,15 +1956,5 @@
       "qa_attempts": 1
     }
   ],
-  "pending_send": [
-    {
-      "id": "all-in-2026-06-13",
-      "podcast": "All-In",
-      "guest": "Various",
-      "title": "Anthropic's Fable Backlash, Nationalizing AI, Inflation Heats Up & California's Broken Elections",
-      "date_str": "13 Jun 2026",
-      "hook": "Anthropic's Fable 5 release triggered a developer revolt after it emerged the company stores all prompts for 30 days, secretly downgrades users it deems risky, and rewrites prompts without disclosure — even for enterprise customers with zero-data-retention agreements. The hosts argue this isn't just",
-      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-13.html"
-    }
-  ]
+  "pending_send": []
 }
