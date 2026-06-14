@@ -760,6 +760,53 @@ def alert_noam(text: str) -> None:
         print(f"  Alert DM failed: {e}")
 
 
+def _format_found(found_by_podcast: dict[str, int]) -> str:
+    """'1 All-In and 2 Lenny's Podcast' — human list of what RSS turned up."""
+    parts = [f"{n} {name}" for name, n in found_by_podcast.items()]
+    if len(parts) > 1:
+        return ", ".join(parts[:-1]) + " and " + parts[-1]
+    return parts[0] if parts else ""
+
+
+def _send_run_summary(found_by_podcast: dict[str, int], outcomes: list[dict]) -> None:
+    """Second morning DM: what the generate phase actually found and prepared,
+    with explicit call-outs for anything that failed to generate or got held by
+    QA, so a quiet inbox never hides a broken run."""
+    published = [o for o in outcomes if o["status"] == "published"]
+    held      = [o for o in outcomes if o["status"] == "held"]
+    failed    = [o for o in outcomes if o["status"] in ("gen_failed", "push_failed")]
+    skipped   = [o for o in outcomes if o["status"] == "skipped"]
+
+    def label(o: dict) -> str:
+        guest = (o.get("guest") or "").strip()
+        show  = o.get("podcast") or o["id"]
+        return f"{show} — {guest}" if guest else (o.get("title") or o["id"])
+
+    # Nothing new at all this morning.
+    if not found_by_podcast and not published and not held and not failed:
+        alert_noam("all done — no new episodes this morning, so nothing to send at 7. all quiet.")
+        return
+
+    lines: list[str] = []
+    if found_by_podcast:
+        total = sum(found_by_podcast.values())
+        lines.append(f"ok — found {total} new episode{'s' if total != 1 else ''}: "
+                     f"{_format_found(found_by_podcast)}.")
+    if published:
+        names = "; ".join(label(o) for o in published)
+        lines.append(f"✅ ready and queued: {names}. they'll go out at 7 per the plan.")
+    for o in held:
+        lines.append(f"⚠️ held by QA, won't send until it's clean — {label(o)}. "
+                     f"reason: {o.get('detail') or 'see logs'}.")
+    for o in failed:
+        lines.append(f"❌ failed to prepare — {label(o)} ({o.get('detail') or 'see logs'}). "
+                     f"it'll retry on the next run.")
+    if skipped:
+        names = "; ".join(label(o) for o in skipped)
+        lines.append(f"↩️ skipped by the off-topic filter: {names}.")
+    alert_noam("\n".join(lines))
+
+
 def _fix_timestamps(content: dict, video_duration: int | None, issues: list) -> dict:
     """Drop any moment timestamp that lands past the video's end — a sign of a
     hallucinated or wrong-video timestamp. Setting seconds to 0 makes build_html
@@ -1729,7 +1776,7 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
     print("Done.")
 
 
-def main() -> None:
+def _run_generate() -> None:
     window = get_schedule()
     now   = now_israel()
     today = now.date()
@@ -1744,11 +1791,16 @@ def main() -> None:
     queued_ids: set[str] = {ep["id"] for ep in tracker.get("queued", [])}
 
     # ── Discover new episodes from RSS ────────────────────────────────────────
+    # found_by_podcast / outcomes feed the morning results DM (_send_run_summary).
+    found_by_podcast: dict[str, int] = {}
+    outcomes: list[dict] = []
     candidates: list[dict] = []
     for podcast in PODCASTS:
         print(f"Scanning {podcast['name']}…")
         eps = fetch_new_episodes(podcast, cutoff, processed_ids, queued_ids)
         print(f"  {len(eps)} new episode(s)")
+        if eps:
+            found_by_podcast[podcast["name"]] = len(eps)
         candidates.extend(eps)
 
     # ── Re-evaluate queued episodes every run ─────────────────────────────────
@@ -1770,6 +1822,7 @@ def main() -> None:
 
     if not candidates:
         print("\nNo new episodes today.")
+        _send_run_summary(found_by_podcast, outcomes)
         return
 
     print(f"\n{len(candidates)} episode(s) to evaluate.\n")
@@ -1819,12 +1872,18 @@ def main() -> None:
         content = generate_content(episode, transcript, video_id or "")
         if not content:
             print("  Content generation failed — skipping\n")
+            outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
+                             "title": episode.get("title"), "status": "gen_failed",
+                             "detail": "content generation returned nothing"})
             continue
 
         if content.get("skip"):
             print(f"  Skipped by Lex filter: {content.get('skip_reason')}\n")
             # Still mark as processed so we don't retry
             tracker["processed"].append({"id": ep_id, "skipped": True})
+            outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
+                             "title": episode.get("title"), "status": "skipped",
+                             "detail": content.get("skip_reason")})
             tracker_dirty = True
             continue
 
@@ -1849,6 +1908,9 @@ def main() -> None:
             if q["qa_attempts"] in (1, 3, 6):
                 alert_noam(f"⚠️ Reading.Sis QA held {ep_id} (attempt {q['qa_attempts']}). "
                            f"Not sent until fixed.\nIssues: {blockers}")
+            outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
+                             "guest": content.get("guest"), "title": episode.get("title"),
+                             "status": "held", "detail": blockers})
             tracker_dirty = True
             continue
 
@@ -1858,6 +1920,9 @@ def main() -> None:
             print(f"  Pushed: {page_url}")
         except Exception as e:
             print(f"  GitHub push failed: {e} — skipping\n")
+            outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
+                             "guest": content.get("guest"), "title": episode.get("title"),
+                             "status": "push_failed", "detail": str(e)})
             continue
 
         # ── Queue WhatsApp for the 7 AM send phase ────────────────────────────
@@ -1886,6 +1951,9 @@ def main() -> None:
         })
         tracker["queued"] = [q for q in tracker.get("queued", []) if q["id"] != ep_id]
         processed_ids.add(ep_id)
+        outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
+                         "guest": content.get("guest"), "title": episode.get("title"),
+                         "status": "published"})
         tracker_dirty = True
         print()
 
@@ -1898,7 +1966,21 @@ def main() -> None:
         except Exception as e:
             print(f"  Library update failed: {e}")
 
+    _send_run_summary(found_by_podcast, outcomes)
     print("\nDone.")
+
+
+def main() -> None:
+    """6 AM generate phase. Bookends the run with two DMs to Noam: one when it
+    starts, one with the results — and a failure DM if the run crashes, so a
+    silent morning never masks a broken pipeline."""
+    alert_noam("hey — morning run just kicked off, checking the feeds for new episodes now.")
+    try:
+        _run_generate()
+    except Exception as e:
+        alert_noam(f"❌ the morning run hit an error and stopped early: {e}. "
+                   f"nothing sent — needs a look.")
+        raise
 
 
 if __name__ == "__main__":
