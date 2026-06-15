@@ -135,6 +135,7 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/hNaFxXpO",
         "spotify_show": "",
         "lex_filter": False,
+        "show_format": "panel",
     },
     {
         "name": "Stuff You Should Know",
@@ -379,21 +380,31 @@ def verify_youtube_match(video_id: str, episode: dict) -> bool:
     return True
 
 
-def find_youtube_id(title: str, podcast_name: str) -> str | None:
+def find_youtube_id(title: str, podcast_name: str, show_format: str = "") -> str | None:
     """Search YouTube for the episode video ID.
 
-    Tries the official Data API first (works from datacenter IPs, needs
-    YOUTUBE_API_KEY), then falls back to yt-dlp scraping (often blocked
-    on GitHub Actions runners).
+    Tries the YouTube Data API first (multiple query forms), then falls back
+    to yt-dlp. For true_crime shows strips prefixes like "MURDERED:" from the
+    title since YouTube video titles often omit them.
     """
     query = f"{podcast_name} {title}"
 
-    api_key = os.environ.get("YOUTUBE_API_KEY", "")
-    if api_key:
+    # True crime episodes often have a type prefix ("MURDERED: Jane Doe") that
+    # the YouTube video title omits — build a shorter stripped alternative.
+    short_title = re.sub(
+        r'^(MURDERED|SOLVED|MISSING|CONSPIRACY|UNKNOWN|ALLEGED|KIDNAPPED|ABDUCTED)\s*:\s*',
+        '', title, flags=re.IGNORECASE,
+    ).strip() if show_format == "true_crime" else title
+    short_query = f"{podcast_name} {short_title}"
+
+    def _api_search(q: str) -> str | None:
+        api_key = os.environ.get("YOUTUBE_API_KEY", "")
+        if not api_key:
+            return None
         try:
             r = requests.get(
                 "https://www.googleapis.com/youtube/v3/search",
-                params={"part": "id", "q": query, "type": "video",
+                params={"part": "id", "q": q, "type": "video",
                         "maxResults": 1, "key": api_key},
                 timeout=20,
             )
@@ -401,22 +412,40 @@ def find_youtube_id(title: str, podcast_name: str) -> str | None:
             items = r.json().get("items", [])
             if items:
                 return items[0]["id"]["videoId"]
-            return None
         except Exception as e:
-            print(f"  YouTube Data API error: {e} — falling back to yt-dlp")
+            print(f"  YouTube Data API error: {e}")
+        return None
 
-    try:
-        result = subprocess.run(
-            ["yt-dlp", f"ytsearch1:{query}", "--print", "%(id)s", "--no-download", "--quiet"],
-            capture_output=True, text=True, timeout=45,
-        )
-        if result.returncode == 0:
-            vid = result.stdout.strip().split("\n")[0].strip()
-            if re.match(r"^[A-Za-z0-9_-]{11}$", vid):
-                return vid
-    except Exception as e:
-        print(f"  YouTube search error: {e}")
-    return None
+    def _dlp_search(q: str) -> str | None:
+        try:
+            result = subprocess.run(
+                ["yt-dlp", f"ytsearch1:{q}", "--print", "%(id)s", "--no-download", "--quiet"],
+                capture_output=True, text=True, timeout=90,
+            )
+            if result.returncode == 0:
+                vid = result.stdout.strip().split("\n")[0].strip()
+                if re.match(r"^[A-Za-z0-9_-]{11}$", vid):
+                    return vid
+        except Exception as e:
+            print(f"  YouTube search error: {e}")
+        return None
+
+    # 1. Full title via Data API
+    vid = _api_search(query)
+    if vid:
+        return vid
+    # 2. Stripped/short title via Data API (different query form may surface the video)
+    if short_query != query:
+        vid = _api_search(short_query)
+        if vid:
+            return vid
+    # 3. Short query via yt-dlp (simpler query is faster and less likely to time out)
+    if short_query != query:
+        vid = _dlp_search(short_query)
+        if vid:
+            return vid
+    # 4. Full query via yt-dlp as last resort
+    return _dlp_search(query)
 
 
 def get_transcript(video_id: str, max_words: int = 6000) -> list[dict]:
@@ -536,16 +565,25 @@ Hard rules:
 - Return pure JSON. No markdown. No explanation."""
 
     if episode.get("show_format") == "true_crime":
-        prompt += """
+        podcast_name = episode.get("podcast", "the show")
+        prompt += f"""
 
 Show format note: This is a TRUE CRIME / MYSTERY STORY episode — no traditional interview guest.
 - "guest": name of the case subject, victim, or main person featured (or "Various" for multi-case episodes)
 - "guest_line": "Case: [brief identifier]" — e.g. "Case: Jane Doe" or "Case: The Zodiac Killer"
-- "bio_section_title": "About the Case"
-- "bio_text": 2-3 sentences on the case background, victim, and context
+- "bio_section_title": "About {podcast_name}"
+- "bio_text": 2-3 sentences about the show, its hosts, and the kinds of stories it typically covers — NOT about the current episode's case (the TL;DR already covers that)
 - "moments": use the host/narrator name as speaker (e.g. "Ashley Flowers", "MrBallen")
 - "takeaways": key facts, timeline turns, and revelations — not career/business advice style
 - "actionability" scores will naturally be low for true crime; score "insight" and "specificity" higher"""
+
+    if episode.get("show_format") == "panel":
+        podcast_name = episode.get("podcast", "the show")
+        prompt += f"""
+
+Show format note: This is a PANEL / ENSEMBLE show — the recurring hosts ARE the show's identity.
+- "bio_section_title": "About {podcast_name}"
+- "bio_text": 2-3 sentences about the show, its regular hosts, and its typical format/style — NOT about the guest of this episode (the TL;DR already covers that)"""
 
     if qa_feedback:
         prompt += f"\n\nCORRECTION REQUIRED — your previous attempt was rejected by QA:\n{qa_feedback}\nFix these specific issues in your response."
@@ -1014,6 +1052,14 @@ def qa_episode(episode: dict, content: dict, video_id: str | None,
     if not (3 <= n_tk <= 10):
         issues.append(("warning", f"takeaways count {n_tk} outside expected 3–10"))
 
+    # Timestamps: if a video was found but every moment timestamp is zero the
+    # model either got no transcript or ignored timing data — flag it so the
+    # issue is visible in logs / Noam's DMs.
+    if video_id:
+        moments = content.get("moments", [])
+        if moments and all((m.get("timestamp_seconds") or 0) == 0 for m in moments):
+            issues.append(("warning", "video found but all moment timestamps are 0 — transcript may be missing or model ignored timing"))
+
     passed = not any(level == "blocker" for level, _ in issues)
     return passed, html, content, issues
 
@@ -1089,7 +1135,7 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
         )
 
     # Build takeaways: rank by insight + actionability + specificity, show the
-    # top 5, hide the rest behind a "Show all" expander.
+    # top 3, hide the rest behind a "Show all" expander.
     def _tk_score(tk: dict) -> int:
         return sum((tk.get(k) or 0) for k in ("insight", "actionability", "specificity"))
 
@@ -1103,7 +1149,7 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
         )
 
     ranked = sorted(content.get("takeaways", []), key=_tk_score, reverse=True)
-    top, rest = ranked[:5], ranked[5:]
+    top, rest = ranked[:3], ranked[3:]
     takeaways_html = "".join(_tk_html(tk, i) for i, tk in enumerate(top, 1))
     if rest:
         rest_html = "".join(_tk_html(tk, i) for i, tk in enumerate(rest, len(top) + 1))
@@ -1811,7 +1857,7 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
                 processed_ids.add(ep_id)
             continue
 
-        video_id = find_youtube_id(episode["title"], episode["podcast"])
+        video_id = find_youtube_id(episode["title"], episode["podcast"], episode.get("show_format", ""))
         video_duration = None
         if video_id:
             if verify_youtube_match(video_id, episode):
@@ -1964,7 +2010,7 @@ def _run_generate(window_override: datetime.timedelta | None = None,
             continue
 
         # ── Find YouTube video (and verify it IS this episode) ───────────────
-        video_id = find_youtube_id(episode["title"], episode["podcast"])
+        video_id = find_youtube_id(episode["title"], episode["podcast"], episode.get("show_format", ""))
         video_duration = None
         if video_id:
             if verify_youtube_match(video_id, episode):
