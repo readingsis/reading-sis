@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Creatine monohydrate is the most researched supplement on the planet and its benefits extend far beyond muscle — covering bone health, brain function under stress, and recovery.">
+  <title>Reading.Sis — Creatine Expert: Creatine Is The Secret To Weight Loss</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo:active { opacity: 0.6; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; max-height: 9em; overflow: hidden; }
+    .moment-quote.fade { -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .takeaways-rest[hidden] { display: none; }
+    .takeaways-toggle { margin-top: 14px; background: none; border: none; color: var(--green); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <a class="logo" href="index.html" aria-label="Back to the library">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </a>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">The Diary Of A CEO</div>
+    <h1 class="episode-title">Creatine Expert: Creatine Is The Secret To Weight Loss</h1>
+    <div class="guest-name">with Dr. Darren Candow</div>
+    <div class="meta">
+      <span>15 Jun 2026</span>
+      <span>4 min read</span>
+      <span>1h 10m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Creatine monohydrate is the most researched supplement on the planet and its benefits extend far beyond muscle — covering bone health, brain function under stress, and recovery. Most common fears about creatine (kidney damage, hair loss, water retention, muscle cramps) are myths unsupported by evidence. Dosing around 5g/day for muscle is effective, but bone and brain may require 8–12g, ideally split across the day in a microdosing approach.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Darren Candow</div>
+        <div class="moment-quote">&ldquo;So this is definitely the number one myth. Creatine damages your kidneys. So when you take in creatine to the body it gets stored as creatine. But when you metabolize it sort of sort of thinking leaking from the muscle it gets leaked out as creatinin.&rdquo;</div>
+        <div class="moment-context">Candow is debunking the most common myth about creatine, explaining why elevated creatinine on blood tests is a false positive rather than a sign of kidney damage.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Jk7RAkFN4vk&t=494" target="_blank">&#9654; 8:14</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Darren Candow</div>
+        <div class="moment-quote">&ldquo;If you take too much too soon, it can lead to an increase in water retention. So, you've probably heard of the creatine loading phase. This is where supplement companies want you to take about 20 or 30 grams a day for about 5 or 7 days. That has been shown to increase water retention acutely.&rdquo;</div>
+        <div class="moment-context">Candow is addressing the myth that creatine causes water retention, clarifying it's only a risk when loading doses are used improperly.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Jk7RAkFN4vk&t=574" target="_blank">&#9654; 9:34</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Darren Candow</div>
+        <div class="moment-quote">&ldquo;So that is actually showing where the individuals would train and then without creatine and then take it over time as well... it goes to show that when you have creatine everything is elevated. If you stop taking it, it takes about four weeks to come back down. But you'll notice that it was at the same level as a placebo. And then when they take it again, they get a rebound effect.&rdquo;</div>
+        <div class="moment-context">Candow is explaining an 8-week study graph showing how creatine elevates training volume and what happens when supplementation stops and resumes.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Jk7RAkFN4vk&t=950" target="_blank">&#9654; 15:50</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Darren Candow</div>
+        <div class="moment-quote">&ldquo;Unfortunately, the lowest dose ever been shown to have bone benefits is 8 g all the way up to 12. So now we're in a dosing dilemma already. We just started. We have a little bit disconnect between muscle and bone. 3 to 5 gram seems to be really good for muscle. A little bit more is fine, but bone needs to be a little bit more.&rdquo;</div>
+        <div class="moment-context">Candow is walking through a dosing chart and revealing that bone health requires significantly higher creatine doses than muscle performance.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=Jk7RAkFN4vk&t=1548" target="_blank">&#9654; 25:48</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Darren Candow</div>
+        <div class="moment-quote">&ldquo;A healthy brain likely doesn't need any creatine. But what if you're stressed? What about sleep deprivation? Night shift workers, university students cramming for a midterm. Then all of a sudden, the healthy brain becomes a metabolically stressed brain. And most people fall into the stressed environment. And that's where creatine comes to the rescue.&rdquo;</div>
+        <div class="moment-context">Candow opens the episode explaining the specific conditions under which creatine provides cognitive benefits.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About Dr. Darren Candow</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">Dr. Darren Candow is a creatine researcher who completed his graduate studies in cell biology and kinesiology in Canada. He has published over 120 papers specifically on creatine and conducted 30-40 studies in his own lab. His research spans populations from young athletes to older adults, with a particular focus on healthy aging, muscle performance, and bone health.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>Microdosing creatine throughout the day reduces side effects </strong>Taking creatine all at once — especially on an empty stomach — can trigger a jittery or nauseous feeling due to excess methyl groups stimulating adrenaline synthesis. Splitting intake into smaller doses (e.g. a few grams in the morning, a few during a workout) eliminates most GI and energy-spike issues. Candow personally takes 10g/day split across two doses.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>Bone health needs 8–12g daily, not the standard 5g </strong>While 5g/day is sufficient for muscle performance, every bone-benefit study has used 8–12g/day combined with resistance training. Creatine doesn't increase bone density but slows bone mineral density loss — particularly around the hip in post-menopausal women. Without exercise, no bone benefit has ever been demonstrated.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Creatine's kidney damage fear is a false positive </strong>When taking creatine, creatinine levels in blood tests rise — which doctors can misread as reduced kidney function. Candow says 99 out of 100 times this is a false positive caused by normal creatine metabolism, not actual kidney damage. Always tell your doctor you're supplementing so they can interpret results correctly.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-text"><strong>Vegans and vegetarians get the biggest creatine response </strong>Because creatine is only found in animal flesh, vegans and vegetarians get zero dietary creatine and rely entirely on the body's own synthesis of 1–3g/day. When they supplement, their muscles are far less saturated at baseline, so the relative uplift is dramatically larger than for meat-eaters. This makes creatine supplementation arguably most important for plant-based eaters.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">5</div>
+      <div class="takeaway-text"><strong>Creatine monohydrate still beats every newer formulation </strong>Despite heavy marketing of creatine hydrochloride and other variants, no alternative form has ever been shown to be safer or more effective than plain creatine monohydrate. Candow recommends looking for Creapure (a German-certified monohydrate) and an NSF or third-party certification label to avoid contaminants like lead or arsenic.</div>
+    </div>
+    <div class="takeaways-rest" id="takeawaysRest" hidden>
+    <div class="takeaway">
+      <div class="takeaway-num">6</div>
+      <div class="takeaway-text"><strong>Creatine stores persist in muscle for ~4 weeks after stopping </strong>Once creatine stores are elevated, they take approximately four weeks to return to baseline in skeletal muscle after supplementation stops. In the brain, depletion may take five weeks to three months. This means missing a holiday week or two has minimal impact on muscle performance benefits.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">7</div>
+      <div class="takeaway-text"><strong>Water retention from creatine is actually a muscle-building signal </strong>Creatine draws water into muscle cells (osmotic effect), which temporarily increases cell volume. This cell swelling directly activates protein synthesis signalling pathways, making it one of the primary mechanisms by which creatine supports lean mass gains. After the first week, the water resides inside the muscle — not as subcutaneous bloat.</div>
+    </div>
+    </div>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 7 takeaways</button>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=Jk7RAkFN4vk" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/The%20Diary%20Of%20A%20CEO%20Creatine%20Expert%3A%20Creatine%20Is%20The%20Secret%20To%20Weight%20Loss" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/doac-2026-06-15.html';
+  var PAGE_TITLE = 'Creatine Expert: Creatine Is The Secret To Weight Loss — Reading.Sis';
+  var EP = {id:'doac-2026-06-15', title:'Creatine Expert: Creatine Is The Secret To Weight Loss', show:'The Diary Of A CEO', date:'15 Jun 2026', url:pageUrl};
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  // Save = bookmark to localStorage (anonymous, per-device). The library's
+  // "Saved" page reads this same key. Toggles on repeat tap.
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
+    var btn = document.getElementById('bookmarkBtn');
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
+    gcEvent('save');
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+
+  function toggleTakeaways() {
+    var rest = document.getElementById('takeawaysRest');
+    var btn = document.getElementById('takeawaysToggle');
+    if (rest.hasAttribute('hidden')) {
+      rest.removeAttribute('hidden');
+      btn.textContent = 'Show fewer';
+    } else {
+      rest.setAttribute('hidden', '');
+      btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
+    }
+  }
+
+  renderSaveBtn();
+
+  // Fade only quotes that actually overflow the 6-line cap (others render full).
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-quote'), function(q) {
+    if (q.scrollHeight > q.clientHeight + 2) q.classList.add('fade');
+  });
+</script>
+</body>
+</html>
