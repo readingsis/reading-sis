@@ -1869,7 +1869,8 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
     print("Done.")
 
 
-def _run_generate(window_override: datetime.timedelta | None = None) -> None:
+def _run_generate(window_override: datetime.timedelta | None = None,
+                  preview_mode: bool = False) -> None:
     window = window_override or get_schedule()
     now   = now_israel()
     today = now.date()
@@ -1880,6 +1881,9 @@ def _run_generate(window_override: datetime.timedelta | None = None) -> None:
     processed_ids: set[str] = {
         (ep["id"] if isinstance(ep, dict) else ep)
         for ep in tracker.get("processed", [])
+    } | {
+        ep["id"] for ep in tracker.get("preview", [])
+        if isinstance(ep, dict) and ep.get("id")
     }
     queued_ids: set[str] = {ep["id"] for ep in tracker.get("queued", [])}
 
@@ -1920,6 +1924,7 @@ def _run_generate(window_override: datetime.timedelta | None = None) -> None:
 
     print(f"\n{len(candidates)} episode(s) to evaluate.\n")
     tracker_dirty = False
+    preview_links: list[dict] = []  # populated only in preview_mode
 
     for episode in candidates:
         ep_id    = episode["id"]
@@ -2019,47 +2024,83 @@ def _run_generate(window_override: datetime.timedelta | None = None) -> None:
             continue
 
         # ── Queue WhatsApp for the 7 AM send phase ────────────────────────────
-        # Messages go out an hour later (run.py --send) so GitHub Pages has
-        # comfortably finished deploying and every URL is verified live first.
-        tracker.setdefault("pending_send", []).append({
-            "id":       ep_id,
-            "podcast":  episode.get("podcast"),
-            "guest":    content.get("guest", ""),
-            "title":    episode.get("title"),
-            "date_str": pub_dt.strftime("%-d %b %Y"),
-            "hook":     (content.get("tldr") or "")[:300],
-            "page_url": page_url,
-        })
-        print("  Queued for 7 AM send")
+        # In preview_mode: DM Noam the links privately for review instead of
+        # queuing for the group. Nothing reaches the group until he approves.
+        if preview_mode:
+            preview_links.append({
+                "podcast":  episode.get("podcast"),
+                "guest":    content.get("guest", ""),
+                "title":    episode.get("title"),
+                "page_url": page_url,
+            })
+            print("  Preview — DM to Noam only (not queued for group)")
+        else:
+            # Messages go out an hour later (run.py --send) so GitHub Pages has
+            # comfortably finished deploying and every URL is verified live first.
+            tracker.setdefault("pending_send", []).append({
+                "id":       ep_id,
+                "podcast":  episode.get("podcast"),
+                "guest":    content.get("guest", ""),
+                "title":    episode.get("title"),
+                "date_str": pub_dt.strftime("%-d %b %Y"),
+                "hook":     (content.get("tldr") or "")[:300],
+                "page_url": page_url,
+            })
+            print("  Queued for 7 AM send")
 
         # ── Update tracker ────────────────────────────────────────────────────
-        tracker.setdefault("processed", []).append({
-            "id":        ep_id,
-            "podcast":   episode.get("podcast"),
-            "guest":     content.get("guest"),
-            "title":     episode.get("title"),
-            "date":      episode.get("date"),
-            "page_url":  page_url,
-            "pushed_at": str(today),
-        })
-        tracker["queued"] = [q for q in tracker.get("queued", []) if q["id"] != ep_id]
-        processed_ids.add(ep_id)
+        if preview_mode:
+            # Preview: page is live at its URL but NOT in the library and NOT
+            # in processed. Tracked separately so the daily run doesn't
+            # re-generate it. Noam reviews via private DM and approves manually.
+            tracker.setdefault("preview", []).append({
+                "id":        ep_id,
+                "podcast":   episode.get("podcast"),
+                "guest":     content.get("guest"),
+                "title":     episode.get("title"),
+                "date":      episode.get("date"),
+                "page_url":  page_url,
+                "pushed_at": str(today),
+            })
+            processed_ids.add(ep_id)  # prevent re-generation in this run
+        else:
+            tracker.setdefault("processed", []).append({
+                "id":        ep_id,
+                "podcast":   episode.get("podcast"),
+                "guest":     content.get("guest"),
+                "title":     episode.get("title"),
+                "date":      episode.get("date"),
+                "page_url":  page_url,
+                "pushed_at": str(today),
+            })
+            tracker["queued"] = [q for q in tracker.get("queued", []) if q["id"] != ep_id]
+            processed_ids.add(ep_id)
         outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
                          "guest": content.get("guest"), "title": episode.get("title"),
-                         "status": "published"})
+                         "status": "preview" if preview_mode else "published"})
         tracker_dirty = True
         print()
 
     if tracker_dirty:
         save_tracker(tracker, tracker_sha)
         print("Tracker saved.")
-        # Refresh the public library whenever the episode list changed.
-        try:
-            push_library(tracker)
-        except Exception as e:
-            print(f"  Library update failed: {e}")
+        if not preview_mode:
+            # Only rebuild the library for real publishes — preview episodes
+            # must not appear in the library until Noam approves them.
+            try:
+                push_library(tracker)
+            except Exception as e:
+                print(f"  Library update failed: {e}")
 
-    _send_run_summary(found_by_podcast, outcomes)
+    if preview_mode and preview_links:
+        lines = ["🔍 Preview episodes ready — reply to approve any for the group:\n"]
+        for item in preview_links:
+            guest = f" w/ {item['guest']}" if item.get("guest") and item["guest"] not in ("Various", "") else ""
+            lines.append(f"• {item['podcast']}{guest}\n  {item['page_url']}")
+        alert_noam("\n".join(lines))
+
+    if not preview_mode:
+        _send_run_summary(found_by_podcast, outcomes)
     print("\nDone.")
 
 
@@ -2093,14 +2134,15 @@ if __name__ == "__main__":
                 since_str = arg.split("=", 1)[1]
         backfill(datetime.datetime.strptime(since_str, "%Y-%m-%d").date())
     elif "--preview-new" in sys.argv:
-        # Generate the latest episode for shows with no processed episodes yet,
-        # then send immediately. Used for first-run previews of newly added shows.
-        alert_noam("hey — preview-new run kicking off, generating first episodes for new shows.")
+        # Generate the latest episode for shows with no processed episodes yet.
+        # Pages are pushed to the library but nothing goes to the group —
+        # links are DMed to Noam privately for review. He approves before
+        # anything reaches the group.
+        alert_noam("hey — preview-new run kicking off, generating first episodes for new shows. links coming your way for review.")
         try:
-            _run_generate(window_override=datetime.timedelta(days=30))
+            _run_generate(window_override=datetime.timedelta(days=30), preview_mode=True)
         except Exception as e:
             alert_noam(f"❌ preview-new run hit an error: {e}")
             raise
-        send_pending()
     else:
         main()
