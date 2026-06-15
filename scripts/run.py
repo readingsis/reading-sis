@@ -1282,7 +1282,9 @@ def _lib_page(title: str, body: str, active: str, extra_script: str = "") -> str
         '<!DOCTYPE html>\n<html lang="en">\n<head>\n'
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">\n'
-        '  <meta name="description" content="Reading.Sis — podcast highlights, distilled.">\n'
+        '  <meta name="description" content="Podcast highlights, distilled. Listen less, know more.">\n'
+        '  <meta property="og:title" content="Reading.Sis">\n'
+        '  <meta property="og:description" content="Podcast highlights, distilled. Listen less, know more.">\n'
         f'  <title>{_t(title)}</title>\n'
         f'{goatcounter_script()}\n'
         f'  <style>{LIB_CSS}</style>\n</head>\n<body>\n<div class="page">\n'
@@ -1557,9 +1559,9 @@ def generate_sis_message(p: dict, idx: int, total: int, model: str = MODEL) -> s
     prompt = f"""You are "Sis", the voice of Reading.Sis — like a big sister who reads great \
 podcasts and shares the best ones with a small WhatsApp group.
 
-Voice: warm, genuine, personal — but restrained and a little polished. NOT hype-y. Minimal \
-emoji: zero, or at most one and only if it feels natural. No slang pile-ups, no exclamation \
-overload.
+Voice: warm, genuine, personal — but restrained and a little polished. NOT hype-y. Light emoji \
+where it fits naturally: 🎙️ near the show or guest mention, ☀️ with a morning greeting. One or \
+two max — never clustered, never forced. No slang pile-ups, no exclamation overload.
 
 Write ONE short WhatsApp message (1-2 sentences, ~25-45 words) introducing today's read. \
 Mention the show, the guest (if any), and briefly what it's about, in a natural way. End with \
