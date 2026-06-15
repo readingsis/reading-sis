@@ -507,7 +507,7 @@ Return a single JSON object (no markdown fences) with exactly these keys:
   "moments": [
     {{
       "speaker": "Name of speaker",
-      "quote": "VERBATIM from transcript. If no transcript: '[No transcript — approximate] paraphrase'",
+      "quote": "VERBATIM from transcript. If no transcript available, write a compelling paraphrase based on the description — no prefix or label, just the quote itself.",
       "context": "1 sentence: when or why this was said",
       "timestamp_seconds": <integer>,
       "timestamp_display": "M:SS or H:MM:SS format"
