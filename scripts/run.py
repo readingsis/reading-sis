@@ -40,7 +40,7 @@ GREENAPI_GROUP   = os.environ.get("GREENAPI_GROUP_ID", "")
 ALERT_TO_NOAM    = os.environ.get("WHATSAPP_TO_NOAM", "")
 
 MODEL = "claude-sonnet-4-6"        # daily generation + Sis messages
-QA_MODEL = "claude-opus-4-8"       # QA content review (independent, last-line check)
+QA_MODEL = "claude-sonnet-4-6"     # QA content review
 HAIKU = "claude-haiku-4-5"         # backfill generation (cheap, bulk)
 # GoatCounter analytics. Just the site code (the "xxxxx" in xxxxx.goatcounter.com).
 # Public by nature (it's visible in page source), so a plain env var is fine —
@@ -563,7 +563,6 @@ Show format note: This is a TRUE CRIME / MYSTERY STORY episode — no traditiona
         return json.loads(_extract_json(raw))
     except Exception as e:
         print(f"  Claude error: {e}")
-        alert_noam(f"⚠️ Claude error in generate_content: {type(e).__name__}: {e}")
         return None
 
 
@@ -1982,9 +1981,6 @@ def _run_generate(window_override: datetime.timedelta | None = None,
         content = generate_content(episode, transcript, video_id or "")
         if not content:
             print("  Content generation failed — skipping\n")
-            if preview_mode:
-                alert_noam(f"⚠️ preview-new: content gen failed for {ep_id} "
-                           f"(yt={video_id or 'none'}, transcript={len(transcript)} segs)")
             outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
                              "title": episode.get("title"), "status": "gen_failed",
                              "detail": "content generation returned nothing"})
