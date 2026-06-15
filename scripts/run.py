@@ -111,6 +111,72 @@ PODCASTS = [
         "spotify_show": "",
         "lex_filter": True,  # Only tech/AI/science/business guests
     },
+    {
+        "name": "Crime Junkie",
+        "slug": "crime-junkie",
+        "chip": "CJ",
+        "rss": "https://feeds.simplecast.com/qm_9xx0g",
+        "spotify_show": "",
+        "lex_filter": False,
+        "show_format": "true_crime",
+    },
+    {
+        "name": "Call Her Daddy",
+        "slug": "call-her-daddy",
+        "chip": "CHD",
+        "rss": "https://feeds.simplecast.com/mKn_QmLS",
+        "spotify_show": "",
+        "lex_filter": False,
+    },
+    {
+        "name": "SmartLess",
+        "slug": "smartless",
+        "chip": "SL",
+        "rss": "https://feeds.simplecast.com/hNaFxXpO",
+        "spotify_show": "",
+        "lex_filter": False,
+    },
+    {
+        "name": "Stuff You Should Know",
+        "slug": "sysk",
+        "chip": "SYSK",
+        "rss": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/a91018a4-ea4f-4130-bf55-ae270180c327/44710ecc-10bb-48d1-93c7-ae270180c33e/podcast.rss",
+        "spotify_show": "",
+        "lex_filter": False,
+    },
+    {
+        "name": "This Past Weekend w/ Theo Von",
+        "slug": "theo-von",
+        "chip": "TV",
+        "rss": "https://feeds.megaphone.fm/thispastweekend",
+        "spotify_show": "",
+        "lex_filter": False,
+    },
+    {
+        "name": "MrBallen Podcast",
+        "slug": "mrballen",
+        "chip": "MB",
+        "rss": "https://feeds.simplecast.com/dloY8UYJ",
+        "spotify_show": "",
+        "lex_filter": False,
+        "show_format": "true_crime",
+    },
+    {
+        "name": "Freakonomics Radio",
+        "slug": "freakonomics",
+        "chip": "FK",
+        "rss": "https://feeds.simplecast.com/Y8lFbOT4",
+        "spotify_show": "",
+        "lex_filter": False,
+    },
+    {
+        "name": "Conan O'Brien Needs A Friend",
+        "slug": "conan",
+        "chip": "CB",
+        "rss": "https://feeds.simplecast.com/dHoohVNH",
+        "spotify_show": "",
+        "lex_filter": False,
+    },
 ]
 
 
@@ -243,6 +309,7 @@ def fetch_new_episodes(
             "duration_sec": _parse_duration(getattr(entry, "itunes_duration", None)),
             "spotify_show": podcast["spotify_show"],
             "lex_filter":   podcast["lex_filter"],
+            "show_format":  podcast.get("show_format", "interview"),
         })
 
     return episodes
@@ -467,6 +534,18 @@ Hard rules:
 - Only use timestamps that actually appear in the transcript. If uncertain, use 0.
 - For Lex Fridman episodes ONLY: keep the episode (skip=false) only if the guest's work is clearly in technology, AI/ML, computing, engineering, hard science (physics/biology/chemistry/math), business, startups, or economics. Set skip=true for everyone else — including historians, explorers, naturalists, musicians, artists, athletes, entertainers, religious figures, pure philosophers, and politicians — and give skip_reason. When in doubt for a Lex episode, skip.
 - Return pure JSON. No markdown. No explanation."""
+
+    if episode.get("show_format") == "true_crime":
+        prompt += """
+
+Show format note: This is a TRUE CRIME / MYSTERY STORY episode — no traditional interview guest.
+- "guest": name of the case subject, victim, or main person featured (or "Various" for multi-case episodes)
+- "guest_line": "Case: [brief identifier]" — e.g. "Case: Jane Doe" or "Case: The Zodiac Killer"
+- "bio_section_title": "About the Case"
+- "bio_text": 2-3 sentences on the case background, victim, and context
+- "moments": use the host/narrator name as speaker (e.g. "Ashley Flowers", "MrBallen")
+- "takeaways": key facts, timeline turns, and revelations — not career/business advice style
+- "actionability" scores will naturally be low for true crime; score "insight" and "specificity" higher"""
 
     if qa_feedback:
         prompt += f"\n\nCORRECTION REQUIRED — your previous attempt was rejected by QA:\n{qa_feedback}\nFix these specific issues in your response."
@@ -1089,7 +1168,19 @@ def _hex_lerp(c1: str, c2: str, t: float) -> str:
 # Fixed "moderate" gold→green ramp, one stop per show in PODCASTS order
 # (Lenny's = gold … Lex = green). Hand-picked so all six read as distinct
 # colors. When a show is added, append a stop (and we'll revisit spacing).
-_SHOW_RAMP = ["#E3B25A", "#CEB538", "#ADBA2F", "#83BD4A", "#52BD6C", "#15B98A"]
+_SHOW_RAMP = [
+    # Original 6 — gold→green (Lenny's … Lex)
+    "#E3B25A", "#CEB538", "#ADBA2F", "#83BD4A", "#52BD6C", "#15B98A",
+    # New 8 — distinct hues for the expanded lineup
+    "#5BA3D9",  # sky blue    — Crime Junkie
+    "#CF7E5E",  # terracotta  — Call Her Daddy
+    "#A05EC4",  # violet      — SmartLess
+    "#E06A2E",  # orange      — Stuff You Should Know
+    "#D4A84B",  # amber       — Theo Von
+    "#5CB8B2",  # teal        — MrBallen
+    "#D65BA0",  # pink        — Freakonomics Radio
+    "#5B8AD6",  # cornflower  — Conan O'Brien
+]
 
 
 def show_color(index: int, total: int) -> str:
@@ -1778,8 +1869,8 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
     print("Done.")
 
 
-def _run_generate() -> None:
-    window = get_schedule()
+def _run_generate(window_override: datetime.timedelta | None = None) -> None:
+    window = window_override or get_schedule()
     now   = now_israel()
     today = now.date()
     cutoff = now - window
@@ -2001,5 +2092,15 @@ if __name__ == "__main__":
             if arg.startswith("SINCE="):
                 since_str = arg.split("=", 1)[1]
         backfill(datetime.datetime.strptime(since_str, "%Y-%m-%d").date())
+    elif "--preview-new" in sys.argv:
+        # Generate the latest episode for shows with no processed episodes yet,
+        # then send immediately. Used for first-run previews of newly added shows.
+        alert_noam("hey — preview-new run kicking off, generating first episodes for new shows.")
+        try:
+            _run_generate(window_override=datetime.timedelta(days=30))
+        except Exception as e:
+            alert_noam(f"❌ preview-new run hit an error: {e}")
+            raise
+        send_pending()
     else:
         main()

@@ -1,6 +1,14 @@
 name: Reading.Sis
 
 on:
+  schedule:
+    # Times are UTC; Israel = UTC+3. Runs EVERY day (no weekend hold).
+    # 3:00 UTC = 6:00 IL — generate phase: discover episodes, build + push pages.
+    - cron: '0 3 * * *'
+    # 4:00 UTC = 7:00 IL — send phase: verify every page URL is live, then
+    # send the WhatsApp messages. The hour gap gives GitHub Pages plenty of
+    # time to finish deploying everything.
+    - cron: '0 4 * * *'
   workflow_dispatch:
     inputs:
       phase:
@@ -10,6 +18,7 @@ on:
           - generate
           - send
           - library
+          - preview-new
         default: generate
 
 jobs:
@@ -46,9 +55,17 @@ jobs:
           WHATSAPP_TO_NOAM:     ${{ secrets.WHATSAPP_TO_NOAM }}
         run: |
           PHASE="${{ inputs.phase }}"
+          if [ -z "$PHASE" ]; then
+            if [ "${{ github.event.schedule }}" = "0 4 * * *" ]; then
+              PHASE=send
+            else
+              PHASE=generate
+            fi
+          fi
           echo "Phase: $PHASE"
           case "$PHASE" in
-            send)    /usr/local/bin/python3.11 scripts/run.py --send ;;
-            library) /usr/local/bin/python3.11 scripts/run.py --library ;;
-            *)       /usr/local/bin/python3.11 scripts/run.py ;;
+            send)        /usr/local/bin/python3.11 scripts/run.py --send ;;
+            library)     /usr/local/bin/python3.11 scripts/run.py --library ;;
+            preview-new) /usr/local/bin/python3.11 scripts/run.py --preview-new ;;
+            *)           /usr/local/bin/python3.11 scripts/run.py ;;
           esac
