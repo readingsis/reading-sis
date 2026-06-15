@@ -1892,9 +1892,20 @@ def _run_generate(window_override: datetime.timedelta | None = None,
     found_by_podcast: dict[str, int] = {}
     outcomes: list[dict] = []
     candidates: list[dict] = []
+    # In preview_mode, take at most 1 episode per show (the most recent one) and
+    # skip shows that already have a preview entry — this run is for first-look
+    # previews, not bulk generation.
+    shows_already_previewed = {
+        ep.get("podcast") for ep in tracker.get("preview", []) if isinstance(ep, dict)
+    } if preview_mode else set()
     for podcast in PODCASTS:
         print(f"Scanning {podcast['name']}…")
+        if preview_mode and podcast["name"] in shows_already_previewed:
+            print(f"  Already in preview — skipping")
+            continue
         eps = fetch_new_episodes(podcast, cutoff, processed_ids, queued_ids)
+        if preview_mode and eps:
+            eps = eps[:1]   # most recent only — one preview per show
         print(f"  {len(eps)} new episode(s)")
         if eps:
             found_by_podcast[podcast["name"]] = len(eps)
