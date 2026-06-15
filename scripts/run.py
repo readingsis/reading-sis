@@ -1981,6 +1981,9 @@ def _run_generate(window_override: datetime.timedelta | None = None,
         content = generate_content(episode, transcript, video_id or "")
         if not content:
             print("  Content generation failed — skipping\n")
+            if preview_mode:
+                alert_noam(f"⚠️ preview-new: content gen failed for {ep_id} "
+                           f"(yt={video_id or 'none'}, transcript={len(transcript)} segs)")
             outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
                              "title": episode.get("title"), "status": "gen_failed",
                              "detail": "content generation returned nothing"})
