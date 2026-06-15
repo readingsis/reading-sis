@@ -1958,8 +1958,135 @@
       "date": "2026-06-14",
       "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-06-14.html",
       "pushed_at": "2026-06-15"
+    },
+    {
+      "id": "doac-2026-06-15",
+      "podcast": "The Diary Of A CEO",
+      "guest": "Darren Candow",
+      "title": "Creatine Expert: Creatine Is The Secret To Weight Loss",
+      "date": "2026-06-15",
+      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-15.html",
+      "pushed_at": "2026-06-15"
+    },
+    {
+      "id": "crime-junkie-2026-06-15",
+      "podcast": "Crime Junkie",
+      "guest": "Alberta O. Jones",
+      "title": "MURDERED: Alberta O. Jones",
+      "date": "2026-06-15",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-15.html",
+      "pushed_at": "2026-06-15"
+    },
+    {
+      "id": "crime-junkie-2026-06-08",
+      "podcast": "Crime Junkie",
+      "guest": "Tripp Brazeale",
+      "title": "MYSTERIOUS DEATH OF: Tripp Brazeale",
+      "date": "2026-06-08",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-08.html",
+      "pushed_at": "2026-06-15"
+    },
+    {
+      "id": "crime-junkie-2026-06-03",
+      "podcast": "Crime Junkie",
+      "guest": "Jennifer DeStefano",
+      "title": "WARNING: AI Voice Cloning and Virtual Kidnappings",
+      "date": "2026-06-03",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-03.html",
+      "pushed_at": "2026-06-15"
+    },
+    {
+      "id": "crime-junkie-2026-06-01",
+      "podcast": "Crime Junkie",
+      "guest": "David Meirhofer",
+      "title": "SERIAL KILLER: David Meirhofer",
+      "date": "2026-06-01",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-01.html",
+      "pushed_at": "2026-06-15"
+    },
+    {
+      "id": "crime-junkie-2026-05-28",
+      "podcast": "Crime Junkie",
+      "guest": "Lane Bryant Murders Victims",
+      "title": "INTRODUCING: CounterClock Season 8",
+      "date": "2026-05-28",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-05-28.html",
+      "pushed_at": "2026-06-15"
+    },
+    {
+      "id": "crime-junkie-2026-05-25",
+      "podcast": "Crime Junkie",
+      "guest": "The Jamison Family",
+      "title": "MYSTERIOUS DEATH OF: The Jamison Family",
+      "date": "2026-05-25",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-05-25.html",
+      "pushed_at": "2026-06-15"
     }
   ],
   "queued": [],
-  "pending_send": []
+  "pending_send": [
+    {
+      "id": "doac-2026-06-15",
+      "podcast": "The Diary Of A CEO",
+      "guest": "Darren Candow",
+      "title": "Creatine Expert: Creatine Is The Secret To Weight Loss",
+      "date_str": "15 Jun 2026",
+      "hook": "Creatine monohydrate is the most researched supplement on the planet and its benefits extend far beyond muscle — covering bone health, brain function under stress, and recovery. Most common fears about creatine (kidney damage, hair loss, water retention, muscle cramps) are myths unsupported by evide",
+      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-15.html"
+    },
+    {
+      "id": "crime-junkie-2026-06-15",
+      "podcast": "Crime Junkie",
+      "guest": "Alberta O. Jones",
+      "title": "MURDERED: Alberta O. Jones",
+      "date_str": "15 Jun 2026",
+      "hook": "Alberta O. Jones was one of Louisville's most consequential civil rights figures in the early 1960s, breaking barriers as the city's first Black woman prosecutor while simultaneously organizing mass voter registration. Her death by drowning in the Ohio River on August 5, 1965 was never conclusively ",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-15.html"
+    },
+    {
+      "id": "crime-junkie-2026-06-08",
+      "podcast": "Crime Junkie",
+      "guest": "Tripp Brazeale",
+      "title": "MYSTERIOUS DEATH OF: Tripp Brazeale",
+      "date_str": "8 Jun 2026",
+      "hook": "Fifteen-year-old Tripp Brazeale was found dead in the Arkansas woods in November 2024 in what officials swiftly ruled a suicide, but emerging physical and circumstantial evidence led his family and a private investigator to challenge that ruling. The speed of the official conclusion, combined with u",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-08.html"
+    },
+    {
+      "id": "crime-junkie-2026-06-03",
+      "podcast": "Crime Junkie",
+      "guest": "Jennifer DeStefano",
+      "title": "WARNING: AI Voice Cloning and Virtual Kidnappings",
+      "date_str": "3 Jun 2026",
+      "hook": "AI voice cloning tools costing as little as $5/month can replicate a loved one's voice from just 3 seconds of audio, enabling scammers to run convincing virtual kidnapping calls that trigger pure panic and bypass rational thinking. The scam is nearly impossible to investigate — especially when opera",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-03.html"
+    },
+    {
+      "id": "crime-junkie-2026-06-01",
+      "podcast": "Crime Junkie",
+      "guest": "David Meirhofer",
+      "title": "SERIAL KILLER: David Meirhofer",
+      "date_str": "1 Jun 2026",
+      "hook": "Seven-year-old Susie Jaeger was snatched from a Montana campground in 1973 by David Meirhofer, a local man who then sadistically tormented her family with calls and letters. The case became a landmark for the FBI's nascent criminal profiling unit, which helped link Meirhofer to multiple murders. Sus",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-01.html"
+    },
+    {
+      "id": "crime-junkie-2026-05-28",
+      "podcast": "Crime Junkie",
+      "guest": "Lane Bryant Murders Victims",
+      "title": "INTRODUCING: CounterClock Season 8",
+      "date_str": "28 May 2026",
+      "hook": "Season 8 of CounterClock revisits the 2008 Lane Bryant massacre in Tinley Park, Illinois, where five women were executed inside a clothing store and the killer was never caught. Host Delia D'Ambra draws on thousands of documents and firsthand accounts to reconstruct the events in greater depth than ",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-05-28.html"
+    },
+    {
+      "id": "crime-junkie-2026-05-25",
+      "podcast": "Crime Junkie",
+      "guest": "The Jamison Family",
+      "title": "MYSTERIOUS DEATH OF: The Jamison Family",
+      "date_str": "25 May 2026",
+      "hook": "The Jamison family vanished on a remote Oklahoma mountain in 2009 under circumstances that defy every tidy explanation — murder-suicide, drug deal gone wrong, and foul play all have fatal holes. Their remains were found four years later in terrain so rugged that investigators say the family almost c",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-05-25.html"
+    }
+  ]
 }
