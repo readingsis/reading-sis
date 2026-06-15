@@ -1961,15 +1961,5 @@
     }
   ],
   "queued": [],
-  "pending_send": [
-    {
-      "id": "lennys-2026-06-14",
-      "podcast": "Lenny's Podcast",
-      "guest": "Mark Pincus",
-      "title": "The hidden pattern behind successful products | Mark Pincus (founder of Zynga)",
-      "date_str": "14 Jun 2026",
-      "hook": "Mark Pincus argues that the path to building breakthrough consumer products is counterintuitively humble: copy what's already proven, make it genuinely better in ways users would unanimously agree on, then add only one novel idea. Most founders fail because they over-innovate too early, skip masteri",
-      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-06-14.html"
-    }
-  ]
+  "pending_send": []
 }
