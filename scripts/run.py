@@ -2092,12 +2092,26 @@ def _run_generate(window_override: datetime.timedelta | None = None,
             except Exception as e:
                 print(f"  Library update failed: {e}")
 
-    if preview_mode and preview_links:
-        lines = ["🔍 Preview episodes ready — reply to approve any for the group:\n"]
-        for item in preview_links:
-            guest = f" w/ {item['guest']}" if item.get("guest") and item["guest"] not in ("Various", "") else ""
-            lines.append(f"• {item['podcast']}{guest}\n  {item['page_url']}")
-        alert_noam("\n".join(lines))
+    if preview_mode:
+        # Build one link per show: prefer freshly generated, fall back to most
+        # recent existing preview entry (e.g. crime-junkie already in bucket).
+        preview_by_podcast: dict[str, dict] = {}
+        for ep in sorted(tracker.get("preview", []),
+                         key=lambda e: e.get("date", ""), reverse=True):
+            pod = ep.get("podcast", "")
+            if pod not in preview_by_podcast:
+                preview_by_podcast[pod] = {
+                    "podcast": pod, "guest": ep.get("guest", ""),
+                    "title": ep.get("title", ""), "page_url": ep.get("page_url", ""),
+                }
+        for item in preview_links:          # freshly generated always wins
+            preview_by_podcast[item["podcast"]] = item
+        if preview_by_podcast:
+            lines = ["🔍 Preview episodes ready — reply with show names to approve for the group:\n"]
+            for item in preview_by_podcast.values():
+                guest = f" w/ {item['guest']}" if item.get("guest") and item["guest"] not in ("Various", "") else ""
+                lines.append(f"• {item['podcast']}{guest}\n  {item['page_url']}")
+            alert_noam("\n".join(lines))
 
     if not preview_mode:
         _send_run_summary(found_by_podcast, outcomes)
