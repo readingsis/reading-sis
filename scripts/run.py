@@ -161,6 +161,14 @@ PODCASTS = [
         "spotify_show": "",
         "lex_filter": False,
     },
+    {
+        "name": "BigDeal",
+        "slug": "bigdeal",
+        "chip": "BD",
+        "rss": "https://feeds.megaphone.fm/bigdeal",
+        "spotify_show": "",
+        "lex_filter": False,
+    },
 ]
 
 
