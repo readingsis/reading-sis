@@ -563,6 +563,7 @@ Show format note: This is a TRUE CRIME / MYSTERY STORY episode — no traditiona
         return json.loads(_extract_json(raw))
     except Exception as e:
         print(f"  Claude error: {e}")
+        alert_noam(f"⚠️ Claude error in generate_content: {type(e).__name__}: {e}")
         return None
 
 
