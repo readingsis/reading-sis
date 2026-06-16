@@ -2498,6 +2498,60 @@
       "date": "2026-06-08",
       "page_url": "https://readingsis.github.io/reading-sis/smartless-2026-06-08.html",
       "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "smartless-2026-05-25",
+      "podcast": "SmartLess",
+      "guest": "Nick Jonas",
+      "title": "\"Nick Jonas\"",
+      "date": "2026-05-25",
+      "page_url": "https://readingsis.github.io/reading-sis/smartless-2026-05-25.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "theo-von-2026-06-10",
+      "podcast": "This Past Weekend w/ Theo Von",
+      "guest": "Matt Rife",
+      "title": "#662 - Matt Rife",
+      "date": "2026-06-10",
+      "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-06-10.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "theo-von-2026-05-15",
+      "podcast": "This Past Weekend w/ Theo Von",
+      "guest": "Mike Tyson",
+      "title": "#658 - Mike Tyson (Live at the Wiltern)",
+      "date": "2026-05-15",
+      "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-05-15.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "freakonomics-2026-06-12",
+      "podcast": "Freakonomics Radio",
+      "guest": "Frank Frigo, Masayuki Mochisuki, Mark Olsen, Bob Wtel",
+      "title": "677. Can Backgammon Save Us from Ourselves?",
+      "date": "2026-06-12",
+      "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-06-12.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "freakonomics-2026-05-27",
+      "podcast": "Freakonomics Radio",
+      "guest": "Richard Feynman",
+      "title": "The Brilliant Mr. Feynman (Update)",
+      "date": "2026-05-27",
+      "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-05-27.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "conan-2026-06-15",
+      "podcast": "Conan O'Brien Needs A Friend",
+      "guest": "Atsuko Okatsuka",
+      "title": "Atsuko Okatsuka",
+      "date": "2026-06-15",
+      "page_url": "https://readingsis.github.io/reading-sis/conan-2026-06-15.html",
+      "pushed_at": "2026-06-16"
     }
   ],
   "queued": [],
