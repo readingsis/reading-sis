@@ -13,6 +13,7 @@ from __future__ import annotations
 import base64
 import datetime
 import json
+import math
 import os
 import re
 import shutil
@@ -119,7 +120,6 @@ PODCASTS = [
         "spotify_show": "",
         "lex_filter": False,
         "show_format": "true_crime",
-        "hold": True,   # awaiting Noam's review of the May 1st backfill — remove once approved
     },
     {
         "name": "Call Her Daddy",
@@ -128,7 +128,6 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/mKn_QmLS",
         "spotify_show": "",
         "lex_filter": False,
-        "hold": True,
     },
     {
         "name": "SmartLess",
@@ -138,7 +137,6 @@ PODCASTS = [
         "spotify_show": "",
         "lex_filter": False,
         "show_format": "panel",
-        "hold": True,
     },
     {
         "name": "This Past Weekend w/ Theo Von",
@@ -147,7 +145,6 @@ PODCASTS = [
         "rss": "https://feeds.megaphone.fm/thispastweekend",
         "spotify_show": "",
         "lex_filter": False,
-        "hold": True,
     },
     {
         "name": "Freakonomics Radio",
@@ -156,7 +153,6 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/Y8lFbOT4",
         "spotify_show": "",
         "lex_filter": False,
-        "hold": True,
     },
     {
         "name": "Conan O'Brien Needs A Friend",
@@ -165,7 +161,6 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/dHoohVNH",
         "spotify_show": "",
         "lex_filter": False,
-        "hold": True,
     },
     {
         "name": "BigDeal",
@@ -174,7 +169,6 @@ PODCASTS = [
         "rss": "https://feeds.megaphone.fm/bigdeal",
         "spotify_show": "",
         "lex_filter": False,
-        "hold": True,
     },
 ]
 
@@ -244,6 +238,20 @@ def save_tracker(tracker: dict, sha: str) -> str:
 # EPISODE DISCOVERY (RSS)
 # ══════════════════════════════════════════════════════════════════════════════
 
+# General rerun/repeat filter — applies to ALL shows, not just one. Catches
+# flashback/rerelease episodes before any generation or QA cost is spent.
+# Per-show filters (e.g. DOAC's "most replayed") are separate and stay in
+# addition to this, since they catch show-specific patterns this can't.
+RERUN_TITLE_RE = r"\bFBF\b|flashback friday|re-release|rerun|replay|best of|throwback|encore"
+
+# Short/bonus episode skip — applies to ALL shows. A short RSS duration with no
+# verified video match is almost always a solo/bonus segment, not a flagship
+# episode (the video search just hasn't failed to find something real — there's
+# nothing to find). Can only be checked after video search runs, unlike the
+# title filters above which skip before any search cost.
+SHORT_EPISODE_THRESHOLD_SEC = 25 * 60
+
+
 def fetch_new_episodes(
     podcast: dict,
     cutoff: datetime.datetime,
@@ -270,6 +278,9 @@ def fetch_new_episodes(
             break  # RSS is newest-first
         if skip_re and re.search(skip_re, entry.title, re.IGNORECASE):
             print(f"  Skipping clip/recap episode: {entry.title[:60]}")
+            continue
+        if re.search(RERUN_TITLE_RE, entry.title, re.IGNORECASE):
+            print(f"  Skipping rerun/flashback episode: {entry.title[:60]}")
             continue
         # Identity = RSS guid (preferred) or title. Some feeds list the same
         # episode twice; that's a true duplicate, not a second episode.
@@ -621,6 +632,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="description" content="TLDR_FIRST_SENTENCE">
   <title>Reading.Sis — EPISODE_TITLE</title>
+FAVICON_LINKS
 GOATCOUNTER_SCRIPT
   <style>
     :root {
@@ -862,10 +874,16 @@ def validate_inline_js(html: str) -> bool:
 # never collide with real episode text (unlike e.g. "TLDR" which a guest might say).
 PLACEHOLDER_TOKENS = [
     "TLDR_FIRST_SENTENCE", "PUBLISH_DATE_FORMATTED", "BIO_SECTION_TITLE",
-    "MOMENTS_HTML", "TAKEAWAYS_HTML", "GOATCOUNTER_SCRIPT",
+    "MOMENTS_HTML", "TAKEAWAYS_HTML", "GOATCOUNTER_SCRIPT", "FAVICON_LINKS",
     "PAGE_URL_JS", "EPISODE_TITLE_JS", "EPISODE_ID_JS", "EPISODE_SHOW_JS",
     "EPISODE_DATE_JS", "YOUTUBE_URL", "SPOTIFY_URL",
 ]
+
+FAVICON_LINKS = (
+    '  <link rel="icon" href="favicon.svg" type="image/svg+xml">\n'
+    '  <link rel="icon" href="favicon.ico" sizes="any">\n'
+    '  <link rel="apple-touch-icon" href="apple-touch-icon.png">'
+)
 
 
 def alert_noam(text: str) -> None:
@@ -1003,12 +1021,15 @@ Set overall_ok=false if the guest is wrong or any quote is fabricated. A generic
 
 def qa_episode(episode: dict, content: dict, video_id: str | None,
                video_duration: int | None, transcript: list[dict],
-               gen_model: str = MODEL) -> tuple[bool, str, dict, list]:
+               gen_model: str = MODEL, prior_feedback: str | None = None) -> tuple[bool, str, dict, list]:
     """Run the full QA stage on one episode. Auto-fixes timestamps and, on a
     content-review failure, regenerates the content once. Returns
     (passed, html, content, issues). passed=False means real blockers remain
     and the page must not ship yet. The review itself always uses QA_MODEL
-    (Opus) for reliability; `gen_model` is used only for regeneration."""
+    (Opus) for reliability; `gen_model` is used only for regeneration.
+    `prior_feedback` carries a failure reason persisted from an EARLIER run
+    (cross-run retry) — folded into this run's own regeneration feedback so a
+    second-time failure doesn't repeat a mistake already diagnosed before."""
     issues: list = []
 
     content = _fix_timestamps(content, video_duration, issues)
@@ -1018,7 +1039,10 @@ def qa_episode(episode: dict, content: dict, video_id: str | None,
         review = qa_content_review(episode, content, transcript)
         if review and not review.get("overall_ok", True):
             issues.append(("content", f"review: {review.get('summary', 'content issue')}"))
-            feedback_parts = [f"- {review.get('summary', 'content issue')}"]
+            feedback_parts = []
+            if prior_feedback:
+                feedback_parts.append(f"- From a previous attempt: {prior_feedback}")
+            feedback_parts.append(f"- {review.get('summary', 'content issue')}")
             if not review.get("guest_ok", True) and review.get("guest_correction"):
                 feedback_parts.append(f"- Guest name is WRONG. Correct name: {review['guest_correction']}")
             if review.get("bad_quote_indexes"):
@@ -1200,6 +1224,7 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
     html = html.replace("SPOTIFY_URL",        spotify)
     html = html.replace("PAGE_URL",           page_url)   # meta tag
     html = html.replace("GOATCOUNTER_SCRIPT", goatcounter_script())
+    html = html.replace("FAVICON_LINKS",      FAVICON_LINKS)
     return html
 
 
@@ -1264,7 +1289,7 @@ def _fmt_date(d: str) -> str:
 def _library_episodes(tracker: dict) -> tuple[list, dict]:
     """Published episodes enriched with show color/chip/slug, newest first."""
     meta = _show_meta()
-    today = now_israel().date()
+    now = now_israel()
     eps = []
     for ep in tracker.get("processed", []):
         if not (isinstance(ep, dict) and ep.get("page_url") and ep.get("title")
@@ -1277,11 +1302,18 @@ def _library_episodes(tracker: dict) -> tuple[list, dict]:
             m = {"slug": slug, "chip": (name[:2] or "?").upper(),
                  "color": "#15B98A", "index": 99}
         date = ep.get("date") or ""
-        try:
-            # "New" = published within the last ~48 hours (date granularity).
-            is_new = (today - datetime.datetime.strptime(date, "%Y-%m-%d").date()).days <= 2
-        except (ValueError, TypeError):
-            is_new = False
+        # "New" = published within the last true 24 hours. Requires the real
+        # publish timestamp (added going forward); episodes processed before
+        # this existed just never show the badge — they're all long past "new"
+        # by now regardless, so no retroactive backfill of the field needed.
+        is_new = False
+        published_at = ep.get("published_at")
+        if published_at:
+            try:
+                pub_ts = datetime.datetime.fromisoformat(published_at)
+                is_new = (now - pub_ts) <= datetime.timedelta(hours=24)
+            except (ValueError, TypeError):
+                is_new = False
         eps.append({
             "id": ep["id"], "title": ep["title"], "guest": ep.get("guest") or "",
             "show": name, "slug": m["slug"], "chip": m["chip"], "color": m["color"],
@@ -1430,6 +1462,7 @@ def _lib_page(title: str, body: str, active: str, extra_script: str = "") -> str
         '  <meta property="og:title" content="Reading.Sis">\n'
         '  <meta property="og:description" content="Podcast highlights, distilled. Listen less, know more.">\n'
         f'  <title>{_t(title)}</title>\n'
+        f'{FAVICON_LINKS}\n'
         f'{goatcounter_script()}\n'
         f'  <style>{LIB_CSS}</style>\n</head>\n<body>\n<div class="page">\n'
         '  <header class="hdr">'
@@ -1669,21 +1702,62 @@ def send_group_message(message: str) -> dict:
     return r.json()
 
 
+def send_personal_message(message: str) -> dict:
+    """DM Noam directly — used by manual catch-up sends and the weekly
+    digest. Never the group, regardless of what triggered the call."""
+    chat = re.sub(r"\D", "", ALERT_TO_NOAM) + "@c.us"
+    url = f"https://api.green-api.com/waInstance{GREENAPI_ID}/sendMessage/{GREENAPI_TOKEN}"
+    r = requests.post(url, json={"chatId": chat, "message": message}, timeout=15)
+    r.raise_for_status()
+    return r.json()
+
+
+# Scheduled send windows, IL time. Sun-Thu share one rhythm; Friday is
+# front-loaded before Shabbat; Saturday is fully dark (no generate, send,
+# digest, or fallback message — the queue simply rolls into Sunday).
+# Python weekday(): Mon=0 … Sun=6.
+SEND_SCHEDULE: dict[int, list[tuple[int, int]]] = {
+    6: [(7, 30), (12, 30), (19, 30)],   # Sunday
+    0: [(7, 30), (12, 30), (19, 30)],   # Monday
+    1: [(7, 30), (12, 30), (19, 30)],   # Tuesday
+    2: [(7, 30), (12, 30), (19, 30)],   # Wednesday
+    3: [(7, 30), (12, 30), (19, 30)],   # Thursday
+    4: [(7, 30), (11, 30), (14, 30)],   # Friday
+    5: [],                              # Saturday — dark
+}
+SATURDAY = 5
+
+
+def _remaining_slots_today(now: datetime.datetime) -> list[datetime.datetime]:
+    """Today's scheduled send times not yet passed — computed fresh from
+    wall-clock every run (never a stored counter), so a missed/delayed run
+    self-heals instead of desyncing the day. A grace window means the slot
+    that just fired still counts itself despite dispatch/runner-startup lag."""
+    grace = datetime.timedelta(minutes=10)
+    out = []
+    for h, m in SEND_SCHEDULE.get(now.weekday(), []):
+        slot = now.replace(hour=h, minute=m, second=0, microsecond=0)
+        if slot >= now - grace:
+            out.append(slot)
+    return out
+
+
 def _fallback_sis_message(p: dict) -> str:
-    """Deterministic blurb if the Claude call fails — still warm, no link."""
+    """Deterministic blurb if the Claude call fails — still friendly, no link
+    (the footer carries the show/date/link separately), kept inside the
+    10-20 word budget the real generator targets."""
     guest = p.get("guest", "")
     g = f" with {guest}" if guest and guest.lower() != "various" else ""
-    return (f"Morning — a new {p.get('podcast','')} episode{g} is up: "
-            f"{p.get('title','')}. Out {p.get('date_str','')}. Enjoy your read.")
+    return f"New read{g} just landed — a good one for whenever you've got a minute."
 
 
 def generate_sis_message(p: dict, idx: int, total: int, model: str = MODEL) -> str:
     """Write the warm, personal 'Sis' WhatsApp blurb for one episode.
 
     idx/total = this message's position in today's batch, so openers vary and
-    don't re-greet awkwardly when 2–3 go out the same morning. Returns the text
-    WITHOUT the link (the caller appends the verified URL). Falls back to a
-    plain template on any error."""
+    don't re-greet awkwardly when 2–3 go out the same run. Returns ONLY the
+    sentence (10-20 words) — the caller appends the footer (🎙️ show, date,
+    link) separately. Falls back to a plain template on any error."""
     guest = p.get("guest", "")
     if guest and guest.lower() != "various":
         guest_part = f"Guest: {guest}\n"
@@ -1691,70 +1765,122 @@ def generate_sis_message(p: dict, idx: int, total: int, model: str = MODEL) -> s
         guest_part = "Format: panel show (regular hosts, no single guest)\n"
 
     if total > 1 and idx > 0:
-        batch_note = (f"This is message {idx + 1} of {total} you're sending the same morning. "
-                      "Do NOT open with a fresh morning greeting — frame it as another read in "
-                      "the same breath (e.g. 'and one more for you', 'also out today').")
+        batch_note = (f"This is message {idx + 1} of {total} going out in the same run. "
+                      "Do NOT open with a fresh greeting — frame it as another one right after "
+                      "the last (e.g. 'and one more', 'also just out').")
     elif total > 1:
-        batch_note = (f"You're sharing {total} reads this morning; this is the first. A light "
-                      "greeting is fine — the next ones will follow without re-greeting.")
+        batch_note = (f"You're sharing {total} reads in this run; this is the first. A light, "
+                      "natural opener is fine — the next ones won't re-greet.")
     else:
-        batch_note = "Just one read today. A light morning greeting is fine."
+        batch_note = "Just one read this run. A light, natural opener is fine."
 
-    prompt = f"""You are "Sis", the voice of Reading.Sis — like a big sister who reads great \
-podcasts and shares the best ones with a small WhatsApp group.
+    now = now_israel()
+    time_context = f"It's currently {now.strftime('%-I:%M %p')} on a {now.strftime('%A')} in Israel."
 
-Voice: warm, genuine, personal — but restrained and a little polished. NOT hype-y. Light emoji \
-where it fits naturally: 🎙️ near the show or guest mention, ☀️ with a morning greeting. One or \
-two max — never clustered, never forced. No slang pile-ups, no exclamation overload.
+    prompt = f"""You are "Sis", the voice of Reading.Sis — texting a small group chat of friends \
+about a podcast read you think they'd like. Not announcing content, not a newsletter — talking \
+to friends.
 
-Write ONE short WhatsApp message (1-2 sentences, ~25-45 words) introducing today's read. \
-Mention the show, the guest (if any), and briefly what it's about, in a natural way. End with \
-a soft sign-off like "enjoy your read". Do NOT include any link or URL — it's added \
-separately. Do NOT use markdown.
+Voice: warm and genuinely friendly, a little playful, never hype-y or corporate. Emoji only if \
+it truly fits and never more than one — most messages should have none. Do NOT use 🎙️ — that's \
+already in the footer this attaches to.
+
+Time-of-day awareness: {time_context} Sometimes name the moment explicitly (e.g. "Sunday", \
+"to close out the week"), and other times just let your word choice/energy carry it instead \
+without naming it — vary which you do, don't lock into the same pattern every time.
+
+Write ONE message, STRICTLY 10-20 words, about today's read — specific and natural, not generic. \
+Do NOT include a link, the show name, or the episode title verbatim (those are added separately) \
+— describe what it's about in your own words instead. Do NOT use markdown.
 
 {batch_note}
 
-Show: {p.get('podcast','')}
-{guest_part}Title: {p.get('title','')}
-Published: {p.get('date_str','')}
-What it's about: {p.get('hook','') or p.get('title','')}
+{guest_part}Episode is about: {p.get('hook','') or p.get('title','')}
 
-Return only the message text."""
+Return only the message text, nothing else."""
     try:
         client = Anthropic(api_key=ANTHROPIC_KEY)
         msg = client.messages.create(
-            model=model, max_tokens=220,
+            model=model, max_tokens=120,
             messages=[{"role": "user", "content": prompt}])
         text = (msg.content[0].text if msg.content else "").strip()
-        # QA the blurb: must be non-empty, carry no leaked placeholder, add no
-        # link of its own (we append the verified one), and stay short.
+        word_count = len(text.split())
+        title = (p.get("title") or "").strip()
+        # QA the blurb: non-empty, no leaked placeholder/link (footer adds the
+        # one and only link), within the strict word budget, and no verbatim
+        # episode-title leak now that the footer no longer carries the title.
         bad = (not text or len(text) > 600 or "http" in text.lower()
-               or any(tok in text for tok in PLACEHOLDER_TOKENS))
+               or any(tok in text for tok in PLACEHOLDER_TOKENS)
+               or not (10 <= word_count <= 20)
+               or (title and title.lower() in text.lower()))
         if not bad:
             return text
-        print("  Sis message failed its check — using fallback")
+        print(f"  Sis message failed its check (words={word_count}) — using fallback")
     except Exception as e:
         print(f"  Sis message gen failed: {e} — using fallback")
     return _fallback_sis_message(p)
 
 
-def send_pending() -> None:
-    """7 AM phase (`--send`): deliver messages for pages the 6 AM generate
-    phase produced, but only after verifying each URL is actually live.
-    Anything not live (or failing to send) stays pending for the next run."""
+def _maybe_send_no_content_fallback(tracker: dict, now: datetime.datetime) -> bool:
+    """If today ends with zero episodes sent across all its slots, send ONE
+    message to the group at today's final scheduled send. Idempotent — won't
+    double-send even if a run fires twice near the last slot."""
+    today_str = str(now.date())
+    if tracker.get("sent_count_today", {}).get("date") == today_str:
+        sent_today = tracker["sent_count_today"]["count"]
+    else:
+        sent_today = 0
+    if sent_today > 0:
+        return False
+    if len(_remaining_slots_today(now)) > 1:
+        return False  # not the day's final slot yet
+    if tracker.get("fallback_sent_date") == today_str:
+        return False  # already sent today
+    try:
+        send_group_message("Hey, no new content today — hope you found something "
+                            "else good to read. See you tomorrow.")
+        tracker["fallback_sent_date"] = today_str
+        print("  Sent no-content fallback message to the group.")
+        return True
+    except Exception as e:
+        print(f"  No-content fallback send failed: {e}")
+        return False
+
+
+def send_pending(manual: bool = False) -> None:
+    """Deliver pending WhatsApp messages for pages already live.
+
+    Automatic mode (default, launchd-driven): wall-clock self-healing
+    distribution — at most 3 sends per run, same-show deduped, 1-min
+    staggered, oldest-published-first. Dark on Saturday. Fires the
+    no-content fallback to the group if today ends with nothing sent.
+
+    Manual mode (`manual=True`, via `--send --manual`): flushes the entire
+    queue immediately for catch-up/testing, ignoring the cap and dedup.
+    ALWAYS routes to Noam's personal WhatsApp only — never the group."""
     if not all([GREENAPI_ID, GREENAPI_TOKEN, GREENAPI_GROUP]):
         print("Green API not configured — cannot send.")
         return
 
+    now = now_israel()
+    if not manual and now.weekday() == SATURDAY:
+        print("Saturday — fully dark, no send.")
+        return
+
     tracker, tracker_sha = get_tracker()
     pending = tracker.get("pending_send", [])
+    # Oldest-published-first, so a backlog drains in the order episodes
+    # actually came out, not generation order.
+    pending = sorted(pending, key=lambda p: p.get("published_at") or "")
+
     if not pending:
         print("Nothing pending to send.")
+        if not manual:
+            _maybe_send_no_content_fallback(tracker, now)
+            save_tracker(tracker, tracker_sha)
         return
 
     # Pass 1: figure out which pages are actually sendable (live + pass QA).
-    # We need the final count first so each message knows it's #i of N and the
-    # openers don't repeat the morning greeting.
     remaining = []
     sendable = []
     for p in pending:
@@ -1783,23 +1909,101 @@ def send_pending() -> None:
             continue
         sendable.append(p)
 
-    # Pass 2: generate each Sis message (aware of its position) and send.
-    total = len(sendable)
+    # Pass 2: pick this run's batch.
+    if manual:
+        batch = sendable
+        deferred = []
+    else:
+        slots = _remaining_slots_today(now)
+        target = min(3, math.ceil(len(sendable) / max(1, len(slots)))) if sendable else 0
+        batch, deferred = [], []
+        seen_shows: set = set()
+        for p in sendable:
+            show = p.get("podcast")
+            if len(batch) < target and show not in seen_shows:
+                batch.append(p)
+                seen_shows.add(show)
+            else:
+                deferred.append(p)  # same-show dedup or over target — next run
+        print(f"  {len(slots)} slot(s) left today, {len(sendable)} sendable → "
+              f"sending {len(batch)} this run, {len(deferred)} deferred")
+
+    # Pass 3: generate each Sis message (aware of its position) and send.
+    total = len(batch)
     sent = 0
-    for idx, p in enumerate(sendable):
+    for idx, p in enumerate(batch):
+        if not manual and idx > 0:
+            time.sleep(60)  # 1-min stagger between sends in the same run
         body = generate_sis_message(p, idx, total)
-        message = f"{body}\n\n{p['page_url']}"
+        date_short = p.get("date_short") or p.get("date_str", "")
+        footer = f"🎙️ {p.get('podcast','')}, {date_short}, {p['page_url']}"
+        message = f"{body}\n\n{footer}"
         try:
-            resp = send_group_message(message)
+            resp = send_personal_message(message) if manual else send_group_message(message)
             print(f"  WhatsApp sent ✓  {resp}")
             sent += 1
         except Exception as e:
             print(f"  WhatsApp failed: {e} — keeping for next send run")
-            remaining.append(p)
+            (deferred if not manual else remaining).append(p)
 
-    tracker["pending_send"] = remaining
+    tracker["pending_send"] = remaining + (deferred if not manual else [])
+
+    if not manual:
+        today_str = str(now.date())
+        rec = tracker.get("sent_count_today") or {}
+        if rec.get("date") != today_str:
+            rec = {"date": today_str, "count": 0}
+        rec["count"] += sent
+        tracker["sent_count_today"] = rec
+        if sent == 0:
+            _maybe_send_no_content_fallback(tracker, now)
+
     save_tracker(tracker, tracker_sha)
-    print(f"\nDone. {sent} sent, {len(remaining)} still pending.")
+    print(f"\nDone. {sent} sent, {len(tracker['pending_send'])} still pending.")
+
+
+def weekly_digest() -> None:
+    """Friday 16:00 IL — private DM to Noam only, never the group. Episode
+    count per day and per show for the week just finished."""
+    tracker, _ = get_tracker()
+    now = now_israel()
+    week_ago = now - datetime.timedelta(days=7)
+
+    per_day: dict[datetime.date, int] = {}
+    per_show: dict[str, int] = {}
+    for ep in tracker.get("processed", []):
+        if not isinstance(ep, dict) or ep.get("skipped"):
+            continue
+        pub = None
+        ts = ep.get("published_at")
+        if ts:
+            try:
+                pub = datetime.datetime.fromisoformat(ts)
+            except ValueError:
+                pub = None
+        if pub is None and ep.get("date"):
+            try:
+                pub = datetime.datetime.strptime(ep["date"], "%Y-%m-%d")
+            except ValueError:
+                continue
+        if pub is None or pub < week_ago or pub > now:
+            continue
+        per_day[pub.date()] = per_day.get(pub.date(), 0) + 1
+        show = ep.get("podcast", "?")
+        per_show[show] = per_show.get(show, 0) + 1
+
+    total = sum(per_day.values())
+    lines = [f"📊 Weekly digest — {total} episode(s) this week"]
+    if per_day:
+        lines.append("\nBy day:")
+        for day in sorted(per_day):
+            lines.append(f"  {day.strftime('%a %-d %b')}: {per_day[day]}")
+    if per_show:
+        lines.append("\nBy show:")
+        for show, n in sorted(per_show.items(), key=lambda x: -x[1]):
+            lines.append(f"  {show}: {n}")
+    alert_noam("\n".join(lines))
+    print("Weekly digest sent.")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1839,6 +2043,10 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
     processed_ids: set[str] = {
         (ep["id"] if isinstance(ep, dict) else ep) for ep in tracker.get("processed", [])
     }
+    # Cross-run retry tracking for backfill, mirroring the daily pipeline's
+    # "queued" bucket — a QA failure here persists its reason so the next
+    # backfill dispatch doesn't blindly repeat the same mistake.
+    bq_lookup: dict[str, dict] = {q["id"]: q for q in tracker.get("backfill_queued", [])}
 
     candidates: list[dict] = []
     for podcast in PODCASTS:
@@ -1862,6 +2070,8 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
             if ep_id not in processed_ids:
                 tracker.setdefault("processed", []).append({"id": ep_id})
                 processed_ids.add(ep_id)
+            tracker["backfill_queued"] = [q for q in tracker.get("backfill_queued", []) if q["id"] != ep_id]
+            bq_lookup.pop(ep_id, None)
             continue
 
         video_id = find_youtube_id(episode["title"], episode["podcast"], episode.get("show_format", ""))
@@ -1873,8 +2083,22 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
                 video_id = None
         print(f"  YouTube: {video_id or 'none'}")
 
+        dur = episode.get("duration_sec")
+        if not video_id and dur and dur < SHORT_EPISODE_THRESHOLD_SEC:
+            print(f"  Skipping — bonus/short episode ({dur}s, no video match)\n")
+            tracker.setdefault("processed", []).append(
+                {"id": ep_id, "skipped": True, "skip_reason": "short/bonus, no video"})
+            processed_ids.add(ep_id)
+            continue
+
+        # Cross-run retry: an episode that failed QA on a previous backfill
+        # dispatch carries its failure reason forward instead of blindly
+        # repeating the same mistake.
+        prior = bq_lookup.get(ep_id)
+        prior_feedback = prior.get("last_qa_feedback") if prior else None
+
         transcript = get_transcript(video_id) if video_id else []
-        content = generate_content(episode, transcript, video_id or "", model=model)
+        content = generate_content(episode, transcript, video_id or "", model=model, qa_feedback=prior_feedback)
         if not content:
             print("  Generation failed — skipping\n")
             continue
@@ -1885,11 +2109,22 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
             continue
 
         passed, html, content, qa_issues = qa_episode(
-            episode, content, video_id, video_duration, transcript, gen_model=model)
+            episode, content, video_id, video_duration, transcript, gen_model=model, prior_feedback=prior_feedback)
         for level, msg in qa_issues:
             print(f"  QA [{level}]: {msg}")
         if not passed:
-            print("  QA blocker — skipping (retry on next backfill run)\n")
+            q = prior if prior is not None else {"id": ep_id, "podcast": episode.get("podcast"),
+                                                  "title": episode.get("title")}
+            if prior is None:
+                tracker.setdefault("backfill_queued", []).append(q)
+                bq_lookup[ep_id] = q
+            q["qa_attempts"] = q.get("qa_attempts", 0) + 1
+            blockers = "; ".join(m for l, m in qa_issues if l in ("blocker", "content"))
+            q["last_qa_feedback"] = blockers
+            print(f"  QA HELD (attempt {q['qa_attempts']}) — skipping (retry on next backfill run): {blockers}\n")
+            if q["qa_attempts"] in (1, 3, 6):
+                alert_noam(f"⚠️ Reading.Sis backfill QA held {ep_id} (attempt {q['qa_attempts']}). "
+                           f"Not published until fixed.\nIssues: {blockers}")
             continue
 
         try:
@@ -1899,15 +2134,19 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
             print(f"  Push failed: {e} — skipping\n")
             continue
 
+        tracker["backfill_queued"] = [q for q in tracker.get("backfill_queued", []) if q["id"] != ep_id]
+        bq_lookup.pop(ep_id, None)
+
         # Backfill is SILENT — deliberately no pending_send entry.
         tracker.setdefault("processed", []).append({
-            "id":        ep_id,
-            "podcast":   episode.get("podcast"),
-            "guest":     content.get("guest"),
-            "title":     episode.get("title"),
-            "date":      episode.get("date"),
-            "page_url":  page_url,
-            "pushed_at": str(datetime.date.today()),
+            "id":           ep_id,
+            "podcast":      episode.get("podcast"),
+            "guest":        content.get("guest"),
+            "title":        episode.get("title"),
+            "date":         episode.get("date"),
+            "published_at": episode["pub_dt"].isoformat() if episode.get("pub_dt") else None,
+            "page_url":     page_url,
+            "pushed_at":    str(datetime.date.today()),
         })
         processed_ids.add(ep_id)
         done += 1
@@ -1920,6 +2159,69 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
     print(f"\nBackfill complete: {done} new page(s). Rebuilding library…")
     push_library(tracker)
     print("Done.")
+
+
+# Give up retrying for a video after this long — most YouTube uploads land
+# same-day as the RSS publish, so 24h of retries across the day's generate
+# runs should catch nearly all of them.
+VIDEO_RETRY_WINDOW_HOURS = 24
+
+
+def _retry_awaiting_video(tracker: dict) -> bool:
+    """Re-attempt video search for episodes published without one. Doesn't
+    delay anything — the page already shipped on RSS-description content.
+    If a video has since appeared, regenerate with the real transcript and
+    overwrite the page in place (same URL, no new WhatsApp message). Give up
+    silently after VIDEO_RETRY_WINDOW_HOURS — the page just stays as-is."""
+    bucket = tracker.get("awaiting_video", [])
+    if not bucket:
+        return False
+
+    now = now_israel()
+    still_waiting: list[dict] = []
+    dirty = False
+
+    for entry in bucket:
+        ep_id = entry["id"]
+        try:
+            pub_dt = datetime.datetime.fromisoformat(entry["published_at"])
+        except (KeyError, ValueError, TypeError):
+            pub_dt = now  # malformed entry — treat as fresh rather than crash
+        age = now - pub_dt
+        if age > datetime.timedelta(hours=VIDEO_RETRY_WINDOW_HOURS):
+            print(f"  [video-retry] {ep_id}: giving up after {VIDEO_RETRY_WINDOW_HOURS}h, no video found")
+            dirty = True
+            continue
+
+        video_id = find_youtube_id(entry["title"], entry["podcast"], entry.get("show_format", ""))
+        episode = dict(entry)
+        episode["pub_dt"] = pub_dt
+        episode.setdefault("date", pub_dt.strftime("%Y-%m-%d"))
+        if video_id and verify_youtube_match(video_id, episode):
+            video_duration, _ = youtube_meta(video_id)
+            transcript = get_transcript(video_id)
+            content = generate_content(episode, transcript, video_id)
+            if content and not content.get("skip"):
+                passed, html, content, qa_issues = qa_episode(
+                    episode, content, video_id, video_duration, transcript)
+                if passed:
+                    filename = f"{ep_id}.html"
+                    try:
+                        current = gh_get(filename)
+                        gh_put(filename, html.encode("utf-8"),
+                               f"feat: add late-found video for {ep_id}", sha=current["sha"])
+                        print(f"  [video-retry] {ep_id}: video found, page upgraded")
+                        dirty = True
+                        continue  # drop from bucket — done
+                    except Exception as e:
+                        print(f"  [video-retry] {ep_id}: found video but push failed: {e}")
+                else:
+                    print(f"  [video-retry] {ep_id}: video found but QA failed regeneration, retrying later")
+            # fall through — keep waiting if generation/QA didn't pan out
+        still_waiting.append(entry)
+
+    tracker["awaiting_video"] = still_waiting
+    return dirty
 
 
 def _run_generate(window_override: datetime.timedelta | None = None,
@@ -2029,12 +2331,27 @@ def _run_generate(window_override: datetime.timedelta | None = None,
                 video_id = None
         print(f"  YouTube: {video_id or 'not found / not verified'}")
 
+        # ── Short/bonus episode skip (no video + short RSS duration) ──────────
+        dur = episode.get("duration_sec")
+        if not video_id and dur and dur < SHORT_EPISODE_THRESHOLD_SEC:
+            print(f"  Skipping — bonus/short episode ({dur}s, no video match)\n")
+            tracker["processed"].append(
+                {"id": ep_id, "skipped": True, "skip_reason": "short/bonus, no video"})
+            outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
+                             "title": episode.get("title"), "status": "skipped",
+                             "detail": "short/bonus episode, no video match"})
+            tracker_dirty = True
+            continue
+
         # ── Get transcript ────────────────────────────────────────────────────
         transcript = get_transcript(video_id) if video_id else []
         print(f"  Transcript: {len(transcript)} segments")
 
         # ── Generate content via Claude ───────────────────────────────────────
-        content = generate_content(episode, transcript, video_id or "")
+        # A re-queued episode (failed QA on an earlier run) carries the reason
+        # forward so this attempt doesn't blindly repeat the same mistake.
+        prior_feedback = episode.get("last_qa_feedback")
+        content = generate_content(episode, transcript, video_id or "", qa_feedback=prior_feedback)
         if not content:
             print("  Content generation failed — skipping\n")
             outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
@@ -2056,7 +2373,7 @@ def _run_generate(window_override: datetime.timedelta | None = None,
 
         # ── QA stage: auto-fix and gate ───────────────────────────────────────
         passed, html, content, qa_issues = qa_episode(
-            episode, content, video_id, video_duration, transcript)
+            episode, content, video_id, video_duration, transcript, prior_feedback=prior_feedback)
         for level, msg in qa_issues:
             print(f"  QA [{level}]: {msg}")
         if not passed:
@@ -2069,6 +2386,7 @@ def _run_generate(window_override: datetime.timedelta | None = None,
                 queued_ids.add(ep_id)
             q["qa_attempts"] = q.get("qa_attempts", 0) + 1
             blockers = "; ".join(m for l, m in qa_issues if l in ("blocker", "content"))
+            q["last_qa_feedback"] = blockers
             print(f"  QA HELD (attempt {q['qa_attempts']}) — not publishing: {blockers}\n")
             if q["qa_attempts"] in (1, 3, 6):
                 alert_noam(f"⚠️ Reading.Sis QA held {ep_id} (attempt {q['qa_attempts']}). "
@@ -2105,13 +2423,15 @@ def _run_generate(window_override: datetime.timedelta | None = None,
             # Messages go out an hour later (run.py --send) so GitHub Pages has
             # comfortably finished deploying and every URL is verified live first.
             tracker.setdefault("pending_send", []).append({
-                "id":       ep_id,
-                "podcast":  episode.get("podcast"),
-                "guest":    content.get("guest", ""),
-                "title":    episode.get("title"),
-                "date_str": pub_dt.strftime("%-d %b %Y"),
-                "hook":     (content.get("tldr") or "")[:300],
-                "page_url": page_url,
+                "id":           ep_id,
+                "podcast":      episode.get("podcast"),
+                "guest":        content.get("guest", ""),
+                "title":        episode.get("title"),
+                "date_str":     pub_dt.strftime("%-d %b %Y"),
+                "date_short":   pub_dt.strftime("%b %-d"),   # footer format — no year
+                "published_at": pub_dt.isoformat(),          # for oldest-first send ordering
+                "hook":         (content.get("tldr") or "")[:300],
+                "page_url":     page_url,
             })
             print("  Queued for 7 AM send")
 
@@ -2132,21 +2452,43 @@ def _run_generate(window_override: datetime.timedelta | None = None,
             processed_ids.add(ep_id)  # prevent re-generation in this run
         else:
             tracker.setdefault("processed", []).append({
-                "id":        ep_id,
-                "podcast":   episode.get("podcast"),
-                "guest":     content.get("guest"),
-                "title":     episode.get("title"),
-                "date":      episode.get("date"),
-                "page_url":  page_url,
-                "pushed_at": str(today),
+                "id":           ep_id,
+                "podcast":      episode.get("podcast"),
+                "guest":        content.get("guest"),
+                "title":        episode.get("title"),
+                "date":         episode.get("date"),
+                "published_at": pub_dt.isoformat(),
+                "page_url":     page_url,
+                "pushed_at":    str(today),
             })
             tracker["queued"] = [q for q in tracker.get("queued", []) if q["id"] != ep_id]
             processed_ids.add(ep_id)
+            if not video_id:
+                # No video yet — a later run today (or tomorrow, within 24h)
+                # will retry the search and upgrade this page in place.
+                tracker.setdefault("awaiting_video", []).append({
+                    "id":           ep_id,
+                    "podcast":      episode.get("podcast"),
+                    "slug_prefix":  episode.get("slug_prefix", ""),
+                    "title":        episode.get("title"),
+                    "date":         episode.get("date"),
+                    "description":  episode.get("description", ""),
+                    "duration_sec": episode.get("duration_sec"),
+                    "spotify_show": episode.get("spotify_show", ""),
+                    "lex_filter":   episode.get("lex_filter", False),
+                    "show_format":  episode.get("show_format", "interview"),
+                    "published_at": pub_dt.isoformat(),
+                })
         outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
                          "guest": content.get("guest"), "title": episode.get("title"),
                          "status": "preview" if preview_mode else "published"})
         tracker_dirty = True
         print()
+
+    if not preview_mode:
+        print("\nRe-checking episodes still awaiting a video match…")
+        if _retry_awaiting_video(tracker):
+            tracker_dirty = True
 
     if tracker_dirty:
         save_tracker(tracker, tracker_sha)
@@ -2199,12 +2541,17 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    # `--send` delivers pending WhatsApp messages (7 AM phase).
+    # `--send` delivers pending WhatsApp messages (automatic, scheduled phase).
+    # `--send --manual` flushes the whole queue immediately for catch-up/testing
+    #   — always to Noam's personal WhatsApp only, never the group.
+    # `--weekly-digest` DMs Noam the week's episode counts (Friday 16:00 IL).
     # `--library` rebuilds and publishes index.html from the current tracker.
     # `--backfill SINCE=YYYY-MM-DD` bulk-generates pages since that date
     #   (silent — no WhatsApp). Default SINCE=2026-01-01.
     if "--send" in sys.argv:
-        send_pending()
+        send_pending(manual="--manual" in sys.argv)
+    elif "--weekly-digest" in sys.argv:
+        weekly_digest()
     elif "--library" in sys.argv:
         tracker, _ = get_tracker()
         push_library(tracker)

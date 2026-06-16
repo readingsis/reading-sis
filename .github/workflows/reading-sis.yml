@@ -13,6 +13,8 @@ on:
         options:
           - generate
           - send
+          - send-manual
+          - weekly-digest
           - library
           - preview-new
         default: generate
@@ -53,8 +55,10 @@ jobs:
           PHASE="${{ inputs.phase }}"
           echo "Phase: $PHASE"
           case "$PHASE" in
-            send)        /usr/local/bin/python3.11 scripts/run.py --send ;;
-            library)     /usr/local/bin/python3.11 scripts/run.py --library ;;
-            preview-new) /usr/local/bin/python3.11 scripts/run.py --preview-new ;;
-            *)           /usr/local/bin/python3.11 scripts/run.py ;;
+            send)          /usr/local/bin/python3.11 scripts/run.py --send ;;
+            send-manual)   /usr/local/bin/python3.11 scripts/run.py --send --manual ;;
+            weekly-digest) /usr/local/bin/python3.11 scripts/run.py --weekly-digest ;;
+            library)       /usr/local/bin/python3.11 scripts/run.py --library ;;
+            preview-new)   /usr/local/bin/python3.11 scripts/run.py --preview-new ;;
+            *)             /usr/local/bin/python3.11 scripts/run.py ;;
           esac
