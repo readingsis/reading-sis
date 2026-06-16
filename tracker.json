@@ -2579,6 +2579,96 @@
       "date": "2026-06-10",
       "page_url": "https://readingsis.github.io/reading-sis/sysk-2026-06-10.html",
       "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "sysk-2026-06-09",
+      "podcast": "Stuff You Should Know",
+      "guest": "Various",
+      "title": "Smile",
+      "date": "2026-06-09",
+      "page_url": "https://readingsis.github.io/reading-sis/sysk-2026-06-09.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "sysk-2026-06-06",
+      "podcast": "Stuff You Should Know",
+      "guest": "Josh Clark and Charles 'Chuck' Bryant",
+      "title": "Selects: 911 Is Not a Joke",
+      "date": "2026-06-06",
+      "page_url": "https://readingsis.github.io/reading-sis/sysk-2026-06-06.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "sysk-2026-06-04",
+      "podcast": "Stuff You Should Know",
+      "guest": "Various",
+      "title": "Three Mile Island",
+      "date": "2026-06-04",
+      "page_url": "https://readingsis.github.io/reading-sis/sysk-2026-06-04.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "sysk-2026-06-03",
+      "podcast": "Stuff You Should Know",
+      "guest": "No guest",
+      "title": "Short Stuff: 1955 Le Mans Disaster",
+      "date": "2026-06-03",
+      "page_url": "https://readingsis.github.io/reading-sis/sysk-2026-06-03.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "sysk-2026-05-30",
+      "podcast": "Stuff You Should Know",
+      "guest": "Various",
+      "title": "Selects: Did Shakespeare really write all that stuff?",
+      "date": "2026-05-30",
+      "page_url": "https://readingsis.github.io/reading-sis/sysk-2026-05-30.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "sysk-2026-05-28",
+      "podcast": "Stuff You Should Know",
+      "guest": "Josh Clark and Chuck Bryant",
+      "title": "Howard Hughes in Las Vegas",
+      "date": "2026-05-28",
+      "page_url": "https://readingsis.github.io/reading-sis/sysk-2026-05-28.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "sysk-2026-05-27",
+      "podcast": "Stuff You Should Know",
+      "guest": "Chuck Bryant",
+      "title": "Short Stuff: Knuckle Cracking",
+      "date": "2026-05-27",
+      "page_url": "https://readingsis.github.io/reading-sis/sysk-2026-05-27.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "sysk-2026-05-26",
+      "podcast": "Stuff You Should Know",
+      "guest": "Josh Clark and Chuck Bryant",
+      "title": "The Story of Starvation Heights",
+      "date": "2026-05-26",
+      "page_url": "https://readingsis.github.io/reading-sis/sysk-2026-05-26.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "sysk-2026-05-23",
+      "podcast": "Stuff You Should Know",
+      "guest": "Various",
+      "title": "Selects: How Flight Attendants Work",
+      "date": "2026-05-23",
+      "page_url": "https://readingsis.github.io/reading-sis/sysk-2026-05-23.html",
+      "pushed_at": "2026-06-16"
+    },
+    {
+      "id": "sysk-2026-05-20",
+      "podcast": "Stuff You Should Know",
+      "guest": "Various",
+      "title": "Short Stuff: All about BPAs",
+      "date": "2026-05-20",
+      "page_url": "https://readingsis.github.io/reading-sis/sysk-2026-05-20.html",
+      "pushed_at": "2026-06-16"
     }
   ],
   "queued": [],
