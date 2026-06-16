@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Backgammon, a 3,000-year-old game combining skill and randomness, has become a sophisticated framework for understanding probability and decision-making.">
+  <title>Reading.Sis — 677. Can Backgammon Save Us from Ourselves?</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo:active { opacity: 0.6; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; max-height: 9em; overflow: hidden; }
+    .moment-quote.fade { -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .takeaways-rest[hidden] { display: none; }
+    .takeaways-toggle { margin-top: 14px; background: none; border: none; color: var(--green); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <a class="logo" href="index.html" aria-label="Back to the library">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </a>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">Freakonomics Radio</div>
+    <h1 class="episode-title">677. Can Backgammon Save Us from Ourselves?</h1>
+    <div class="guest-name">with professional backgammon players and champions</div>
+    <div class="meta">
+      <span>12 Jun 2026</span>
+      <span>18 min read</span>
+      <span>47m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Backgammon, a 3,000-year-old game combining skill and randomness, has become a sophisticated framework for understanding probability and decision-making. The doubling cube—a mechanic invented in the 1920s—forced players to make high-stakes risk assessments similar to business and life choices. World champions have applied backgammon theory to revolutionize NFL coaching decisions, helping teams like the Eagles and Chiefs win Super Bowls by teaching coaches to be less risk-averse.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Frank Frigo</div>
+        <div class="moment-quote">&ldquo;I haven't met a human being yet that plays back gammon that the game doesn't get under their skin. That game will get to you.&rdquo;</div>
+        <div class="moment-context">Opening hook about the game's psychological grip on players</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=61bF7ub-LC0&t=12" target="_blank">&#9654; 0:12</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Masayuki Mochisuki</div>
+        <div class="moment-quote">&ldquo;Back gammon is not a game that you decides the strategy. All you can do is you follow the dice's advice. You know, you're not going to against the dice. The game plan that you had in your mind that you want to that's long gone.&rdquo;</div>
+        <div class="moment-context">Explaining how randomness forces players to abandon preconceived plans and adapt</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=61bF7ub-LC0&t=288" target="_blank">&#9654; 4:48</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Frank Frigo</div>
+        <div class="moment-quote">&ldquo;When you shift that objective and that metric, it really opens things up and you start to see that these risk averse decisions are actually quite wrong.&rdquo;</div>
+        <div class="moment-context">Describing how backgammon theory revealed NFL coaches were making mathematically suboptimal fourth-down decisions</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=61bF7ub-LC0&t=1346" target="_blank">&#9654; 22:26</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Frank Frigo</div>
+        <div class="moment-quote">&ldquo;We worked with the Philadelphia Eagles during their Super Bowl run. They used it religiously. We had buyin from top to bottom from Jeff Lurie the owner to Howie Roseman the GM to Doug Peterson and also with the Kansas City Chiefs.&rdquo;</div>
+        <div class="moment-context">Revealing the direct application of backgammon-inspired models to NFL championship teams</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=61bF7ub-LC0&t=1417" target="_blank">&#9654; 23:37</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Mark Olsen</div>
+        <div class="moment-quote">&ldquo;Decision making under uncertainty. That's literally what you do on every single move in back gamma. There's actually several levels to it. We do have complete information of the game. We can see all the pieces. Nothing is hidden. But we don't know the upcoming dice rolls.&rdquo;</div>
+        <div class="moment-context">Articulating how backgammon's core mechanic mirrors the uncertainty of real-world decision-making</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=61bF7ub-LC0&t=1756" target="_blank">&#9654; 29:16</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About the show</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">Freakonomics Radio explores how backgammon, one of humanity's oldest games, offers profound lessons about decision-making under uncertainty, risk management, and probabilistic thinking. The episode features interviews with world champions and top-ranked players who explain how the game's unique mechanic—the doubling cube—has influenced everything from NFL strategy to business analytics, and why the game's blend of skill and luck mirrors real life more accurately than chess.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>The doubling cube revolutionized probabilistic decision-making </strong>Invented around the 1920s, the doubling cube forces players to continuously reassess risk-reward tradeoffs mid-game. Rather than accept a certain small loss (one point), players must decide whether the probability of winning justifies risking larger losses (two or four points). This mirrors real business decisions where you must compare guaranteed costs against uncertain future outcomes—a framework that has since been formalized in decision theory and applied to high-stakes domains like NFL strategy and commodity trading.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>Backgammon's luck-skill ratio outperforms chess for real-world learning </strong>Unlike chess, where optimal play often creates deterministic winning paths, backgammon requires probabilistic thinking because dice introduce genuine uncertainty at every turn. This makes it a more realistic simulator of business and life decisions, where perfect information rarely exists and outcomes depend on both skill and external factors. Mark Olsen argues this teaches players to focus on decision quality (maximizing win probability) rather than outcomes alone, a critical distinction for entrepreneurs and leaders managing risk.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>NFL teams gained Super Bowl advantages by copying backgammon theory </strong>Frank Frigo's analytics firm built models based on backgammon decision-making to quantify optimal fourth-down strategies in football. The Eagles and Chiefs licensed these models, revealing coaches had been irrationally risk-averse—surrendering possession in situations where expected win probability favored aggressive play. By reframing the objective from 'maximize yardage' to 'maximize probability of winning the game,' teams gained measurable competitive edges that contributed to multiple Super Bowl victories.</div>
+    </div>
+    <div class="takeaways-rest" id="takeawaysRest" hidden>
+    <div class="takeaway">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-text"><strong>Mastering emotional volatility matters more than pure calculation </strong>Frank Frigo's two world championships (1994 and 2023) illustrate how emotional resilience improves with experience. At 29, he won through clean play and favorable rolls; at 58, he won by 'turning the page' after losses and treating each decision independently without superstition. This suggests backgammon's true pedagogical value lies in teaching players to compartmentalize disappointment and focus on controllable variables—skills directly transferable to business, investing, and leadership.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">5</div>
+      <div class="takeaway-text"><strong>The game models opportunity cost and sunk cost better than theory alone </strong>Backgammon forces players to constantly choose between competing game plans (defensive vs. aggressive) and micro-moves, each with opportunity costs that ripple through future turns. Mark Olsen notes that pursuing one strategy constrains future optionality, mirroring real business where commitments foreclose alternatives. Players learn viscerally that past losses (sunk costs) should not influence forward-looking decisions—a cognitive pattern most people struggle with in real life.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">6</div>
+      <div class="takeaway-text"><strong>The 1970s backgammon boom revealed how magical thinking dominates gambling </strong>Bob Wtel's recollections of the 1970s scene show that despite widespread play, most participants believed backgammon was pure luck and refused to study positions systematically. A small fraction exploited this by logging bearoff endgames, gathering hundreds of dollars through superior analysis. This mirrors modern markets: most players think outcomes are random and don't invest in learning, while disciplined competitors extract disproportionate returns through deliberate practice.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">7</div>
+      <div class="takeaway-text"><strong>Skill-based gambling builds mental toughness and decision discipline </strong>Mark Olsen distinguishes productive gambling (backgammon, poker, sports betting with informational advantages) from pure vice (roulette). Because outcomes depend partly on skill and effort, immediate negative feedback trains players to rapidly diagnose errors, adjust strategy, and withstand psychological stress. This makes structured gambling more pedagogically valuable than many formal business schools for developing the mental models needed to thrive under uncertainty.</div>
+    </div>
+    </div>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 7 takeaways</button>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=61bF7ub-LC0" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/Freakonomics%20Radio%20677.%20Can%20Backgammon%20Save%20Us%20from%20Ourselves%3F" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/freakonomics-2026-06-12.html';
+  var PAGE_TITLE = '677. Can Backgammon Save Us from Ourselves? — Reading.Sis';
+  var EP = {id:'freakonomics-2026-06-12', title:'677. Can Backgammon Save Us from Ourselves?', show:'Freakonomics Radio', date:'12 Jun 2026', url:pageUrl};
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  // Save = bookmark to localStorage (anonymous, per-device). The library's
+  // "Saved" page reads this same key. Toggles on repeat tap.
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
+    var btn = document.getElementById('bookmarkBtn');
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
+    gcEvent('save');
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+
+  function toggleTakeaways() {
+    var rest = document.getElementById('takeawaysRest');
+    var btn = document.getElementById('takeawaysToggle');
+    if (rest.hasAttribute('hidden')) {
+      rest.removeAttribute('hidden');
+      btn.textContent = 'Show fewer';
+    } else {
+      rest.setAttribute('hidden', '');
+      btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
+    }
+  }
+
+  renderSaveBtn();
+
+  // Fade only quotes that actually overflow the 6-line cap (others render full).
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-quote'), function(q) {
+    if (q.scrollHeight > q.clientHeight + 2) q.classList.add('fade');
+  });
+</script>
+</body>
+</html>
