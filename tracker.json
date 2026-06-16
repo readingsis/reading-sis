@@ -2444,17 +2444,7 @@
     }
   ],
   "queued": [],
-  "pending_send": [
-    {
-      "id": "bigdeal-2026-06-15",
-      "podcast": "BigDeal",
-      "guest": "Mohnish Pabrai",
-      "title": "The Laws of Investing to 10x Your Stocks | Mohnish Pabrai",
-      "date_str": "15 Jun 2026",
-      "hook": "Mohnish Pabrai argues that the most reliable path to wealth — in business and investing — is shameless cloning of proven models rather than chasing original ideas. He applies Buffett's concentrated, patient investing style (6–10 bets, never sell great businesses) to generate outsized returns, and co",
-      "page_url": "https://readingsis.github.io/reading-sis/bigdeal-2026-06-15.html"
-    }
-  ],
+  "pending_send": [],
   "preview": [
     {
       "id": "crime-junkie-2026-06-15",
