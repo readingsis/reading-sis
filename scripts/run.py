@@ -40,7 +40,7 @@ GREENAPI_GROUP   = os.environ.get("GREENAPI_GROUP_ID", "")
 ALERT_TO_NOAM    = os.environ.get("WHATSAPP_TO_NOAM", "")
 
 MODEL = "claude-sonnet-4-6"        # daily generation + Sis messages
-QA_MODEL = "claude-sonnet-4-6"     # QA content review
+QA_MODEL = "claude-opus-4-8"       # QA content review (independent, last-line check)
 HAIKU = "claude-haiku-4-5"         # backfill generation (cheap, bulk)
 # GoatCounter analytics. Just the site code (the "xxxxx" in xxxxx.goatcounter.com).
 # Public by nature (it's visible in page source), so a plain env var is fine —
@@ -119,7 +119,6 @@ PODCASTS = [
         "spotify_show": "",
         "lex_filter": False,
         "show_format": "true_crime",
-        "hold": True,   # awaiting Noam's review of the May 1st backfill — remove once approved
     },
     {
         "name": "Call Her Daddy",
@@ -128,7 +127,6 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/mKn_QmLS",
         "spotify_show": "",
         "lex_filter": False,
-        "hold": True,
     },
     {
         "name": "SmartLess",
@@ -137,8 +135,14 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/hNaFxXpO",
         "spotify_show": "",
         "lex_filter": False,
-        "show_format": "panel",
-        "hold": True,
+    },
+    {
+        "name": "Stuff You Should Know",
+        "slug": "sysk",
+        "chip": "SYSK",
+        "rss": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/a91018a4-ea4f-4130-bf55-ae270180c327/44710ecc-10bb-48d1-93c7-ae270180c33e/podcast.rss",
+        "spotify_show": "",
+        "lex_filter": False,
     },
     {
         "name": "This Past Weekend w/ Theo Von",
@@ -147,7 +151,15 @@ PODCASTS = [
         "rss": "https://feeds.megaphone.fm/thispastweekend",
         "spotify_show": "",
         "lex_filter": False,
-        "hold": True,
+    },
+    {
+        "name": "MrBallen Podcast",
+        "slug": "mrballen",
+        "chip": "MB",
+        "rss": "https://feeds.simplecast.com/dloY8UYJ",
+        "spotify_show": "",
+        "lex_filter": False,
+        "show_format": "true_crime",
     },
     {
         "name": "Freakonomics Radio",
@@ -156,7 +168,6 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/Y8lFbOT4",
         "spotify_show": "",
         "lex_filter": False,
-        "hold": True,
     },
     {
         "name": "Conan O'Brien Needs A Friend",
@@ -165,16 +176,6 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/dHoohVNH",
         "spotify_show": "",
         "lex_filter": False,
-        "hold": True,
-    },
-    {
-        "name": "BigDeal",
-        "slug": "bigdeal",
-        "chip": "BD",
-        "rss": "https://feeds.megaphone.fm/bigdeal",
-        "spotify_show": "",
-        "lex_filter": False,
-        "hold": True,
     },
 ]
 
@@ -372,44 +373,27 @@ def verify_youtube_match(video_id: str, episode: dict) -> bool:
         return False
     rss_dur = episode.get("duration_sec")
     if rss_dur and dur:
-        diff = dur - rss_dur
-        # Video longer than the RSS audio is common and safe (extra intro/outro/
-        # ad reads baked into the YouTube cut but trimmed from the podcast feed —
-        # seen consistently on Call Her Daddy and Conan, ~10-12% over). A video
-        # SHORTER than the RSS duration is more often a clip or wrong episode, so
-        # keep that side of the check tight.
-        tolerance = rss_dur * (0.15 if diff > 0 else 0.08)
-        if abs(diff) > max(180, int(tolerance)):
+        if abs(dur - rss_dur) > max(180, int(rss_dur * 0.08)):
             print(f"  Rejecting video {video_id}: duration {dur}s vs RSS {rss_dur}s")
             return False
     return True
 
 
-def find_youtube_id(title: str, podcast_name: str, show_format: str = "") -> str | None:
+def find_youtube_id(title: str, podcast_name: str) -> str | None:
     """Search YouTube for the episode video ID.
 
-    Tries the YouTube Data API first (multiple query forms), then falls back
-    to yt-dlp. For true_crime shows strips prefixes like "MURDERED:" from the
-    title since YouTube video titles often omit them.
+    Tries the official Data API first (works from datacenter IPs, needs
+    YOUTUBE_API_KEY), then falls back to yt-dlp scraping (often blocked
+    on GitHub Actions runners).
     """
     query = f"{podcast_name} {title}"
 
-    # True crime episodes often have a type prefix ("MURDERED: Jane Doe") that
-    # the YouTube video title omits — build a shorter stripped alternative.
-    short_title = re.sub(
-        r'^(MURDERED|SOLVED|MISSING|CONSPIRACY|UNKNOWN|ALLEGED|KIDNAPPED|ABDUCTED)\s*:\s*',
-        '', title, flags=re.IGNORECASE,
-    ).strip() if show_format == "true_crime" else title
-    short_query = f"{podcast_name} {short_title}"
-
-    def _api_search(q: str) -> str | None:
-        api_key = os.environ.get("YOUTUBE_API_KEY", "")
-        if not api_key:
-            return None
+    api_key = os.environ.get("YOUTUBE_API_KEY", "")
+    if api_key:
         try:
             r = requests.get(
                 "https://www.googleapis.com/youtube/v3/search",
-                params={"part": "id", "q": q, "type": "video",
+                params={"part": "id", "q": query, "type": "video",
                         "maxResults": 1, "key": api_key},
                 timeout=20,
             )
@@ -417,40 +401,22 @@ def find_youtube_id(title: str, podcast_name: str, show_format: str = "") -> str
             items = r.json().get("items", [])
             if items:
                 return items[0]["id"]["videoId"]
+            return None
         except Exception as e:
-            print(f"  YouTube Data API error: {e}")
-        return None
+            print(f"  YouTube Data API error: {e} — falling back to yt-dlp")
 
-    def _dlp_search(q: str) -> str | None:
-        try:
-            result = subprocess.run(
-                ["yt-dlp", f"ytsearch1:{q}", "--print", "%(id)s", "--no-download", "--quiet"],
-                capture_output=True, text=True, timeout=90,
-            )
-            if result.returncode == 0:
-                vid = result.stdout.strip().split("\n")[0].strip()
-                if re.match(r"^[A-Za-z0-9_-]{11}$", vid):
-                    return vid
-        except Exception as e:
-            print(f"  YouTube search error: {e}")
-        return None
-
-    # 1. Full title via Data API
-    vid = _api_search(query)
-    if vid:
-        return vid
-    # 2. Stripped/short title via Data API (different query form may surface the video)
-    if short_query != query:
-        vid = _api_search(short_query)
-        if vid:
-            return vid
-    # 3. Short query via yt-dlp (simpler query is faster and less likely to time out)
-    if short_query != query:
-        vid = _dlp_search(short_query)
-        if vid:
-            return vid
-    # 4. Full query via yt-dlp as last resort
-    return _dlp_search(query)
+    try:
+        result = subprocess.run(
+            ["yt-dlp", f"ytsearch1:{query}", "--print", "%(id)s", "--no-download", "--quiet"],
+            capture_output=True, text=True, timeout=45,
+        )
+        if result.returncode == 0:
+            vid = result.stdout.strip().split("\n")[0].strip()
+            if re.match(r"^[A-Za-z0-9_-]{11}$", vid):
+                return vid
+    except Exception as e:
+        print(f"  YouTube search error: {e}")
+    return None
 
 
 def get_transcript(video_id: str, max_words: int = 6000) -> list[dict]:
@@ -541,7 +507,7 @@ Return a single JSON object (no markdown fences) with exactly these keys:
   "moments": [
     {{
       "speaker": "Name of speaker",
-      "quote": "VERBATIM from transcript. If no transcript available, write a compelling paraphrase based on the description — no prefix or label, just the quote itself.",
+      "quote": "VERBATIM from transcript. If no transcript: '[No transcript — approximate] paraphrase'",
       "context": "1 sentence: when or why this was said",
       "timestamp_seconds": <integer>,
       "timestamp_display": "M:SS or H:MM:SS format"
@@ -570,25 +536,16 @@ Hard rules:
 - Return pure JSON. No markdown. No explanation."""
 
     if episode.get("show_format") == "true_crime":
-        podcast_name = episode.get("podcast", "the show")
-        prompt += f"""
+        prompt += """
 
 Show format note: This is a TRUE CRIME / MYSTERY STORY episode — no traditional interview guest.
 - "guest": name of the case subject, victim, or main person featured (or "Various" for multi-case episodes)
 - "guest_line": "Case: [brief identifier]" — e.g. "Case: Jane Doe" or "Case: The Zodiac Killer"
-- "bio_section_title": "About {podcast_name}"
-- "bio_text": 2-3 sentences about the show, its hosts, and the kinds of stories it typically covers — NOT about the current episode's case (the TL;DR already covers that)
+- "bio_section_title": "About the Case"
+- "bio_text": 2-3 sentences on the case background, victim, and context
 - "moments": use the host/narrator name as speaker (e.g. "Ashley Flowers", "MrBallen")
 - "takeaways": key facts, timeline turns, and revelations — not career/business advice style
 - "actionability" scores will naturally be low for true crime; score "insight" and "specificity" higher"""
-
-    if episode.get("show_format") == "panel":
-        podcast_name = episode.get("podcast", "the show")
-        prompt += f"""
-
-Show format note: This is a PANEL / ENSEMBLE show — the recurring hosts ARE the show's identity.
-- "bio_section_title": "About {podcast_name}"
-- "bio_text": 2-3 sentences about the show, its regular hosts, and its typical format/style — NOT about the guest of this episode (the TL;DR already covers that)"""
 
     if qa_feedback:
         prompt += f"\n\nCORRECTION REQUIRED — your previous attempt was rejected by QA:\n{qa_feedback}\nFix these specific issues in your response."
@@ -621,6 +578,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="description" content="TLDR_FIRST_SENTENCE">
   <title>Reading.Sis — EPISODE_TITLE</title>
+FAVICON_LINKS
 GOATCOUNTER_SCRIPT
   <style>
     :root {
@@ -862,7 +820,7 @@ def validate_inline_js(html: str) -> bool:
 # never collide with real episode text (unlike e.g. "TLDR" which a guest might say).
 PLACEHOLDER_TOKENS = [
     "TLDR_FIRST_SENTENCE", "PUBLISH_DATE_FORMATTED", "BIO_SECTION_TITLE",
-    "MOMENTS_HTML", "TAKEAWAYS_HTML", "GOATCOUNTER_SCRIPT",
+    "MOMENTS_HTML", "TAKEAWAYS_HTML", "GOATCOUNTER_SCRIPT", "FAVICON_LINKS",
     "PAGE_URL_JS", "EPISODE_TITLE_JS", "EPISODE_ID_JS", "EPISODE_SHOW_JS",
     "EPISODE_DATE_JS", "YOUTUBE_URL", "SPOTIFY_URL",
 ]
@@ -1057,14 +1015,6 @@ def qa_episode(episode: dict, content: dict, video_id: str | None,
     if not (3 <= n_tk <= 10):
         issues.append(("warning", f"takeaways count {n_tk} outside expected 3–10"))
 
-    # Timestamps: if a video was found but every moment timestamp is zero the
-    # model either got no transcript or ignored timing data — flag it so the
-    # issue is visible in logs / Noam's DMs.
-    if video_id:
-        moments = content.get("moments", [])
-        if moments and all((m.get("timestamp_seconds") or 0) == 0 for m in moments):
-            issues.append(("warning", "video found but all moment timestamps are 0 — transcript may be missing or model ignored timing"))
-
     passed = not any(level == "blocker" for level, _ in issues)
     return passed, html, content, issues
 
@@ -1086,6 +1036,13 @@ def qa_live_page(page_url: str) -> bool:
 def _t(s: Any) -> str:
     """Escape HTML special chars for text content (not attributes)."""
     return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+FAVICON_LINKS = (
+    '  <link rel="icon" href="favicon.svg" type="image/svg+xml">\n'
+    '  <link rel="icon" href="favicon.ico" sizes="any">\n'
+    '  <link rel="apple-touch-icon" href="apple-touch-icon.png">'
+)
 
 
 def goatcounter_script() -> str:
@@ -1140,23 +1097,21 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
         )
 
     # Build takeaways: rank by insight + actionability + specificity, show the
-    # top 3, hide the rest behind a "Show all" expander.
+    # top 5, hide the rest behind a "Show all" expander.
     def _tk_score(tk: dict) -> int:
         return sum((tk.get(k) or 0) for k in ("insight", "actionability", "specificity"))
 
     def _tk_html(tk: dict, i: int) -> str:
-        headline = tk.get("headline") or tk.get("title") or ""
-        body = tk.get("body") or tk.get("text") or tk.get("description") or ""
         return (
             f'    <div class="takeaway">\n'
             f'      <div class="takeaway-num">{i}</div>\n'
             f'      <div class="takeaway-text">'
-            f'<strong>{_t(headline)} </strong>{_t(body)}</div>\n'
+            f'<strong>{_t(tk["headline"])} </strong>{_t(tk["body"])}</div>\n'
             f'    </div>\n'
         )
 
     ranked = sorted(content.get("takeaways", []), key=_tk_score, reverse=True)
-    top, rest = ranked[:3], ranked[3:]
+    top, rest = ranked[:5], ranked[5:]
     takeaways_html = "".join(_tk_html(tk, i) for i, tk in enumerate(top, 1))
     if rest:
         rest_html = "".join(_tk_html(tk, i) for i, tk in enumerate(rest, len(top) + 1))
@@ -1200,6 +1155,7 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
     html = html.replace("SPOTIFY_URL",        spotify)
     html = html.replace("PAGE_URL",           page_url)   # meta tag
     html = html.replace("GOATCOUNTER_SCRIPT", goatcounter_script())
+    html = html.replace("FAVICON_LINKS",      FAVICON_LINKS)
     return html
 
 
@@ -1430,6 +1386,7 @@ def _lib_page(title: str, body: str, active: str, extra_script: str = "") -> str
         '  <meta property="og:title" content="Reading.Sis">\n'
         '  <meta property="og:description" content="Podcast highlights, distilled. Listen less, know more.">\n'
         f'  <title>{_t(title)}</title>\n'
+        f'{FAVICON_LINKS}\n'
         f'{goatcounter_script()}\n'
         f'  <style>{LIB_CSS}</style>\n</head>\n<body>\n<div class="page">\n'
         '  <header class="hdr">'
@@ -1864,7 +1821,7 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
                 processed_ids.add(ep_id)
             continue
 
-        video_id = find_youtube_id(episode["title"], episode["podcast"], episode.get("show_format", ""))
+        video_id = find_youtube_id(episode["title"], episode["podcast"])
         video_duration = None
         if video_id:
             if verify_youtube_match(video_id, episode):
@@ -1945,23 +1902,9 @@ def _run_generate(window_override: datetime.timedelta | None = None,
     found_by_podcast: dict[str, int] = {}
     outcomes: list[dict] = []
     candidates: list[dict] = []
-    # In preview_mode, take at most 1 episode per show (the most recent one) and
-    # skip shows that already have a preview entry — this run is for first-look
-    # previews, not bulk generation.
-    shows_already_previewed = {
-        ep.get("podcast") for ep in tracker.get("preview", []) if isinstance(ep, dict)
-    } if preview_mode else set()
     for podcast in PODCASTS:
         print(f"Scanning {podcast['name']}…")
-        if podcast.get("hold"):
-            print(f"  On hold — skipping daily scan")
-            continue
-        if preview_mode and podcast["name"] in shows_already_previewed:
-            print(f"  Already in preview — skipping")
-            continue
         eps = fetch_new_episodes(podcast, cutoff, processed_ids, queued_ids)
-        if preview_mode and eps:
-            eps = eps[:1]   # most recent only — one preview per show
         print(f"  {len(eps)} new episode(s)")
         if eps:
             found_by_podcast[podcast["name"]] = len(eps)
@@ -2020,7 +1963,7 @@ def _run_generate(window_override: datetime.timedelta | None = None,
             continue
 
         # ── Find YouTube video (and verify it IS this episode) ───────────────
-        video_id = find_youtube_id(episode["title"], episode["podcast"], episode.get("show_format", ""))
+        video_id = find_youtube_id(episode["title"], episode["podcast"])
         video_duration = None
         if video_id:
             if verify_youtube_match(video_id, episode):
