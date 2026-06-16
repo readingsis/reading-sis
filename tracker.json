@@ -2475,18 +2475,6 @@
     }
   ],
   "queued": [],
-  "pending_send": [
-    {
-      "id": "crime-junkie-2026-06-15",
-      "podcast": "Crime Junkie",
-      "guest": "Flora Jones",
-      "title": "MURDERED: Alberta O. Jones",
-      "date_str": "15 Jun 2026",
-      "date_short": "Jun 15",
-      "published_at": "2026-06-15T10:00:00",
-      "hook": "In August 1965, Alberta O. Jones — Louisville's first Black female prosecutor and a prominent civil rights attorney — was beaten, thrown into the Ohio River, and drowned. Despite a car full of forensic evidence, key fingerprints were destroyed days after the murder by a police sergeant, a marked Lou",
-      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-15.html"
-    }
-  ],
+  "pending_send": [],
   "preview": []
 }
