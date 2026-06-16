@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Comedians lack natural structure and routine compared to other professions, but many crave it anyway—especially when exposed to film production's rigid schedules.">
+  <title>Reading.Sis — #660 - Nate Bargatze</title>
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo:active { opacity: 0.6; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; max-height: 9em; overflow: hidden; }
+    .moment-quote.fade { -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .takeaways-rest[hidden] { display: none; }
+    .takeaways-toggle { margin-top: 14px; background: none; border: none; color: var(--green); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <a class="logo" href="index.html" aria-label="Back to the library">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </a>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">This Past Weekend w/ Theo Von</div>
+    <h1 class="episode-title">#660 - Nate Bargatze</h1>
+    <div class="guest-name">with Nate Bargatze</div>
+    <div class="meta">
+      <span>27 May 2026</span>
+      <span>6 min read</span>
+      <span>1h 25m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Comedians lack natural structure and routine compared to other professions, but many crave it anyway—especially when exposed to film production's rigid schedules. The entertainment industry is shifting toward live experiences that can't be replicated by AI, making stand-up comedy uniquely valuable in an increasingly digital world.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Nate Bargatze</div>
+        <div class="moment-quote">&ldquo;I think I'm a mourning person. You know, I could... And you know what I'm saying? I'm sorry to say that.&rdquo;</div>
+        <div class="moment-context">Nate confesses that despite being a comedian (typically a night person), he discovers he's actually a morning person</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=xQ2UheBJgME&t=171" target="_blank">&#9654; 2:51</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Nate Bargatze</div>
+        <div class="moment-quote">&ldquo;when you're on set, you were saying like, 'Yeah, you get this further.' Oh, it's great. And they tell you to even comedians I noticed uh they told and I don't know if they did this on Brewood, but they told me we told I lied to myself, but that uh to be like they would set the call time 45 minutes really. It was later because they knew I was going to be a little bit late.&rdquo;</div>
+        <div class="moment-context">Sharing that film productions account for comedians' notorious tardiness by setting earlier call times</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=xQ2UheBJgME&t=408" target="_blank">&#9654; 6:48</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Nate Bargatze</div>
+        <div class="moment-quote">&ldquo;I work for myself and I'm the worst employee. I would I would go smoke behind the dumpsters like I was hiding from myself. Like what are we even doing?&rdquo;</div>
+        <div class="moment-context">Discussing how comedians struggle with self-discipline and structure when they're their own boss</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=xQ2UheBJgME&t=549" target="_blank">&#9654; 9:09</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Nate Bargatze</div>
+        <div class="moment-quote">&ldquo;if you wanted to quit comedy there's no one to quit to... So you like can't call Seinfeld and be like, 'Hey, I'm out.'&rdquo;</div>
+        <div class="moment-context">Explaining the unique isolation of comedy as a self-directed career with no organizational structure</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=xQ2UheBJgME&t=568" target="_blank">&#9654; 9:28</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Theo Von</div>
+        <div class="moment-quote">&ldquo;you can't AI a live performance, right? And you I mean I'm you can do hologram and that kind of stuff, but... we're the only place I mean what else even outside of stand up comedy.&rdquo;</div>
+        <div class="moment-context">Discussing why live entertainment, particularly stand-up comedy, is irreplaceable in an AI-driven future</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=xQ2UheBJgME&t=1450" target="_blank">&#9654; 24:10</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About Nate Bargatze</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">Nate Bargatze is a stand-up comedian and host known as a leader in clean comedy. His new film "The Bread Winner" is releasing in theaters May 29th, 2026. He's also building a real amusement park in Nashville, Tennessee, bringing his unique brand of humor and ambition to the hospitality space.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>Live Performance Is AI-Proof Entertainment </strong>Stand-up comedy and other live performances (ministry, folk music) are among the few remaining entertainment formats that cannot be replicated or replaced by AI or digital media. Unlike recorded content, holograms, or algorithmic entertainment, there's no substitute for a real person delivering authentic, unscripted conversation to a room. This positions live comedians in a uniquely defensible market position.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>Comedians Crave Structure They Never Had </strong>Stand-up comedians typically work without organizational structure, leading many to secretly crave the discipline they encounter in other environments like film production. Nate reveals that even after building a successful comedy career, he fantasizes about having an alarm clock routine and admires people with 7:30 AM meetings. This points to a psychological need for external accountability that self-directed careers don't provide.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Self-Employment Paradox: Freedom Without Accountability </strong>Comedians own their careers completely—there's no boss to quit to, no company to leave, no institutional structure. While this enables creative freedom, it removes the external accountability that most people rely on for motivation and discipline. Nate's admission that he's 'the worst employee' to himself illustrates how self-discipline often fails without external pressure.</div>
+    </div>
+    <div class="takeaways-rest" id="takeawaysRest" hidden>
+    <div class="takeaway">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-text"><strong>Audiences Hunger for Unmediated Authentic Voice </strong>In an era of curated social media and AI-generated content, audiences are increasingly drawn to live, unproduced experiences where they can see a real person speaking directly without filters or production layers. This demand is driving experiential venues (Netflix houses, live shows) and explains why stand-up is resurging while traditional entertainment consumption declines. The authenticity of human connection is becoming a scarce premium product.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">5</div>
+      <div class="takeaway-text"><strong>Movies Can Work Like Comedy Tours with Planning </strong>Just as Markiplier's independent film success showed that YouTube creators can drive massive theater attendance through their existing fanbase, comedians with dedicated touring audiences can replicate that model with film releases. Nate negotiated lower theater prices to bring families out, demonstrating that audience-direct strategies (rather than studio distribution) can work for independent content.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">6</div>
+      <div class="takeaway-text"><strong>Film Production Solves Comedy's Discipline Problem </strong>When comedians work on film sets with fixed call times and structured schedules, they report genuine satisfaction and relief. Nate describes shooting a movie as giving him the framework he otherwise lacks in comedy. This suggests that mixing comedy with other mediums that impose external structure could address an underappreciated pain point in the industry.</div>
+    </div>
+    </div>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 6 takeaways</button>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=xQ2UheBJgME" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/This%20Past%20Weekend%20w/%20Theo%20Von%20%23660%20-%20Nate%20Bargatze" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/theo-von-2026-05-27.html';
+  var PAGE_TITLE = '#660 - Nate Bargatze — Reading.Sis';
+  var EP = {id:'theo-von-2026-05-27', title:'#660 - Nate Bargatze', show:'This Past Weekend w/ Theo Von', date:'27 May 2026', url:pageUrl};
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  // Save = bookmark to localStorage (anonymous, per-device). The library's
+  // "Saved" page reads this same key. Toggles on repeat tap.
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
+    var btn = document.getElementById('bookmarkBtn');
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
+    gcEvent('save');
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+
+  function toggleTakeaways() {
+    var rest = document.getElementById('takeawaysRest');
+    var btn = document.getElementById('takeawaysToggle');
+    if (rest.hasAttribute('hidden')) {
+      rest.removeAttribute('hidden');
+      btn.textContent = 'Show fewer';
+    } else {
+      rest.setAttribute('hidden', '');
+      btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
+    }
+  }
+
+  renderSaveBtn();
+
+  // Fade only quotes that actually overflow the 6-line cap (others render full).
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-quote'), function(q) {
+    if (q.scrollHeight > q.clientHeight + 2) q.classList.add('fade');
+  });
+</script>
+</body>
+</html>
