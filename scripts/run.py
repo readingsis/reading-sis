@@ -372,7 +372,14 @@ def verify_youtube_match(video_id: str, episode: dict) -> bool:
         return False
     rss_dur = episode.get("duration_sec")
     if rss_dur and dur:
-        if abs(dur - rss_dur) > max(180, int(rss_dur * 0.08)):
+        diff = dur - rss_dur
+        # Video longer than the RSS audio is common and safe (extra intro/outro/
+        # ad reads baked into the YouTube cut but trimmed from the podcast feed —
+        # seen consistently on Call Her Daddy and Conan, ~10-12% over). A video
+        # SHORTER than the RSS duration is more often a clip or wrong episode, so
+        # keep that side of the check tight.
+        tolerance = rss_dur * (0.15 if diff > 0 else 0.08)
+        if abs(diff) > max(180, int(tolerance)):
             print(f"  Rejecting video {video_id}: duration {dur}s vs RSS {rss_dur}s")
             return False
     return True
