@@ -1131,11 +1131,13 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
         return sum((tk.get(k) or 0) for k in ("insight", "actionability", "specificity"))
 
     def _tk_html(tk: dict, i: int) -> str:
+        headline = tk.get("headline") or tk.get("title") or ""
+        body = tk.get("body") or tk.get("text") or tk.get("description") or ""
         return (
             f'    <div class="takeaway">\n'
             f'      <div class="takeaway-num">{i}</div>\n'
             f'      <div class="takeaway-text">'
-            f'<strong>{_t(tk["headline"])} </strong>{_t(tk["body"])}</div>\n'
+            f'<strong>{_t(headline)} </strong>{_t(body)}</div>\n'
             f'    </div>\n'
         )
 
