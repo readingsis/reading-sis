@@ -119,6 +119,7 @@ PODCASTS = [
         "spotify_show": "",
         "lex_filter": False,
         "show_format": "true_crime",
+        "hold": True,   # awaiting Noam's review of the May 1st backfill — remove once approved
     },
     {
         "name": "Call Her Daddy",
@@ -127,6 +128,7 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/mKn_QmLS",
         "spotify_show": "",
         "lex_filter": False,
+        "hold": True,
     },
     {
         "name": "SmartLess",
@@ -136,6 +138,7 @@ PODCASTS = [
         "spotify_show": "",
         "lex_filter": False,
         "show_format": "panel",
+        "hold": True,
     },
     {
         "name": "This Past Weekend w/ Theo Von",
@@ -144,6 +147,7 @@ PODCASTS = [
         "rss": "https://feeds.megaphone.fm/thispastweekend",
         "spotify_show": "",
         "lex_filter": False,
+        "hold": True,
     },
     {
         "name": "Freakonomics Radio",
@@ -152,6 +156,7 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/Y8lFbOT4",
         "spotify_show": "",
         "lex_filter": False,
+        "hold": True,
     },
     {
         "name": "Conan O'Brien Needs A Friend",
@@ -160,6 +165,7 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/dHoohVNH",
         "spotify_show": "",
         "lex_filter": False,
+        "hold": True,
     },
     {
         "name": "BigDeal",
@@ -168,6 +174,7 @@ PODCASTS = [
         "rss": "https://feeds.megaphone.fm/bigdeal",
         "spotify_show": "",
         "lex_filter": False,
+        "hold": True,
     },
 ]
 
@@ -1939,6 +1946,9 @@ def _run_generate(window_override: datetime.timedelta | None = None,
     } if preview_mode else set()
     for podcast in PODCASTS:
         print(f"Scanning {podcast['name']}…")
+        if podcast.get("hold"):
+            print(f"  On hold — skipping daily scan")
+            continue
         if preview_mode and podcast["name"] in shows_already_previewed:
             print(f"  Already in preview — skipping")
             continue
