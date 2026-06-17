@@ -2506,17 +2506,6 @@
       "published_at": "2026-06-17T12:00:00",
       "hook": "Olivia Wilde opens up about how 20 years of relationship experience — and working with Esther Perel as both a therapist and film consultant — finally helped her understand that lasting love requires active, ongoing engagement rather than the entitlement that often follows marriage. She reflects on t",
       "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-17.html"
-    },
-    {
-      "id": "bigdeal-2026-06-17",
-      "podcast": "BigDeal",
-      "guest": "Eric Jorgenson",
-      "title": "How Elon Musk Thinks About AI, Wealth, and Multiplanetary Life | Eric Jorgenson",
-      "date_str": "17 Jun 2026",
-      "date_short": "Jun 17",
-      "published_at": "2026-06-17T11:30:00",
-      "hook": "Eric Jorgenson argues that Elon Musk's edge isn't genius or luck — it's a specific operating system: a five-step algorithm, an obsession with bottlenecks, and a willingness to bet everything on missions others dismiss as impossible. The 2008 moment when Musk split his last $30 million between two ne",
-      "page_url": "https://readingsis.github.io/reading-sis/bigdeal-2026-06-17.html"
     }
   ],
   "preview": [],
@@ -2534,5 +2523,9 @@
       "show_format": "interview",
       "published_at": "2026-06-17T11:30:00"
     }
-  ]
+  ],
+  "sent_count_today": {
+    "date": "2026-06-17",
+    "count": 1
+  }
 }
