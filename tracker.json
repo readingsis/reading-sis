@@ -2505,30 +2505,7 @@
     }
   ],
   "queued": [],
-  "pending_send": [
-    {
-      "id": "call-her-daddy-2026-06-17",
-      "podcast": "Call Her Daddy",
-      "guest": "Olivia Wilde",
-      "title": "Olivia Wilde: Dating, Double Standards & Dealing with Scrutiny",
-      "date_str": "17 Jun 2026",
-      "date_short": "Jun 17",
-      "published_at": "2026-06-17T12:00:00",
-      "hook": "Olivia Wilde opens up about how 20 years of relationship experience — and working with Esther Perel as both a therapist and film consultant — finally helped her understand that lasting love requires active, ongoing engagement rather than the entitlement that often follows marriage. She reflects on t",
-      "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-17.html"
-    },
-    {
-      "id": "hard-fork-2026-06-17",
-      "podcast": "Hard Fork",
-      "guest": "Dylan Field",
-      "title": "‘Hard Fork’ Live Part 2: Dylan Field on Standing Out in the A.I. Era",
-      "date_str": "17 Jun 2026",
-      "date_short": "Jun 17",
-      "published_at": "2026-06-17T14:00:00",
-      "hook": "Figma CEO Dylan Field argues that the rise of AI in design and writing is not a death knell for human creativity but a forcing function — those with a genuine creative voice will stand out more, not less. He contends that the commoditization of average output by AI raises the premium on authentic, r",
-      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-06-17.html"
-    }
-  ],
+  "pending_send": [],
   "preview": [],
   "awaiting_video": [
     {
@@ -2547,6 +2524,6 @@
   ],
   "sent_count_today": {
     "date": "2026-06-17",
-    "count": 1
+    "count": 3
   }
 }
