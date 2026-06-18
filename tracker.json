@@ -2520,19 +2520,7 @@
     }
   ],
   "queued": [],
-  "pending_send": [
-    {
-      "id": "doac-2026-06-18",
-      "podcast": "The Diary Of A CEO",
-      "guest": "JD Vance",
-      "title": "Vice President JD Vance: No One Saw This Coming, The Ceasefire Is Real!",
-      "date_str": "18 Jun 2026",
-      "date_short": "Jun 18",
-      "published_at": "2026-06-18T08:00:00",
-      "hook": "JD Vance traces his path from a chaotic childhood with an addicted mother and a revolving door of father figures — stabilised only by his tough Appalachian grandmother — to the Vice Presidency. He argues his early trauma wired him with deep mistrust and an avoidant attachment style, but also with un",
-      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-18.html"
-    }
-  ],
+  "pending_send": [],
   "preview": [],
   "awaiting_video": [
     {
@@ -2550,7 +2538,7 @@
     }
   ],
   "sent_count_today": {
-    "date": "2026-06-17",
-    "count": 3
+    "date": "2026-06-18",
+    "count": 1
   }
 }
