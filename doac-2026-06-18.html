@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="JD Vance traces his path from a chaotic childhood with an addicted mother and a revolving door of father figures — stabilised only by his tough Appalachian grandmother — to the Vice Presidency.">
+  <title>Reading.Sis — Vice President JD Vance: No One Saw This Coming, The Ceasefire Is Real!</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo:active { opacity: 0.6; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; max-height: 9em; overflow: hidden; }
+    .moment-quote.fade { -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .takeaways-rest[hidden] { display: none; }
+    .takeaways-toggle { margin-top: 14px; background: none; border: none; color: var(--green); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <a class="logo" href="index.html" aria-label="Back to the library">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </a>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">The Diary Of A CEO</div>
+    <h1 class="episode-title">Vice President JD Vance: No One Saw This Coming, The Ceasefire Is Real!</h1>
+    <div class="guest-name">with JD Vance</div>
+    <div class="meta">
+      <span>18 Jun 2026</span>
+      <span>5 min read</span>
+      <span>1h 53m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">JD Vance traces his path from a chaotic childhood with an addicted mother and a revolving door of father figures — stabilised only by his tough Appalachian grandmother — to the Vice Presidency. He argues his early trauma wired him with deep mistrust and an avoidant attachment style, but also with unusually high empathy. On politics, he defends Trump's immigration stance as prescient while acknowledging their stylistic differences, and confirms the Iran ceasefire deal is real.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">JD Vance</div>
+        <div class="moment-quote">&ldquo;I thought Donald Trump would be a failed president. He was not. I thought that America's institutions were fundamentally functioning. They were not. You always have to be able to acknowledge when you're right and when you're wrong.&rdquo;</div>
+        <div class="moment-context">Vance is asked how he went from privately calling Trump 'America's Hitler' in 2016 to becoming his Vice President.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=5cKDs7bIGPE&t=60" target="_blank">&#9654; 1:00</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">JD Vance</div>
+        <div class="moment-quote">&ldquo;She told me that if I kept on hanging out with this kid, she was going to run him over with her car. And then I was like kind of caught off guard by that. And then she said, "Jie, I promise you and no one will ever find out about it."&rdquo;</div>
+        <div class="moment-context">Vance describes the extreme but effective way his grandmother kept him away from a neighbourhood kid heading toward drugs and jail.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=5cKDs7bIGPE&t=602" target="_blank">&#9654; 10:02</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">JD Vance</div>
+        <div class="moment-quote">&ldquo;There are all kinds of times during our 12-year marriage where I've just had this thought like, there's no way this is going to last. either because she's taking the kids to the grocery store and I start thinking to myself, "Oh my god, a drunk driver is going to have a head-on collision." I I I just there's a sense of like instability that is very much built in.&rdquo;</div>
+        <div class="moment-context">Vance reflects on how his chaotic childhood created a persistent sense of impending collapse that still surfaces in his marriage.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=5cKDs7bIGPE&t=785" target="_blank">&#9654; 13:05</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">JD Vance</div>
+        <div class="moment-quote">&ldquo;Even when I'm being very pugilistic, like even when you you really have to drive home a point, like I you know, not to get too much into the weeds of of partisan politics, but like something I think the Biden administration just like really screwed up in a profoundly dangerous way was the was our immigration policy.&rdquo;</div>
+        <div class="moment-context">Vance explains that criticising opponents' policies doesn't require personal animosity toward them.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=5cKDs7bIGPE&t=1141" target="_blank">&#9654; 19:01</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">JD Vance</div>
+        <div class="moment-quote">&ldquo;What if division is not the result of politicians demonizing certain groups? But what if division is the inevitable consequence of when the population changes too quickly, too fast in a given society?&rdquo;</div>
+        <div class="moment-context">Vance pushes back on the host's framing that political rhetoric is the primary driver of societal division.</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=5cKDs7bIGPE&t=1474" target="_blank">&#9654; 24:34</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About JD Vance</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">JD Vance is the 50th Vice President of the United States, having taken office in January 2025 alongside President Donald Trump. He is the author of 'Hillbilly Elegy', a memoir about growing up in a working-class Appalachian family in Ohio amid poverty and addiction. Before entering politics, Vance served in the US Marines, attended Yale Law School, and worked in venture capital. He previously served as a US Senator for Ohio from 2023 to 2025.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>One anchor person changes a child's trajectory </strong>A child psychologist told Vance that the single differentiating factor for kids from chaotic environments who succeed is having one stable anchor — a teacher, grandparent, or social worker. Vance credits his grandmother entirely for keeping him off a path toward drugs and failure. This finding has strong backing in developmental psychology and is often underweighted in policy debates about poverty.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>Childhood chaos hardwires avoidant attachment into adulthood </strong>Vance describes defaulting to 'let's just break up' during early arguments with his now-wife, not out of indifference but because his nervous system had learned that relationships are temporary. He didn't use the term 'avoidant attachment' until the host introduced it, but instantly recognised it as accurate. The pattern improved over 14 years without formal couples therapy — primarily through self-awareness and a partner from a stable background.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Trauma links dark mistrust to high empathy simultaneously </strong>Vance frames his psychology as two sides of the same coin: he catastrophises circumstances (assuming drunk drivers, relationship collapse) while simultaneously assuming the best about individual human beings. He connects this directly to having witnessed people 'at their very best and their very worst.' This mirrors research on trauma survivors who develop hypervigilance toward situations but compensatory warmth toward people.</div>
+    </div>
+    <div class="takeaways-rest" id="takeawaysRest" hidden>
+    <div class="takeaway">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-text"><strong>US sees itself as senior partner, Israel as junior </strong>Asked whether he trusts Netanyahu, Vance flatly said he doesn't really trust anybody, then added that having watched Trump operate, he is 'quite confident that they are the junior partner. We're the senior partner. We are the world's superpower.' This is a notably candid framing of the US-Israel relationship from a sitting Vice President, and more blunt than typical diplomatic language.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">5</div>
+      <div class="takeaway-text"><strong>Therapy felt like surrendering agency, not gaining it </strong>Vance tried therapy a couple of times and abandoned it because it encouraged him — in his perception — to attribute his problems to his past, his mother, or external forces. He explicitly did not want to 'give up agency over my own life.' This is a common reason high-agency, high-accountability personalities disengage from traditional therapy, and it points to why modalities focused on future action rather than past attribution often work better for this profile.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">6</div>
+      <div class="takeaway-text"><strong>Trump's public statements almost always have missing context </strong>Vance argues that most Trump quotes that cause public outrage — including the 'rapists and murderers' line — look materially different when read in full. He claims the original statement was a factual point about some countries encouraging prisoners to emigrate to the US, not a blanket claim about all immigrants. Whether or not one agrees, Vance's advice to read primary sources before reacting is a usable epistemic habit.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">7</div>
+      <div class="takeaway-text"><strong>Immigration framing: rate of change matters more than origin </strong>Vance's core immigration argument is not about ethnicity but about pace: 10 newcomers integrate; 30 newcomers at once transform the character of a community before integration infrastructure exists. He uses a dinner party analogy — one stranger is fine, every guest bringing three strangers changes the entire dynamic. He argues politicians who express this feeling are articulating a real social phenomenon, not manufacturing division.</div>
+    </div>
+    </div>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 7 takeaways</button>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=5cKDs7bIGPE" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/The%20Diary%20Of%20A%20CEO%20Vice%20President%20JD%20Vance%3A%20No%20One%20Saw%20This%20Coming%2C%20The%20Ceasefire%20Is%20Real%21" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/doac-2026-06-18.html';
+  var PAGE_TITLE = 'Vice President JD Vance: No One Saw This Coming, The Ceasefire Is Real! — Reading.Sis';
+  var EP = {id:'doac-2026-06-18', title:'Vice President JD Vance: No One Saw This Coming, The Ceasefire Is Real!', show:'The Diary Of A CEO', date:'18 Jun 2026', url:pageUrl};
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  // Save = bookmark to localStorage (anonymous, per-device). The library's
+  // "Saved" page reads this same key. Toggles on repeat tap.
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
+    var btn = document.getElementById('bookmarkBtn');
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
+    gcEvent('save');
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+
+  function toggleTakeaways() {
+    var rest = document.getElementById('takeawaysRest');
+    var btn = document.getElementById('takeawaysToggle');
+    if (rest.hasAttribute('hidden')) {
+      rest.removeAttribute('hidden');
+      btn.textContent = 'Show fewer';
+    } else {
+      rest.setAttribute('hidden', '');
+      btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
+    }
+  }
+
+  renderSaveBtn();
+
+  // Fade only quotes that actually overflow the 6-line cap (others render full).
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-quote'), function(q) {
+    if (q.scrollHeight > q.clientHeight + 2) q.classList.add('fade');
+  });
+</script>
+</body>
+</html>
