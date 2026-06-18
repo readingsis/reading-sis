@@ -2502,10 +2502,37 @@
       "published_at": "2026-06-17T14:00:00",
       "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-06-17.html",
       "pushed_at": "2026-06-17"
+    },
+    {
+      "id": "doac-2026-06-18",
+      "podcast": "The Diary Of A CEO",
+      "guest": "JD Vance",
+      "title": "Vice President JD Vance: No One Saw This Coming, The Ceasefire Is Real!",
+      "date": "2026-06-18",
+      "published_at": "2026-06-18T08:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-18.html",
+      "pushed_at": "2026-06-18"
+    },
+    {
+      "id": "conan-2026-06-18",
+      "skipped": true,
+      "skip_reason": "short/bonus, no video"
     }
   ],
   "queued": [],
-  "pending_send": [],
+  "pending_send": [
+    {
+      "id": "doac-2026-06-18",
+      "podcast": "The Diary Of A CEO",
+      "guest": "JD Vance",
+      "title": "Vice President JD Vance: No One Saw This Coming, The Ceasefire Is Real!",
+      "date_str": "18 Jun 2026",
+      "date_short": "Jun 18",
+      "published_at": "2026-06-18T08:00:00",
+      "hook": "JD Vance traces his path from a chaotic childhood with an addicted mother and a revolving door of father figures — stabilised only by his tough Appalachian grandmother — to the Vice Presidency. He argues his early trauma wired him with deep mistrust and an avoidant attachment style, but also with un",
+      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-18.html"
+    }
+  ],
   "preview": [],
   "awaiting_video": [
     {
