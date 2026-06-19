@@ -2517,24 +2517,80 @@
       "id": "conan-2026-06-18",
       "skipped": true,
       "skip_reason": "short/bonus, no video"
+    },
+    {
+      "id": "pivot-2026-06-19",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "Trump's Iran Deal, SpaceX’s Wild Ride, and Snap’s Specs",
+      "date": "2026-06-19",
+      "published_at": "2026-06-19T13:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-19.html",
+      "pushed_at": "2026-06-19"
+    },
+    {
+      "id": "freakonomics-2026-06-19",
+      "podcast": "Freakonomics Radio",
+      "guest": "Various",
+      "title": "678. Who Gets to Choose a “Good Death”?",
+      "date": "2026-06-19",
+      "published_at": "2026-06-19T13:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-06-19.html",
+      "pushed_at": "2026-06-19"
     }
   ],
   "queued": [],
-  "pending_send": [],
+  "pending_send": [
+    {
+      "id": "pivot-2026-06-19",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "Trump's Iran Deal, SpaceX’s Wild Ride, and Snap’s Specs",
+      "date_str": "19 Jun 2026",
+      "date_short": "Jun 19",
+      "published_at": "2026-06-19T13:00:00",
+      "hook": "SpaceX's public debut instantly eclipses Amazon in market cap while acquiring AI coding tool Cursor, signaling that the AI IPO wave is just getting started. Meanwhile, Snap bets on pricey consumer smart glasses as the next hardware frontier. Kara and Scott also dissect the political fallout from Tru",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-19.html"
+    },
+    {
+      "id": "freakonomics-2026-06-19",
+      "podcast": "Freakonomics Radio",
+      "guest": "Various",
+      "title": "678. Who Gets to Choose a “Good Death”?",
+      "date_str": "19 Jun 2026",
+      "date_short": "Jun 19",
+      "published_at": "2026-06-19T13:00:00",
+      "hook": "New York's legalization of medical aid in dying forces a collision between personal autonomy, economic incentives, and ethical duty. The episode probes who actually gets to exercise the right to choose a 'good death' — and whether that right is distributed fairly. A dissenting ethicist argues the fr",
+      "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-06-19.html"
+    }
+  ],
   "preview": [],
   "awaiting_video": [
     {
-      "id": "hard-fork-2026-06-17",
-      "podcast": "Hard Fork",
-      "slug_prefix": "hard-fork",
-      "title": "‘Hard Fork’ Live Part 2: Dylan Field on Standing Out in the A.I. Era",
-      "date": "2026-06-17",
-      "description": "“I think if you have a creative voice in writing or design, you put yourself out there and you take a risk — this is a good time to do that,” said the Figma chief executive Dylan Field.",
-      "duration_sec": 1874,
-      "spotify_show": "https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj",
+      "id": "pivot-2026-06-19",
+      "podcast": "Pivot",
+      "slug_prefix": "pivot",
+      "title": "Trump's Iran Deal, SpaceX’s Wild Ride, and Snap’s Specs",
+      "date": "2026-06-19",
+      "description": "Kara and Scott unpack the backlash to Trump’s Iran deal, and the symbolism of the algae bloom in the Lincoln Memorial’s Reflecting Pool. Plus, SpaceX passes Amazon in its first week as a public company, acquires Cursor, and kicks off an AI IPO frenzy. Then, Snap’s pricey new smart glasses.\n\nWatch this episode on the ⁠⁠Pivot YouTube channel⁠⁠.Follow us on Instagram and Threads at ⁠⁠@pivotpodcastofficial⁠⁠.Follow us on Bluesky at ⁠⁠@pivotpod.bsky.social⁠⁠Follow us on TikTok at ⁠⁠@pivotpodcast⁠⁠.Send us your questions by calling us at 855-51-PIVOT, or email pivot@voxmedia.com\nLearn more about your ad choices. Visit podcastchoices.com/adchoices",
+      "duration_sec": 3963,
+      "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
       "lex_filter": false,
       "show_format": "interview",
-      "published_at": "2026-06-17T14:00:00"
+      "published_at": "2026-06-19T13:00:00"
+    },
+    {
+      "id": "freakonomics-2026-06-19",
+      "podcast": "Freakonomics Radio",
+      "slug_prefix": "freakonomics",
+      "title": "678. Who Gets to Choose a “Good Death”?",
+      "date": "2026-06-19",
+      "description": "New York is the latest state to legalize medical aid in dying. Stephen Dubner speaks with the governor who signed the law, a Nobel Prize-winning economist, a death doula — and an ethicist who thinks the very idea is wrong.",
+      "duration_sec": 3025,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "interview",
+      "published_at": "2026-06-19T13:00:00"
     }
   ],
   "sent_count_today": {
