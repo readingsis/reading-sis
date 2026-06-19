@@ -2540,30 +2540,7 @@
     }
   ],
   "queued": [],
-  "pending_send": [
-    {
-      "id": "pivot-2026-06-19",
-      "podcast": "Pivot",
-      "guest": "Various",
-      "title": "Trump's Iran Deal, SpaceX’s Wild Ride, and Snap’s Specs",
-      "date_str": "19 Jun 2026",
-      "date_short": "Jun 19",
-      "published_at": "2026-06-19T13:00:00",
-      "hook": "SpaceX's public debut instantly eclipses Amazon in market cap while acquiring AI coding tool Cursor, signaling that the AI IPO wave is just getting started. Meanwhile, Snap bets on pricey consumer smart glasses as the next hardware frontier. Kara and Scott also dissect the political fallout from Tru",
-      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-19.html"
-    },
-    {
-      "id": "freakonomics-2026-06-19",
-      "podcast": "Freakonomics Radio",
-      "guest": "Various",
-      "title": "678. Who Gets to Choose a “Good Death”?",
-      "date_str": "19 Jun 2026",
-      "date_short": "Jun 19",
-      "published_at": "2026-06-19T13:00:00",
-      "hook": "New York's legalization of medical aid in dying forces a collision between personal autonomy, economic incentives, and ethical duty. The episode probes who actually gets to exercise the right to choose a 'good death' — and whether that right is distributed fairly. A dissenting ethicist argues the fr",
-      "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-06-19.html"
-    }
-  ],
+  "pending_send": [],
   "preview": [],
   "awaiting_video": [
     {
@@ -2594,7 +2571,7 @@
     }
   ],
   "sent_count_today": {
-    "date": "2026-06-18",
-    "count": 1
+    "date": "2026-06-19",
+    "count": 2
   }
 }
