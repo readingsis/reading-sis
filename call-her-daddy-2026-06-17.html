@@ -39,8 +39,16 @@
     .moments-scroll::-webkit-scrollbar { display: none; }
     .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
     .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
-    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; max-height: 9em; overflow: hidden; }
-    .moment-quote.fade { -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-rm-link { color: var(--text-primary); text-decoration: underline; cursor: pointer; }
+    .qsheet-back { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.55); display: none; align-items: flex-end; justify-content: center; }
+    .qsheet-back.show { display: flex; }
+    .qsheet { width: 100%; max-width: 430px; background: var(--card-bg); border-top-left-radius: 20px; border-top-right-radius: 20px; border-top: 1px solid var(--border); padding: 10px 22px calc(26px + env(safe-area-inset-bottom)); }
+    .qsheet-grip { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 0 auto 18px; }
+    .qsheet-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+    .qsheet-quote { font-size: 14px; font-style: italic; color: var(--text-primary); line-height: 1.65; margin-bottom: 14px; }
+    .qsheet-ctx { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }
+    .qsheet-close { width: 100%; background: var(--icon-bg); border: 1px solid var(--icon-border); color: var(--text-primary); font-size: 14px; font-weight: 600; padding: 13px; border-radius: 11px; cursor: pointer; font-family: inherit; }
     .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
     .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
     .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
@@ -264,10 +272,38 @@
 
   renderSaveBtn();
 
-  // Fade only quotes that actually overflow the 6-line cap (others render full).
-  Array.prototype.forEach.call(document.querySelectorAll('.moment-quote'), function(q) {
-    if (q.scrollHeight > q.clientHeight + 2) q.classList.add('fade');
+  var _QL = Math.round(5 * 13 * 1.5);
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-card'), function(card) {
+    var q = card.querySelector('.moment-quote');
+    if (!q || q.scrollHeight <= _QL + 2) return;
+    var sp = (card.querySelector('.moment-speaker') || {}).textContent || '';
+    var ctx = (card.querySelector('.moment-context') || {}).textContent || '';
+    var full = q.textContent;
+    var words = full.split(' '), lo = 0, hi = words.length - 1, mid;
+    while (lo < hi) {
+      mid = Math.ceil((lo + hi) / 2);
+      q.textContent = words.slice(0, mid).join(' ') + '...';
+      if (q.scrollHeight <= _QL + 2) lo = mid; else hi = mid - 1;
+    }
+    q.textContent = '';
+    q.appendChild(document.createTextNode(words.slice(0, lo).join(' ') + '... '));
+    var rm = document.createElement('span');
+    rm.className = 'moment-rm-link';
+    rm.textContent = 'Read more';
+    (function(s, f, c) { rm.onclick = function() { openQuote(s, f, c); }; })(sp, full, ctx);
+    q.appendChild(rm);
   });
+  function openQuote(sp, q, ctx) {
+    document.getElementById('qsheetSp').textContent = sp;
+    document.getElementById('qsheetQ').textContent = q;
+    document.getElementById('qsheetCtx').textContent = ctx;
+    document.getElementById('qsheetBack').classList.add('show');
+  }
+  function closeQuote(e) {
+    if (e && e.target !== e.currentTarget) return;
+    document.getElementById('qsheetBack').classList.remove('show');
+  }
 </script>
+<div class="qsheet-back" id="qsheetBack" onclick="closeQuote(event)"><div class="qsheet"><div class="qsheet-grip"></div><div class="qsheet-speaker" id="qsheetSp"></div><div class="qsheet-quote" id="qsheetQ"></div><div class="qsheet-ctx" id="qsheetCtx"></div><button class="qsheet-close" onclick="closeQuote()">Close</button></div></div>
 </body>
 </html>
