@@ -68,6 +68,7 @@ PODCASTS = [
         "rss": "https://api.substack.com/feed/podcast/10845.rss",
         "spotify_show": "https://open.spotify.com/show/2dR1MUZEHCOnz1LVfNac0j",
         "lex_filter": False,
+        "description": "Deep-dive conversations on product, growth, and career with PMs and founders from the world's top companies.",
     },
     {
         "name": "Pivot",
@@ -76,6 +77,7 @@ PODCASTS = [
         "rss": "https://feeds.megaphone.fm/pivot",
         "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
         "lex_filter": False,
+        "description": "Kara Swisher and Scott Galloway break down the week's biggest tech and business stories with sharp takes and zero filter.",
     },
     {
         "name": "All-In",
@@ -84,6 +86,7 @@ PODCASTS = [
         "rss": "https://rss.libsyn.com/shows/254861/destinations/1928300.xml",
         "spotify_show": "",
         "lex_filter": False,
+        "description": "Four tech investors debate business, politics, and the future with the candor you'd only hear in a private room.",
     },
     {
         "name": "Hard Fork",
@@ -92,6 +95,7 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/l2i9YnTd",
         "spotify_show": "https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj",
         "lex_filter": False,
+        "description": "The New York Times technology journalists making sense of an industry that's constantly breaking.",
     },
     {
         "name": "The Diary Of A CEO",
@@ -103,6 +107,7 @@ PODCASTS = [
         # Skip the Friday "Most Replayed Moment" clip episodes — they're short
         # recaps of older episodes, not new full episodes.
         "skip_title_re": r"most replayed|moment[s]?:|highlight",
+        "description": "Raw, long-form conversations with the world's most successful entrepreneurs on what it really takes to build something great.",
     },
     {
         "name": "Lex Fridman Podcast",
@@ -111,6 +116,7 @@ PODCASTS = [
         "rss": "https://lexfridman.com/feed/podcast/",
         "spotify_show": "",
         "lex_filter": True,  # Only tech/AI/science/business guests
+        "description": "The scientists and engineers reshaping AI, physics, and technology — in their own words.",
     },
     {
         "name": "Crime Junkie",
@@ -120,6 +126,7 @@ PODCASTS = [
         "spotify_show": "",
         "lex_filter": False,
         "show_format": "true_crime",
+        "description": "Straightforward, addictive true crime delivered weekly — no fluff, just the case.",
     },
     {
         "name": "Call Her Daddy",
@@ -128,6 +135,7 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/mKn_QmLS",
         "spotify_show": "",
         "lex_filter": False,
+        "description": "Alex Cooper's unfiltered conversations on relationships, sex, and modern life — the show your group chat actually talks about.",
     },
     {
         "name": "SmartLess",
@@ -137,6 +145,7 @@ PODCASTS = [
         "spotify_show": "",
         "lex_filter": False,
         "show_format": "panel",
+        "description": "Jason Bateman, Sean Hayes, and Will Arnett interview a surprise guest each week — funny, warm, and genuinely unpredictable.",
     },
     {
         "name": "This Past Weekend w/ Theo Von",
@@ -145,6 +154,7 @@ PODCASTS = [
         "rss": "https://feeds.megaphone.fm/thispastweekend",
         "spotify_show": "",
         "lex_filter": False,
+        "description": "Theo Von's curious, wandering conversations with comedians, athletes, and people who've lived unusual lives.",
     },
     {
         "name": "Freakonomics Radio",
@@ -153,6 +163,7 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/Y8lFbOT4",
         "spotify_show": "",
         "lex_filter": False,
+        "description": "The hidden economics behind everyday decisions — data-driven, counterintuitive, and impossible to predict.",
     },
     {
         "name": "Conan O'Brien Needs A Friend",
@@ -161,6 +172,7 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/dHoohVNH",
         "spotify_show": "",
         "lex_filter": False,
+        "description": "Conan's delusional quest for friendship with the world's most famous people, one awkward conversation at a time.",
     },
     {
         "name": "BigDeal",
@@ -169,6 +181,7 @@ PODCASTS = [
         "rss": "https://feeds.megaphone.fm/bigdeal",
         "spotify_show": "",
         "lex_filter": False,
+        "description": "Codie Sanchez on buying boring businesses, building wealth outside Wall Street, and the entrepreneurial mindset most people overlook.",
     },
 ]
 
@@ -664,8 +677,16 @@ GOATCOUNTER_SCRIPT
     .moments-scroll::-webkit-scrollbar { display: none; }
     .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
     .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
-    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; max-height: 9em; overflow: hidden; }
-    .moment-quote.fade { -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-rm-link { color: var(--text-primary); text-decoration: underline; cursor: pointer; }
+    .qsheet-back { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.55); display: none; align-items: flex-end; justify-content: center; }
+    .qsheet-back.show { display: flex; }
+    .qsheet { width: 100%; max-width: 430px; background: var(--card-bg); border-top-left-radius: 20px; border-top-right-radius: 20px; border-top: 1px solid var(--border); padding: 10px 22px calc(26px + env(safe-area-inset-bottom)); }
+    .qsheet-grip { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 0 auto 18px; }
+    .qsheet-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+    .qsheet-quote { font-size: 14px; font-style: italic; color: var(--text-primary); line-height: 1.65; margin-bottom: 14px; }
+    .qsheet-ctx { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }
+    .qsheet-close { width: 100%; background: var(--icon-bg); border: 1px solid var(--icon-border); color: var(--text-primary); font-size: 14px; font-weight: 600; padding: 13px; border-radius: 11px; cursor: pointer; font-family: inherit; }
     .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
     .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
     .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
@@ -832,11 +853,39 @@ TAKEAWAYS_HTML
 
   renderSaveBtn();
 
-  // Fade only quotes that actually overflow the 6-line cap (others render full).
-  Array.prototype.forEach.call(document.querySelectorAll('.moment-quote'), function(q) {
-    if (q.scrollHeight > q.clientHeight + 2) q.classList.add('fade');
+  var _QL = Math.round(5 * 13 * 1.5);
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-card'), function(card) {
+    var q = card.querySelector('.moment-quote');
+    if (!q || q.scrollHeight <= _QL + 2) return;
+    var sp = (card.querySelector('.moment-speaker') || {}).textContent || '';
+    var ctx = (card.querySelector('.moment-context') || {}).textContent || '';
+    var full = q.textContent;
+    var words = full.split(' '), lo = 0, hi = words.length - 1, mid;
+    while (lo < hi) {
+      mid = Math.ceil((lo + hi) / 2);
+      q.textContent = words.slice(0, mid).join(' ') + '...';
+      if (q.scrollHeight <= _QL + 2) lo = mid; else hi = mid - 1;
+    }
+    q.textContent = '';
+    q.appendChild(document.createTextNode(words.slice(0, lo).join(' ') + '... '));
+    var rm = document.createElement('span');
+    rm.className = 'moment-rm-link';
+    rm.textContent = 'Read more';
+    (function(s, f, c) { rm.onclick = function() { openQuote(s, f, c); }; })(sp, full, ctx);
+    q.appendChild(rm);
   });
+  function openQuote(sp, q, ctx) {
+    document.getElementById('qsheetSp').textContent = sp;
+    document.getElementById('qsheetQ').textContent = q;
+    document.getElementById('qsheetCtx').textContent = ctx;
+    document.getElementById('qsheetBack').classList.add('show');
+  }
+  function closeQuote(e) {
+    if (e && e.target !== e.currentTarget) return;
+    document.getElementById('qsheetBack').classList.remove('show');
+  }
 </script>
+<div class="qsheet-back" id="qsheetBack" onclick="closeQuote(event)"><div class="qsheet"><div class="qsheet-grip"></div><div class="qsheet-speaker" id="qsheetSp"></div><div class="qsheet-quote" id="qsheetQ"></div><div class="qsheet-ctx" id="qsheetCtx"></div><button class="qsheet-close" onclick="closeQuote()">Close</button></div></div>
 </body>
 </html>"""
 
@@ -1433,7 +1482,8 @@ LIB_CSS = """
       gap:11px; padding:26px 18px 16px; }
     .shero .sq { width:60px; height:60px; flex-basis:auto; border-radius:16px; font-size:15px; }
     .shero h1 { font-size:21px; font-weight:700; color:var(--tp); letter-spacing:-0.3px; }
-    .shero-count { font-size:12.5px; color:var(--tm); margin-top:-5px; }
+    .shero-desc { font-size:13px; color:var(--tm); line-height:1.5; max-width:280px; }
+    .shero-count { font-size:12.5px; color:var(--tm); margin-top:-5px; display:flex; align-items:center; gap:5px; }
     .sortbar { display:flex; justify-content:flex-end; padding:4px 18px 6px; }
     .sortbtn { background:var(--surface); border:1px solid var(--line); color:var(--tm);
       font-size:12px; font-weight:500; padding:7px 13px; border-radius:9px; cursor:pointer; }
@@ -1591,11 +1641,19 @@ def build_podcast_pages(tracker: dict) -> dict:
         rows = "".join(_episode_row(e) for e in show_eps) or \
             '<div class="empty">No episodes yet.</div>'
         n = len(show_eps)
+        desc = p.get("description", "")
+        desc_html = f'<div class="shero-desc">{_t(desc)}</div>' if desc else ""
+        _LAYERS = ('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+                   ' stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
+                   '<path d="M12 2L2 7l10 5 10-5-10-5z"/>'
+                   '<path d="M2 12l10 5 10-5"/>'
+                   '<path d="M2 17l10 5 10-5"/></svg>')
         body = (
             '  <div class="backrow"><a class="backlink" href="index.html">'
             '<span class="bk">&lsaquo;</span> All shows</a></div>\n'
             f'  <div class="shero"><span class="sq" style="background:{m["color"]}">{_t(m["chip"])}</span>'
-            f'<h1>{_t(name)}</h1><div class="shero-count">{n} episode{"" if n == 1 else "s"}</div></div>\n'
+            f'<h1>{_t(name)}</h1>{desc_html}'
+            f'<div class="shero-count">{_LAYERS} {n} episode{"" if n == 1 else "s"}</div></div>\n'
             f'  <div class="sortbar"><button class="sortbtn" id="sortBtn" onclick="flip()">Newest first &#8645;</button></div>\n'
             f'  <div class="rows" id="rows">{rows}</div>\n'
         )
@@ -2567,6 +2625,146 @@ def main() -> None:
         raise
 
 
+def patch_readmore_7d() -> None:
+    """Patch episode pages published in the last 7 days to use the inline Read more truncation.
+
+    Replaces the old vertical-fade CSS + JS with the new binary-search truncation + bottom sheet.
+    Idempotent — skips pages that already contain the new pattern.
+    """
+    tracker, _ = get_tracker()
+    cutoff = (datetime.datetime.utcnow() - datetime.timedelta(days=7)).date()
+
+    targets = []
+    for ep in tracker.get("processed", []):
+        pub = ep.get("published_at")
+        if not pub or ep.get("skipped"):
+            continue
+        try:
+            pub_date = datetime.datetime.fromisoformat(str(pub)[:10]).date()
+        except (ValueError, TypeError):
+            continue
+        if pub_date >= cutoff:
+            targets.append(ep["id"])
+
+    if not targets:
+        print("  patch-readmore: no episodes found in last 7 days")
+        return
+
+    print(f"  patch-readmore: {len(targets)} episode(s) since {cutoff}")
+
+    OLD_CSS = (
+        '    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary);'
+        ' line-height: 1.5; margin-bottom: 8px; max-height: 9em; overflow: hidden; }\n'
+        '    .moment-quote.fade { -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);'
+        ' mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }'
+    )
+    NEW_CSS = (
+        '    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary);'
+        ' line-height: 1.5; margin-bottom: 8px; }\n'
+        '    .moment-rm-link { color: var(--text-primary); text-decoration: underline; cursor: pointer; }\n'
+        '    .qsheet-back { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.55);'
+        ' display: none; align-items: flex-end; justify-content: center; }\n'
+        '    .qsheet-back.show { display: flex; }\n'
+        '    .qsheet { width: 100%; max-width: 430px; background: var(--card-bg);'
+        ' border-top-left-radius: 20px; border-top-right-radius: 20px;'
+        ' border-top: 1px solid var(--border); padding: 10px 22px calc(26px + env(safe-area-inset-bottom)); }\n'
+        '    .qsheet-grip { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 0 auto 18px; }\n'
+        '    .qsheet-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim);'
+        ' text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }\n'
+        '    .qsheet-quote { font-size: 14px; font-style: italic; color: var(--text-primary);'
+        ' line-height: 1.65; margin-bottom: 14px; }\n'
+        '    .qsheet-ctx { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }\n'
+        '    .qsheet-close { width: 100%; background: var(--icon-bg); border: 1px solid var(--icon-border);'
+        ' color: var(--text-primary); font-size: 14px; font-weight: 600; padding: 13px;'
+        ' border-radius: 11px; cursor: pointer; font-family: inherit; }'
+    )
+
+    OLD_JS = (
+        "  // Fade only quotes that actually overflow the 6-line cap (others render full).\n"
+        "  Array.prototype.forEach.call(document.querySelectorAll('.moment-quote'), function(q) {\n"
+        "    if (q.scrollHeight > q.clientHeight + 2) q.classList.add('fade');\n"
+        "  });"
+    )
+    NEW_JS = (
+        "  var _QL = Math.round(5 * 13 * 1.5);\n"
+        "  Array.prototype.forEach.call(document.querySelectorAll('.moment-card'), function(card) {\n"
+        "    var q = card.querySelector('.moment-quote');\n"
+        "    if (!q || q.scrollHeight <= _QL + 2) return;\n"
+        "    var sp = (card.querySelector('.moment-speaker') || {}).textContent || '';\n"
+        "    var ctx = (card.querySelector('.moment-context') || {}).textContent || '';\n"
+        "    var full = q.textContent;\n"
+        "    var words = full.split(' '), lo = 0, hi = words.length - 1, mid;\n"
+        "    while (lo < hi) {\n"
+        "      mid = Math.ceil((lo + hi) / 2);\n"
+        "      q.textContent = words.slice(0, mid).join(' ') + '...';\n"
+        "      if (q.scrollHeight <= _QL + 2) lo = mid; else hi = mid - 1;\n"
+        "    }\n"
+        "    q.textContent = '';\n"
+        "    q.appendChild(document.createTextNode(words.slice(0, lo).join(' ') + '... '));\n"
+        "    var rm = document.createElement('span');\n"
+        "    rm.className = 'moment-rm-link';\n"
+        "    rm.textContent = 'Read more';\n"
+        "    (function(s, f, c) { rm.onclick = function() { openQuote(s, f, c); }; })(sp, full, ctx);\n"
+        "    q.appendChild(rm);\n"
+        "  });\n"
+        "  function openQuote(sp, q, ctx) {\n"
+        "    document.getElementById('qsheetSp').textContent = sp;\n"
+        "    document.getElementById('qsheetQ').textContent = q;\n"
+        "    document.getElementById('qsheetCtx').textContent = ctx;\n"
+        "    document.getElementById('qsheetBack').classList.add('show');\n"
+        "  }\n"
+        "  function closeQuote(e) {\n"
+        "    if (e && e.target !== e.currentTarget) return;\n"
+        "    document.getElementById('qsheetBack').classList.remove('show');\n"
+        "  }"
+    )
+
+    QSHEET_HTML = (
+        '<div class="qsheet-back" id="qsheetBack" onclick="closeQuote(event)">'
+        '<div class="qsheet"><div class="qsheet-grip"></div>'
+        '<div class="qsheet-speaker" id="qsheetSp"></div>'
+        '<div class="qsheet-quote" id="qsheetQ"></div>'
+        '<div class="qsheet-ctx" id="qsheetCtx"></div>'
+        '<button class="qsheet-close" onclick="closeQuote()">Close</button>'
+        '</div></div>\n'
+    )
+
+    patched = skipped = failed = 0
+    for ep_id in targets:
+        path = f"{ep_id}.html"
+        try:
+            data = gh_get(path)
+            html = base64.b64decode(data["content"]).decode("utf-8")
+            sha = data["sha"]
+        except Exception as e:
+            print(f"    skip {path}: fetch error — {e}")
+            failed += 1
+            continue
+
+        if "moment-rm-link" in html:
+            skipped += 1
+            continue
+
+        if OLD_CSS not in html:
+            print(f"    skip {path}: CSS pattern not found (unexpected format)")
+            skipped += 1
+            continue
+
+        html = html.replace(OLD_CSS, NEW_CSS)
+        html = html.replace(OLD_JS, NEW_JS)
+        html = html.replace("</body>", QSHEET_HTML + "</body>")
+
+        try:
+            gh_put(path, html.encode("utf-8"), "patch: add Read more to moment cards", sha)
+            patched += 1
+            print(f"    patched {path}")
+        except Exception as e:
+            print(f"    failed {path}: {e}")
+            failed += 1
+
+    print(f"  patch-readmore: done — {patched} patched, {skipped} skipped, {failed} failed")
+
+
 if __name__ == "__main__":
     # `--send` delivers pending WhatsApp messages (automatic, scheduled phase).
     # `--send --manual` flushes the whole queue immediately for catch-up/testing
@@ -2588,6 +2786,8 @@ if __name__ == "__main__":
             if arg.startswith("SINCE="):
                 since_str = arg.split("=", 1)[1]
         backfill(datetime.datetime.strptime(since_str, "%Y-%m-%d").date())
+    elif "--patch-readmore" in sys.argv:
+        patch_readmore_7d()
     elif "--preview-new" in sys.argv:
         # Generate the latest episode for shows with no processed episodes yet.
         # Pages are pushed to the library but nothing goes to the group —
