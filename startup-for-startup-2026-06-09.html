@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap"><style>html,body{font-family:'Heebo',-apple-system,BlinkMacSystemFont,sans-serif;}.app-bar,.nav,.moment-card,.section-label,.takeaway,.bio-toggle{direction:ltr;}.moments-scroll{direction:rtl;padding-left:18px;}.episode-title,.guest-name,.tldr-text,.bio-content,.takeaway-text,.moment-quote,.moment-context,.qsheet-quote,.qsheet-ctx{direction:rtl;text-align:right;}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap"><style>html,body{font-family:'Heebo',-apple-system,BlinkMacSystemFont,sans-serif !important;}.app-bar,.nav,.moment-card,.section-label,.takeaway,.bio-toggle{direction:ltr;}.moments-scroll{direction:rtl;padding-left:18px;}.episode-title,.guest-name,.tldr-text,.bio-content,.takeaway-text,.moment-quote,.moment-context,.qsheet-quote,.qsheet-ctx{direction:rtl;text-align:right;}</style>
   <style>
     :root {
       --bg: #111111; --card-bg: #181816; --green: #0EB88A;
@@ -98,18 +98,18 @@
     <div class="guest-name">עם סער ארבל</div>
     <div class="meta">
       <span>9 ביוני 2026</span>
-      <span>3 min read</span>
+      <span>3 דקות קריאה</span>
       <span>45m</span>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-label">TL;DR</div>
+    <div class="section-label">תקציר</div>
     <p class="tldr-text">צוות הפיתוח במאנדיי בנה 'Brain' — ויקי דינמי ב-GitHub שמתעדכן אוטומטית אחרי כל פגישה ואוסף את כל ה-Shadow Data הארגוני שבדרך כלל הולך לאיבוד. הפתרון קיצר משימות שלקחו שבועות לשעות ספורות, ושינה תפיסתית את אופן השיתוף בצוות.</p>
   </div>
 
   <div class="moments-section">
-    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="section-label" style="padding-right:18px;">רגעים מרכזיים</div>
     <div class="moments-scroll">
       <div class="moment-card">
         <div class="moment-speaker">סער ארבל</div>
@@ -149,7 +149,7 @@
   </div>
 
   <div class="section">
-    <div class="section-label">Takeaways</div>
+    <div class="section-label">תובנות</div>
     <div class="takeaway">
       <div class="takeaway-num">1</div>
       <div class="takeaway-text"><strong>מצגות אסטרטגיות: משבועות לשעות </strong>אחד המדדים המרשימים ביותר של ה-Brain הוא קיצור זמן הכנת מצגות אסטרטגיות מורכבות משבועות לשעות ספורות בלבד. הסיבה היא שכל הקונטקסט הנדרש כבר קיים ומאורגן, ואפשר להאכיל אותו ישירות ל-AI לניסוח. זהו מדד ROI מדיד שניתן להציג להנהלה כדי לצדיק השקעה בכלים דומים.</div>
@@ -176,7 +176,7 @@
       <div class="takeaway-text"><strong>האתגר הגדול הוא תרבותי, לא טכנולוגי </strong>הכלי עצמו היה פחות מורכב מהשינוי שהצוות נדרש לעבור — מעבר לשקיפות מוחלטת שבה הידע של כל אחד נגיש לכולם. אנשים רגילים להחזיק מידע 'לעצמם' כסוג של כוח, ולשבור את זה דורש מנהיגות ותהליך מובנה. לכן כל מי שרוצה לבנות כלי דומה חייב להשקיע בשינוי תפיסתי לפני — ולא אחרי — ההטמעה הטכנית.</div>
     </div>
     </div>
-    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 6 takeaways</button>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">הצג את כל 6 תובנות</button>
 
   </div>
 
@@ -259,7 +259,7 @@
     var btn = document.getElementById('takeawaysToggle');
     if (rest.hasAttribute('hidden')) {
       rest.removeAttribute('hidden');
-      btn.textContent = 'Show fewer';
+      btn.textContent = 'הצג פחות';
     } else {
       rest.setAttribute('hidden', '');
       btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
