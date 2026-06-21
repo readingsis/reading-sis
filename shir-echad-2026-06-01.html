@@ -97,19 +97,19 @@
     <h1 class="episode-title">אם רק תדברי | גיא מזיג</h1>
     <div class="guest-name">שיר: אם רק תדברי | אמן: גיא מזיג</div>
     <div class="meta">
-      <span>1 ביוני 2026</span>
-      <span>3 דקות קריאה</span>
+      <span>1 Jun 2026</span>
+      <span>3 min read</span>
       <span>25m</span>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-label">תקציר</div>
+    <div class="section-label">TL;DR</div>
     <p class="tldr-text">"אם רק תדברי" הוא לא רק שיר — הוא מסמך ראשוני של גיא מזיג כיוצר עצמאי. הפרק חושף כיצד שיר מוקדם יכול לנבא ולעצב קריירה שלמה, ומה קורה כשאמן מחליט לדבר בקולו שלו בפעם הראשונה.</p>
   </div>
 
   <div class="moments-section">
-    <div class="section-label" style="padding-right:18px;">רגעים מרכזיים</div>
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
     <div class="moments-scroll">
       <div class="moment-card">
         <div class="moment-speaker">גיא מזיג</div>
@@ -149,7 +149,7 @@
   </div>
 
   <div class="section">
-    <div class="section-label">תובנות</div>
+    <div class="section-label">Takeaways</div>
     <div class="takeaway">
       <div class="takeaway-num">1</div>
       <div class="takeaway-text"><strong>יציאה לסולו דורשת שיר שמגדיר זהות </strong>גיא מזיג לא יצא לסולו עם הכרזה — הוא יצא עם שיר שהציג קול חדש וברור. השיר עצמו עשה את עבודת ה-branding. עבור אמנים בתפניות קריירה, הפריט הראשון הוא לא שיווק — הוא הגדרה.</div>
@@ -168,7 +168,7 @@
       <div class="takeaway-text"><strong>כתיבה מדחף פנימי שורדת זמן </strong>מזיג מתאר את כתיבת השיר כ"צורך" ולא כתוכנית. שירים שנכתבים מתוך הכרח רגשי נוטים להישאר רלוונטיים לאורך שנים, בניגוד לכאלה שנכתבו מתוך אסטרטגיה שיווקית.</div>
     </div>
     </div>
-    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">הצג את כל 4 תובנות</button>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 4 takeaways</button>
 
   </div>
 
@@ -197,7 +197,7 @@
 <script>
   var pageUrl    = 'https://readingsis.github.io/reading-sis/shir-echad-2026-06-01.html';
   var PAGE_TITLE = 'אם רק תדברי | גיא מזיג — Reading.Sis';
-  var EP = {id:'shir-echad-2026-06-01', title:'אם רק תדברי | גיא מזיג', show:'שיר אחד', date:'1 ביוני 2026', url:pageUrl};
+  var EP = {id:'shir-echad-2026-06-01', title:'אם רק תדברי | גיא מזיג', show:'שיר אחד', date:'1 Jun 2026', url:pageUrl};
 
   // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
   // Path is scoped to this episode so events break down per page. No-op when
@@ -251,7 +251,7 @@
     var btn = document.getElementById('takeawaysToggle');
     if (rest.hasAttribute('hidden')) {
       rest.removeAttribute('hidden');
-      btn.textContent = 'הצג פחות';
+      btn.textContent = 'Show fewer';
     } else {
       rest.setAttribute('hidden', '');
       btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
