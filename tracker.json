@@ -2679,6 +2679,33 @@
       "date": "2026-06-21",
       "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-21.html",
       "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "startup-for-startup-2026-06-09",
+      "podcast": "Startup for Startup",
+      "guest": "סער ארבל",
+      "title": "353: איך בנינו ״מוח צוותי״ שמתעדכן לבד",
+      "date": "2026-06-09",
+      "page_url": "https://readingsis.github.io/reading-sis/startup-for-startup-2026-06-09.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "shir-echad-2026-06-01",
+      "podcast": "שיר אחד",
+      "guest": "אם רק תדברי — גיא מזיג",
+      "title": "אם רק תדברי | גיא מזיג",
+      "date": "2026-06-01",
+      "page_url": "https://readingsis.github.io/reading-sis/shir-echad-2026-06-01.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "lennys-2026-06-21",
+      "podcast": "Lenny's Podcast",
+      "guest": "Fiona Fung",
+      "title": "Building the most AI-pilled engineering team in the world | Fiona Fung (Manager of the Claude Code and Cowork Teams)",
+      "date": "2026-06-21",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-06-21.html",
+      "pushed_at": "2026-06-21"
     }
   ],
   "awaiting_video": [
