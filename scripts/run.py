@@ -2339,7 +2339,7 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
       • uses cheap Haiku for generation (QA review still uses Sonnet)
       • resumable: skips pages already live (gh_exists) or already processed
     Run via a dedicated high-timeout workflow_dispatch, not the daily cron."""
-    cutoff = datetime.datetime(since.year, since.month, since.day, tzinfo=datetime.timezone.utc)
+    cutoff = datetime.datetime(since.year, since.month, since.day)
     print(f"Backfill since {since} using {model}\n")
 
     tracker, tracker_sha = get_tracker()
@@ -2358,9 +2358,8 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
         # high-frequency shows like daily podcasts without a separate backfill run).
         show_since = podcast.get("backfill_since")
         show_cutoff = (
-            datetime.datetime(
-                *[int(x) for x in show_since.split("-")], tzinfo=datetime.timezone.utc
-            ) if show_since else cutoff
+            datetime.datetime(*[int(x) for x in show_since.split("-")])
+            if show_since else cutoff
         )
         eps = fetch_new_episodes(podcast, show_cutoff, processed_ids, set())
         print(f"  {len(eps)} to consider")
