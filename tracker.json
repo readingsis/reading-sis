@@ -2791,6 +2791,86 @@
       "published_at": "2026-06-03T11:51:44",
       "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-03.html",
       "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "hayot-kis-2026-06-10",
+      "podcast": "חיות כיס",
+      "guest": "Various",
+      "title": "פרק 353: של מי העובדים האלה?",
+      "date": "2026-06-10",
+      "published_at": "2026-06-10T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/hayot-kis-2026-06-10.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "hayot-kis-2026-06-03",
+      "podcast": "חיות כיס",
+      "guest": "אורי לוי",
+      "title": "פרק 352: המונדיאל היקר בהיסטוריה",
+      "date": "2026-06-03",
+      "published_at": "2026-06-03T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/hayot-kis-2026-06-03.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "trashtech-2026-06-17",
+      "podcast": "טראשטק",
+      "guest": "Various",
+      "title": "טראמפ חוסם את הבינה המלאכותית + הסוף לבזבזנות הטוקנים?",
+      "date": "2026-06-17",
+      "published_at": "2026-06-17T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-17.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "trashtech-2026-06-14",
+      "podcast": "טראשטק",
+      "guest": "דב מורן",
+      "title": "דב מורן על ביקוש השיא בשבבים, הזינוק של סנדיסק והאם צריך ללמוד?",
+      "date": "2026-06-14",
+      "published_at": "2026-06-14T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-14.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "trashtech-2026-06-12",
+      "podcast": "טראשטק",
+      "guest": "מיכה סטוקס",
+      "title": "ההנפקה הגדולה בהיסטוריה יוצאת לדרך; עם מיכה סטוקס",
+      "date": "2026-06-12",
+      "published_at": "2026-06-12T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-12.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "trashtech-2026-06-10",
+      "podcast": "טראשטק",
+      "guest": "ד״ר תהילה שוורץ אלטשולר",
+      "title": "\"כשה-AI בונה את עצמו״ + האם טראמפ ירכוש נתח מ-OpenAI?",
+      "date": "2026-06-10",
+      "published_at": "2026-06-10T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-10.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "trashtech-2026-06-07",
+      "podcast": "טראשטק",
+      "guest": "תום אבן",
+      "title": "30 סוכני בינה מלאכותית מגלגלים מיליון ש״ח ברבעון; עם תום אבן",
+      "date": "2026-06-07",
+      "published_at": "2026-06-07T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-07.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "trashtech-2026-06-03",
+      "podcast": "טראשטק",
+      "guest": "סימונה ולסקי",
+      "title": "בני אדם או טוקנים AI? + המדריך למציאת עבודה ב-2026",
+      "date": "2026-06-03",
+      "published_at": "2026-06-03T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-03.html",
+      "pushed_at": "2026-06-21"
     }
   ],
   "queued": [
