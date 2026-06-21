@@ -61,6 +61,7 @@ GH_HEADERS = {
 # show's index here (see show_color), so reordering re-spaces the ramp.
 # `chip` = the initials shown on the library's color square.
 PODCASTS = [
+    # ── English shows (indices 0–12) ──────────────────────────────────────────
     {
         "name": "Lenny's Podcast",
         "slug": "lennys",
@@ -68,6 +69,8 @@ PODCASTS = [
         "rss": "https://api.substack.com/feed/podcast/10845.rss",
         "spotify_show": "https://open.spotify.com/show/2dR1MUZEHCOnz1LVfNac0j",
         "lex_filter": False,
+        "genre": "tech",
+        "lang": "en",
         "description": "Deep-dive conversations on product, growth, and career with PMs and founders from the world's top companies.",
     },
     {
@@ -77,6 +80,8 @@ PODCASTS = [
         "rss": "https://feeds.megaphone.fm/pivot",
         "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
         "lex_filter": False,
+        "genre": "tech",
+        "lang": "en",
         "description": "Kara Swisher and Scott Galloway break down the week's biggest tech and business stories with sharp takes and zero filter.",
     },
     {
@@ -86,6 +91,8 @@ PODCASTS = [
         "rss": "https://rss.libsyn.com/shows/254861/destinations/1928300.xml",
         "spotify_show": "",
         "lex_filter": False,
+        "genre": "tech",
+        "lang": "en",
         "description": "Four tech investors debate business, politics, and the future with the candor you'd only hear in a private room.",
     },
     {
@@ -95,6 +102,8 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/l2i9YnTd",
         "spotify_show": "https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj",
         "lex_filter": False,
+        "genre": "tech",
+        "lang": "en",
         "description": "The New York Times technology journalists making sense of an industry that's constantly breaking.",
     },
     {
@@ -104,6 +113,8 @@ PODCASTS = [
         "rss": "https://rss2.flightcast.com/xmsftuzjjykcmqwolaqn6mdn",
         "spotify_show": "",
         "lex_filter": False,
+        "genre": "business",
+        "lang": "en",
         # Skip the Friday "Most Replayed Moment" clip episodes — they're short
         # recaps of older episodes, not new full episodes.
         "skip_title_re": r"most replayed|moment[s]?:|highlight",
@@ -116,6 +127,8 @@ PODCASTS = [
         "rss": "https://lexfridman.com/feed/podcast/",
         "spotify_show": "",
         "lex_filter": True,  # Only tech/AI/science/business guests
+        "genre": "tech",
+        "lang": "en",
         "description": "The scientists and engineers reshaping AI, physics, and technology — in their own words.",
     },
     {
@@ -126,6 +139,8 @@ PODCASTS = [
         "spotify_show": "",
         "lex_filter": False,
         "show_format": "true_crime",
+        "genre": "storytelling",
+        "lang": "en",
         "description": "Straightforward, addictive true crime delivered weekly — no fluff, just the case.",
     },
     {
@@ -135,6 +150,8 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/mKn_QmLS",
         "spotify_show": "",
         "lex_filter": False,
+        "genre": "entertainment",
+        "lang": "en",
         "description": "Alex Cooper's unfiltered conversations on relationships, sex, and modern life — the show your group chat actually talks about.",
     },
     {
@@ -145,6 +162,8 @@ PODCASTS = [
         "spotify_show": "",
         "lex_filter": False,
         "show_format": "panel",
+        "genre": "entertainment",
+        "lang": "en",
         "description": "Jason Bateman, Sean Hayes, and Will Arnett interview a surprise guest each week — funny, warm, and genuinely unpredictable.",
     },
     {
@@ -154,6 +173,8 @@ PODCASTS = [
         "rss": "https://feeds.megaphone.fm/thispastweekend",
         "spotify_show": "",
         "lex_filter": False,
+        "genre": "entertainment",
+        "lang": "en",
         "description": "Theo Von's curious, wandering conversations with comedians, athletes, and people who've lived unusual lives.",
     },
     {
@@ -163,6 +184,8 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/Y8lFbOT4",
         "spotify_show": "",
         "lex_filter": False,
+        "genre": "storytelling",
+        "lang": "en",
         "description": "The hidden economics behind everyday decisions — data-driven, counterintuitive, and impossible to predict.",
     },
     {
@@ -172,6 +195,8 @@ PODCASTS = [
         "rss": "https://feeds.simplecast.com/dHoohVNH",
         "spotify_show": "",
         "lex_filter": False,
+        "genre": "entertainment",
+        "lang": "en",
         "description": "Conan's delusional quest for friendship with the world's most famous people, one awkward conversation at a time.",
     },
     {
@@ -181,7 +206,102 @@ PODCASTS = [
         "rss": "https://feeds.megaphone.fm/bigdeal",
         "spotify_show": "",
         "lex_filter": False,
+        "genre": "business",
+        "lang": "en",
         "description": "Codie Sanchez on buying boring businesses, building wealth outside Wall Street, and the entrepreneurial mindset most people overlook.",
+    },
+    # ── Hebrew shows (indices 13–19) — hold:True until preview approved ───────
+    {
+        "name": "טראשטק",
+        "slug": "trashtech",
+        "chip": "TT",
+        "rss": "https://anchor.fm/s/f4876104/podcast/rss",
+        "spotify_show": "https://open.spotify.com/show/0nGv2IY8OATmjMtkJ7eLHG",
+        "lex_filter": False,
+        "genre": "tech",
+        "lang": "he",
+        "hold": True,
+        "backfill_since": "2026-06-01",
+        "description": "חדשות טק ישראליות ועולמיות, בינה מלאכותית וסטארטאפים — עם עמרי ברק ויואב צוקר.",
+    },
+    {
+        "name": "חיות כיס",
+        "slug": "hayot-kis",
+        "chip": "HK",
+        "rss": "https://omny.fm/shows/hayot-kiss/playlists/podcast.rss",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "business",
+        "lang": "he",
+        "hold": True,
+        "backfill_since": "2026-06-01",
+        "description": "כלכלה בשפת בני אדם — סיפורים אנושיים שמאחורי הכוחות הכלכליים הגדולים. פודקאסט הכלכלה של כאן.",
+    },
+    {
+        "name": "גיקונומי",
+        "slug": "geekonomy",
+        "chip": "GK",
+        "rss": "https://feed.podbean.com/geekonomy/feed.xml",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "business",
+        "lang": "he",
+        "hold": True,
+        "backfill_since": "2026-06-01",
+        "description": "שיחות רחבות אופק על טכנולוגיה, עסקים, פוליטיקה ותרבות — מעל 1,100 פרקים.",
+    },
+    {
+        "name": "Startup for Startup",
+        "slug": "startup-for-startup",
+        "chip": "SS",
+        "rss": "https://omny.fm/shows/startupforstartup/playlists/podcast.rss",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "business",
+        "lang": "he",
+        "hold": True,
+        "backfill_since": "2026-06-01",
+        "description": "האתגרים האמיתיים של בנייה — גיוס, מוצר ותרבות ארגונית מבפנים, מ-monday.com.",
+    },
+    {
+        "name": "חצי שעה של השראה",
+        "slug": "chatzi-shaa",
+        "chip": "CS",
+        "rss": "https://feeds.soundcloud.com/users/soundcloud:users:313037130/sounds.rss",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "business",
+        "lang": "he",
+        "hold": True,
+        "backfill_since": "2026-06-01",
+        "description": 'ראיונות חודשיים עם מנכ"לים ויזמים ישראלים על חדשנות, תרבות ארגונית והדרך שלהם.',
+    },
+    {
+        "name": "שיר אחד",
+        "slug": "shir-echad",
+        "chip": "SA",
+        "rss": "https://omny.fm/shows/one-song/playlists/podcast.rss",
+        "spotify_show": "",
+        "lex_filter": False,
+        "show_format": "music",
+        "genre": "storytelling",
+        "lang": "he",
+        "hold": True,
+        "backfill_since": "2026-06-15",
+        "description": "כל פרק מפרק שיר אחד — ההיסטוריה שלו, המשמעות, והדרך שהפך לסמל תרבותי.",
+    },
+    {
+        "name": "אחד ביום",
+        "slug": "echad-beyom",
+        "chip": "AB",
+        "rss": "https://omny.fm/shows/ehadbeyom/playlists/ehadbeyom.rss",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "storytelling",
+        "lang": "he",
+        "hold": True,
+        "backfill_since": "2026-06-15",
+        "description": "סיפור אחד, נבחר, מוסבר לעומק — בכל יום עם אלעד שמחיוף.",
     },
 ]
 
@@ -333,6 +453,7 @@ def fetch_new_episodes(
             "spotify_show": podcast["spotify_show"],
             "lex_filter":   podcast["lex_filter"],
             "show_format":  podcast.get("show_format", "interview"),
+            "lang":         podcast.get("lang", "en"),
         })
 
     return episodes
@@ -613,6 +734,25 @@ Show format note: This is a TRUE CRIME / MYSTERY STORY episode — no traditiona
 Show format note: This is a PANEL / ENSEMBLE show — the recurring hosts ARE the show's identity.
 - "bio_section_title": "About {podcast_name}"
 - "bio_text": 2-3 sentences about the show, its regular hosts, and its typical format/style — NOT about the guest of this episode (the TL;DR already covers that)"""
+
+    if episode.get("lang") == "he":
+        prompt += """
+
+Language: This is a HEBREW-language podcast. Generate ALL text fields \
+(tldr, guest_line, bio_text, takeaway texts, moment quotes, whatsapp_teaser) \
+in Hebrew (עברית). Quoted transcript text should remain as-is (already Hebrew). \
+Do not translate into English."""
+
+    if episode.get("show_format") == "music":
+        prompt += """
+
+Show format note: This is a MUSIC DOCUMENTARY show — each episode analyzes ONE specific song.
+- "guest": the song title and artist (e.g., "מחכה לנס — משינה")
+- "guest_line": "שיר: [song name] | אמן/ת: [artist name]"
+- "bio_section_title": "על השיר"
+- "bio_text": 3-4 sentences about the song's story, the artist, and its cultural significance
+- Takeaways: insights about lyrics, production choices, cultural moment, or what makes it memorable
+- Key moments: discussion points in the episode"""
 
     if qa_feedback:
         prompt += f"\n\nCORRECTION REQUIRED — your previous attempt was rejected by QA:\n{qa_feedback}\nFix these specific issues in your response."
@@ -1348,17 +1488,23 @@ def _hex_lerp(c1: str, c2: str, t: float) -> str:
 # (Lenny's = gold … Lex = green). Hand-picked so all six read as distinct
 # colors. When a show is added, append a stop (and we'll revisit spacing).
 _SHOW_RAMP = [
-    # Original 6 — gold→green (Lenny's … Lex)
-    "#E3B25A", "#CEB538", "#ADBA2F", "#83BD4A", "#52BD6C", "#15B98A",
-    # New 8 — distinct hues for the expanded lineup
-    "#5BA3D9",  # sky blue    — Crime Junkie
-    "#CF7E5E",  # terracotta  — Call Her Daddy
-    "#A05EC4",  # violet      — SmartLess
-    "#E06A2E",  # orange      — Stuff You Should Know
-    "#D4A84B",  # amber       — Theo Von
-    "#5CB8B2",  # teal        — MrBallen
-    "#D65BA0",  # pink        — Freakonomics Radio
-    "#5B8AD6",  # cornflower  — Conan O'Brien
+    # English shows (0–12) — gold→green then distinct hues
+    "#E3B25A", "#CEB538", "#ADBA2F", "#83BD4A", "#52BD6C", "#15B98A",  # 0–5  Lenny's→Lex
+    "#5BA3D9",  # 6   Crime Junkie
+    "#CF7E5E",  # 7   Call Her Daddy
+    "#A05EC4",  # 8   SmartLess
+    "#E06A2E",  # 9   Theo Von
+    "#D4A84B",  # 10  Freakonomics
+    "#5CB8B2",  # 11  Conan
+    "#D65BA0",  # 12  BigDeal
+    # Hebrew shows (13–19)
+    "#5B8AD6",  # 13  טראשטק       — cornflower
+    "#E8845C",  # 14  חיות כיס      — melon
+    "#5DC48A",  # 15  גיקונומי      — sage green
+    "#C47A5B",  # 16  Startup for Startup — copper
+    "#7B8AE8",  # 17  חצי שעה      — periwinkle
+    "#E8C45C",  # 18  שיר אחד      — gold ochre
+    "#5BC4C4",  # 19  אחד ביום     — cyan
 ]
 
 
@@ -1376,7 +1522,9 @@ def _show_meta() -> dict:
     for i, p in enumerate(PODCASTS):
         chip = p.get("chip") or "".join(w[0] for w in p["name"].split()[:2]).upper()
         out[p["name"]] = {"slug": p["slug"], "chip": chip,
-                          "color": show_color(i, total), "index": i}
+                          "color": show_color(i, total), "index": i,
+                          "genre": p.get("genre", ""),
+                          "lang": p.get("lang", "en")}
     return out
 
 
@@ -1495,7 +1643,13 @@ LIB_CSS = """
       font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; }
     .card-r { display:flex; flex-direction:column; gap:3px; min-width:0; }
     .card-name { font-size:13px; font-weight:500; color:var(--tp); line-height:1.25; }
+    .card-meta { display:flex; align-items:center; gap:0; }
     .card-count { font-size:11.5px; color:var(--dim); white-space:nowrap; }
+    .lang-en { font-size:10px; padding:1px 5px; border-radius:999px; background:rgba(255,255,255,0.08); color:var(--dim); margin-right:4px; }
+    .lang-he { font-size:10px; padding:1px 5px; border-radius:999px; background:rgba(21,185,138,0.15); color:var(--green); margin-right:4px; }
+    .genre-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+    .gtab { font-size:12px; padding:4px 12px; border-radius:999px; border:0.5px solid var(--dim); background:transparent; color:var(--dim); cursor:pointer; }
+    .gtab.active { background:var(--green); border-color:var(--green); color:#fff; }
     .empty { padding:48px 24px; text-align:center; color:var(--dim); font-size:13px; line-height:1.6; }
     .nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px;
       background:var(--canvas); border-top:1px solid var(--divider); display:flex;
@@ -1633,21 +1787,46 @@ def build_library(tracker: dict) -> str:
     latest = "".join(_episode_row(e) for e in eps[:5]) or \
         '<div class="empty">No digests published yet.</div>'
 
+    genre_tabs = (
+        '<div class="genre-tabs" id="genreTabs">'
+        '<button class="gtab active" data-genre="all" onclick="filterGenre(this)">All</button>'
+        '<button class="gtab" data-genre="tech" onclick="filterGenre(this)">Tech</button>'
+        '<button class="gtab" data-genre="business" onclick="filterGenre(this)">Business</button>'
+        '<button class="gtab" data-genre="storytelling" onclick="filterGenre(this)">Storytelling</button>'
+        '<button class="gtab" data-genre="entertainment" onclick="filterGenre(this)">Entertainment</button>'
+        '</div>'
+    )
+
     cards = ""
     for p in PODCASTS:
         name = p["name"]
         m = meta[name]
         n = counts.get(name, 0)
+        lang_badge = ('<span class="lang-he">HE</span>' if m["lang"] == "he"
+                      else '<span class="lang-en">EN</span>')
         cards += (
-            f'<a class="card" href="{m["slug"]}.html">'
+            f'<a class="card" href="{m["slug"]}.html" data-genre="{m["genre"]}">'
             f'<span class="sq" style="background:{m["color"]}">{_t(m["chip"])}</span>'
             f'<span class="card-r"><span class="card-name">{_t(name)}</span>'
-            f'<span class="card-count">{n} episode{"" if n == 1 else "s"}</span></span></a>'
+            f'<span class="card-meta">{lang_badge}'
+            f'<span class="card-count">{n} episode{"" if n == 1 else "s"}</span></span></span></a>'
         )
+
+    genre_filter_js = """<script>
+function filterGenre(btn) {
+  document.querySelectorAll('.gtab').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  var genre = btn.dataset.genre;
+  document.querySelectorAll('.grid .card').forEach(function(c) {
+    c.style.display = (genre === 'all' || c.dataset.genre === genre) ? '' : 'none';
+  });
+}
+</script>"""
 
     body = (
         f'  <div class="seclabel">Latest episodes</div>\n  <div class="rows">{latest}</div>\n'
-        f'  <div class="seclabel">Shows</div>\n  <div class="grid">{cards}</div>\n'
+        f'  <div class="seclabel">Shows</div>\n  {genre_tabs}\n  <div class="grid">{cards}</div>\n'
+        f'{genre_filter_js}\n'
     )
     return _lib_page("Reading.Sis — Library", body, "home")
 
@@ -1856,6 +2035,8 @@ def _fallback_sis_message(p: dict) -> str:
     """Deterministic blurb if the Claude call fails — still friendly, no link
     (the footer carries the show/date/link separately), kept inside the
     10-20 word budget the real generator targets."""
+    if p.get("lang") == "he":
+        return "פרק חדש יצא —"
     guest = p.get("guest", "")
     g = f" with {guest}" if guest and guest.lower() != "various" else ""
     return f"New read{g} just landed — a good one for whenever you've got a minute."
@@ -1886,6 +2067,10 @@ def generate_sis_message(p: dict, idx: int, total: int, model: str = MODEL) -> s
 
     now = now_israel()
     time_context = f"It's currently {now.strftime('%-I:%M %p')} on a {now.strftime('%A')} in Israel."
+    lang_note = (
+        "\nLanguage: Write the message in Hebrew (עברית). "
+        "The group members are Hebrew speakers."
+    ) if p.get("lang") == "he" else ""
 
     prompt = f"""You are "Sis", the voice of Reading.Sis — texting a small group chat of friends \
 about a podcast read you think they'd like. Not announcing content, not a newsletter — talking \
@@ -1903,7 +2088,7 @@ Write ONE message, STRICTLY 10-20 words, about today's read — specific and nat
 Do NOT include a link, the show name, or the episode title verbatim (those are added separately) \
 — describe what it's about in your own words instead. Do NOT use markdown.
 
-{batch_note}
+{batch_note}{lang_note}
 
 {guest_part}Episode is about: {p.get('hook','') or p.get('title','')}
 
@@ -2549,6 +2734,7 @@ def _run_generate(window_override: datetime.timedelta | None = None,
                 "published_at": pub_dt.isoformat(),          # for oldest-first send ordering
                 "hook":         (content.get("tldr") or "")[:300],
                 "page_url":     page_url,
+                "lang":         episode.get("lang", "en"),
             })
             print("  Queued for 7 AM send")
 
