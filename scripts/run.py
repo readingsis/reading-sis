@@ -1779,8 +1779,8 @@ def _episode_row(e: dict) -> str:
     return (
         f'<a class="row" href="{e["url"]}">'
         f'<span class="chip" style="background:{e["color"]}">{_t(e["chip"])}</span>'
-        f'<span class="row-main"><span class="row-title">{_t(e["title"])}</span>'
-        f'<span class="row-meta">{newtag}{_t(meta)}</span></span>'
+        f'<span class="row-main"><span class="row-title" dir="auto">{_t(e["title"])}</span>'
+        f'<span class="row-meta" dir="auto">{newtag}{_t(meta)}</span></span>'
         f'<span class="chev">&rsaquo;</span></a>'
     )
 
