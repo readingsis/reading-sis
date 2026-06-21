@@ -214,7 +214,7 @@ PODCASTS = [
     {
         "name": "טראשטק",
         "slug": "trashtech",
-        "chip": "TT",
+        "chip": "טר",
         "rss": "https://anchor.fm/s/f4876104/podcast/rss",
         "spotify_show": "https://open.spotify.com/show/0nGv2IY8OATmjMtkJ7eLHG",
         "lex_filter": False,
@@ -227,7 +227,7 @@ PODCASTS = [
     {
         "name": "חיות כיס",
         "slug": "hayot-kis",
-        "chip": "HK",
+        "chip": "חכ",
         "rss": "https://omny.fm/shows/hayot-kiss/playlists/podcast.rss",
         "spotify_show": "",
         "lex_filter": False,
@@ -240,7 +240,7 @@ PODCASTS = [
     {
         "name": "גיקונומי",
         "slug": "geekonomy",
-        "chip": "GK",
+        "chip": "גק",
         "rss": "https://feed.podbean.com/geekonomy/feed.xml",
         "spotify_show": "",
         "lex_filter": False,
@@ -266,7 +266,7 @@ PODCASTS = [
     {
         "name": "חצי שעה של השראה",
         "slug": "chatzi-shaa",
-        "chip": "CS",
+        "chip": "חש",
         "rss": "https://feeds.soundcloud.com/users/soundcloud:users:313037130/sounds.rss",
         "spotify_show": "",
         "lex_filter": False,
@@ -279,7 +279,7 @@ PODCASTS = [
     {
         "name": "שיר אחד",
         "slug": "shir-echad",
-        "chip": "SA",
+        "chip": "שא",
         "rss": "https://omny.fm/shows/one-song/playlists/podcast.rss",
         "spotify_show": "",
         "lex_filter": False,
@@ -293,7 +293,7 @@ PODCASTS = [
     {
         "name": "אחד ביום",
         "slug": "echad-beyom",
-        "chip": "AB",
+        "chip": "אב",
         "rss": "https://omny.fm/shows/ehadbeyom/playlists/ehadbeyom.rss",
         "spotify_show": "",
         "lex_filter": False,
@@ -1499,9 +1499,9 @@ _SHOW_RAMP = [
     "#D65BA0",  # 12  BigDeal
     # Hebrew shows (13–19)
     "#5B8AD6",  # 13  טראשטק       — cornflower
-    "#E8845C",  # 14  חיות כיס      — melon
+    "#D44F6B",  # 14  חיות כיס      — raspberry
     "#5DC48A",  # 15  גיקונומי      — sage green
-    "#C47A5B",  # 16  Startup for Startup — copper
+    "#9B6FD4",  # 16  Startup for Startup — lavender
     "#7B8AE8",  # 17  חצי שעה      — periwinkle
     "#E8C45C",  # 18  שיר אחד      — gold ochre
     "#5BC4C4",  # 19  אחד ביום     — cyan
