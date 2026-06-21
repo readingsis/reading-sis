@@ -2537,39 +2537,55 @@
       "published_at": "2026-06-19T13:00:00",
       "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-06-19.html",
       "pushed_at": "2026-06-19"
+    },
+    {
+      "id": "all-in-2026-06-20",
+      "podcast": "All-In",
+      "guest": "Various",
+      "title": "World's First Trillionaire, Anthropic Fable Banned, The New Oligarchs, Iran Peace Deal",
+      "date": "2026-06-20",
+      "published_at": "2026-06-20T01:07:00",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-20.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "theo-von-2026-06-19",
+      "podcast": "This Past Weekend w/ Theo Von",
+      "guest": "Steve Walt",
+      "title": "#663 - Porn Recovery Coach Steven Wolt",
+      "date": "2026-06-19",
+      "published_at": "2026-06-19T19:05:00",
+      "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-06-19.html",
+      "pushed_at": "2026-06-21"
     }
   ],
   "queued": [],
-  "pending_send": [],
-  "preview": [],
-  "awaiting_video": [
+  "pending_send": [
     {
-      "id": "pivot-2026-06-19",
-      "podcast": "Pivot",
-      "slug_prefix": "pivot",
-      "title": "Trump's Iran Deal, SpaceX’s Wild Ride, and Snap’s Specs",
-      "date": "2026-06-19",
-      "description": "Kara and Scott unpack the backlash to Trump’s Iran deal, and the symbolism of the algae bloom in the Lincoln Memorial’s Reflecting Pool. Plus, SpaceX passes Amazon in its first week as a public company, acquires Cursor, and kicks off an AI IPO frenzy. Then, Snap’s pricey new smart glasses.\n\nWatch this episode on the ⁠⁠Pivot YouTube channel⁠⁠.Follow us on Instagram and Threads at ⁠⁠@pivotpodcastofficial⁠⁠.Follow us on Bluesky at ⁠⁠@pivotpod.bsky.social⁠⁠Follow us on TikTok at ⁠⁠@pivotpodcast⁠⁠.Send us your questions by calling us at 855-51-PIVOT, or email pivot@voxmedia.com\nLearn more about your ad choices. Visit podcastchoices.com/adchoices",
-      "duration_sec": 3963,
-      "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
-      "lex_filter": false,
-      "show_format": "interview",
-      "published_at": "2026-06-19T13:00:00"
+      "id": "all-in-2026-06-20",
+      "podcast": "All-In",
+      "guest": "Various",
+      "title": "World's First Trillionaire, Anthropic Fable Banned, The New Oligarchs, Iran Peace Deal",
+      "date_str": "20 Jun 2026",
+      "date_short": "Jun 20",
+      "published_at": "2026-06-20T01:07:00",
+      "hook": "SpaceX's record-breaking IPO — the largest in history at $85B raised — made Elon Musk the world's first trillionaire, though the hosts argue his paper wealth reflects the discounted future value of machines he built, not cash hoarded. The panel uses the moment to mount a sustained argument that gove",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-20.html"
     },
     {
-      "id": "freakonomics-2026-06-19",
-      "podcast": "Freakonomics Radio",
-      "slug_prefix": "freakonomics",
-      "title": "678. Who Gets to Choose a “Good Death”?",
-      "date": "2026-06-19",
-      "description": "New York is the latest state to legalize medical aid in dying. Stephen Dubner speaks with the governor who signed the law, a Nobel Prize-winning economist, a death doula — and an ethicist who thinks the very idea is wrong.",
-      "duration_sec": 3025,
-      "spotify_show": "",
-      "lex_filter": false,
-      "show_format": "interview",
-      "published_at": "2026-06-19T13:00:00"
+      "id": "theo-von-2026-06-19",
+      "podcast": "This Past Weekend w/ Theo Von",
+      "guest": "Steve Walt",
+      "title": "#663 - Porn Recovery Coach Steven Wolt",
+      "date_str": "19 Jun 2026",
+      "date_short": "Jun 19",
+      "published_at": "2026-06-19T19:05:00",
+      "hook": "Porn addiction is not a willpower problem — it hijacks the brain's reward system and becomes the primary tool for emotional regulation, making quitting feel neurologically catastrophic. Steve Walt argues that real recovery requires retraining the nervous system, healing root emotional causes, and bu",
+      "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-06-19.html"
     }
   ],
+  "preview": [],
+  "awaiting_video": [],
   "sent_count_today": {
     "date": "2026-06-19",
     "count": 2
