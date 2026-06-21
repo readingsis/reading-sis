@@ -97,19 +97,19 @@
     <h1 class="episode-title">פרק 354: סקר או שקר?</h1>
     <div class="guest-name">עם אבי וידרמן, ד"ר חגי אלקיים שלם, ד"ר מינה צמח</div>
     <div class="meta">
-      <span>17 ביוני 2026</span>
-      <span>3 דקות קריאה</span>
+      <span>17 Jun 2026</span>
+      <span>3 min read</span>
       <span>45m</span>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-label">תקציר</div>
+    <div class="section-label">TL;DR</div>
     <p class="tldr-text">סקרי המנדטים אינם רק מדידה פסיבית של דעת הקהל — הם כלי שחלק מהגורמים הפוליטיים מנסים לתמרן לטובתם. שיטות דגימה שונות, אוכלוסיות מדגם שונות ושאלות מנוסחות בצורה שונה יכולות להניב פערים של מספר מנדטים בין סוקרים. השאלה האמיתית היא לא רק האם הסקר משקף את המציאות, אלא האם הוא גם מעצב אותה.</p>
   </div>
 
   <div class="moments-section">
-    <div class="section-label" style="padding-right:18px;">רגעים מרכזיים</div>
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
     <div class="moments-scroll">
       <div class="moment-card">
         <div class="moment-speaker">ד"ר מינה צמח</div>
@@ -149,7 +149,7 @@
   </div>
 
   <div class="section">
-    <div class="section-label">תובנות</div>
+    <div class="section-label">Takeaways</div>
     <div class="takeaway">
       <div class="takeaway-num">1</div>
       <div class="takeaway-text"><strong>סקרים יוצרים את המציאות שהם מודדים </strong>פרסום תוצאות סקר יכול לשנות את התנהגות המצביעים — במיוחד כשמפלגה מוצגת כקרובה לאחוז החסימה. אפקט זה, המכונה 'הצבעה טקטית', הופך את הסקר מכלי מדידה לכלי עיצוב פוליטי.</div>
@@ -172,7 +172,7 @@
       <div class="takeaway-text"><strong>המשתמש שלא נמדד — הצעיר שלא עונה </strong>אוכלוסיות צעירות ואוכלוסיות שפחות נוטות לענות לסקרים מיוצגות בחסר. סוקרים מנסים לתקן זאת באמצעות שקלול סטטיסטי, אך כשהייצוג המקורי לקוי מאוד — גם התיקון מוגבל.</div>
     </div>
     </div>
-    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">הצג את כל 5 תובנות</button>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 5 takeaways</button>
 
   </div>
 
@@ -201,7 +201,7 @@
 <script>
   var pageUrl    = 'https://readingsis.github.io/reading-sis/hayot-kis-2026-06-17.html';
   var PAGE_TITLE = 'פרק 354: סקר או שקר? — Reading.Sis';
-  var EP = {id:'hayot-kis-2026-06-17', title:'פרק 354: סקר או שקר?', show:'חיות כיס', date:'17 ביוני 2026', url:pageUrl};
+  var EP = {id:'hayot-kis-2026-06-17', title:'פרק 354: סקר או שקר?', show:'חיות כיס', date:'17 Jun 2026', url:pageUrl};
 
   // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
   // Path is scoped to this episode so events break down per page. No-op when
@@ -255,7 +255,7 @@
     var btn = document.getElementById('takeawaysToggle');
     if (rest.hasAttribute('hidden')) {
       rest.removeAttribute('hidden');
-      btn.textContent = 'הצג פחות';
+      btn.textContent = 'Show fewer';
     } else {
       rest.setAttribute('hidden', '');
       btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
