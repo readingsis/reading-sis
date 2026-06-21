@@ -2687,6 +2687,110 @@
       "date": "2026-06-21",
       "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-21.html",
       "published_at": "2026-06-21T12:00:00"
+    },
+    {
+      "id": "call-her-daddy-2026-06-07",
+      "podcast": "Call Her Daddy",
+      "guest": "Various",
+      "title": "Red Flag or Overthinking?",
+      "date": "2026-06-07",
+      "published_at": "2026-06-07T10:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-07.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "startup-for-startup-2026-06-02",
+      "podcast": "Startup for Startup",
+      "guest": "רועי מן ואור מי-פז",
+      "title": "352: מעבדת האייג'נטים: איך בנינו מגרש משחקים למוצר ה-AI הבא",
+      "date": "2026-06-02",
+      "published_at": "2026-06-02T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/startup-for-startup-2026-06-02.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "echad-beyom-2026-06-18",
+      "podcast": "אחד ביום",
+      "guest": "ברק רביד",
+      "title": "מה קרה לטראמפ?",
+      "date": "2026-06-18",
+      "published_at": "2026-06-18T04:45:00",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-18.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "echad-beyom-2026-06-17",
+      "podcast": "אחד ביום",
+      "guest": "יאיר נבות",
+      "title": "מלחמת הנצח של פוטין",
+      "date": "2026-06-17",
+      "published_at": "2026-06-17T04:45:00",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-17.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "echad-beyom-2026-06-15",
+      "podcast": "אחד ביום",
+      "guest": "עומר בן רובי",
+      "title": "הריקוד האחרון של ישי לוי",
+      "date": "2026-06-15",
+      "published_at": "2026-06-15T04:45:00",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-15.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "geekonomy-2026-06-18",
+      "podcast": "גיקונומי",
+      "guest": "אסף זמיר",
+      "title": "פרק #1214 - אסף זמיר",
+      "date": "2026-06-18",
+      "published_at": "2026-06-18T00:01:48",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-18.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "geekonomy-2026-06-14",
+      "podcast": "גיקונומי",
+      "guest": "פרופ׳ ברק כהן",
+      "title": "פרק #1213 - פרופ׳ ברק כהן רופא מרדים",
+      "date": "2026-06-14",
+      "published_at": "2026-06-14T23:48:35",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-14.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "geekonomy-2026-06-12",
+      "podcast": "גיקונומי",
+      "guest": "ד״ר מיכל אנגל גורפינקל",
+      "title": "פרק #1212 - ד״ר מיכל אנגל, ספורטאיות ותינוק אחד בר מזל",
+      "date": "2026-06-12",
+      "published_at": "2026-06-12T00:25:11",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-12.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "geekonomy-2026-06-08",
+      "podcast": "גיקונומי",
+      "guest": "ד״ר ליאור שאלתיאל",
+      "title": "פרק #1211 - ד״ר ליאור שאלתיאל ופגיעות עצביות",
+      "date": "2026-06-08",
+      "published_at": "2026-06-08T23:28:28",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-08.html",
+      "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "geekonomy-2026-06-05",
+      "skipped": true
+    },
+    {
+      "id": "geekonomy-2026-06-03",
+      "podcast": "גיקונומי",
+      "guest": "ד״ר אסף נתנזון",
+      "title": "פרק #1209 - ד״ר אסף נתנזון ו-EON",
+      "date": "2026-06-03",
+      "published_at": "2026-06-03T11:51:44",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-03.html",
+      "pushed_at": "2026-06-21"
     }
   ],
   "queued": [
@@ -2736,5 +2840,6 @@
   "sent_count_today": {
     "date": "2026-06-21",
     "count": 2
-  }
+  },
+  "backfill_queued": []
 }
