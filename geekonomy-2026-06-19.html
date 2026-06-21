@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap"><style>html,body{font-family:'Heebo',-apple-system,BlinkMacSystemFont,sans-serif;}.app-bar,.nav,.moment-card,.section-label,.takeaway,.bio-toggle{direction:ltr;}.moments-scroll{direction:rtl;padding-left:18px;}.episode-title,.guest-name,.tldr-text,.bio-content,.takeaway-text,.moment-quote,.moment-context,.qsheet-quote,.qsheet-ctx{direction:rtl;text-align:right;}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap"><style>html,body{font-family:'Heebo',-apple-system,BlinkMacSystemFont,sans-serif !important;}.app-bar,.nav,.moment-card,.section-label,.takeaway,.bio-toggle{direction:ltr;}.moments-scroll{direction:rtl;padding-left:18px;}.episode-title,.guest-name,.tldr-text,.bio-content,.takeaway-text,.moment-quote,.moment-context,.qsheet-quote,.qsheet-ctx{direction:rtl;text-align:right;}</style>
   <style>
     :root {
       --bg: #111111; --card-bg: #181816; --green: #0EB88A;
@@ -98,18 +98,18 @@
     <div class="guest-name">עם איל עופר</div>
     <div class="meta">
       <span>19 ביוני 2026</span>
-      <span>3 min read</span>
+      <span>3 דקות קריאה</span>
       <span>1h 0m</span>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-label">TL;DR</div>
+    <div class="section-label">תקציר</div>
     <p class="tldr-text">איל עופר מנתח את השלכות ההסכם עם איראן על המצב הכלכלי והביטחוני של ישראל. הוא בוחן כיצד ההתפתחויות האחרונות במזרח התיכון משנות את מאזן הכוחות האזורי ואת מעמדה של ישראל. ההסכם עם איראן מייצר אי-ודאות כלכלית וביטחונית שהשפעותיה עדיין לא ברורות לחלוטין.</p>
   </div>
 
   <div class="moments-section">
-    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="section-label" style="padding-right:18px;">רגעים מרכזיים</div>
     <div class="moments-scroll">
       <div class="moment-card">
         <div class="moment-speaker">איל עופר</div>
@@ -149,7 +149,7 @@
   </div>
 
   <div class="section">
-    <div class="section-label">Takeaways</div>
+    <div class="section-label">תובנות</div>
     <div class="takeaway">
       <div class="takeaway-num">1</div>
       <div class="takeaway-text"><strong>השינוי האזורי פוגע בגיוס הון לחברות ישראליות </strong>חוסר יציבות אזורי ותמונה גיאופוליטית מורכבת משפיעים ישירות על נכונות משקיעים זרים להיכנס לחברות ישראליות. בתקופות של אי-ודאות גבוהה, גיוסי הון הופכים קשים יותר ויקרים יותר גם עבור חברות טכנולוגיה איכותיות. חברות שמתכננות סבבי גיוס צריכות להביא בחשבון את ההקשר הגיאופוליטי כמשתנה מרכזי.</div>
@@ -168,7 +168,7 @@
       <div class="takeaway-text"><strong>ישראל נדרשת לאסטרטגיית מיצוב מחודשת </strong>כשכללי המשחק משתנים, גם האסטרטגיה הלאומית חייבת להשתנות. עופר טוען שהשאלה הקריטית היא כיצד ישראל מתמצבת בעולם שבו נוצרו כוחות ואיזונים חדשים. ההמתנה הפסיבית אינה אופציה — נדרשת חשיבה אסטרטגית פעילה ומהירה.</div>
     </div>
     </div>
-    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 4 takeaways</button>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">הצג את כל 4 תובנות</button>
 
   </div>
 
@@ -251,7 +251,7 @@
     var btn = document.getElementById('takeawaysToggle');
     if (rest.hasAttribute('hidden')) {
       rest.removeAttribute('hidden');
-      btn.textContent = 'Show fewer';
+      btn.textContent = 'הצג פחות';
     } else {
       rest.setAttribute('hidden', '');
       btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
