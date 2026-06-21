@@ -97,19 +97,19 @@
     <h1 class="episode-title">סטארטאפ המשלוחים ששווה מאות מיליונים ומאתגר את וולט; עם חסן עבאסי</h1>
     <div class="guest-name">עם חסן עבאסי</div>
     <div class="meta">
-      <span>21 ביוני 2026</span>
-      <span>3 דקות קריאה</span>
+      <span>21 Jun 2026</span>
+      <span>3 min read</span>
       <span>1h 2m</span>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-label">תקציר</div>
+    <div class="section-label">TL;DR</div>
     <p class="tldr-text">חסן עבאסי עזב קריירה בגוגל ציריך כדי לפתור בעיה שחווה על בשרו: אי אפשר להזמין משלוח לאום אל-פחם כי אין כתובות רחוב. HAAT בנתה תשתית לוגיסטית מותאמת לסקטור הערבי בישראל – עם מזומן, GPS וניווט ללא כתובות – ומאתגרת היום את וולט ודומותיה. AI הפך לנשק המרכזי שמאפשר לחברה להתרחב מהר בלי לנפח את הצוות.</p>
   </div>
 
   <div class="moments-section">
-    <div class="section-label" style="padding-right:18px;">רגעים מרכזיים</div>
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
     <div class="moments-scroll">
       <div class="moment-card">
         <div class="moment-speaker">חסן עבאסי</div>
@@ -154,7 +154,7 @@
   </div>
 
   <div class="section">
-    <div class="section-label">תובנות</div>
+    <div class="section-label">Takeaways</div>
     <div class="takeaway">
       <div class="takeaway-num">1</div>
       <div class="takeaway-text"><strong>שווקים מוזנחים הם הזדמנות יזמית אמיתית </strong>הסקטור הערבי בישראל לא קיבל שירות מחברות משלוחים גדולות כי הוא דורש פתרון שונה – מזומן, ניווט ללא כתובות, הבנה תרבותית. עבאסי לא ניסה לשנות את הלקוח כדי שיתאים למוצר, אלא בנה מוצר שמתאים ללקוח. חברות כמו וולט דילגו על שוק זה, מה שאפשר ל-HAAT לגדול ל-100 מיליון דולר כמעט ללא תחרות ישירה.</div>
@@ -181,7 +181,7 @@
       <div class="takeaway-text"><strong>מדעי מחשב עדיין שווה ללמוד בעידן AI </strong>למרות החשש שה-AI יחליף מתכנתים, עבאסי טוען שהבסיס האקדמי במדעי המחשב הוא מה שמאפשר להשתמש ב-AI בצורה אפקטיבית ולא רק להשתמש בו כקופסה שחורה. הבנה עמוקה של אלגוריתמים ומבני נתונים הופכת את המהנדס לכזה שיכול להוביל AI ולא להיות מוחלף על ידו. זה מסר ישיר ליזמים ולסטודנטים שמהססים אם להתמחות בתחום.</div>
     </div>
     </div>
-    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">הצג את כל 6 תובנות</button>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 6 takeaways</button>
 
   </div>
 
@@ -210,7 +210,7 @@
 <script>
   var pageUrl    = 'https://readingsis.github.io/reading-sis/trashtech-2026-06-21.html';
   var PAGE_TITLE = 'סטארטאפ המשלוחים ששווה מאות מיליונים ומאתגר את וולט; עם חסן עבאסי — Reading.Sis';
-  var EP = {id:'trashtech-2026-06-21', title:'סטארטאפ המשלוחים ששווה מאות מיליונים ומאתגר את וולט; עם חסן עבאסי', show:'טראשטק', date:'21 ביוני 2026', url:pageUrl};
+  var EP = {id:'trashtech-2026-06-21', title:'סטארטאפ המשלוחים ששווה מאות מיליונים ומאתגר את וולט; עם חסן עבאסי', show:'טראשטק', date:'21 Jun 2026', url:pageUrl};
 
   // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
   // Path is scoped to this episode so events break down per page. No-op when
@@ -264,7 +264,7 @@
     var btn = document.getElementById('takeawaysToggle');
     if (rest.hasAttribute('hidden')) {
       rest.removeAttribute('hidden');
-      btn.textContent = 'הצג פחות';
+      btn.textContent = 'Show fewer';
     } else {
       rest.setAttribute('hidden', '');
       btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
