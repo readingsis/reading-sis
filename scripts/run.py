@@ -639,7 +639,7 @@ Show format note: This is a PANEL / ENSEMBLE show — the recurring hosts ARE th
 
 # The canonical template. Placeholders use {{UPPER_SNAKE}} convention.
 HTML_TEMPLATE = """<!DOCTYPE html>
-<html lang="en">
+<html LANG_DIR_ATTRS>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -647,6 +647,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <title>Reading.Sis — EPISODE_TITLE</title>
 FAVICON_LINKS
 GOATCOUNTER_SCRIPT
+HEBREW_FONT_LINK
   <style>
     :root {
       --bg: #111111; --card-bg: #181816; --green: #0EB88A;
@@ -926,6 +927,7 @@ PLACEHOLDER_TOKENS = [
     "MOMENTS_HTML", "TAKEAWAYS_HTML", "GOATCOUNTER_SCRIPT", "FAVICON_LINKS",
     "PAGE_URL_JS", "EPISODE_TITLE_JS", "EPISODE_ID_JS", "EPISODE_SHOW_JS",
     "EPISODE_DATE_JS", "YOUTUBE_URL", "SPOTIFY_URL",
+    "LANG_DIR_ATTRS", "HEBREW_FONT_LINK",
 ]
 
 FAVICON_LINKS = (
@@ -1042,6 +1044,13 @@ def qa_content_review(episode: dict, content: dict, transcript: list[dict]) -> d
     transcript_text = "\n".join(s["text"] for s in transcript)[:24000]
     quotes = [{"index": i, "speaker": m.get("speaker", ""), "quote": m.get("quote", "")}
               for i, m in enumerate(content.get("moments", []))]
+    hebrew_qa_instructions = """
+
+HEBREW PODCAST — ADDITIONAL CHECKS:
+- Verbatim strictness: Hebrew quotes must be EXACTLY as spoken — zero tolerance for paraphrasing, summarizing, or word substitution. Even a single changed word can alter meaning in Hebrew. Treat any non-verbatim quote as fabricated and include it in bad_quote_indexes.
+- Speaker attribution: verify every quote is attributed to the correct speaker (host or guest — applies to all). A verbatim quote attributed to the wrong person counts as an error; include it in bad_quote_indexes.
+- For co-hosted shows: if the bio/about section describes both hosts, verify their individual descriptions are not swapped.
+- Set overall_ok=false for any attribution error, not just fabricated quotes.""" if episode.get("lang") == "he" else ""
     prompt = f"""You are the QA reviewer for Reading.Sis. Check the generated content against the episode transcript and flag problems.
 
 Episode title: {episode["title"]}
@@ -1065,7 +1074,7 @@ Return a single JSON object, no markdown:
   "summary": "one short line on what's wrong, or 'clean'"
 }}
 
-Set overall_ok=false if the guest is wrong or any quote is fabricated. A generic TL;DR alone (tldr_ok=false) is a warning, not a failure."""
+Set overall_ok=false if the guest is wrong or any quote is fabricated. A generic TL;DR alone (tldr_ok=false) is a warning, not a failure.{hebrew_qa_instructions}"""
     client = Anthropic(api_key=ANTHROPIC_KEY)
     # Retry: the review occasionally returns an empty/non-JSON body. A None
     # here makes qa_episode fail-open (publishes unreviewed), so retry before
@@ -1276,6 +1285,23 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
     def _js(s: str) -> str:
         return str(s).replace("\\", "\\\\").replace("'", "\\'")
     js_title = _js(episode["title"])
+    is_he = episode.get("lang") == "he"
+    lang_dir = 'lang="he" dir="rtl"' if is_he else 'lang="en"'
+    hebrew_font = (
+        '<link rel="preconnect" href="https://fonts.googleapis.com">'
+        '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap">'
+        '<style>'
+        'html,body{font-family:\'Heebo\',-apple-system,BlinkMacSystemFont,sans-serif;}'
+        # Structural elements: force LTR so layout is identical to English pages
+        '.app-bar,.nav,.moment-card,.section-label,.takeaway,.bio-toggle{direction:ltr;}'
+        # Carousel starts from the right, scrolls left (natural RTL reading order)
+        '.moments-scroll{direction:rtl;padding-left:18px;}'
+        # Text content: RTL alignment for Hebrew reading
+        '.episode-title,.guest-name,.tldr-text,.bio-content,.takeaway-text,.moment-quote,.moment-context,.qsheet-quote,.qsheet-ctx{direction:rtl;text-align:right;}'
+        '</style>'
+    ) if is_he else ""
+    html = html.replace("LANG_DIR_ATTRS",      lang_dir)
+    html = html.replace("HEBREW_FONT_LINK",    hebrew_font)
     html = html.replace("EPISODE_TITLE_JS",   js_title)
     html = html.replace("EPISODE_ID_JS",      _js(episode["id"]))
     html = html.replace("EPISODE_SHOW_JS",    _js(episode["podcast"]))
@@ -2135,8 +2161,15 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
     candidates: list[dict] = []
     for podcast in PODCASTS:
         print(f"Scanning {podcast['name']}…")
-        # Pass empty queued set so we consider every not-yet-processed episode.
-        eps = fetch_new_episodes(podcast, cutoff, processed_ids, set())
+        # Per-show backfill_since overrides the global since date (used to cap
+        # high-frequency shows like daily podcasts without a separate backfill run).
+        show_since = podcast.get("backfill_since")
+        show_cutoff = (
+            datetime.datetime(
+                *[int(x) for x in show_since.split("-")], tzinfo=datetime.timezone.utc
+            ) if show_since else cutoff
+        )
+        eps = fetch_new_episodes(podcast, show_cutoff, processed_ids, set())
         print(f"  {len(eps)} to consider")
         candidates.extend(eps)
 
@@ -2339,7 +2372,7 @@ def _run_generate(window_override: datetime.timedelta | None = None,
     } if preview_mode else set()
     for podcast in PODCASTS:
         print(f"Scanning {podcast['name']}…")
-        if podcast.get("hold"):
+        if podcast.get("hold") and not preview_mode:
             print(f"  On hold — skipping daily scan")
             continue
         if preview_mode and podcast["name"] in shows_already_previewed:
