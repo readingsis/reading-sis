@@ -2339,7 +2339,7 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
       • uses cheap Haiku for generation (QA review still uses Sonnet)
       • resumable: skips pages already live (gh_exists) or already processed
     Run via a dedicated high-timeout workflow_dispatch, not the daily cron."""
-    cutoff = datetime.datetime(since.year, since.month, since.day)
+    cutoff = datetime.datetime(since.year, since.month, since.day, tzinfo=datetime.timezone.utc)
     print(f"Backfill since {since} using {model}\n")
 
     tracker, tracker_sha = get_tracker()
