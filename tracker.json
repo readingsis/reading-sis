@@ -2557,6 +2557,16 @@
       "published_at": "2026-06-19T19:05:00",
       "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-06-19.html",
       "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "call-her-daddy-2026-06-21",
+      "podcast": "Call Her Daddy",
+      "guest": "Alex Cooper",
+      "title": "Stop Idolizing the \"Cool Girl\"",
+      "date": "2026-06-21",
+      "published_at": "2026-06-21T10:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-21.html",
+      "pushed_at": "2026-06-21"
     }
   ],
   "queued": [],
@@ -2571,10 +2581,35 @@
       "published_at": "2026-06-20T01:07:00",
       "hook": "SpaceX's record-breaking IPO — the largest in history at $85B raised — made Elon Musk the world's first trillionaire, though the hosts argue his paper wealth reflects the discounted future value of machines he built, not cash hoarded. The panel uses the moment to mount a sustained argument that gove",
       "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-20.html"
+    },
+    {
+      "id": "call-her-daddy-2026-06-21",
+      "podcast": "Call Her Daddy",
+      "guest": "Alex Cooper",
+      "title": "Stop Idolizing the \"Cool Girl\"",
+      "date_str": "21 Jun 2026",
+      "date_short": "Jun 21",
+      "published_at": "2026-06-21T10:00:00",
+      "hook": "Alex argues that the internet's 'cool girl' archetype — effortless, unbothered, never trying too hard — is a performance that pressures people to hide ambition and vulnerability. Trying hard is not embarrassing; it's how character gets built. The episode also tackles listener questions about dating ",
+      "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-21.html"
     }
   ],
   "preview": [],
-  "awaiting_video": [],
+  "awaiting_video": [
+    {
+      "id": "call-her-daddy-2026-06-21",
+      "podcast": "Call Her Daddy",
+      "slug_prefix": "call-her-daddy",
+      "title": "Stop Idolizing the \"Cool Girl\"",
+      "date": "2026-06-21",
+      "description": "Alex is unpacking the pressure to make everything look effortless. She talks about why trying hard gets a bad rap, how failure builds character, and why the internet’s cool-girl aesthetic isn’t always what it seems. She also gets into some questions from Daddy Gang about rethinking old dating dealbreakers, being the single friend, and a fiancé who refuses to talk about finances",
+      "duration_sec": 2711,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "interview",
+      "published_at": "2026-06-21T10:00:00"
+    }
+  ],
   "sent_count_today": {
     "date": "2026-06-21",
     "count": 1
