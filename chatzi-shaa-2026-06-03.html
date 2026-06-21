@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap"><style>html,body{font-family:'Heebo',-apple-system,BlinkMacSystemFont,sans-serif;}.app-bar,.nav,.moment-card,.section-label,.takeaway,.bio-toggle{direction:ltr;}.moments-scroll{direction:rtl;padding-left:18px;}.episode-title,.guest-name,.tldr-text,.bio-content,.takeaway-text,.moment-quote,.moment-context,.qsheet-quote,.qsheet-ctx{direction:rtl;text-align:right;}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap"><style>html,body{font-family:'Heebo',-apple-system,BlinkMacSystemFont,sans-serif !important;}.app-bar,.nav,.moment-card,.section-label,.takeaway,.bio-toggle{direction:ltr;}.moments-scroll{direction:rtl;padding-left:18px;}.episode-title,.guest-name,.tldr-text,.bio-content,.takeaway-text,.moment-quote,.moment-context,.qsheet-quote,.qsheet-ctx{direction:rtl;text-align:right;}</style>
   <style>
     :root {
       --bg: #111111; --card-bg: #181816; --green: #0EB88A;
@@ -98,18 +98,18 @@
     <div class="guest-name">עם שמואל דונרשטיין</div>
     <div class="meta">
       <span>3 ביוני 2026</span>
-      <span>3 min read</span>
+      <span>3 דקות קריאה</span>
       <span>29m</span>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-label">TL;DR</div>
+    <div class="section-label">תקציר</div>
     <p class="tldr-text">שמואל דונרשטיין גילה שפרישה לפנסיה של מנכ"ל מצליח היא לא רק החלטה עסקית אלא מלכודת פסיכולוגית עמוקה – הזהות, הכוח והמשמעות קשורים כולם לתפקיד. הוא חזר לשטח, הציל מפעל בפשיטת רגל, ובנה אימפריה תעשייתית של 13 מפעלים. הסיפור שלו ממחיש שפרישה הפוכה – חזרה לאחר עזיבה – יכולה להיות הצעד הניהולי הנועז ביותר בקריירה.</p>
   </div>
 
   <div class="moments-section">
-    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="section-label" style="padding-right:18px;">רגעים מרכזיים</div>
     <div class="moments-scroll">
       <div class="moment-card">
         <div class="moment-speaker">שמואל דונרשטיין</div>
@@ -149,7 +149,7 @@
   </div>
 
   <div class="section">
-    <div class="section-label">Takeaways</div>
+    <div class="section-label">תובנות</div>
     <div class="takeaway">
       <div class="takeaway-num">1</div>
       <div class="takeaway-text"><strong>פרישה הפוכה היא אסטרטגיה ניהולית לגיטימית </strong>דונרשטיין הוכיח שחזרה לפעילות לאחר הכרזת פרישה אינה כישלון אלא יכולה להיות המהלך הניהולי הנועז ביותר בקריירה. הסיכוי לנצל ניסיון צבור מחדש, על נכסים מופחתי-ציפיות, יוצר הזדמנות אסימטרית. מנהלים שחושבים על יציאה צריכים לשאול: האם אני עוזב כי אני מוכן, או כי אני מפחד?</div>
@@ -172,7 +172,7 @@
       <div class="takeaway-text"><strong>נכסים בפשיטת רגל מכילים פוטנציאל אנושי נסתר </strong>כשדונרשטיין נכנס למפעל שכולם ויתרו עליו, הוא זיהה שהבעיה לא הייתה העובדים אלא ההנהלה והאמונה. עובדים שחוו כישלון ארגוני לרוב מגיעים עם מוטיבציה עצורה שמחכה להנהגה נכונה. זיהוי ההון האנושי הנסתר בארגונים כושלים הוא כישרון ניהולי שניתן לפתח.</div>
     </div>
     </div>
-    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 5 takeaways</button>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">הצג את כל 5 תובנות</button>
 
   </div>
 
@@ -255,7 +255,7 @@
     var btn = document.getElementById('takeawaysToggle');
     if (rest.hasAttribute('hidden')) {
       rest.removeAttribute('hidden');
-      btn.textContent = 'Show fewer';
+      btn.textContent = 'הצג פחות';
     } else {
       rest.setAttribute('hidden', '');
       btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
