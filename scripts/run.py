@@ -1647,7 +1647,8 @@ LIB_CSS = """
     .card-count { font-size:11.5px; color:var(--dim); white-space:nowrap; }
     .lang-en { font-size:10px; padding:1px 5px; border-radius:999px; background:rgba(255,255,255,0.08); color:var(--dim); margin-right:4px; }
     .lang-he { font-size:10px; padding:1px 5px; border-radius:999px; background:rgba(21,185,138,0.15); color:var(--green); margin-right:4px; }
-    .genre-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+    .genre-tabs { display:flex; gap:6px; flex-wrap:nowrap; overflow-x:auto; padding:0 18px 2px; margin-bottom:12px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+    .genre-tabs::-webkit-scrollbar { display:none; }
     .gtab { font-size:12px; padding:4px 12px; border-radius:999px; border:0.5px solid var(--dim); background:transparent; color:var(--dim); cursor:pointer; }
     .gtab.active { background:var(--green); border-color:var(--green); color:#fff; }
     .empty { padding:48px 24px; text-align:center; color:var(--dim); font-size:13px; line-height:1.6; }
@@ -1847,7 +1848,8 @@ def build_podcast_pages(tracker: dict) -> dict:
             '<div class="empty">No episodes yet.</div>'
         n = len(show_eps)
         desc = p.get("description", "")
-        desc_html = f'<div class="shero-desc">{_t(desc)}</div>' if desc else ""
+        rtl_attr = ' dir="rtl"' if m.get("lang") == "he" else ""
+        desc_html = f'<div class="shero-desc"{rtl_attr}>{_t(desc)}</div>' if desc else ""
         _LAYERS = ('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
                    ' stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
                    '<path d="M12 2L2 7l10 5 10-5-10-5z"/>'
