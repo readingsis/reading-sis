@@ -61,29 +61,7 @@ GH_HEADERS = {
 # show's index here (see show_color), so reordering re-spaces the ramp.
 # `chip` = the initials shown on the library's color square.
 PODCASTS = [
-    # ── English shows (indices 0–12) ──────────────────────────────────────────
-    {
-        "name": "Lenny's Podcast",
-        "slug": "lennys",
-        "chip": "LP",
-        "rss": "https://api.substack.com/feed/podcast/10845.rss",
-        "spotify_show": "https://open.spotify.com/show/2dR1MUZEHCOnz1LVfNac0j",
-        "lex_filter": False,
-        "genre": "tech",
-        "lang": "en",
-        "description": "Deep-dive conversations on product, growth, and career with PMs and founders from the world's top companies.",
-    },
-    {
-        "name": "Pivot",
-        "slug": "pivot",
-        "chip": "PV",
-        "rss": "https://feeds.megaphone.fm/pivot",
-        "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
-        "lex_filter": False,
-        "genre": "tech",
-        "lang": "en",
-        "description": "Kara Swisher and Scott Galloway break down the week's biggest tech and business stories with sharp takes and zero filter.",
-    },
+    # ── English shows (indices 0–13) — alphabetical A→Z ──────────────────────
     {
         "name": "All-In",
         "slug": "all-in",
@@ -96,15 +74,49 @@ PODCASTS = [
         "description": "Four tech investors debate business, politics, and the future with the candor you'd only hear in a private room.",
     },
     {
-        "name": "Hard Fork",
-        "slug": "hard-fork",
-        "chip": "HF",
-        "rss": "https://feeds.simplecast.com/l2i9YnTd",
-        "spotify_show": "https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj",
+        "name": "BigDeal",
+        "slug": "bigdeal",
+        "chip": "BD",
+        "rss": "https://feeds.megaphone.fm/bigdeal",
+        "spotify_show": "",
         "lex_filter": False,
-        "genre": "tech",
+        "genre": "business",
         "lang": "en",
-        "description": "The New York Times technology journalists making sense of an industry that's constantly breaking.",
+        "description": "Codie Sanchez on buying boring businesses, building wealth outside Wall Street, and the entrepreneurial mindset most people overlook.",
+    },
+    {
+        "name": "Call Her Daddy",
+        "slug": "call-her-daddy",
+        "chip": "CHD",
+        "rss": "https://feeds.simplecast.com/mKn_QmLS",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "entertainment",
+        "lang": "en",
+        "description": "Alex Cooper's unfiltered conversations on relationships, sex, and modern life — the show your group chat actually talks about.",
+    },
+    {
+        "name": "Conan O'Brien Needs A Friend",
+        "slug": "conan",
+        "chip": "CB",
+        "rss": "https://feeds.simplecast.com/dHoohVNH",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "entertainment",
+        "lang": "en",
+        "description": "Conan's delusional quest for friendship with the world's most famous people, one awkward conversation at a time.",
+    },
+    {
+        "name": "Crime Junkie",
+        "slug": "crime-junkie",
+        "chip": "CJ",
+        "rss": "https://feeds.simplecast.com/qm_9xx0g",
+        "spotify_show": "",
+        "lex_filter": False,
+        "show_format": "true_crime",
+        "genre": "storytelling",
+        "lang": "en",
+        "description": "Straightforward, addictive true crime delivered weekly — no fluff, just the case.",
     },
     {
         "name": "The Diary Of A CEO",
@@ -121,6 +133,39 @@ PODCASTS = [
         "description": "Raw, long-form conversations with the world's most successful entrepreneurs on what it really takes to build something great.",
     },
     {
+        "name": "Freakonomics Radio",
+        "slug": "freakonomics",
+        "chip": "FK",
+        "rss": "https://feeds.simplecast.com/Y8lFbOT4",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "storytelling",
+        "lang": "en",
+        "description": "The hidden economics behind everyday decisions — data-driven, counterintuitive, and impossible to predict.",
+    },
+    {
+        "name": "Hard Fork",
+        "slug": "hard-fork",
+        "chip": "HF",
+        "rss": "https://feeds.simplecast.com/l2i9YnTd",
+        "spotify_show": "https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj",
+        "lex_filter": False,
+        "genre": "tech",
+        "lang": "en",
+        "description": "The New York Times technology journalists making sense of an industry that's constantly breaking.",
+    },
+    {
+        "name": "Lenny's Podcast",
+        "slug": "lennys",
+        "chip": "LP",
+        "rss": "https://api.substack.com/feed/podcast/10845.rss",
+        "spotify_show": "https://open.spotify.com/show/2dR1MUZEHCOnz1LVfNac0j",
+        "lex_filter": False,
+        "genre": "tech",
+        "lang": "en",
+        "description": "Deep-dive conversations on product, growth, and career with PMs and founders from the world's top companies.",
+    },
+    {
         "name": "Lex Fridman Podcast",
         "slug": "lex-fridman",
         "chip": "LX",
@@ -132,27 +177,15 @@ PODCASTS = [
         "description": "The scientists and engineers reshaping AI, physics, and technology — in their own words.",
     },
     {
-        "name": "Crime Junkie",
-        "slug": "crime-junkie",
-        "chip": "CJ",
-        "rss": "https://feeds.simplecast.com/qm_9xx0g",
-        "spotify_show": "",
+        "name": "Pivot",
+        "slug": "pivot",
+        "chip": "PV",
+        "rss": "https://feeds.megaphone.fm/pivot",
+        "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
         "lex_filter": False,
-        "show_format": "true_crime",
-        "genre": "storytelling",
+        "genre": "tech",
         "lang": "en",
-        "description": "Straightforward, addictive true crime delivered weekly — no fluff, just the case.",
-    },
-    {
-        "name": "Call Her Daddy",
-        "slug": "call-her-daddy",
-        "chip": "CHD",
-        "rss": "https://feeds.simplecast.com/mKn_QmLS",
-        "spotify_show": "",
-        "lex_filter": False,
-        "genre": "entertainment",
-        "lang": "en",
-        "description": "Alex Cooper's unfiltered conversations on relationships, sex, and modern life — the show your group chat actually talks about.",
+        "description": "Kara Swisher and Scott Galloway break down the week's biggest tech and business stories with sharp takes and zero filter.",
     },
     {
         "name": "SmartLess",
@@ -165,90 +198,6 @@ PODCASTS = [
         "genre": "entertainment",
         "lang": "en",
         "description": "Jason Bateman, Sean Hayes, and Will Arnett interview a surprise guest each week — funny, warm, and genuinely unpredictable.",
-    },
-    {
-        "name": "This Past Weekend w/ Theo Von",
-        "slug": "theo-von",
-        "chip": "TV",
-        "rss": "https://feeds.megaphone.fm/thispastweekend",
-        "spotify_show": "",
-        "lex_filter": False,
-        "genre": "entertainment",
-        "lang": "en",
-        "description": "Theo Von's curious, wandering conversations with comedians, athletes, and people who've lived unusual lives.",
-    },
-    {
-        "name": "Freakonomics Radio",
-        "slug": "freakonomics",
-        "chip": "FK",
-        "rss": "https://feeds.simplecast.com/Y8lFbOT4",
-        "spotify_show": "",
-        "lex_filter": False,
-        "genre": "storytelling",
-        "lang": "en",
-        "description": "The hidden economics behind everyday decisions — data-driven, counterintuitive, and impossible to predict.",
-    },
-    {
-        "name": "Conan O'Brien Needs A Friend",
-        "slug": "conan",
-        "chip": "CB",
-        "rss": "https://feeds.simplecast.com/dHoohVNH",
-        "spotify_show": "",
-        "lex_filter": False,
-        "genre": "entertainment",
-        "lang": "en",
-        "description": "Conan's delusional quest for friendship with the world's most famous people, one awkward conversation at a time.",
-    },
-    {
-        "name": "BigDeal",
-        "slug": "bigdeal",
-        "chip": "BD",
-        "rss": "https://feeds.megaphone.fm/bigdeal",
-        "spotify_show": "",
-        "lex_filter": False,
-        "genre": "business",
-        "lang": "en",
-        "description": "Codie Sanchez on buying boring businesses, building wealth outside Wall Street, and the entrepreneurial mindset most people overlook.",
-    },
-    # ── Hebrew shows (indices 13–19) — hold:True until preview approved ───────
-    {
-        "name": "טראשטק",
-        "slug": "trashtech",
-        "chip": "טר",
-        "rss": "https://anchor.fm/s/f4876104/podcast/rss",
-        "spotify_show": "https://open.spotify.com/show/0nGv2IY8OATmjMtkJ7eLHG",
-        "lex_filter": False,
-        "genre": "tech",
-        "lang": "he",
-        "hold": False,
-        "backfill_since": "2026-06-01",
-        "description": "חדשות טק ישראליות ועולמיות, בינה מלאכותית וסטארטאפים — עם עמרי ברק ויואב צוקר.",
-    },
-    {
-        "name": "חיות כיס",
-        "slug": "hayot-kis",
-        "chip": "חכ",
-        "rss": "https://omny.fm/shows/hayot-kiss/playlists/podcast.rss",
-        "spotify_show": "",
-        "lex_filter": False,
-        "genre": "business",
-        "lang": "he",
-        "hold": False,
-        "backfill_since": "2026-06-01",
-        "description": "כלכלה בשפת בני אדם — סיפורים אנושיים שמאחורי הכוחות הכלכליים הגדולים. פודקאסט הכלכלה של כאן.",
-    },
-    {
-        "name": "גיקונומי",
-        "slug": "geekonomy",
-        "chip": "גק",
-        "rss": "https://feed.podbean.com/geekonomy/feed.xml",
-        "spotify_show": "",
-        "lex_filter": False,
-        "genre": "business",
-        "lang": "he",
-        "hold": False,
-        "backfill_since": "2026-06-01",
-        "description": "שיחות רחבות אופק על טכנולוגיה, עסקים, פוליטיקה ותרבות — מעל 1,100 פרקים.",
     },
     {
         "name": "Startup for Startup",
@@ -264,6 +213,57 @@ PODCASTS = [
         "description": "האתגרים האמיתיים של בנייה — גיוס, מוצר ותרבות ארגונית מבפנים, מ-monday.com.",
     },
     {
+        "name": "This Past Weekend w/ Theo Von",
+        "slug": "theo-von",
+        "chip": "TV",
+        "rss": "https://feeds.megaphone.fm/thispastweekend",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "entertainment",
+        "lang": "en",
+        "description": "Theo Von's curious, wandering conversations with comedians, athletes, and people who've lived unusual lives.",
+    },
+    # ── Hebrew shows (indices 14–19) — Hebrew alphabetical א→ת ───────────────
+    {
+        "name": "אחד ביום",
+        "slug": "echad-beyom",
+        "chip": "אב",
+        "rss": "https://omny.fm/shows/ehadbeyom/playlists/ehadbeyom.rss",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "storytelling",
+        "lang": "he",
+        "hold": False,
+        "backfill_since": "2026-06-15",
+        "description": "סיפור אחד, נבחר, מוסבר לעומק — בכל יום עם אלעד שמחיוף.",
+    },
+    {
+        "name": "גיקונומי",
+        "slug": "geekonomy",
+        "chip": "גק",
+        "rss": "https://feed.podbean.com/geekonomy/feed.xml",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "business",
+        "lang": "he",
+        "hold": False,
+        "backfill_since": "2026-06-01",
+        "description": "שיחות רחבות אופק על טכנולוגיה, עסקים, פוליטיקה ותרבות — מעל 1,100 פרקים.",
+    },
+    {
+        "name": "חיות כיס",
+        "slug": "hayot-kis",
+        "chip": "חכ",
+        "rss": "https://omny.fm/shows/hayot-kiss/playlists/podcast.rss",
+        "spotify_show": "",
+        "lex_filter": False,
+        "genre": "business",
+        "lang": "he",
+        "hold": False,
+        "backfill_since": "2026-06-01",
+        "description": "כלכלה בשפת בני אדם — סיפורים אנושיים שמאחורי הכוחות הכלכליים הגדולים. פודקאסט הכלכלה של כאן.",
+    },
+    {
         "name": "חצי שעה של השראה",
         "slug": "chatzi-shaa",
         "chip": "חש",
@@ -275,6 +275,19 @@ PODCASTS = [
         "hold": False,
         "backfill_since": "2026-06-01",
         "description": 'ראיונות חודשיים עם מנכ"לים ויזמים ישראלים על חדשנות, תרבות ארגונית והדרך שלהם.',
+    },
+    {
+        "name": "טראשטק",
+        "slug": "trashtech",
+        "chip": "טר",
+        "rss": "https://anchor.fm/s/f4876104/podcast/rss",
+        "spotify_show": "https://open.spotify.com/show/0nGv2IY8OATmjMtkJ7eLHG",
+        "lex_filter": False,
+        "genre": "tech",
+        "lang": "he",
+        "hold": False,
+        "backfill_since": "2026-06-01",
+        "description": "חדשות טק ישראליות ועולמיות, בינה מלאכותית וסטארטאפים — עם עמרי ברק ויואב צוקר.",
     },
     {
         "name": "שיר אחד",
@@ -289,19 +302,6 @@ PODCASTS = [
         "hold": False,
         "backfill_since": "2026-06-15",
         "description": "כל פרק מפרק שיר אחד — ההיסטוריה שלו, המשמעות, והדרך שהפך לסמל תרבותי.",
-    },
-    {
-        "name": "אחד ביום",
-        "slug": "echad-beyom",
-        "chip": "אב",
-        "rss": "https://omny.fm/shows/ehadbeyom/playlists/ehadbeyom.rss",
-        "spotify_show": "",
-        "lex_filter": False,
-        "genre": "storytelling",
-        "lang": "he",
-        "hold": False,
-        "backfill_since": "2026-06-15",
-        "description": "סיפור אחד, נבחר, מוסבר לעומק — בכל יום עם אלעד שמחיוף.",
     },
 ]
 
@@ -1488,23 +1488,28 @@ def _hex_lerp(c1: str, c2: str, t: float) -> str:
 # (Lenny's = gold … Lex = green). Hand-picked so all six read as distinct
 # colors. When a show is added, append a stop (and we'll revisit spacing).
 _SHOW_RAMP = [
-    # English shows (0–12) — gold→green then distinct hues
-    "#E3B25A", "#CEB538", "#ADBA2F", "#83BD4A", "#52BD6C", "#15B98A",  # 0–5  Lenny's→Lex
-    "#5BA3D9",  # 6   Crime Junkie
-    "#CF7E5E",  # 7   Call Her Daddy
-    "#A05EC4",  # 8   SmartLess
-    "#E06A2E",  # 9   Theo Von
-    "#D4A84B",  # 10  Freakonomics
-    "#5CB8B2",  # 11  Conan
-    "#D65BA0",  # 12  BigDeal
-    # Hebrew shows (13–19)
-    "#5B8AD6",  # 13  טראשטק       — cornflower
-    "#D44F6B",  # 14  חיות כיס      — raspberry
-    "#5DC48A",  # 15  גיקונומי      — sage green
-    "#9B6FD4",  # 16  Startup for Startup — lavender
-    "#7B8AE8",  # 17  חצי שעה      — periwinkle
-    "#E8C45C",  # 18  שיר אחד      — gold ochre
-    "#5BC4C4",  # 19  אחד ביום     — cyan
+    # English shows (0–13) — alphabetical A→Z
+    "#ADBA2F",  # 0   All-In               — yellow-green
+    "#D65BA0",  # 1   BigDeal              — pink
+    "#CF7E5E",  # 2   Call Her Daddy       — terracotta
+    "#5CB8B2",  # 3   Conan                — teal
+    "#5BA3D9",  # 4   Crime Junkie         — cornflower
+    "#52BD6C",  # 5   The Diary Of A CEO   — green
+    "#D4A84B",  # 6   Freakonomics         — amber
+    "#83BD4A",  # 7   Hard Fork            — lime
+    "#E3B25A",  # 8   Lenny's Podcast      — gold
+    "#15B98A",  # 9   Lex Fridman          — emerald
+    "#CEB538",  # 10  Pivot                — yellow
+    "#A05EC4",  # 11  SmartLess            — purple
+    "#9B6FD4",  # 12  Startup for Startup  — lavender
+    "#E06A2E",  # 13  Theo Von             — orange
+    # Hebrew shows (14–19) — Hebrew alphabetical א→ת
+    "#5BC4C4",  # 14  אחד ביום            — cyan
+    "#5DC48A",  # 15  גיקונומי             — sage green
+    "#D44F6B",  # 16  חיות כיס            — raspberry
+    "#7B8AE8",  # 17  חצי שעה של השראה   — periwinkle
+    "#5B8AD6",  # 18  טראשטק              — blue
+    "#E8C45C",  # 19  שיר אחד             — gold ochre
 ]
 
 
