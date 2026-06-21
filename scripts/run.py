@@ -220,7 +220,7 @@ PODCASTS = [
         "lex_filter": False,
         "genre": "tech",
         "lang": "he",
-        "hold": True,
+        "hold": False,
         "backfill_since": "2026-06-01",
         "description": "חדשות טק ישראליות ועולמיות, בינה מלאכותית וסטארטאפים — עם עמרי ברק ויואב צוקר.",
     },
@@ -233,7 +233,7 @@ PODCASTS = [
         "lex_filter": False,
         "genre": "business",
         "lang": "he",
-        "hold": True,
+        "hold": False,
         "backfill_since": "2026-06-01",
         "description": "כלכלה בשפת בני אדם — סיפורים אנושיים שמאחורי הכוחות הכלכליים הגדולים. פודקאסט הכלכלה של כאן.",
     },
@@ -246,7 +246,7 @@ PODCASTS = [
         "lex_filter": False,
         "genre": "business",
         "lang": "he",
-        "hold": True,
+        "hold": False,
         "backfill_since": "2026-06-01",
         "description": "שיחות רחבות אופק על טכנולוגיה, עסקים, פוליטיקה ותרבות — מעל 1,100 פרקים.",
     },
@@ -259,7 +259,7 @@ PODCASTS = [
         "lex_filter": False,
         "genre": "business",
         "lang": "he",
-        "hold": True,
+        "hold": False,
         "backfill_since": "2026-06-01",
         "description": "האתגרים האמיתיים של בנייה — גיוס, מוצר ותרבות ארגונית מבפנים, מ-monday.com.",
     },
@@ -272,7 +272,7 @@ PODCASTS = [
         "lex_filter": False,
         "genre": "business",
         "lang": "he",
-        "hold": True,
+        "hold": False,
         "backfill_since": "2026-06-01",
         "description": 'ראיונות חודשיים עם מנכ"לים ויזמים ישראלים על חדשנות, תרבות ארגונית והדרך שלהם.',
     },
@@ -286,7 +286,7 @@ PODCASTS = [
         "show_format": "music",
         "genre": "storytelling",
         "lang": "he",
-        "hold": True,
+        "hold": False,
         "backfill_since": "2026-06-15",
         "description": "כל פרק מפרק שיר אחד — ההיסטוריה שלו, המשמעות, והדרך שהפך לסמל תרבותי.",
     },
@@ -299,7 +299,7 @@ PODCASTS = [
         "lex_filter": False,
         "genre": "storytelling",
         "lang": "he",
-        "hold": True,
+        "hold": False,
         "backfill_since": "2026-06-15",
         "description": "סיפור אחד, נבחר, מוסבר לעומק — בכל יום עם אלעד שמחיוף.",
     },
@@ -1649,6 +1649,7 @@ LIB_CSS = """
     .lang-he { font-size:10px; padding:1px 5px; border-radius:999px; background:rgba(21,185,138,0.15); color:var(--green); margin-right:4px; }
     .genre-tabs { display:flex; gap:6px; flex-wrap:nowrap; overflow-x:auto; padding:0 18px 2px; margin-bottom:12px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
     .genre-tabs::-webkit-scrollbar { display:none; }
+    .genre-tabs::after { content:''; min-width:18px; flex-shrink:0; }
     .gtab { font-size:12px; padding:4px 12px; border-radius:999px; border:0.5px solid var(--dim); background:transparent; color:var(--dim); cursor:pointer; }
     .gtab.active { background:var(--green); border-color:var(--green); color:#fff; }
     .empty { padding:48px 24px; text-align:center; color:var(--dim); font-size:13px; line-height:1.6; }
