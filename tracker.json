@@ -2577,6 +2577,116 @@
       "id": "shir-echad-2026-06-15",
       "skipped": true,
       "skip_reason": "short/bonus, no video"
+    },
+    {
+      "id": "hard-fork-2026-06-19",
+      "slug": "hard-fork",
+      "podcast": "Hard Fork",
+      "title": "‘Hard Fork’ Live, Part 3: Differing Visions of an A.I. Future",
+      "guest": "Kevin Roose & Casey Newton",
+      "date": "2026-06-19",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-06-19.html",
+      "published_at": "2026-06-19T12:00:00"
+    },
+    {
+      "id": "call-her-daddy-2026-06-10",
+      "slug": "call-her-daddy",
+      "podcast": "Call Her Daddy",
+      "title": "My Pregnancy Story",
+      "guest": "with Alex Cooper",
+      "date": "2026-06-10",
+      "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-10.html",
+      "published_at": "2026-06-10T12:00:00"
+    },
+    {
+      "id": "conan-2026-06-01",
+      "slug": "conan",
+      "podcast": "Conan O'Brien Needs A Friend",
+      "title": "Andrew Scott",
+      "guest": "with Andrew Scott",
+      "date": "2026-06-01",
+      "page_url": "https://readingsis.github.io/reading-sis/conan-2026-06-01.html",
+      "published_at": "2026-06-01T12:00:00"
+    },
+    {
+      "id": "lennys-2026-06-21",
+      "slug": "lennys",
+      "podcast": "Lenny's Podcast",
+      "title": "Building the most AI-pilled engineering team in the world | Fiona Fung (Manager of the Claude Code and Cowork Teams)",
+      "guest": "with Fiona Fung",
+      "date": "2026-06-21",
+      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-06-21.html",
+      "published_at": "2026-06-21T12:00:00"
+    },
+    {
+      "id": "chatzi-shaa-2026-06-03",
+      "slug": "chatzi-shaa",
+      "podcast": "חצי שעה של השראה",
+      "title": "שמואל דונרשטיין, רב בריח: פרישה הפוכה",
+      "guest": "עם שמואל דונרשטיין",
+      "date": "2026-06-03",
+      "page_url": "https://readingsis.github.io/reading-sis/chatzi-shaa-2026-06-03.html",
+      "published_at": "2026-06-03T12:00:00"
+    },
+    {
+      "id": "echad-beyom-2026-06-21",
+      "slug": "echad-beyom",
+      "podcast": "אחד ביום",
+      "title": "תמיר פרדו והאיום החדש מאיראן",
+      "guest": "עם תמיר פרדו",
+      "date": "2026-06-21",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-21.html",
+      "published_at": "2026-06-21T12:00:00"
+    },
+    {
+      "id": "geekonomy-2026-06-19",
+      "slug": "geekonomy",
+      "podcast": "גיקונומי",
+      "title": "פרק #1215 - איל עופר וההסכם עם איראן",
+      "guest": "עם איל עופר",
+      "date": "2026-06-19",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-19.html",
+      "published_at": "2026-06-19T12:00:00"
+    },
+    {
+      "id": "hayot-kis-2026-06-17",
+      "slug": "hayot-kis",
+      "podcast": "חיות כיס",
+      "title": "פרק 354: סקר או שקר?",
+      "guest": "עם אבי וידרמן, ד\"ר חגי אלקיים שלם, ד\"ר מינה צמח",
+      "date": "2026-06-17",
+      "page_url": "https://readingsis.github.io/reading-sis/hayot-kis-2026-06-17.html",
+      "published_at": "2026-06-17T12:00:00"
+    },
+    {
+      "id": "shir-echad-2026-06-01",
+      "slug": "shir-echad",
+      "podcast": "שיר אחד",
+      "title": "אם רק תדברי | גיא מזיג",
+      "guest": "שיר: אם רק תדברי | אמן: גיא מזיג",
+      "date": "2026-06-01",
+      "page_url": "https://readingsis.github.io/reading-sis/shir-echad-2026-06-01.html",
+      "published_at": "2026-06-01T12:00:00"
+    },
+    {
+      "id": "startup-for-startup-2026-06-09",
+      "slug": "startup-for-startup",
+      "podcast": "Startup for Startup",
+      "title": "353: איך בנינו ״מוח צוותי״ שמתעדכן לבד",
+      "guest": "עם סער ארבל",
+      "date": "2026-06-09",
+      "page_url": "https://readingsis.github.io/reading-sis/startup-for-startup-2026-06-09.html",
+      "published_at": "2026-06-09T12:00:00"
+    },
+    {
+      "id": "trashtech-2026-06-21",
+      "slug": "trashtech",
+      "podcast": "טראשטק",
+      "title": "סטארטאפ המשלוחים ששווה מאות מיליונים ומאתגר את וולט; עם חסן עבאסי",
+      "guest": "עם חסן עבאסי",
+      "date": "2026-06-21",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-21.html",
+      "published_at": "2026-06-21T12:00:00"
     }
   ],
   "queued": [
