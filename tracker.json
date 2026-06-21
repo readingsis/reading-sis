@@ -2607,107 +2607,7 @@
       "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-21.html"
     }
   ],
-  "preview": [
-    {
-      "id": "hard-fork-2026-06-19",
-      "podcast": "Hard Fork",
-      "guest": "Various",
-      "title": "‘Hard Fork’ Live, Part 3: Differing Visions of an A.I. Future",
-      "date": "2026-06-19",
-      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-06-19.html",
-      "pushed_at": "2026-06-21"
-    },
-    {
-      "id": "call-her-daddy-2026-06-10",
-      "podcast": "Call Her Daddy",
-      "guest": "Alex Cooper",
-      "title": "My Pregnancy Story",
-      "date": "2026-06-10",
-      "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-10.html",
-      "pushed_at": "2026-06-21"
-    },
-    {
-      "id": "conan-2026-06-01",
-      "podcast": "Conan O'Brien Needs A Friend",
-      "guest": "Andrew Scott",
-      "title": "Andrew Scott",
-      "date": "2026-06-01",
-      "page_url": "https://readingsis.github.io/reading-sis/conan-2026-06-01.html",
-      "pushed_at": "2026-06-21"
-    },
-    {
-      "id": "trashtech-2026-06-21",
-      "podcast": "טראשטק",
-      "guest": "חסן עבאסי",
-      "title": "סטארטאפ המשלוחים ששווה מאות מיליונים ומאתגר את וולט; עם חסן עבאסי",
-      "date": "2026-06-21",
-      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-21.html",
-      "pushed_at": "2026-06-21"
-    },
-    {
-      "id": "hayot-kis-2026-06-17",
-      "podcast": "חיות כיס",
-      "guest": "Various",
-      "title": "פרק 354: סקר או שקר?",
-      "date": "2026-06-17",
-      "page_url": "https://readingsis.github.io/reading-sis/hayot-kis-2026-06-17.html",
-      "pushed_at": "2026-06-21"
-    },
-    {
-      "id": "geekonomy-2026-06-19",
-      "podcast": "גיקונומי",
-      "guest": "איל עופר",
-      "title": "פרק #1215 - איל עופר וההסכם עם איראן",
-      "date": "2026-06-19",
-      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-19.html",
-      "pushed_at": "2026-06-21"
-    },
-    {
-      "id": "chatzi-shaa-2026-06-03",
-      "podcast": "חצי שעה של השראה",
-      "guest": "שמואל דונרשטיין",
-      "title": "שמואל דונרשטיין, רב בריח: פרישה הפוכה",
-      "date": "2026-06-03",
-      "page_url": "https://readingsis.github.io/reading-sis/chatzi-shaa-2026-06-03.html",
-      "pushed_at": "2026-06-21"
-    },
-    {
-      "id": "echad-beyom-2026-06-21",
-      "podcast": "אחד ביום",
-      "guest": "תמיר פרדו",
-      "title": "תמיר פרדו והאיום החדש מאיראן",
-      "date": "2026-06-21",
-      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-21.html",
-      "pushed_at": "2026-06-21"
-    },
-    {
-      "id": "startup-for-startup-2026-06-09",
-      "podcast": "Startup for Startup",
-      "guest": "סער ארבל",
-      "title": "353: איך בנינו ״מוח צוותי״ שמתעדכן לבד",
-      "date": "2026-06-09",
-      "page_url": "https://readingsis.github.io/reading-sis/startup-for-startup-2026-06-09.html",
-      "pushed_at": "2026-06-21"
-    },
-    {
-      "id": "shir-echad-2026-06-01",
-      "podcast": "שיר אחד",
-      "guest": "אם רק תדברי — גיא מזיג",
-      "title": "אם רק תדברי | גיא מזיג",
-      "date": "2026-06-01",
-      "page_url": "https://readingsis.github.io/reading-sis/shir-echad-2026-06-01.html",
-      "pushed_at": "2026-06-21"
-    },
-    {
-      "id": "lennys-2026-06-21",
-      "podcast": "Lenny's Podcast",
-      "guest": "Fiona Fung",
-      "title": "Building the most AI-pilled engineering team in the world | Fiona Fung (Manager of the Claude Code and Cowork Teams)",
-      "date": "2026-06-21",
-      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-06-21.html",
-      "pushed_at": "2026-06-21"
-    }
-  ],
+  "preview": [],
   "awaiting_video": [
     {
       "id": "call-her-daddy-2026-06-21",
@@ -2726,5 +2626,18 @@
   "sent_count_today": {
     "date": "2026-06-21",
     "count": 2
-  }
+  },
+  "processed_ids": [
+    "call-her-daddy-2026-06-10",
+    "chatzi-shaa-2026-06-03",
+    "conan-2026-06-01",
+    "echad-beyom-2026-06-21",
+    "geekonomy-2026-06-19",
+    "hard-fork-2026-06-19",
+    "hayot-kis-2026-06-17",
+    "lennys-2026-06-21",
+    "shir-echad-2026-06-01",
+    "startup-for-startup-2026-06-09",
+    "trashtech-2026-06-21"
+  ]
 }
