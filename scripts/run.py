@@ -908,6 +908,29 @@ def _format_found(found_by_podcast: dict[str, int]) -> str:
     return parts[0] if parts else ""
 
 
+def _run_label(now: datetime.datetime | None = None) -> str:
+    """Return 'morning', 'noon', or 'evening' based on the current Israel hour."""
+    if now is None:
+        now = now_israel()
+    h = now.hour
+    if h < 10:
+        return "morning"
+    if h < 16:
+        return "noon"
+    return "evening"
+
+
+def _next_send_label(now: datetime.datetime | None = None) -> str:
+    """Return the clock time of the next scheduled send slot, e.g. '7:30' or '12:30'."""
+    if now is None:
+        now = now_israel()
+    slots = _remaining_slots_today(now)
+    if not slots:
+        return "end of day"
+    s = slots[0]
+    return f"{s.hour}:{s.minute:02d}"
+
+
 def _send_run_summary(found_by_podcast: dict[str, int], outcomes: list[dict]) -> None:
     """Second morning DM: what the generate phase actually found and prepared,
     with explicit call-outs for anything that failed to generate or got held by
@@ -922,9 +945,11 @@ def _send_run_summary(found_by_podcast: dict[str, int], outcomes: list[dict]) ->
         show  = o.get("podcast") or o["id"]
         return f"{show} — {guest}" if guest else (o.get("title") or o["id"])
 
-    # Nothing new at all this morning.
+    # Nothing new at all this run.
     if not found_by_podcast and not published and not held and not failed:
-        alert_noam("all done — no new episodes this morning, so nothing to send at 7. all quiet.")
+        label = _run_label()
+        next_s = _next_send_label()
+        alert_noam(f"all done — no new episodes this {label}, so nothing to send at {next_s}. all quiet.")
         return
 
     lines: list[str] = []
@@ -934,7 +959,8 @@ def _send_run_summary(found_by_podcast: dict[str, int], outcomes: list[dict]) ->
                      f"{_format_found(found_by_podcast)}.")
     if published:
         names = "; ".join(label(o) for o in published)
-        lines.append(f"✅ ready and queued: {names}. they'll go out at 7 per the plan.")
+        next_s = _next_send_label()
+        lines.append(f"✅ ready and queued: {names}. they'll go out at {next_s} per the plan.")
     for o in held:
         lines.append(f"⚠️ held by QA, won't send until it's clean — {label(o)}. "
                      f"reason: {o.get('detail') or 'see logs'}.")
@@ -1717,13 +1743,13 @@ def send_personal_message(message: str) -> dict:
 # digest, or fallback message — the queue simply rolls into Sunday).
 # Python weekday(): Mon=0 … Sun=6.
 SEND_SCHEDULE: dict[int, list[tuple[int, int]]] = {
-    6: [(7, 30), (12, 30), (19, 30)],   # Sunday
-    0: [(7, 30), (12, 30), (19, 30)],   # Monday
-    1: [(7, 30), (12, 30), (19, 30)],   # Tuesday
-    2: [(7, 30), (12, 30), (19, 30)],   # Wednesday
-    3: [(7, 30), (12, 30), (19, 30)],   # Thursday
-    4: [(7, 30), (11, 30), (14, 30)],   # Friday
-    5: [],                              # Saturday — dark
+    6: [(7, 30), (12, 30)],          # Sunday
+    0: [(7, 30), (12, 30)],          # Monday
+    1: [(7, 30), (12, 30)],          # Tuesday
+    2: [(7, 30), (12, 30)],          # Wednesday
+    3: [(7, 30), (12, 30)],          # Thursday
+    4: [(7, 30), (11, 30), (14, 30)], # Friday — front-loaded before Shabbat
+    5: [],                            # Saturday — dark
 }
 SATURDAY = 5
 
@@ -1915,7 +1941,7 @@ def send_pending(manual: bool = False) -> None:
         deferred = []
     else:
         slots = _remaining_slots_today(now)
-        target = min(3, math.ceil(len(sendable) / max(1, len(slots)))) if sendable else 0
+        target = min(3, len(sendable)) if sendable else 0
         batch, deferred = [], []
         seen_shows: set = set()
         for p in sendable:
@@ -2531,11 +2557,12 @@ def main() -> None:
     """6 AM generate phase. Bookends the run with two DMs to Noam: one when it
     starts, one with the results — and a failure DM if the run crashes, so a
     silent morning never masks a broken pipeline."""
-    alert_noam("hey — morning run just kicked off, checking the feeds for new episodes now.")
+    run = _run_label()
+    alert_noam(f"hey — {run} run just kicked off, checking the feeds for new episodes now.")
     try:
         _run_generate()
     except Exception as e:
-        alert_noam(f"❌ the morning run hit an error and stopped early: {e}. "
+        alert_noam(f"❌ the {run} run hit an error and stopped early: {e}. "
                    f"nothing sent — needs a look.")
         raise
 
