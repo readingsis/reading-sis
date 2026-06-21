@@ -97,19 +97,19 @@
     <h1 class="episode-title">353: איך בנינו ״מוח צוותי״ שמתעדכן לבד</h1>
     <div class="guest-name">עם סער ארבל</div>
     <div class="meta">
-      <span>9 ביוני 2026</span>
-      <span>3 דקות קריאה</span>
+      <span>9 Jun 2026</span>
+      <span>3 min read</span>
       <span>45m</span>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-label">תקציר</div>
+    <div class="section-label">TL;DR</div>
     <p class="tldr-text">צוות הפיתוח במאנדיי בנה 'Brain' — ויקי דינמי ב-GitHub שמתעדכן אוטומטית אחרי כל פגישה ואוסף את כל ה-Shadow Data הארגוני שבדרך כלל הולך לאיבוד. הפתרון קיצר משימות שלקחו שבועות לשעות ספורות, ושינה תפיסתית את אופן השיתוף בצוות.</p>
   </div>
 
   <div class="moments-section">
-    <div class="section-label" style="padding-right:18px;">רגעים מרכזיים</div>
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
     <div class="moments-scroll">
       <div class="moment-card">
         <div class="moment-speaker">סער ארבל</div>
@@ -149,7 +149,7 @@
   </div>
 
   <div class="section">
-    <div class="section-label">תובנות</div>
+    <div class="section-label">Takeaways</div>
     <div class="takeaway">
       <div class="takeaway-num">1</div>
       <div class="takeaway-text"><strong>מצגות אסטרטגיות: משבועות לשעות </strong>אחד המדדים המרשימים ביותר של ה-Brain הוא קיצור זמן הכנת מצגות אסטרטגיות מורכבות משבועות לשעות ספורות בלבד. הסיבה היא שכל הקונטקסט הנדרש כבר קיים ומאורגן, ואפשר להאכיל אותו ישירות ל-AI לניסוח. זהו מדד ROI מדיד שניתן להציג להנהלה כדי לצדיק השקעה בכלים דומים.</div>
@@ -176,7 +176,7 @@
       <div class="takeaway-text"><strong>האתגר הגדול הוא תרבותי, לא טכנולוגי </strong>הכלי עצמו היה פחות מורכב מהשינוי שהצוות נדרש לעבור — מעבר לשקיפות מוחלטת שבה הידע של כל אחד נגיש לכולם. אנשים רגילים להחזיק מידע 'לעצמם' כסוג של כוח, ולשבור את זה דורש מנהיגות ותהליך מובנה. לכן כל מי שרוצה לבנות כלי דומה חייב להשקיע בשינוי תפיסתי לפני — ולא אחרי — ההטמעה הטכנית.</div>
     </div>
     </div>
-    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">הצג את כל 6 תובנות</button>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 6 takeaways</button>
 
   </div>
 
@@ -205,7 +205,7 @@
 <script>
   var pageUrl    = 'https://readingsis.github.io/reading-sis/startup-for-startup-2026-06-09.html';
   var PAGE_TITLE = '353: איך בנינו ״מוח צוותי״ שמתעדכן לבד — Reading.Sis';
-  var EP = {id:'startup-for-startup-2026-06-09', title:'353: איך בנינו ״מוח צוותי״ שמתעדכן לבד', show:'Startup for Startup', date:'9 ביוני 2026', url:pageUrl};
+  var EP = {id:'startup-for-startup-2026-06-09', title:'353: איך בנינו ״מוח צוותי״ שמתעדכן לבד', show:'Startup for Startup', date:'9 Jun 2026', url:pageUrl};
 
   // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
   // Path is scoped to this episode so events break down per page. No-op when
@@ -259,7 +259,7 @@
     var btn = document.getElementById('takeawaysToggle');
     if (rest.hasAttribute('hidden')) {
       rest.removeAttribute('hidden');
-      btn.textContent = 'הצג פחות';
+      btn.textContent = 'Show fewer';
     } else {
       rest.setAttribute('hidden', '');
       btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
