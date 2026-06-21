@@ -2626,18 +2626,5 @@
   "sent_count_today": {
     "date": "2026-06-21",
     "count": 2
-  },
-  "processed_ids": [
-    "call-her-daddy-2026-06-10",
-    "chatzi-shaa-2026-06-03",
-    "conan-2026-06-01",
-    "echad-beyom-2026-06-21",
-    "geekonomy-2026-06-19",
-    "hard-fork-2026-06-19",
-    "hayot-kis-2026-06-17",
-    "lennys-2026-06-21",
-    "shir-echad-2026-06-01",
-    "startup-for-startup-2026-06-09",
-    "trashtech-2026-06-21"
-  ]
+  }
 }
