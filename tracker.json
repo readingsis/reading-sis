@@ -2871,6 +2871,36 @@
       "published_at": "2026-06-03T05:00:00",
       "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-03.html",
       "pushed_at": "2026-06-21"
+    },
+    {
+      "id": "theo-von-2026-06-22",
+      "podcast": "This Past Weekend w/ Theo Von",
+      "guest": "Solo episode",
+      "title": "#664 - Crooners Welcome",
+      "date": "2026-06-22",
+      "published_at": "2026-06-22T02:32:00",
+      "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-06-22.html",
+      "pushed_at": "2026-06-22"
+    },
+    {
+      "id": "echad-beyom-2026-06-22",
+      "podcast": "אחד ביום",
+      "guest": "מיכל יערי",
+      "title": "המפרציות אחרי המלחמה",
+      "date": "2026-06-22",
+      "published_at": "2026-06-22T04:45:00",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-22.html",
+      "pushed_at": "2026-06-22"
+    },
+    {
+      "id": "shir-echad-2026-06-22",
+      "podcast": "שיר אחד",
+      "guest": "על הגשר הישן — צרויה להב ורמי קליינשטיין",
+      "title": "על הגשר הישן | צרויה להב ורמי קליינשטיין",
+      "date": "2026-06-22",
+      "published_at": "2026-06-22T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/shir-echad-2026-06-22.html",
+      "pushed_at": "2026-06-22"
     }
   ],
   "queued": [
@@ -2888,21 +2918,58 @@
       "last_qa_feedback": "review: Quote 3 is materially altered: the transcript reads 'For anything that there is a fear, my advice is lean in and ask, \"What can I do about it? What is within my control?\"' but the generated version inserts 'that you know, that that', changes 'lean in' to 'kind of lean in', and injects the garbled phrase 'Okay, is there some' before the question — all words not present in the transcript; additionally the TL;DR misstates the benchmark period as 'than in 2025' when the transcript specifies 'compared to 2021 to 2025'.; content still failing after one regeneration"
     }
   ],
-  "pending_send": [],
+  "pending_send": [
+    {
+      "id": "theo-von-2026-06-22",
+      "podcast": "This Past Weekend w/ Theo Von",
+      "guest": "Solo episode",
+      "title": "#664 - Crooners Welcome",
+      "date_str": "22 Jun 2026",
+      "date_short": "Jun 22",
+      "published_at": "2026-06-22T02:32:00",
+      "hook": "In this solo episode, Theo Von riffs on greasy al pastor, discovering he's a 'crooner' after performing at Stagecoach with Ella Langley, attending two rodeos, and responding to online rumors about his death. The emotional core comes in two listener calls — one about jealousy over a partner's past, w",
+      "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-06-22.html",
+      "lang": "en"
+    },
+    {
+      "id": "echad-beyom-2026-06-22",
+      "podcast": "אחד ביום",
+      "guest": "מיכל יערי",
+      "title": "המפרציות אחרי המלחמה",
+      "date_str": "22 Jun 2026",
+      "date_short": "Jun 22",
+      "published_at": "2026-06-22T04:45:00",
+      "hook": "מלחמת ארה\"ב-איראן לא פגעה רק בטהראן — מדינות המפרץ, שספגו מתקפות ישירות על אדמתן, מתמודדות עכשיו עם שאלה קיומית: איך מנהלים שכנות עם איראן ביום שאחרי? ד\"ר יערי מסבירה שמדינות כמו איחוד האמירויות וסעודיה מנסות לאזן בין הקלה מההגמוניה האיראנית לבין חשש מריק כוח ואי-יציבות אזורית. הדינמיקה הזו תעצב מחד",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-22.html",
+      "lang": "he"
+    },
+    {
+      "id": "shir-echad-2026-06-22",
+      "podcast": "שיר אחד",
+      "guest": "על הגשר הישן — צרויה להב ורמי קליינשטיין",
+      "title": "על הגשר הישן | צרויה להב ורמי קליינשטיין",
+      "date_str": "22 Jun 2026",
+      "date_short": "Jun 22",
+      "published_at": "2026-06-22T05:00:00",
+      "hook": "השיר על הגשר הישן נוצר בצומת אישי של שני אמנים ומתאר את המתח הבלתי פתור בין אש היצירה לבין הכמיהה לבית ויציבות. הלחן של קליינשטיין והמילים של צרויה להב נפגשים במקום שבו האישי הופך לאוניברסלי — סיפור אישה שמחפשת לאחוז בשני הקצוות בו זמנית. הפרק חושף כיצד נקודות מעבר ביוגרפיות מזינות יצירה אמיתית ועמו",
+      "page_url": "https://readingsis.github.io/reading-sis/shir-echad-2026-06-22.html",
+      "lang": "he"
+    }
+  ],
   "preview": [],
   "awaiting_video": [
     {
-      "id": "call-her-daddy-2026-06-21",
-      "podcast": "Call Her Daddy",
-      "slug_prefix": "call-her-daddy",
-      "title": "Stop Idolizing the \"Cool Girl\"",
-      "date": "2026-06-21",
-      "description": "Alex is unpacking the pressure to make everything look effortless. She talks about why trying hard gets a bad rap, how failure builds character, and why the internet’s cool-girl aesthetic isn’t always what it seems. She also gets into some questions from Daddy Gang about rethinking old dating dealbreakers, being the single friend, and a fiancé who refuses to talk about finances",
-      "duration_sec": 2711,
+      "id": "shir-echad-2026-06-22",
+      "podcast": "שיר אחד",
+      "slug_prefix": "shir-echad",
+      "title": "על הגשר הישן | צרויה להב ורמי קליינשטיין",
+      "date": "2026-06-22",
+      "description": "<p dir=\"rtl\">זה שיר על מסע החיים של אישה, הנעה בין האש והתשוקה של היצירה לבין הכמיהה לבית יציב לה ולילדיה.<br />הוא נכתב במעבר של צרויה אל מאחורי הקלעים והולחן בדרכו של רמי קליישטין אל מרכז הבמה<br /><br />מגישה ועורכת: מאיה קוסובר,&nbsp;עורך: ניר גורלי ,&nbsp;עיצוב סאונד ומיקס: מור סיון ,&nbsp;עיצוב סאונד נוסף: עודד דוידוב, תמונה: פלאש 90</p><p>See <a href=\"https://omnystudio.com/listener\">omnystudio.com/listener</a> for privacy information.</p>",
+      "duration_sec": 2329,
       "spotify_show": "",
       "lex_filter": false,
-      "show_format": "interview",
-      "published_at": "2026-06-21T10:00:00"
+      "show_format": "music",
+      "published_at": "2026-06-22T05:00:00"
     }
   ],
   "sent_count_today": {
