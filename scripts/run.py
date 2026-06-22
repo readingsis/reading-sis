@@ -2630,8 +2630,10 @@ def _run_generate(window_override: datetime.timedelta | None = None,
             pub_dt = datetime.datetime.strptime(episode.get("date", str(today)), "%Y-%m-%d")
         episode["pub_dt"] = pub_dt
 
-        # Dedup: skip if page already exists on GitHub
-        if gh_exists(filename):
+        # Dedup: skip if page already exists on GitHub.
+        # Exception: queued retries (qa_attempts set) must regenerate even if the file exists.
+        is_queued_retry = bool(episode.get("qa_attempts"))
+        if gh_exists(filename) and not is_queued_retry:
             print(f"  Already published — marking processed")
             if ep_id not in processed_ids:
                 tracker["processed"].append({"id": ep_id})
