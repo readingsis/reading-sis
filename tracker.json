@@ -2888,19 +2888,7 @@
       "last_qa_feedback": "review: Quote 3 is materially altered: the transcript reads 'For anything that there is a fear, my advice is lean in and ask, \"What can I do about it? What is within my control?\"' but the generated version inserts 'that you know, that that', changes 'lean in' to 'kind of lean in', and injects the garbled phrase 'Okay, is there some' before the question — all words not present in the transcript; additionally the TL;DR misstates the benchmark period as 'than in 2025' when the transcript specifies 'compared to 2021 to 2025'.; content still failing after one regeneration"
     }
   ],
-  "pending_send": [
-    {
-      "id": "call-her-daddy-2026-06-21",
-      "podcast": "Call Her Daddy",
-      "guest": "Alex Cooper",
-      "title": "Stop Idolizing the \"Cool Girl\"",
-      "date_str": "21 Jun 2026",
-      "date_short": "Jun 21",
-      "published_at": "2026-06-21T10:00:00",
-      "hook": "Alex argues that the internet's 'cool girl' archetype — effortless, unbothered, never trying too hard — is a performance that pressures people to hide ambition and vulnerability. Trying hard is not embarrassing; it's how character gets built. The episode also tackles listener questions about dating ",
-      "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-21.html"
-    }
-  ],
+  "pending_send": [],
   "preview": [],
   "awaiting_video": [
     {
