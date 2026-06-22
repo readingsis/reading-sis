@@ -983,12 +983,14 @@ TAKEAWAYS_HTML
   function toggleTakeaways() {
     var rest = document.getElementById('takeawaysRest');
     var btn = document.getElementById('takeawaysToggle');
+    var isHe = document.documentElement.lang === 'he';
     if (rest.hasAttribute('hidden')) {
       rest.removeAttribute('hidden');
-      btn.textContent = 'Show fewer';
+      btn.textContent = isHe ? 'הצג פחות' : 'Show fewer';
     } else {
       rest.setAttribute('hidden', '');
-      btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
+      var n = document.querySelectorAll('.takeaway').length;
+      btn.textContent = isHe ? ('הצג את כל ' + n + ' תובנות') : ('Show all ' + n + ' takeaways');
     }
   }
 
@@ -1412,7 +1414,7 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
         takeaways_html += (
             f'    <div class="takeaways-rest" id="takeawaysRest" hidden>\n{rest_html}    </div>\n'
             f'    <button class="takeaways-toggle" id="takeawaysToggle" '
-            f'onclick="toggleTakeaways()">Show all {len(ranked)} takeaways</button>\n'
+            f'onclick="toggleTakeaways()">{"הצג את כל" if is_he else "Show all"} {len(ranked)} {"תובנות" if is_he else "takeaways"}</button>\n'
         )
 
     tldr      = content.get("tldr", "")
@@ -1445,14 +1447,19 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
     html = html.replace("EPISODE_TITLE_JS",   js_title)
     html = html.replace("EPISODE_ID_JS",      _js(episode["id"]))
     html = html.replace("EPISODE_SHOW_JS",    _js(episode["podcast"]))
-    html = html.replace("EPISODE_DATE_JS",    _js(_fmt_date(episode.get("date", ""))))
+    html = html.replace("EPISODE_DATE_JS",    _js(_fmt_date(episode.get("date", ""), episode.get("lang", "en"))))
     html = html.replace("PAGE_URL_JS",        page_url)
     html = html.replace("TLDR_FIRST_SENTENCE", _t(tldr_first))
     # Text content
     html = html.replace("EPISODE_TITLE",       _t(episode["title"]))
     html = html.replace("PODCAST_NAME",        _t(episode["podcast"]))
     html = html.replace("GUEST_LINE",          _t(content.get("guest_line", "")))
-    html = html.replace("PUBLISH_DATE_FORMATTED", pub_dt.strftime("%-d %b %Y"))
+    html = html.replace("PUBLISH_DATE_FORMATTED", _fmt_date(episode.get("date", ""), "he" if is_he else "en"))
+    if is_he:
+        html = html.replace(">TL;DR<",        ">תקציר<")
+        html = html.replace(">Key Moments<",  ">רגעים מרכזיים<")
+        html = html.replace(">Takeaways<",    ">תובנות<")
+        html = html.replace(" min read<",     " דקות קריאה<")
     html = html.replace("READ_TIME",           str(read_time))
     html = html.replace("EPISODE_DURATION",    _t(duration))
     html = html.replace("TLDR",                _t(tldr))
@@ -1533,9 +1540,16 @@ def _show_meta() -> dict:
     return out
 
 
-def _fmt_date(d: str) -> str:
+_HE_MONTHS = ["ינואר","פברואר","מרץ","אפריל","מאי","יוני",
+              "יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"]
+
+
+def _fmt_date(d: str, lang: str = "en") -> str:
     try:
-        return datetime.datetime.strptime(d, "%Y-%m-%d").strftime("%-d %b %Y")
+        dt = datetime.datetime.strptime(d, "%Y-%m-%d")
+        if lang == "he":
+            return f"{dt.day} ב{_HE_MONTHS[dt.month - 1]} {dt.year}"
+        return dt.strftime("%-d %b %Y")
     except (ValueError, TypeError):
         return d or ""
 
