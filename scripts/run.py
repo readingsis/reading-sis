@@ -2592,7 +2592,7 @@ def _run_generate(window_override: datetime.timedelta | None = None,
     # tracker and breaks save_tracker if the retry also fails.
     existing_ids = {c["id"] for c in candidates}
     for q in tracker.get("queued", []):
-        if q["id"] not in existing_ids and q["id"] not in processed_ids:
+        if q["id"] not in existing_ids:
             cand = dict(q)
             raw_dt = cand.get("pub_dt")
             if isinstance(raw_dt, str):
