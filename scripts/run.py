@@ -1594,7 +1594,7 @@ LIB_CSS = """
     }
     * { box-sizing:border-box; margin:0; padding:0; }
     html,body { background:var(--canvas); color:var(--tp);
-      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; }
+      font-family:'Heebo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; }
     a { text-decoration:none; color:inherit; }
     .page { max-width:430px; margin:0 auto; min-height:100vh; padding-bottom:84px; }
     .hdr { position:sticky; top:0; z-index:50; background:var(--canvas);
@@ -1734,6 +1734,8 @@ def _lib_page(title: str, body: str, active: str, extra_script: str = "") -> str
         f'  <title>{_t(title)}</title>\n'
         f'{FAVICON_LINKS}\n'
         f'{goatcounter_script()}\n'
+        '  <link rel="preconnect" href="https://fonts.googleapis.com">\n'
+        '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap">\n'
         f'  <style>{LIB_CSS}</style>\n</head>\n<body>\n<div class="page">\n'
         '  <header class="hdr">'
         '<div class="hside left">' + _GLASSES + '</div>'
@@ -1780,8 +1782,8 @@ def _episode_row(e: dict) -> str:
     return (
         f'<a class="row" href="{e["url"]}">'
         f'<span class="chip" style="background:{e["color"]}">{_t(e["chip"])}</span>'
-        f'<span class="row-main"><span class="row-title">{_t(e["title"])}</span>'
-        f'<span class="row-meta">{newtag}{_t(meta)}</span></span>'
+        f'<span class="row-main"><span class="row-title" dir="ltr">{_t(e["title"])}</span>'
+        f'<span class="row-meta" dir="ltr">{newtag}{_t(meta)}</span></span>'
         f'<span class="chev">&rsaquo;</span></a>'
     )
 
