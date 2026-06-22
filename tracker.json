@@ -2911,6 +2911,41 @@
       "published_at": "2026-06-22T07:05:00",
       "page_url": "https://readingsis.github.io/reading-sis/conan-2026-06-22.html",
       "pushed_at": "2026-06-22"
+    },
+    {
+      "id": "bigdeal-2026-06-22",
+      "skipped": true,
+      "skip_reason": "short/bonus, no video"
+    },
+    {
+      "id": "crime-junkie-2026-06-22",
+      "podcast": "Crime Junkie",
+      "guest": "Brittany Wallace Shank",
+      "title": "MISSING: Brittany Wallace Shank",
+      "date": "2026-06-22",
+      "published_at": "2026-06-22T10:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-22.html",
+      "pushed_at": "2026-06-22"
+    },
+    {
+      "id": "doac-2026-06-22",
+      "podcast": "The Diary Of A CEO",
+      "guest": "Dr Rachel Rubin",
+      "title": "Medical Whistleblower: What Your Doctor Doesn’t Know Is Hurting You | Dr Rachel Rubin",
+      "date": "2026-06-22",
+      "published_at": "2026-06-22T08:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-22.html",
+      "pushed_at": "2026-06-22"
+    },
+    {
+      "id": "smartless-2026-06-22",
+      "podcast": "SmartLess",
+      "guest": "Amy Adams",
+      "title": "\"Amy Adams\"",
+      "date": "2026-06-22",
+      "published_at": "2026-06-22T10:01:00",
+      "page_url": "https://readingsis.github.io/reading-sis/smartless-2026-06-22.html",
+      "pushed_at": "2026-06-22"
     }
   ],
   "queued": [
@@ -2928,7 +2963,44 @@
       "last_qa_feedback": "review: Quote 3 is materially altered: the transcript reads 'For anything that there is a fear, my advice is lean in and ask, \"What can I do about it? What is within my control?\"' but the generated version inserts 'that you know, that that', changes 'lean in' to 'kind of lean in', and injects the garbled phrase 'Okay, is there some' before the question — all words not present in the transcript; additionally the TL;DR misstates the benchmark period as 'than in 2025' when the transcript specifies 'compared to 2021 to 2025'.; content still failing after one regeneration"
     }
   ],
-  "pending_send": [],
+  "pending_send": [
+    {
+      "id": "crime-junkie-2026-06-22",
+      "podcast": "Crime Junkie",
+      "guest": "Brittany Wallace Shank",
+      "title": "MISSING: Brittany Wallace Shank",
+      "date_str": "22 Jun 2026",
+      "date_short": "Jun 22",
+      "published_at": "2026-06-22T10:00:00",
+      "hook": "On November 30, 2018, 23-year-old Brittany Wallace Shank appeared barefoot and bleeding at a stranger's door in an apparent panic, claiming a man she was with had crashed their car and fled. Deputies were called, but Brittany vanished into the dark before they arrived — and has never been found. The",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-22.html",
+      "lang": "en"
+    },
+    {
+      "id": "doac-2026-06-22",
+      "podcast": "The Diary Of A CEO",
+      "guest": "Dr Rachel Rubin",
+      "title": "Medical Whistleblower: What Your Doctor Doesn’t Know Is Hurting You | Dr Rachel Rubin",
+      "date_str": "22 Jun 2026",
+      "date_short": "Jun 22",
+      "published_at": "2026-06-22T08:00:00",
+      "hook": "Dr Rachel Rubin argues that women are being catastrophically failed by a medical system that never taught doctors about female hormones, sexual health, or even basic anatomy like the clitoris. The 2002 Women's Health Initiative study was wildly misinterpreted, scaring doctors away from hormone thera",
+      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-22.html",
+      "lang": "en"
+    },
+    {
+      "id": "smartless-2026-06-22",
+      "podcast": "SmartLess",
+      "guest": "Amy Adams",
+      "title": "\"Amy Adams\"",
+      "date_str": "22 Jun 2026",
+      "date_short": "Jun 22",
+      "published_at": "2026-06-22T10:01:00",
+      "hook": "Amy Adams joins SmartLess and reveals she never planned to be an actress — she was a shy, stage-fright-ridden musical theater kid who wanted to be an ER doctor. The conversation covers her army-brat upbringing (born in Italy), her father's one-man-band performances, the career-defining pivot from Dr",
+      "page_url": "https://readingsis.github.io/reading-sis/smartless-2026-06-22.html",
+      "lang": "en"
+    }
+  ],
   "preview": [],
   "awaiting_video": [
     {
@@ -2956,6 +3028,19 @@
       "lex_filter": false,
       "show_format": "interview",
       "published_at": "2026-06-22T07:05:00"
+    },
+    {
+      "id": "crime-junkie-2026-06-22",
+      "podcast": "Crime Junkie",
+      "slug_prefix": "crime-junkie",
+      "title": "MISSING: Brittany Wallace Shank",
+      "date": "2026-06-22",
+      "description": "On November 30, 2018, 23-year-old Brittany Wallace Shank showed up barefoot and bleeding at a stranger's door asking for help. She said the man she was with had crashed their car and ran away. Deputies were on the way. But before they arrived, Brittany disappeared into the darkness. She has never been seen again.",
+      "duration_sec": 4506,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "true_crime",
+      "published_at": "2026-06-22T10:00:00"
     }
   ],
   "sent_count_today": {
