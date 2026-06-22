@@ -2735,9 +2735,11 @@ def _run_generate(window_override: datetime.timedelta | None = None,
                 "page_url": page_url,
             })
             print("  Preview — DM to Noam only (not queued for group)")
-        else:
+        elif episode.get("lang", "en") != "he":
             # Messages go out an hour later (run.py --send) so GitHub Pages has
             # comfortably finished deploying and every URL is verified live first.
+            # Hebrew episodes publish to the library but skip the WhatsApp queue
+            # until a group announcement is made.
             tracker.setdefault("pending_send", []).append({
                 "id":           ep_id,
                 "podcast":      episode.get("podcast"),
