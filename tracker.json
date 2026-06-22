@@ -2901,6 +2901,16 @@
       "published_at": "2026-06-22T05:00:00",
       "page_url": "https://readingsis.github.io/reading-sis/shir-echad-2026-06-22.html",
       "pushed_at": "2026-06-22"
+    },
+    {
+      "id": "conan-2026-06-22",
+      "podcast": "Conan O'Brien Needs A Friend",
+      "guest": "Josh Groban",
+      "title": "Josh Groban",
+      "date": "2026-06-22",
+      "published_at": "2026-06-22T07:05:00",
+      "page_url": "https://readingsis.github.io/reading-sis/conan-2026-06-22.html",
+      "pushed_at": "2026-06-22"
     }
   ],
   "queued": [
@@ -2930,6 +2940,18 @@
       "hook": "In this solo episode, Theo Von riffs on greasy al pastor, discovering he's a 'crooner' after performing at Stagecoach with Ella Langley, attending two rodeos, and responding to online rumors about his death. The emotional core comes in two listener calls — one about jealousy over a partner's past, w",
       "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-06-22.html",
       "lang": "en"
+    },
+    {
+      "id": "conan-2026-06-22",
+      "podcast": "Conan O'Brien Needs A Friend",
+      "guest": "Josh Groban",
+      "title": "Josh Groban",
+      "date_str": "22 Jun 2026",
+      "date_short": "Jun 22",
+      "published_at": "2026-06-22T07:05:00",
+      "hook": "Josh Groban recounts how a last-minute Grammy performance alongside Céline Dion at age 16 launched his career almost by accident. He discusses the tension between being taken seriously as a classical-crossover artist and his genuine love of comedy, and reveals the personal touch of having his dad pl",
+      "page_url": "https://readingsis.github.io/reading-sis/conan-2026-06-22.html",
+      "lang": "en"
     }
   ],
   "preview": [],
@@ -2946,6 +2968,19 @@
       "lex_filter": false,
       "show_format": "music",
       "published_at": "2026-06-22T05:00:00"
+    },
+    {
+      "id": "conan-2026-06-22",
+      "podcast": "Conan O'Brien Needs A Friend",
+      "slug_prefix": "conan",
+      "title": "Josh Groban",
+      "date": "2026-06-22",
+      "description": "Singer-songwriter Josh Groban feels downright giddy about being Conan O’Brien’s friend.\n\n\n\nJosh sits down with Conan to discuss his breakout moment at 16 singing with Céline Dion at the Grammys, finding ways to exercise his comedic inclinations, and asking his dad to play trumpet on his latest album Cinematic. Plus, Conan comes face to face with his character’s real-life toy from the upcoming Toy Story 5.\n\n\n\nFor Conan videos, tour dates and more visit TeamCoco.com.\n\nGot a question for Conan? Call our voicemail: (669) 587-2847.",
+      "duration_sec": 3792,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "interview",
+      "published_at": "2026-06-22T07:05:00"
     }
   ],
   "sent_count_today": {
