@@ -76,12 +76,13 @@
     .chev { flex:0 0 auto; color:var(--dim); font-size:20px; line-height:1; }
     .grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; padding:13px 18px 0; }
     .card { display:flex; align-items:center; gap:11px; background:var(--surface);
-      border:1px solid var(--line); border-radius:14px; padding:13px; min-height:78px; }
+      border:1px solid var(--line); border-radius:14px; padding:13px; height:78px; overflow:hidden; }
     .card:active { opacity:0.7; }
     .sq { flex:0 0 38px; width:38px; height:38px; border-radius:10px; color:#08120D;
       font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; }
-    .card-r { display:flex; flex-direction:column; gap:3px; min-width:0; }
-    .card-name { font-size:13px; font-weight:500; color:var(--tp); line-height:1.25; }
+    .card-r { display:flex; flex-direction:column; gap:3px; min-width:0; overflow:hidden; }
+    .card-name { font-size:13px; font-weight:500; color:var(--tp); line-height:1.25;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
     .card-meta { display:flex; align-items:center; gap:0; }
     .card-count { font-size:11.5px; color:var(--dim); white-space:nowrap; }
     .lang-en { font-size:10px; padding:1px 5px; border-radius:999px; background:rgba(255,255,255,0.08); color:var(--dim); margin-right:4px; }
