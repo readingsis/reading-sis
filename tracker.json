@@ -2961,5 +2961,6 @@
     "date": "2026-06-22",
     "count": 5
   },
-  "backfill_queued": []
+  "backfill_queued": [],
+  "fallback_sent_date": "2026-06-23"
 }
