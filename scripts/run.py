@@ -82,6 +82,7 @@ PODCASTS = [
         "lex_filter": False,
         "genre": "business",
         "lang": "en",
+        "has_youtube": False,
         "description": "Codie Sanchez on buying boring businesses, building wealth outside Wall Street, and the entrepreneurial mindset most people overlook.",
     },
     {
@@ -454,6 +455,7 @@ def fetch_new_episodes(
             "lex_filter":   podcast["lex_filter"],
             "show_format":  podcast.get("show_format", "interview"),
             "lang":         podcast.get("lang", "en"),
+            "has_youtube":  podcast.get("has_youtube", True),
         })
 
     return episodes
@@ -523,7 +525,7 @@ def verify_youtube_match(video_id: str, episode: dict) -> bool:
         # seen consistently on Call Her Daddy and Conan, ~10-12% over). A video
         # SHORTER than the RSS duration is more often a clip or wrong episode, so
         # keep that side of the check tight.
-        tolerance = rss_dur * (0.15 if diff > 0 else 0.08)
+        tolerance = rss_dur * (0.15 if diff > 0 else 0.20)
         if abs(diff) > max(180, int(tolerance)):
             print(f"  Rejecting video {video_id}: duration {dur}s vs RSS {rss_dur}s")
             return False
@@ -598,16 +600,20 @@ def find_youtube_id(title: str, podcast_name: str, show_format: str = "") -> str
     return _dlp_search(query)
 
 
-def get_transcript(video_id: str, max_words: int = 6000) -> list[dict]:
+def get_transcript(video_id: str, max_words: int = 6000, lang: str = "en") -> list[dict]:
     """Fetch YouTube auto/manual transcript. Returns list of {t, text} dicts.
 
     Supports both youtube-transcript-api 1.x (instance .fetch) and the old
     0.6.x static API. Uses a Webshare residential proxy when configured —
     YouTube blocks transcript requests from datacenter IPs.
+    Pass lang="he" for Hebrew podcasts so the API fetches the Hebrew track.
     """
+    # Hebrew YouTube videos use language codes 'he' and 'iw' (legacy)
+    languages = ["he", "iw"] if lang == "he" else None
     try:
         if hasattr(YouTubeTranscriptApi, "get_transcript"):   # 0.6.x
-            raw = YouTubeTranscriptApi.get_transcript(video_id)
+            kwargs = {"languages": languages} if languages else {}
+            raw = YouTubeTranscriptApi.get_transcript(video_id, **kwargs)
             segs = [(seg["start"], seg["text"]) for seg in raw]
         else:                                                  # 1.x
             proxy_config = None
@@ -618,7 +624,8 @@ def get_transcript(video_id: str, max_words: int = 6000) -> list[dict]:
                 proxy_config = WebshareProxyConfig(
                     proxy_username=ws_user, proxy_password=ws_pass)
             api = YouTubeTranscriptApi(proxy_config=proxy_config)
-            segs = [(s.start, s.text) for s in api.fetch(video_id)]
+            fetch_kwargs = {"languages": languages} if languages else {}
+            segs = [(s.start, s.text) for s in api.fetch(video_id, **fetch_kwargs)]
 
         result, words = [], 0
         for start, text in segs:
@@ -711,6 +718,7 @@ Hard rules:
 - Provide between 3 and 10 takeaways — extract the most DISTINCT, substantive takeaways the episode genuinely contains. Quality over quantity: do NOT pad with filler or split one idea into several, and do NOT force exactly 3. Score every takeaway 1-10 on insight, actionability, and specificity per the schema.
 - Verbatim quotes only — never clean up or paraphrase. Keep "um", "like", filler words.
 - Only use timestamps that actually appear in the transcript. If uncertain, use 0.
+- Do NOT use quotes from the first 60 seconds — these are typically sponsor reads or host intros, not substantive content. Choose moments that start at timestamp 60 or later.
 - For Lex Fridman episodes ONLY: keep the episode (skip=false) only if the guest's work is clearly in technology, AI/ML, computing, engineering, hard science (physics/biology/chemistry/math), business, startups, or economics. Set skip=true for everyone else — including historians, explorers, naturalists, musicians, artists, athletes, entertainers, religious figures, pure philosophers, and politicians — and give skip_reason. When in doubt for a Lex episode, skip.
 - Return pure JSON. No markdown. No explanation."""
 
@@ -830,6 +838,7 @@ HEBREW_FONT_LINK
     .qsheet-close { width: 100%; background: var(--icon-bg); border: 1px solid var(--icon-border); color: var(--text-primary); font-size: 14px; font-weight: 600; padding: 13px; border-radius: 11px; cursor: pointer; font-family: inherit; }
     .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
     .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .moment-timestamp-dim { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--text-dim); font-weight: 600; background: rgba(255,255,255,0.05); padding: 3px 8px; border-radius: 6px; }
     .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
     .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
     .bio-chevron.open { transform: rotate(90deg); }
@@ -1258,6 +1267,15 @@ def qa_episode(episode: dict, content: dict, video_id: str | None,
 
     content = _fix_timestamps(content, video_duration, issues)
 
+    # Drop intro-region timestamps (< 60s): sponsor reads / host intros that
+    # slipped past the prompt rule. Zero the timestamp so build_html omits the
+    # badge rather than linking into the intro.
+    for m in content.get("moments", []):
+        ts = m.get("timestamp_seconds", 0) or 0
+        if 0 < ts < 60:
+            issues.append(("fixed", f"zeroed intro-region timestamp {ts}s (< 60s)"))
+            m["timestamp_seconds"] = 0
+
     # Content review (only meaningful when we have a transcript to check against).
     if transcript:
         review = qa_content_review(episode, content, transcript)
@@ -1349,6 +1367,7 @@ def goatcounter_script() -> str:
 
 def build_html(episode: dict, content: dict, video_id: str) -> str:
     """Populate the HTML template with generated content."""
+    is_he = episode.get("lang") == "he"
     # Fall back to search URLs so the YouTube/Spotify buttons always lead
     # somewhere useful ("#" just reloads the page).
     search_q = requests.utils.quote(f"{episode['podcast']} {episode['title']}")
@@ -1378,10 +1397,17 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
                 f'        <a class="moment-timestamp" href="{yt_url}&t={ts}" target="_blank">'
                 f'&#9654; {_t(m["timestamp_display"])}</a>\n'
             )
+        elif not video_id and ts > 0:
+            ts_html = (
+                f'        <span class="moment-timestamp-dim">'
+                f'&#9654; {_t(m["timestamp_display"])}</span>\n'
+            )
+        # Strip consecutive duplicate words from quotes (e.g. "how how", "of of")
+        quote_text = re.sub(r'\b(\w+)( \1)+\b', r'\1', m.get("quote", ""), flags=re.IGNORECASE)
         moments_html += (
             f'      <div class="moment-card">\n'
             f'        <div class="moment-speaker">{_t(m["speaker"])}</div>\n'
-            f'        <div class="moment-quote">&ldquo;{_t(m["quote"])}&rdquo;</div>\n'
+            f'        <div class="moment-quote">&ldquo;{_t(quote_text)}&rdquo;</div>\n'
             f'        <div class="moment-context">{_t(m["context"])}</div>\n'
             + ts_html +
             f'      </div>\n'
@@ -1425,19 +1451,24 @@ def build_html(episode: dict, content: dict, video_id: str) -> str:
     def _js(s: str) -> str:
         return str(s).replace("\\", "\\\\").replace("'", "\\'")
     js_title = _js(episode["title"])
-    is_he = episode.get("lang") == "he"
     lang_dir = 'lang="he" dir="rtl"' if is_he else 'lang="en"'
     hebrew_font = (
         '<link rel="preconnect" href="https://fonts.googleapis.com">'
         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap">'
         '<style>'
-        'html,body{font-family:\'Heebo\',-apple-system,BlinkMacSystemFont,sans-serif;}'
-        # Structural elements: force LTR so layout is identical to English pages
-        '.app-bar,.nav,.moment-card,.section-label,.takeaway,.bio-toggle{direction:ltr;}'
+        'html,body{font-family:\'Heebo\',-apple-system,BlinkMacSystemFont,sans-serif !important;}'
+        # Structural elements: force LTR so layout is identical to English pages.
+        # .moment-card intentionally excluded — it must inherit RTL from <html dir="rtl">
+        # so its children (quote, context) are bidi-embedded correctly.
+        '.app-bar,.nav,.section-label,.takeaway,.bio-toggle{direction:ltr;}'
+        # Dates/metadata are LTR content regardless of page language
+        '.meta{direction:ltr;}'
         # Carousel starts from the right, scrolls left (natural RTL reading order)
         '.moments-scroll{direction:rtl;padding-left:18px;}'
-        # Text content: RTL alignment for Hebrew reading
-        '.episode-title,.guest-name,.tldr-text,.bio-content,.takeaway-text,.moment-quote,.moment-context,.qsheet-quote,.qsheet-ctx{direction:rtl;text-align:right;}'
+        # Text content: RTL alignment for Hebrew reading. unicode-bidi:embed
+        # establishes a proper bidi embedding so punctuation (? ! ,) appears at
+        # the correct end of the line instead of being mirrored by the bidi algorithm.
+        '.episode-title,.guest-name,.tldr-text,.bio-content,.takeaway-text,.moment-quote,.moment-context,.qsheet-quote,.qsheet-ctx{direction:rtl;text-align:right;unicode-bidi:embed;}'
         '</style>'
     ) if is_he else ""
     html = html.replace("LANG_DIR_ATTRS",      lang_dir)
@@ -1533,9 +1564,16 @@ def _show_meta() -> dict:
     return out
 
 
-def _fmt_date(d: str) -> str:
+_HE_MONTHS = ["ינואר","פברואר","מרץ","אפריל","מאי","יוני",
+              "יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"]
+
+
+def _fmt_date(d: str, lang: str = "en") -> str:
     try:
-        return datetime.datetime.strptime(d, "%Y-%m-%d").strftime("%-d %b %Y")
+        dt = datetime.datetime.strptime(d, "%Y-%m-%d")
+        if lang == "he":
+            return f"{dt.day} ב{_HE_MONTHS[dt.month - 1]} {dt.year}"
+        return dt.strftime("%-d %b %Y")
     except (ValueError, TypeError):
         return d or ""
 
@@ -1574,6 +1612,14 @@ def _library_episodes(tracker: dict) -> tuple[list, dict]:
             "date": date, "fdate": _fmt_date(date), "url": f"{ep['id']}.html", "new": is_new,
         })
     eps.sort(key=lambda e: (e["date"], e["id"]), reverse=True)
+    # Cap "New" badge to the 3 most recently published episodes so the badge
+    # stays meaningful instead of appearing on every episode published today.
+    new_seen = 0
+    for e in eps:
+        if e["new"]:
+            new_seen += 1
+            if new_seen > 3:
+                e["new"] = False
     return eps, meta
 
 
@@ -1587,7 +1633,7 @@ LIB_CSS = """
     }
     * { box-sizing:border-box; margin:0; padding:0; }
     html,body { background:var(--canvas); color:var(--tp);
-      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; }
+      font-family:'Heebo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; }
     a { text-decoration:none; color:inherit; }
     .page { max-width:430px; margin:0 auto; min-height:100vh; padding-bottom:84px; }
     .hdr { position:sticky; top:0; z-index:50; background:var(--canvas);
@@ -1642,12 +1688,13 @@ LIB_CSS = """
     .chev { flex:0 0 auto; color:var(--dim); font-size:20px; line-height:1; }
     .grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; padding:13px 18px 0; }
     .card { display:flex; align-items:center; gap:11px; background:var(--surface);
-      border:1px solid var(--line); border-radius:14px; padding:13px; min-height:78px; }
+      border:1px solid var(--line); border-radius:14px; padding:13px; height:78px; overflow:hidden; }
     .card:active { opacity:0.7; }
     .sq { flex:0 0 38px; width:38px; height:38px; border-radius:10px; color:#08120D;
       font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; }
-    .card-r { display:flex; flex-direction:column; gap:3px; min-width:0; }
-    .card-name { font-size:13px; font-weight:500; color:var(--tp); line-height:1.25; }
+    .card-r { display:flex; flex-direction:column; gap:3px; min-width:0; overflow:hidden; }
+    .card-name { font-size:13px; font-weight:500; color:var(--tp); line-height:1.25;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
     .card-meta { display:flex; align-items:center; gap:0; }
     .card-count { font-size:11.5px; color:var(--dim); white-space:nowrap; }
     .lang-en { font-size:10px; padding:1px 5px; border-radius:999px; background:rgba(255,255,255,0.08); color:var(--dim); margin-right:4px; }
@@ -1727,6 +1774,8 @@ def _lib_page(title: str, body: str, active: str, extra_script: str = "") -> str
         f'  <title>{_t(title)}</title>\n'
         f'{FAVICON_LINKS}\n'
         f'{goatcounter_script()}\n'
+        '  <link rel="preconnect" href="https://fonts.googleapis.com">\n'
+        '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap">\n'
         f'  <style>{LIB_CSS}</style>\n</head>\n<body>\n<div class="page">\n'
         '  <header class="hdr">'
         '<div class="hside left">' + _GLASSES + '</div>'
@@ -1773,8 +1822,8 @@ def _episode_row(e: dict) -> str:
     return (
         f'<a class="row" href="{e["url"]}">'
         f'<span class="chip" style="background:{e["color"]}">{_t(e["chip"])}</span>'
-        f'<span class="row-main"><span class="row-title">{_t(e["title"])}</span>'
-        f'<span class="row-meta">{newtag}{_t(meta)}</span></span>'
+        f'<span class="row-main"><span class="row-title" dir="ltr">{_t(e["title"])}</span>'
+        f'<span class="row-meta" dir="ltr">{newtag}{_t(meta)}</span></span>'
         f'<span class="chev">&rsaquo;</span></a>'
     )
 
@@ -2115,7 +2164,7 @@ Return only the message text, nothing else."""
         bad = (not text or len(text) > 600 or "http" in text.lower()
                or any(tok in text for tok in PLACEHOLDER_TOKENS)
                or not (10 <= word_count <= 20)
-               or (title and title.lower() in text.lower()))
+               or (title and len(title.split()) > 3 and title.lower() in text.lower()))
         if not bad:
             return text
         print(f"  Sis message failed its check (words={word_count}) — using fallback")
@@ -2339,7 +2388,7 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
       • uses cheap Haiku for generation (QA review still uses Sonnet)
       • resumable: skips pages already live (gh_exists) or already processed
     Run via a dedicated high-timeout workflow_dispatch, not the daily cron."""
-    cutoff = datetime.datetime(since.year, since.month, since.day, tzinfo=datetime.timezone.utc)
+    cutoff = datetime.datetime(since.year, since.month, since.day)
     print(f"Backfill since {since} using {model}\n")
 
     tracker, tracker_sha = get_tracker()
@@ -2358,9 +2407,8 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
         # high-frequency shows like daily podcasts without a separate backfill run).
         show_since = podcast.get("backfill_since")
         show_cutoff = (
-            datetime.datetime(
-                *[int(x) for x in show_since.split("-")], tzinfo=datetime.timezone.utc
-            ) if show_since else cutoff
+            datetime.datetime(*[int(x) for x in show_since.split("-")])
+            if show_since else cutoff
         )
         eps = fetch_new_episodes(podcast, show_cutoff, processed_ids, set())
         print(f"  {len(eps)} to consider")
@@ -2384,14 +2432,16 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
             bq_lookup.pop(ep_id, None)
             continue
 
-        video_id = find_youtube_id(episode["title"], episode["podcast"], episode.get("show_format", ""))
+        video_id = None
         video_duration = None
-        if video_id:
-            if verify_youtube_match(video_id, episode):
-                video_duration, _ = youtube_meta(video_id)
-            else:
-                video_id = None
-        print(f"  YouTube: {video_id or 'none'}")
+        if episode.get("has_youtube", True) is not False:
+            video_id = find_youtube_id(episode["title"], episode["podcast"], episode.get("show_format", ""))
+            if video_id:
+                if verify_youtube_match(video_id, episode):
+                    video_duration, _ = youtube_meta(video_id)
+                else:
+                    video_id = None
+        print(f"  YouTube: {video_id or ('skipped (has_youtube=False)' if episode.get('has_youtube') is False else 'none')}")
 
         dur = episode.get("duration_sec")
         if not video_id and dur and dur < SHORT_EPISODE_THRESHOLD_SEC:
@@ -2407,7 +2457,7 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
         prior = bq_lookup.get(ep_id)
         prior_feedback = prior.get("last_qa_feedback") if prior else None
 
-        transcript = get_transcript(video_id) if video_id else []
+        transcript = get_transcript(video_id, lang=episode.get("lang", "en")) if video_id else []
         content = generate_content(episode, transcript, video_id or "", model=model, qa_feedback=prior_feedback)
         if not content:
             print("  Generation failed — skipping\n")
@@ -2503,13 +2553,19 @@ def _retry_awaiting_video(tracker: dict) -> bool:
             dirty = True
             continue
 
+        if entry.get("has_youtube") is False:
+            # Show is known to have no YouTube presence — drop from retry bucket
+            print(f"  [video-retry] {ep_id}: skipping (has_youtube=False)")
+            dirty = True
+            continue
+
         video_id = find_youtube_id(entry["title"], entry["podcast"], entry.get("show_format", ""))
         episode = dict(entry)
         episode["pub_dt"] = pub_dt
         episode.setdefault("date", pub_dt.strftime("%Y-%m-%d"))
         if video_id and verify_youtube_match(video_id, episode):
             video_duration, _ = youtube_meta(video_id)
-            transcript = get_transcript(video_id)
+            transcript = get_transcript(video_id, lang=episode.get("lang", "en"))
             content = generate_content(episode, transcript, video_id)
             if content and not content.get("skip"):
                 passed, html, content, qa_issues = qa_episode(
@@ -2586,7 +2642,7 @@ def _run_generate(window_override: datetime.timedelta | None = None,
     # tracker and breaks save_tracker if the retry also fails.
     existing_ids = {c["id"] for c in candidates}
     for q in tracker.get("queued", []):
-        if q["id"] not in existing_ids and q["id"] not in processed_ids:
+        if q["id"] not in existing_ids:
             cand = dict(q)
             raw_dt = cand.get("pub_dt")
             if isinstance(raw_dt, str):
@@ -2622,8 +2678,10 @@ def _run_generate(window_override: datetime.timedelta | None = None,
             pub_dt = datetime.datetime.strptime(episode.get("date", str(today)), "%Y-%m-%d")
         episode["pub_dt"] = pub_dt
 
-        # Dedup: skip if page already exists on GitHub
-        if gh_exists(filename):
+        # Dedup: skip if page already exists on GitHub.
+        # Exception: queued retries (qa_attempts set) must regenerate even if the file exists.
+        is_queued_retry = bool(episode.get("qa_attempts"))
+        if gh_exists(filename) and not is_queued_retry:
             print(f"  Already published — marking processed")
             if ep_id not in processed_ids:
                 tracker["processed"].append({"id": ep_id})
@@ -2632,14 +2690,16 @@ def _run_generate(window_override: datetime.timedelta | None = None,
             continue
 
         # ── Find YouTube video (and verify it IS this episode) ───────────────
-        video_id = find_youtube_id(episode["title"], episode["podcast"], episode.get("show_format", ""))
+        video_id = None
         video_duration = None
-        if video_id:
-            if verify_youtube_match(video_id, episode):
-                video_duration, _ = youtube_meta(video_id)
-            else:
-                video_id = None
-        print(f"  YouTube: {video_id or 'not found / not verified'}")
+        if episode.get("has_youtube", True) is not False:
+            video_id = find_youtube_id(episode["title"], episode["podcast"], episode.get("show_format", ""))
+            if video_id:
+                if verify_youtube_match(video_id, episode):
+                    video_duration, _ = youtube_meta(video_id)
+                else:
+                    video_id = None
+        print(f"  YouTube: {video_id or ('skipped (has_youtube=False)' if episode.get('has_youtube') is False else 'not found / not verified')}")
 
         # ── Short/bonus episode skip (no video + short RSS duration) ──────────
         dur = episode.get("duration_sec")
@@ -2654,7 +2714,7 @@ def _run_generate(window_override: datetime.timedelta | None = None,
             continue
 
         # ── Get transcript ────────────────────────────────────────────────────
-        transcript = get_transcript(video_id) if video_id else []
+        transcript = get_transcript(video_id, lang=episode.get("lang", "en")) if video_id else []
         print(f"  Transcript: {len(transcript)} segments")
 
         # ── Generate content via Claude ───────────────────────────────────────
@@ -2774,9 +2834,10 @@ def _run_generate(window_override: datetime.timedelta | None = None,
             })
             tracker["queued"] = [q for q in tracker.get("queued", []) if q["id"] != ep_id]
             processed_ids.add(ep_id)
-            if not video_id:
+            if not video_id and episode.get("has_youtube", True) is not False:
                 # No video yet — a later run today (or tomorrow, within 24h)
                 # will retry the search and upgrade this page in place.
+                # Skip shows we know have no YouTube presence (has_youtube=False).
                 tracker.setdefault("awaiting_video", []).append({
                     "id":           ep_id,
                     "podcast":      episode.get("podcast"),
@@ -2788,6 +2849,7 @@ def _run_generate(window_override: datetime.timedelta | None = None,
                     "spotify_show": episode.get("spotify_show", ""),
                     "lex_filter":   episode.get("lex_filter", False),
                     "show_format":  episode.get("show_format", "interview"),
+                    "lang":         episode.get("lang", "en"),
                     "published_at": pub_dt.isoformat(),
                 })
         outcomes.append({"id": ep_id, "podcast": episode.get("podcast"),
