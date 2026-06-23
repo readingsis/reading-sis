@@ -2956,21 +2956,7 @@
   "queued": [],
   "pending_send": [],
   "preview": [],
-  "awaiting_video": [
-    {
-      "id": "crime-junkie-2026-06-22",
-      "podcast": "Crime Junkie",
-      "slug_prefix": "crime-junkie",
-      "title": "MISSING: Brittany Wallace Shank",
-      "date": "2026-06-22",
-      "description": "On November 30, 2018, 23-year-old Brittany Wallace Shank showed up barefoot and bleeding at a stranger's door asking for help. She said the man she was with had crashed their car and ran away. Deputies were on the way. But before they arrived, Brittany disappeared into the darkness. She has never been seen again.",
-      "duration_sec": 4506,
-      "spotify_show": "",
-      "lex_filter": false,
-      "show_format": "true_crime",
-      "published_at": "2026-06-22T10:00:00"
-    }
-  ],
+  "awaiting_video": [],
   "sent_count_today": {
     "date": "2026-06-22",
     "count": 5
