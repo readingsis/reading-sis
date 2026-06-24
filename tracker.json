@@ -3046,42 +3046,6 @@
   "queued": [],
   "pending_send": [
     {
-      "id": "all-in-2026-06-23",
-      "podcast": "All-In",
-      "guest": "Ryan Cohen",
-      "title": "GameStop CEO Ryan Cohen's $56B Plan to Take Over eBay",
-      "date_str": "23 Jun 2026",
-      "date_short": "Jun 23",
-      "published_at": "2026-06-23T23:52:00",
-      "hook": "Ryan Cohen argues that eBay is a massively underperforming asset that is highly complementary to GameStop's growing collectibles and secondhand business — and that his e-commerce operating experience makes him uniquely positioned to unlock its value. He believes eBay defaulted into its niche categor",
-      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-23.html",
-      "lang": "en"
-    },
-    {
-      "id": "freakonomics-2026-06-24",
-      "podcast": "Freakonomics Radio",
-      "guest": "Stephen Dubner",
-      "title": "The World Is (Still) Drowning in Sludge",
-      "date_str": "24 Jun 2026",
-      "date_short": "Jun 24",
-      "published_at": "2026-06-24T03:00:00",
-      "hook": "Sludge — the friction embedded in forms, cancellation flows, and automated systems — is not accidental; it is often deliberately designed to exhaust people into giving up. Dubner investigates the structural and financial incentives that make organizations profit from complexity, and examines emergin",
-      "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-06-24.html",
-      "lang": "en"
-    },
-    {
-      "id": "echad-beyom-2026-06-24",
-      "podcast": "אחד ביום",
-      "guest": "ד\"ר אידו באו",
-      "title": "משפט נתניהו: סיכום החקירה הנגדית",
-      "date_str": "24 Jun 2026",
-      "date_short": "Jun 24",
-      "published_at": "2026-06-24T04:45:00",
-      "hook": "שלב החקירה הנגדית במשפט נתניהו הסתיים לאחר כשנה, ובו ניסתה התביעה לחבר לשופטים את התמונה הראייתית המלאה בשלושת התיקים. נתניהו אופיין בתשובות מתחמקות, נאומים תוקפניים ו'אני לא זוכר', אך התביעה הצליחה לחשוף סתירות מהותיות בגרסאותיו. פסיקה צפויה רק ב-2028 לכל המוקדם.",
-      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-24.html",
-      "lang": "he"
-    },
-    {
       "id": "hayot-kis-2026-06-24",
       "podcast": "חיות כיס",
       "guest": "Various",
@@ -3151,7 +3115,7 @@
   ],
   "sent_count_today": {
     "date": "2026-06-24",
-    "count": 3
+    "count": 6
   },
   "backfill_queued": [],
   "fallback_sent_date": "2026-06-23"
