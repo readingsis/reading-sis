@@ -3060,18 +3060,6 @@
       "lang": "en"
     },
     {
-      "id": "pivot-2026-06-23",
-      "podcast": "Pivot",
-      "guest": "Various",
-      "title": "Starmer Resigns, Reflecting Pool Fiasco, and Amazon Dumps OpenAI Movie",
-      "date_str": "23 Jun 2026",
-      "date_short": "Jun 23",
-      "published_at": "2026-06-23T13:00:00",
-      "hook": "Trump's Iran deal amounts to unconditional American surrender, handing Tehran control over the Strait of Hormuz while getting nothing on nuclear enrichment. Keir Starmer's resignation reflects a broader UK economic rot driven by Brexit, which has cost Britain roughly 8% of GDP. Meanwhile, Bezos and ",
-      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-23.html",
-      "lang": "en"
-    },
-    {
       "id": "echad-beyom-2026-06-24",
       "podcast": "אחד ביום",
       "guest": "ד\"ר אידו באו",
@@ -3081,30 +3069,6 @@
       "published_at": "2026-06-24T04:45:00",
       "hook": "שלב החקירה הנגדית במשפט נתניהו הסתיים לאחר כשנה, ובו ניסתה התביעה לחבר לשופטים את התמונה הראייתית המלאה בשלושת התיקים. נתניהו אופיין בתשובות מתחמקות, נאומים תוקפניים ו'אני לא זוכר', אך התביעה הצליחה לחשוף סתירות מהותיות בגרסאותיו. פסיקה צפויה רק ב-2028 לכל המוקדם.",
       "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-24.html",
-      "lang": "he"
-    },
-    {
-      "id": "echad-beyom-2026-06-23",
-      "podcast": "אחד ביום",
-      "guest": "Various",
-      "title": "התנים מגיעים לעיר",
-      "date_str": "23 Jun 2026",
-      "date_short": "Jun 23",
-      "published_at": "2026-06-23T04:45:00",
-      "hook": "תנים הפכו למטרד עירוני ממשי בישראל — טורפים חתולים, תוקפים אנשים ואפילו חוטפים תינוקות — בעיקר בשל שילוב של פסולת נגישה, אובדן בתי גידול טבעיים, ואפקט הקורונה שלימד אותם לחיות בתוך הערים ללא פחד. הפתרון הרציני היחיד הוא ניהול מערך הפסולת העירוני — כי דילול ללא טיפול בשורש הבעיה גורם לתנות לפצות ברבי",
-      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-23.html",
-      "lang": "he"
-    },
-    {
-      "id": "geekonomy-2026-06-23",
-      "podcast": "גיקונומי",
-      "guest": "אליזבט צורקוב",
-      "title": "פרק #1217 - אליזבט צורקוב וההסכמים הרעים",
-      "date_str": "23 Jun 2026",
-      "date_short": "Jun 23",
-      "published_at": "2026-06-23T23:43:59",
-      "hook": "ההסכם המתגבש עם איראן ומנגנון הפיקוח על הפסקת האש בלבנון הם תבוסה אסטרטגית לישראל ולמדינת לבנון. סוריה שרויה בעוני קיצוני ופירוד פנימי, כאשר העלוואים, הדרוזים והשלטון החדש כולם במצב שביר. הזדמנות לשלום עם סוריה אבדה בשל הפלישה הישראלית לאחר נפילת אסד.",
-      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-23.html",
       "lang": "he"
     },
     {
@@ -3164,8 +3128,8 @@
     }
   ],
   "sent_count_today": {
-    "date": "2026-06-22",
-    "count": 5
+    "date": "2026-06-24",
+    "count": 3
   },
   "backfill_queued": [],
   "fallback_sent_date": "2026-06-23"
