@@ -2951,12 +2951,218 @@
       "id": "startup-for-startup-2026-06-23",
       "skipped": true,
       "skip_reason": "short/bonus, no video"
+    },
+    {
+      "id": "all-in-2026-06-23",
+      "podcast": "All-In",
+      "guest": "Ryan Cohen",
+      "title": "GameStop CEO Ryan Cohen's $56B Plan to Take Over eBay",
+      "date": "2026-06-23",
+      "published_at": "2026-06-23T23:52:00",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-23.html",
+      "pushed_at": "2026-06-24"
+    },
+    {
+      "id": "freakonomics-2026-06-24",
+      "podcast": "Freakonomics Radio",
+      "guest": "Stephen Dubner",
+      "title": "The World Is (Still) Drowning in Sludge",
+      "date": "2026-06-24",
+      "published_at": "2026-06-24T03:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-06-24.html",
+      "pushed_at": "2026-06-24"
+    },
+    {
+      "id": "pivot-2026-06-23",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "Starmer Resigns, Reflecting Pool Fiasco, and Amazon Dumps OpenAI Movie",
+      "date": "2026-06-23",
+      "published_at": "2026-06-23T13:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-23.html",
+      "pushed_at": "2026-06-24"
+    },
+    {
+      "id": "echad-beyom-2026-06-24",
+      "podcast": "אחד ביום",
+      "guest": "ד\"ר אידו באו",
+      "title": "משפט נתניהו: סיכום החקירה הנגדית",
+      "date": "2026-06-24",
+      "published_at": "2026-06-24T04:45:00",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-24.html",
+      "pushed_at": "2026-06-24"
+    },
+    {
+      "id": "echad-beyom-2026-06-23",
+      "podcast": "אחד ביום",
+      "guest": "Various",
+      "title": "התנים מגיעים לעיר",
+      "date": "2026-06-23",
+      "published_at": "2026-06-23T04:45:00",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-23.html",
+      "pushed_at": "2026-06-24"
+    },
+    {
+      "id": "geekonomy-2026-06-23",
+      "podcast": "גיקונומי",
+      "guest": "אליזבט צורקוב",
+      "title": "פרק #1217 - אליזבט צורקוב וההסכמים הרעים",
+      "date": "2026-06-23",
+      "published_at": "2026-06-23T23:43:59",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-23.html",
+      "pushed_at": "2026-06-24"
+    },
+    {
+      "id": "hayot-kis-2026-06-24",
+      "podcast": "חיות כיס",
+      "guest": "Various",
+      "title": "פרק 355: כלכלת על חלל",
+      "date": "2026-06-24",
+      "published_at": "2026-06-24T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/hayot-kis-2026-06-24.html",
+      "pushed_at": "2026-06-24"
+    },
+    {
+      "id": "trashtech-2026-06-24",
+      "podcast": "טראשטק",
+      "guest": "אלכס גרינשפון",
+      "title": "כולם עוברים לחיסכון בטוקנים: איך תוכלו לעשות את זה גם? + ההפסד הענק של OpenAI",
+      "date": "2026-06-24",
+      "published_at": "2026-06-24T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-24.html",
+      "pushed_at": "2026-06-24"
     }
   ],
   "queued": [],
-  "pending_send": [],
+  "pending_send": [
+    {
+      "id": "all-in-2026-06-23",
+      "podcast": "All-In",
+      "guest": "Ryan Cohen",
+      "title": "GameStop CEO Ryan Cohen's $56B Plan to Take Over eBay",
+      "date_str": "23 Jun 2026",
+      "date_short": "Jun 23",
+      "published_at": "2026-06-23T23:52:00",
+      "hook": "Ryan Cohen argues that eBay is a massively underperforming asset that is highly complementary to GameStop's growing collectibles and secondhand business — and that his e-commerce operating experience makes him uniquely positioned to unlock its value. He believes eBay defaulted into its niche categor",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-23.html",
+      "lang": "en"
+    },
+    {
+      "id": "freakonomics-2026-06-24",
+      "podcast": "Freakonomics Radio",
+      "guest": "Stephen Dubner",
+      "title": "The World Is (Still) Drowning in Sludge",
+      "date_str": "24 Jun 2026",
+      "date_short": "Jun 24",
+      "published_at": "2026-06-24T03:00:00",
+      "hook": "Sludge — the friction embedded in forms, cancellation flows, and automated systems — is not accidental; it is often deliberately designed to exhaust people into giving up. Dubner investigates the structural and financial incentives that make organizations profit from complexity, and examines emergin",
+      "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-06-24.html",
+      "lang": "en"
+    },
+    {
+      "id": "pivot-2026-06-23",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "Starmer Resigns, Reflecting Pool Fiasco, and Amazon Dumps OpenAI Movie",
+      "date_str": "23 Jun 2026",
+      "date_short": "Jun 23",
+      "published_at": "2026-06-23T13:00:00",
+      "hook": "Trump's Iran deal amounts to unconditional American surrender, handing Tehran control over the Strait of Hormuz while getting nothing on nuclear enrichment. Keir Starmer's resignation reflects a broader UK economic rot driven by Brexit, which has cost Britain roughly 8% of GDP. Meanwhile, Bezos and ",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-23.html",
+      "lang": "en"
+    },
+    {
+      "id": "echad-beyom-2026-06-24",
+      "podcast": "אחד ביום",
+      "guest": "ד\"ר אידו באו",
+      "title": "משפט נתניהו: סיכום החקירה הנגדית",
+      "date_str": "24 Jun 2026",
+      "date_short": "Jun 24",
+      "published_at": "2026-06-24T04:45:00",
+      "hook": "שלב החקירה הנגדית במשפט נתניהו הסתיים לאחר כשנה, ובו ניסתה התביעה לחבר לשופטים את התמונה הראייתית המלאה בשלושת התיקים. נתניהו אופיין בתשובות מתחמקות, נאומים תוקפניים ו'אני לא זוכר', אך התביעה הצליחה לחשוף סתירות מהותיות בגרסאותיו. פסיקה צפויה רק ב-2028 לכל המוקדם.",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-24.html",
+      "lang": "he"
+    },
+    {
+      "id": "echad-beyom-2026-06-23",
+      "podcast": "אחד ביום",
+      "guest": "Various",
+      "title": "התנים מגיעים לעיר",
+      "date_str": "23 Jun 2026",
+      "date_short": "Jun 23",
+      "published_at": "2026-06-23T04:45:00",
+      "hook": "תנים הפכו למטרד עירוני ממשי בישראל — טורפים חתולים, תוקפים אנשים ואפילו חוטפים תינוקות — בעיקר בשל שילוב של פסולת נגישה, אובדן בתי גידול טבעיים, ואפקט הקורונה שלימד אותם לחיות בתוך הערים ללא פחד. הפתרון הרציני היחיד הוא ניהול מערך הפסולת העירוני — כי דילול ללא טיפול בשורש הבעיה גורם לתנות לפצות ברבי",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-23.html",
+      "lang": "he"
+    },
+    {
+      "id": "geekonomy-2026-06-23",
+      "podcast": "גיקונומי",
+      "guest": "אליזבט צורקוב",
+      "title": "פרק #1217 - אליזבט צורקוב וההסכמים הרעים",
+      "date_str": "23 Jun 2026",
+      "date_short": "Jun 23",
+      "published_at": "2026-06-23T23:43:59",
+      "hook": "ההסכם המתגבש עם איראן ומנגנון הפיקוח על הפסקת האש בלבנון הם תבוסה אסטרטגית לישראל ולמדינת לבנון. סוריה שרויה בעוני קיצוני ופירוד פנימי, כאשר העלוואים, הדרוזים והשלטון החדש כולם במצב שביר. הזדמנות לשלום עם סוריה אבדה בשל הפלישה הישראלית לאחר נפילת אסד.",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-23.html",
+      "lang": "he"
+    },
+    {
+      "id": "hayot-kis-2026-06-24",
+      "podcast": "חיות כיס",
+      "guest": "Various",
+      "title": "פרק 355: כלכלת על חלל",
+      "date_str": "24 Jun 2026",
+      "date_short": "Jun 24",
+      "published_at": "2026-06-24T05:00:00",
+      "hook": "תעשיית החלל עברה מהפכה: במקום סוכנויות ממשלתיות, היום SpaceX של מאסק ו-Blue Origin של בזוס מובילים את המירוץ ומגלגלים מיליארדים. עסקי החלל אינם רק חלום עתידני – לווייני תקשורת, הדמיית כדור הארץ ותיירות חלל כבר מייצרים הכנסות אמיתיות. ישראל גם מנסה למצוא את מקומה בתעשייה הזו, עם חברות מקומיות שמנסות ",
+      "page_url": "https://readingsis.github.io/reading-sis/hayot-kis-2026-06-24.html",
+      "lang": "he"
+    },
+    {
+      "id": "trashtech-2026-06-24",
+      "podcast": "טראשטק",
+      "guest": "אלכס גרינשפון",
+      "title": "כולם עוברים לחיסכון בטוקנים: איך תוכלו לעשות את זה גם? + ההפסד הענק של OpenAI",
+      "date_str": "24 Jun 2026",
+      "date_short": "Jun 24",
+      "published_at": "2026-06-24T05:00:00",
+      "hook": "OpenAI הוציאה 34 מיליארד דולר בשנה אחת תוך שהכניסה רק 13 מיליארד — פער של 21 מיליארד שממחיש עד כמה מודל ה-AI הנוכחי מסובסד על ידי משקיעים ולא בר-קיימא. במקביל, אלכס גרינשפון מציגה שיטות מעשיות לחיסכון בטוקנים דרך ניהול חכם של קונטקסט וסוכנים, כולל כלי קוד פתוח שחסך לה 40,000 טוקנים לכל סשן.",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-24.html",
+      "lang": "he"
+    }
+  ],
   "preview": [],
-  "awaiting_video": [],
+  "awaiting_video": [
+    {
+      "id": "freakonomics-2026-06-24",
+      "podcast": "Freakonomics Radio",
+      "slug_prefix": "freakonomics",
+      "title": "The World Is (Still) Drowning in Sludge",
+      "date": "2026-06-24",
+      "description": "Insurance forms that make no sense. Subscriptions that can’t be cancelled. A never-ending blizzard of automated notifications. In this update of a 2025 episode, Stephen Dubner discovers where all this sludge comes from — and how much it’s costing us.",
+      "duration_sec": 3286,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "interview",
+      "lang": "en",
+      "published_at": "2026-06-24T03:00:00"
+    },
+    {
+      "id": "hayot-kis-2026-06-24",
+      "podcast": "חיות כיס",
+      "slug_prefix": "hayot-kis",
+      "title": "פרק 355: כלכלת על חלל",
+      "date": "2026-06-24",
+      "description": "<p dir=\"rtl\">פעם החלל היה מגרש המשחקים של ממשלות. היום אלה אילון מאסק, ג׳ף בזוס וחברות פרטיות שמובילים את המירוץ ומגלגלים ממנו מיליארדים. איך עושים ביזנס מהחלל, האם האנושות באמת בדרך לירח, כמה מהחזון הזה הוא הייפ וכמה ממנו קורה כבר עכשיו - ואיפה ישראל נכנסת לתמונה?<br /><br />מגיש: שאול אמסטרדמסקי; עורכת: ליהיא צדוק; מפיק: טל נרונסקי; עורך סאונד: טל וניג; תמונה: Shutterstock<br />מרואיינים: תמיר שחר, הילה חדד חמלניק, רן לבנה</p><p>See <a href=\"https://omnystudio.com/listener\">omnystudio.com/listener</a> for privacy information.</p>",
+      "duration_sec": 2714,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "interview",
+      "lang": "he",
+      "published_at": "2026-06-24T05:00:00"
+    }
+  ],
   "sent_count_today": {
     "date": "2026-06-22",
     "count": 5
