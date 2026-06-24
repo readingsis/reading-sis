@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Trump's Iran deal amounts to unconditional American surrender, handing Tehran control over the Strait of Hormuz while getting nothing on nuclear enrichment.">
+  <title>Reading.Sis — Starmer Resigns, Reflecting Pool Fiasco, and Amazon Dumps OpenAI Movie</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo:active { opacity: 0.6; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-rm-link { color: var(--text-primary); text-decoration: underline; cursor: pointer; }
+    .qsheet-back { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.55); display: none; align-items: flex-end; justify-content: center; }
+    .qsheet-back.show { display: flex; }
+    .qsheet { width: 100%; max-width: 430px; background: var(--card-bg); border-top-left-radius: 20px; border-top-right-radius: 20px; border-top: 1px solid var(--border); padding: 10px 22px calc(26px + env(safe-area-inset-bottom)); }
+    .qsheet-grip { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 0 auto 18px; }
+    .qsheet-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+    .qsheet-quote { font-size: 14px; font-style: italic; color: var(--text-primary); line-height: 1.65; margin-bottom: 14px; }
+    .qsheet-ctx { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }
+    .qsheet-close { width: 100%; background: var(--icon-bg); border: 1px solid var(--icon-border); color: var(--text-primary); font-size: 14px; font-weight: 600; padding: 13px; border-radius: 11px; cursor: pointer; font-family: inherit; }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .moment-timestamp-dim { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--text-dim); font-weight: 600; background: rgba(255,255,255,0.05); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .takeaways-rest[hidden] { display: none; }
+    .takeaways-toggle { margin-top: 14px; background: none; border: none; color: var(--green); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <a class="logo" href="index.html" aria-label="Back to the library">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </a>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">Pivot</div>
+    <h1 class="episode-title">Starmer Resigns, Reflecting Pool Fiasco, and Amazon Dumps OpenAI Movie</h1>
+    <div class="guest-name">Kara Swisher &amp; Scott Galloway</div>
+    <div class="meta">
+      <span>23 Jun 2026</span>
+      <span>4 min read</span>
+      <span>28m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Trump's Iran deal amounts to unconditional American surrender, handing Tehran control over the Strait of Hormuz while getting nothing on nuclear enrichment. Keir Starmer's resignation reflects a broader UK economic rot driven by Brexit, which has cost Britain roughly 8% of GDP. Meanwhile, Bezos and Zuckerberg kissing Trump's ring signals a shift from pay-for-play democracy to a mob-style protection racket.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Scott Galloway</div>
+        <div class="moment-quote">&ldquo;Trump has delivered on his promise of unconditional surrender. The problem is we're the ones unconditionally surrendering.&rdquo;</div>
+        <div class="moment-context">Galloway summarizing the state of US-Iran nuclear negotiations and the MOU framework</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=X0RAVhm5FEk&t=199" target="_blank">&#9654; 3:19</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Scott Galloway</div>
+        <div class="moment-quote">&ldquo;He has handed them something more powerful than a nuclear weapon, and that is an ability to choke the carotid artery of the global economy in the Strait of Hormuz.&rdquo;</div>
+        <div class="moment-context">Galloway explaining what Trump's military withdrawal from Iran has conceded strategically</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=X0RAVhm5FEk&t=239" target="_blank">&#9654; 3:59</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Scott Galloway</div>
+        <div class="moment-quote">&ldquo;Since World War II, no individual's done more harm to Britain, in my view, than Nigel Farage, who might be a prime minister at some point.&rdquo;</div>
+        <div class="moment-context">Galloway diagnosing the UK's political dysfunction after Starmer's resignation announcement</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=X0RAVhm5FEk&t=809" target="_blank">&#9654; 13:29</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Scott Galloway</div>
+        <div class="moment-quote">&ldquo;Capital always chases power, but Silicon Valley spent 20 years telling us government didn't matter and then everyone started flying to Washington.&rdquo;</div>
+        <div class="moment-context">Galloway reflecting on the broader ideological flip among tech billionaires toward courting state power</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=X0RAVhm5FEk&t=1481" target="_blank">&#9654; 24:41</a>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Scott Galloway</div>
+        <div class="moment-quote">&ldquo;This has moved from buying influence to renting protection. This is a transition for pay-for-play democracy to something even worse, and that is a mob protection racket.&rdquo;</div>
+        <div class="moment-context">Galloway reacting to the Haberman-Swan book reporting on Bezos and Zuckerberg's sycophantic texts to Trump</div>
+        <a class="moment-timestamp" href="https://www.youtube.com/watch?v=X0RAVhm5FEk&t=1503" target="_blank">&#9654; 25:03</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About the show</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">Pivot is a twice-weekly podcast from New York Magazine and the Vox Media Podcast Network hosted by Kara Swisher and Scott Galloway. The show covers the intersection of technology, business, and politics with sharp commentary and frequent disagreement between its two hosts. Swisher is a veteran tech journalist and Galloway is a professor and entrepreneur known for his provocative takes on big tech and markets.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>Big tech sycophancy signals protection racket, not lobbying </strong>Galloway draws a sharp distinction: traditional lobbying is capital buying influence, but Bezos sending Trump a child's letter praising a 'golden age' and Zuckerberg's reported texts represent something structurally different — renting protection from a hostile state actor. He points to the DOJ's suit against JPMorgan as evidence that Jamie Dimon's refusal to play along has direct regulatory consequences. This framing has implications for how boards assess political risk.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>Hollywood quietly killing critical big-tech content </strong>Amazon dropped a $40M Sam Altman film after committing $50B to OpenAI investment, and Galloway reveals Netflix similarly pulled the plug on his own big-tech series mid-production. Both hosts treat this as a pattern: studios are deciding the reputational and commercial risk of antagonizing powerful tech partners outweighs the creative upside. For journalists and filmmakers, distribution access is increasingly contingent on editorial softness.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Iran MOU gives Tehran Hormuz leverage for free </strong>Galloway argues the memorandum of understanding with Iran contains zero constraints on nuclear enrichment — Iran is already at 60% enrichment vs. the JCPOA's 3.7% cap — while handing Tehran the implicit ability to threaten the Strait of Hormuz. Keeping the strait open would require two carrier strike forces and Marines on Iranian soil, which Galloway says is politically impossible. The net result: America exits weaker, Iran exits stronger.</div>
+    </div>
+    <div class="takeaways-rest" id="takeawaysRest" hidden>
+    <div class="takeaway">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-text"><strong>Brexit cost UK roughly 8% of GDP — permanently </strong>Galloway cites GDP forecasts of a 4–6% hit from Brexit at the time of the vote, with the actual cumulative drag now around 8%, equivalent to lighting hundreds of billions of pounds on fire. Seven out of ten UK IPOs in the last decade are below their offering price, and average UK household income has fallen below Mississippi's. He argues reintegration into the European economic framework is the only credible growth path.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">5</div>
+      <div class="takeaway-text"><strong>UK's fundamentals are strong; politics destroy the upside </strong>Galloway notes the UK has world-class universities, rule of law, and global cultural appeal — yet OpenAI, Anthropic, and SpaceX are set to raise $150B in fresh capital while the entire UK IPO market raised only $2B last year. He frames this as an institutional and political failure, not a structural one, suggesting a bold reorientation (likely EU reintegration) could unlock latent value. For investors, the UK discount may be a policy bet, not a fundamentals bet.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">6</div>
+      <div class="takeaway-text"><strong>JCPOA may be history's underrated diplomatic win </strong>Both hosts argue observers will look back on the Obama-era JCPOA as one of the most impressive diplomatic achievements in 50 years, precisely because it had Russia and China as co-signatories and real enrichment limits. By contrast, the current framework can't even get Israel or European nations to sign. The comparison is a useful benchmark for evaluating future Iran deals.</div>
+    </div>
+    </div>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 6 takeaways</button>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/watch?v=X0RAVhm5FEk" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/pivot-2026-06-23.html';
+  var PAGE_TITLE = 'Starmer Resigns, Reflecting Pool Fiasco, and Amazon Dumps OpenAI Movie — Reading.Sis';
+  var EP = {id:'pivot-2026-06-23', title:'Starmer Resigns, Reflecting Pool Fiasco, and Amazon Dumps OpenAI Movie', show:'Pivot', date:'23 Jun 2026', url:pageUrl};
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  // Save = bookmark to localStorage (anonymous, per-device). The library's
+  // "Saved" page reads this same key. Toggles on repeat tap.
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
+    var btn = document.getElementById('bookmarkBtn');
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
+    gcEvent('save');
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+
+  function toggleTakeaways() {
+    var rest = document.getElementById('takeawaysRest');
+    var btn = document.getElementById('takeawaysToggle');
+    if (rest.hasAttribute('hidden')) {
+      rest.removeAttribute('hidden');
+      btn.textContent = 'Show fewer';
+    } else {
+      rest.setAttribute('hidden', '');
+      btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
+    }
+  }
+
+  renderSaveBtn();
+
+  var _QL = Math.round(5 * 13 * 1.5);
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-card'), function(card) {
+    var q = card.querySelector('.moment-quote');
+    if (!q || q.scrollHeight <= _QL + 2) return;
+    var sp = (card.querySelector('.moment-speaker') || {}).textContent || '';
+    var ctx = (card.querySelector('.moment-context') || {}).textContent || '';
+    var full = q.textContent;
+    var words = full.split(' '), lo = 0, hi = words.length - 1, mid;
+    while (lo < hi) {
+      mid = Math.ceil((lo + hi) / 2);
+      q.textContent = words.slice(0, mid).join(' ') + '...';
+      if (q.scrollHeight <= _QL + 2) lo = mid; else hi = mid - 1;
+    }
+    q.textContent = '';
+    q.appendChild(document.createTextNode(words.slice(0, lo).join(' ') + '... '));
+    var rm = document.createElement('span');
+    rm.className = 'moment-rm-link';
+    rm.textContent = 'Read more';
+    (function(s, f, c) { rm.onclick = function() { openQuote(s, f, c); }; })(sp, full, ctx);
+    q.appendChild(rm);
+  });
+  function openQuote(sp, q, ctx) {
+    document.getElementById('qsheetSp').textContent = sp;
+    document.getElementById('qsheetQ').textContent = q;
+    document.getElementById('qsheetCtx').textContent = ctx;
+    document.getElementById('qsheetBack').classList.add('show');
+  }
+  function closeQuote(e) {
+    if (e && e.target !== e.currentTarget) return;
+    document.getElementById('qsheetBack').classList.remove('show');
+  }
+</script>
+<div class="qsheet-back" id="qsheetBack" onclick="closeQuote(event)"><div class="qsheet"><div class="qsheet-grip"></div><div class="qsheet-speaker" id="qsheetSp"></div><div class="qsheet-quote" id="qsheetQ"></div><div class="qsheet-ctx" id="qsheetCtx"></div><button class="qsheet-close" onclick="closeQuote()">Close</button></div></div>
+</body>
+</html>
