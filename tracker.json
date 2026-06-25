@@ -3041,6 +3041,26 @@
       "published_at": "2026-06-24T11:30:00",
       "page_url": "https://readingsis.github.io/reading-sis/bigdeal-2026-06-24.html",
       "pushed_at": "2026-06-24"
+    },
+    {
+      "id": "call-her-daddy-2026-06-24",
+      "podcast": "Call Her Daddy",
+      "guest": "Katie Couric",
+      "title": "Katie Couric: Sexism, Storytelling & Standing Up to Cancer",
+      "date": "2026-06-24",
+      "published_at": "2026-06-24T12:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-24.html",
+      "pushed_at": "2026-06-25"
+    },
+    {
+      "id": "echad-beyom-2026-06-25",
+      "podcast": "אחד ביום",
+      "guest": "אלדד בן אהרון",
+      "title": "האם טורקיה היא איראן החדשה?",
+      "date": "2026-06-25",
+      "published_at": "2026-06-25T04:45:00",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-25.html",
+      "pushed_at": "2026-06-25"
     }
   ],
   "queued": [],
@@ -3080,39 +3100,34 @@
       "hook": "Chris Do argues that most creatives and entrepreneurs don't have a pricing problem — they have a positioning problem rooted in neediness and a lack of belief in their own value. By mastering techniques like price bracketing, 'with or without you' energy, and brand differentiation, you can stop compe",
       "page_url": "https://readingsis.github.io/reading-sis/bigdeal-2026-06-24.html",
       "lang": "en"
+    },
+    {
+      "id": "call-her-daddy-2026-06-24",
+      "podcast": "Call Her Daddy",
+      "guest": "Katie Couric",
+      "title": "Katie Couric: Sexism, Storytelling & Standing Up to Cancer",
+      "date_str": "24 Jun 2026",
+      "date_short": "Jun 24",
+      "published_at": "2026-06-24T12:00:00",
+      "hook": "Katie Couric recounts being told by the president of CNN at age 22 that he 'never wanted to see her on air again,' and explains how that rejection pushed her to grind through local news, cover the Pentagon, and arrive at the Today show fully seasoned. She also describes anchoring live through 9/11 w",
+      "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-24.html",
+      "lang": "en"
+    },
+    {
+      "id": "echad-beyom-2026-06-25",
+      "podcast": "אחד ביום",
+      "guest": "אלדד בן אהרון",
+      "title": "האם טורקיה היא איראן החדשה?",
+      "date_str": "25 Jun 2026",
+      "date_short": "Jun 25",
+      "published_at": "2026-06-25T04:45:00",
+      "hook": "טורקיה של ארדואן אינה עדיין אויבת ישראל אלא יריבה — אך ההשוואה לאיראן החדשה אינה חדשה: כבר בשנות ה-80 טורקיה כמעט ניתקה קשרים, וישראל מצאה מנוף דרך סוגיית רצח העם הארמני. היום הפערים עמוקים יותר: לישראל יש חלופות אסטרטגיות רבות יותר, ולטורקיה יש גישה ישירה לוושינגטון ללא תיווך ישראלי. נרמול אמיתי, א",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-25.html",
+      "lang": "he"
     }
   ],
   "preview": [],
-  "awaiting_video": [
-    {
-      "id": "freakonomics-2026-06-24",
-      "podcast": "Freakonomics Radio",
-      "slug_prefix": "freakonomics",
-      "title": "The World Is (Still) Drowning in Sludge",
-      "date": "2026-06-24",
-      "description": "Insurance forms that make no sense. Subscriptions that can’t be cancelled. A never-ending blizzard of automated notifications. In this update of a 2025 episode, Stephen Dubner discovers where all this sludge comes from — and how much it’s costing us.",
-      "duration_sec": 3286,
-      "spotify_show": "",
-      "lex_filter": false,
-      "show_format": "interview",
-      "lang": "en",
-      "published_at": "2026-06-24T03:00:00"
-    },
-    {
-      "id": "hayot-kis-2026-06-24",
-      "podcast": "חיות כיס",
-      "slug_prefix": "hayot-kis",
-      "title": "פרק 355: כלכלת על חלל",
-      "date": "2026-06-24",
-      "description": "<p dir=\"rtl\">פעם החלל היה מגרש המשחקים של ממשלות. היום אלה אילון מאסק, ג׳ף בזוס וחברות פרטיות שמובילים את המירוץ ומגלגלים ממנו מיליארדים. איך עושים ביזנס מהחלל, האם האנושות באמת בדרך לירח, כמה מהחזון הזה הוא הייפ וכמה ממנו קורה כבר עכשיו - ואיפה ישראל נכנסת לתמונה?<br /><br />מגיש: שאול אמסטרדמסקי; עורכת: ליהיא צדוק; מפיק: טל נרונסקי; עורך סאונד: טל וניג; תמונה: Shutterstock<br />מרואיינים: תמיר שחר, הילה חדד חמלניק, רן לבנה</p><p>See <a href=\"https://omnystudio.com/listener\">omnystudio.com/listener</a> for privacy information.</p>",
-      "duration_sec": 2714,
-      "spotify_show": "",
-      "lex_filter": false,
-      "show_format": "interview",
-      "lang": "he",
-      "published_at": "2026-06-24T05:00:00"
-    }
-  ],
+  "awaiting_video": [],
   "sent_count_today": {
     "date": "2026-06-24",
     "count": 6
