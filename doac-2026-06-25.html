@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Jeremy Grantham argues the current AI-driven stock market is the biggest bubble in American history and is weeks away from bursting — dwarfing the dot-com and housing crashes he previously called.">
+  <title>Reading.Sis — Stock Market EMERGENCY: Sell Your Stocks Now, The Collapse Is Weeks Away!</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo:active { opacity: 0.6; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-rm-link { color: var(--text-primary); text-decoration: underline; cursor: pointer; }
+    .qsheet-back { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.55); display: none; align-items: flex-end; justify-content: center; }
+    .qsheet-back.show { display: flex; }
+    .qsheet { width: 100%; max-width: 430px; background: var(--card-bg); border-top-left-radius: 20px; border-top-right-radius: 20px; border-top: 1px solid var(--border); padding: 10px 22px calc(26px + env(safe-area-inset-bottom)); }
+    .qsheet-grip { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 0 auto 18px; }
+    .qsheet-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+    .qsheet-quote { font-size: 14px; font-style: italic; color: var(--text-primary); line-height: 1.65; margin-bottom: 14px; }
+    .qsheet-ctx { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }
+    .qsheet-close { width: 100%; background: var(--icon-bg); border: 1px solid var(--icon-border); color: var(--text-primary); font-size: 14px; font-weight: 600; padding: 13px; border-radius: 11px; cursor: pointer; font-family: inherit; }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .moment-timestamp-dim { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--text-dim); font-weight: 600; background: rgba(255,255,255,0.05); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .takeaways-rest[hidden] { display: none; }
+    .takeaways-toggle { margin-top: 14px; background: none; border: none; color: var(--green); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <a class="logo" href="index.html" aria-label="Back to the library">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </a>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">The Diary Of A CEO</div>
+    <h1 class="episode-title">Stock Market EMERGENCY: Sell Your Stocks Now, The Collapse Is Weeks Away!</h1>
+    <div class="guest-name">with Jeremy Grantham</div>
+    <div class="meta">
+      <span>25 Jun 2026</span>
+      <span>5 min read</span>
+      <span>1h 41m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">Jeremy Grantham argues the current AI-driven stock market is the biggest bubble in American history and is weeks away from bursting — dwarfing the dot-com and housing crashes he previously called. He recommends abandoning US equities in favour of international and emerging market stocks, resources, and cash, while warning that a parallel fertility crisis driven by microplastics and pesticides poses an existential civilisational risk that is being almost entirely ignored.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Jeremy Grantham</div>
+        <div class="moment-quote">&ldquo;The AI bubble is the broadest and most extreme in American history. We had the South Sea Bubble, we had the dot-com, we had the housing bubble — this one has characteristics of all three at the same time.&rdquo;</div>
+        <div class="moment-context">Grantham making his central case for why the current moment is uniquely dangerous for investors, shortly after the episode opens on the AI bubble question.</div>
+        <span class="moment-timestamp-dim">&#9654; 8:54</span>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Jeremy Grantham</div>
+        <div class="moment-quote">&ldquo;AI will change the world — I have no doubt about that. But changing the world does not mean the companies involved make money. The railroads changed the world and most of them went bankrupt. The internet changed the world and most of the dot-coms went to zero.&rdquo;</div>
+        <div class="moment-context">Grantham distinguishing between technological impact and investment returns during the AI discussion.</div>
+        <span class="moment-timestamp-dim">&#9654; 11:15</span>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Jeremy Grantham</div>
+        <div class="moment-quote">&ldquo;Wall Street has never, ever warned you when to get out of the market. Not once in history. Their business model depends on you staying invested — the day you sell is the day they stop making money from you.&rdquo;</div>
+        <div class="moment-context">Grantham explaining why retail investors cannot rely on brokers or advisors to protect them ahead of a crash, around the investing strategy discussion.</div>
+        <span class="moment-timestamp-dim">&#9654; 19:52</span>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Jeremy Grantham</div>
+        <div class="moment-quote">&ldquo;House prices need to fall thirty percent to get back to any kind of affordability that a normal working person can access. Until that happens, you have a society that is fracturing — because the young simply cannot get in.&rdquo;</div>
+        <div class="moment-context">Grantham discussing the housing market and its social consequences during the property investment segment.</div>
+        <span class="moment-timestamp-dim">&#9654; 1:04:37</span>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Jeremy Grantham</div>
+        <div class="moment-quote">&ldquo;Sperm counts have fallen fifty percent in fifty years. If you extrapolate that line, you get to zero. That is not a metaphor — that is the data. And almost nobody in power is talking about it.&rdquo;</div>
+        <div class="moment-context">Grantham shifting to the fertility crisis segment, warning about declining male reproductive health driven by chemical exposure.</div>
+        <span class="moment-timestamp-dim">&#9654; 1:10:50</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About Jeremy Grantham</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">Jeremy Grantham is the co-founder of GMO, an institutional investment firm based in Boston, where he serves as the firm's long-term investment strategist. He is widely known for correctly predicting both the dot-com crash and the 2007 housing collapse. Grantham is also the chairman of the Grantham Foundation For the Preservation of the Environment and co-author of 'The Making of a Permabear: The Perils of Long-term Investing in a Short-term World'.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>US stocks are uniquely dangerous right now </strong>Grantham argues US equities are more overvalued than at any prior bubble peak on multiple measures. His recommended alternative is a portfolio weighted toward international developed markets, emerging markets, and resource stocks — areas he sees as genuinely cheap relative to fundamentals.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>Sperm counts are on a trajectory toward zero </strong>Measured sperm counts have dropped roughly 50% over the past 50 years. Grantham links this to ubiquitous exposure to endocrine-disrupting chemicals — pesticides, microplastics, and synthetic compounds in cosmetics and food packaging — and warns the trend shows no sign of reversing without regulatory intervention.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Reduce chemical exposure with practical household swaps </strong>Grantham recommends avoiding plastics in food contact (especially when heated), choosing organic produce for the highest-pesticide crops, and switching to cosmetics and personal care products that avoid parabens and phthalates. These steps won't eliminate exposure but meaningfully reduce the body burden of the worst compounds.</div>
+    </div>
+    <div class="takeaways-rest" id="takeawaysRest" hidden>
+    <div class="takeaway">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-text"><strong>AI profits won't follow AI hype </strong>History shows that transformative technologies destroy more incumbent value than they create for investors — railroads, the internet, and electricity all changed the world while wiping out most early investors. Grantham expects the same dynamic to play out with AI, with intense competition compressing margins across the sector.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">5</div>
+      <div class="takeaway-text"><strong>Your financial advisor is structurally incentivised to keep you invested </strong>Wall Street's revenue is tied to assets under management — advisors earn fees only while you hold. This means no mainstream institution has ever issued a clear 'sell everything' warning before a crash, and none will this time either. Grantham says investors must seek independent, non-commission-based research.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">6</div>
+      <div class="takeaway-text"><strong>Property still needs a 30% price correction to be affordable </strong>Grantham contends that current house prices are still fundamentally misaligned with wages and rental yields, and that a 30% nominal decline is necessary — not a prediction of an imminent crash, but a statement about where fair value sits. Until that correction happens, he views residential property in most Western markets as a poor risk-adjusted investment.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">7</div>
+      <div class="takeaway-text"><strong>Wealth inequality is a historically proven societal destabiliser </strong>Grantham draws on historical data showing that extreme concentrations of wealth reliably precede social and political instability. He argues the current US Gini coefficient and asset-price inflation have transferred enormous wealth from younger to older generations, and that without tax or policy correction, social cohesion deteriorates.</div>
+    </div>
+    </div>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 7 takeaways</button>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/results?search_query=The%20Diary%20Of%20A%20CEO%20Stock%20Market%20EMERGENCY%3A%20Sell%20Your%20Stocks%20Now%2C%20The%20Collapse%20Is%20Weeks%20Away%21" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/The%20Diary%20Of%20A%20CEO%20Stock%20Market%20EMERGENCY%3A%20Sell%20Your%20Stocks%20Now%2C%20The%20Collapse%20Is%20Weeks%20Away%21" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/doac-2026-06-25.html';
+  var PAGE_TITLE = 'Stock Market EMERGENCY: Sell Your Stocks Now, The Collapse Is Weeks Away! — Reading.Sis';
+  var EP = {id:'doac-2026-06-25', title:'Stock Market EMERGENCY: Sell Your Stocks Now, The Collapse Is Weeks Away!', show:'The Diary Of A CEO', date:'25 Jun 2026', url:pageUrl};
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  // Save = bookmark to localStorage (anonymous, per-device). The library's
+  // "Saved" page reads this same key. Toggles on repeat tap.
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
+    var btn = document.getElementById('bookmarkBtn');
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
+    gcEvent('save');
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+
+  function toggleTakeaways() {
+    var rest = document.getElementById('takeawaysRest');
+    var btn = document.getElementById('takeawaysToggle');
+    if (rest.hasAttribute('hidden')) {
+      rest.removeAttribute('hidden');
+      btn.textContent = 'Show fewer';
+    } else {
+      rest.setAttribute('hidden', '');
+      btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
+    }
+  }
+
+  renderSaveBtn();
+
+  var _QL = Math.round(5 * 13 * 1.5);
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-card'), function(card) {
+    var q = card.querySelector('.moment-quote');
+    if (!q || q.scrollHeight <= _QL + 2) return;
+    var sp = (card.querySelector('.moment-speaker') || {}).textContent || '';
+    var ctx = (card.querySelector('.moment-context') || {}).textContent || '';
+    var full = q.textContent;
+    var words = full.split(' '), lo = 0, hi = words.length - 1, mid;
+    while (lo < hi) {
+      mid = Math.ceil((lo + hi) / 2);
+      q.textContent = words.slice(0, mid).join(' ') + '...';
+      if (q.scrollHeight <= _QL + 2) lo = mid; else hi = mid - 1;
+    }
+    q.textContent = '';
+    q.appendChild(document.createTextNode(words.slice(0, lo).join(' ') + '... '));
+    var rm = document.createElement('span');
+    rm.className = 'moment-rm-link';
+    rm.textContent = 'Read more';
+    (function(s, f, c) { rm.onclick = function() { openQuote(s, f, c); }; })(sp, full, ctx);
+    q.appendChild(rm);
+  });
+  function openQuote(sp, q, ctx) {
+    document.getElementById('qsheetSp').textContent = sp;
+    document.getElementById('qsheetQ').textContent = q;
+    document.getElementById('qsheetCtx').textContent = ctx;
+    document.getElementById('qsheetBack').classList.add('show');
+  }
+  function closeQuote(e) {
+    if (e && e.target !== e.currentTarget) return;
+    document.getElementById('qsheetBack').classList.remove('show');
+  }
+</script>
+<div class="qsheet-back" id="qsheetBack" onclick="closeQuote(event)"><div class="qsheet"><div class="qsheet-grip"></div><div class="qsheet-speaker" id="qsheetSp"></div><div class="qsheet-quote" id="qsheetQ"></div><div class="qsheet-ctx" id="qsheetCtx"></div><button class="qsheet-close" onclick="closeQuote()">Close</button></div></div>
+</body>
+</html>
