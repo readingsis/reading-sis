@@ -3086,42 +3086,6 @@
   "queued": [],
   "pending_send": [
     {
-      "id": "call-her-daddy-2026-06-24",
-      "podcast": "Call Her Daddy",
-      "guest": "Katie Couric",
-      "title": "Katie Couric: Sexism, Storytelling & Standing Up to Cancer",
-      "date_str": "24 Jun 2026",
-      "date_short": "Jun 24",
-      "published_at": "2026-06-24T12:00:00",
-      "hook": "Katie Couric recounts being told by the president of CNN at age 22 that he 'never wanted to see her on air again,' and explains how that rejection pushed her to grind through local news, cover the Pentagon, and arrive at the Today show fully seasoned. She also describes anchoring live through 9/11 w",
-      "page_url": "https://readingsis.github.io/reading-sis/call-her-daddy-2026-06-24.html",
-      "lang": "en"
-    },
-    {
-      "id": "echad-beyom-2026-06-25",
-      "podcast": "אחד ביום",
-      "guest": "אלדד בן אהרון",
-      "title": "האם טורקיה היא איראן החדשה?",
-      "date_str": "25 Jun 2026",
-      "date_short": "Jun 25",
-      "published_at": "2026-06-25T04:45:00",
-      "hook": "טורקיה של ארדואן אינה עדיין אויבת ישראל אלא יריבה — אך ההשוואה לאיראן החדשה אינה חדשה: כבר בשנות ה-80 טורקיה כמעט ניתקה קשרים, וישראל מצאה מנוף דרך סוגיית רצח העם הארמני. היום הפערים עמוקים יותר: לישראל יש חלופות אסטרטגיות רבות יותר, ולטורקיה יש גישה ישירה לוושינגטון ללא תיווך ישראלי. נרמול אמיתי, א",
-      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-25.html",
-      "lang": "he"
-    },
-    {
-      "id": "conan-2026-06-25",
-      "podcast": "Conan O'Brien Needs A Friend",
-      "guest": "Sona Movsesian",
-      "title": "Conan and Sona in Morocco",
-      "date_str": "25 Jun 2026",
-      "date_short": "Jun 25",
-      "published_at": "2026-06-25T07:05:00",
-      "hook": "Conan and Sona record a spontaneous, loose episode from the backseat of a car while traveling through Morocco toward Marrakesh. The episode captures their real-time travel banter, observations about Morocco, and the chaotic energy of reporting on the road. It's less a structured interview and more a",
-      "page_url": "https://readingsis.github.io/reading-sis/conan-2026-06-25.html",
-      "lang": "en"
-    },
-    {
       "id": "doac-2026-06-25",
       "podcast": "The Diary Of A CEO",
       "guest": "Jeremy Grantham",
@@ -3167,7 +3131,7 @@
   ],
   "sent_count_today": {
     "date": "2026-06-25",
-    "count": 3
+    "count": 6
   },
   "backfill_queued": [],
   "fallback_sent_date": "2026-06-23"
