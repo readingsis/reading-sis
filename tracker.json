@@ -3066,42 +3066,6 @@
   "queued": [],
   "pending_send": [
     {
-      "id": "hayot-kis-2026-06-24",
-      "podcast": "חיות כיס",
-      "guest": "Various",
-      "title": "פרק 355: כלכלת על חלל",
-      "date_str": "24 Jun 2026",
-      "date_short": "Jun 24",
-      "published_at": "2026-06-24T05:00:00",
-      "hook": "תעשיית החלל עברה מהפכה: במקום סוכנויות ממשלתיות, היום SpaceX של מאסק ו-Blue Origin של בזוס מובילים את המירוץ ומגלגלים מיליארדים. עסקי החלל אינם רק חלום עתידני – לווייני תקשורת, הדמיית כדור הארץ ותיירות חלל כבר מייצרים הכנסות אמיתיות. ישראל גם מנסה למצוא את מקומה בתעשייה הזו, עם חברות מקומיות שמנסות ",
-      "page_url": "https://readingsis.github.io/reading-sis/hayot-kis-2026-06-24.html",
-      "lang": "he"
-    },
-    {
-      "id": "trashtech-2026-06-24",
-      "podcast": "טראשטק",
-      "guest": "אלכס גרינשפון",
-      "title": "כולם עוברים לחיסכון בטוקנים: איך תוכלו לעשות את זה גם? + ההפסד הענק של OpenAI",
-      "date_str": "24 Jun 2026",
-      "date_short": "Jun 24",
-      "published_at": "2026-06-24T05:00:00",
-      "hook": "OpenAI הוציאה 34 מיליארד דולר בשנה אחת תוך שהכניסה רק 13 מיליארד — פער של 21 מיליארד שממחיש עד כמה מודל ה-AI הנוכחי מסובסד על ידי משקיעים ולא בר-קיימא. במקביל, אלכס גרינשפון מציגה שיטות מעשיות לחיסכון בטוקנים דרך ניהול חכם של קונטקסט וסוכנים, כולל כלי קוד פתוח שחסך לה 40,000 טוקנים לכל סשן.",
-      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-24.html",
-      "lang": "he"
-    },
-    {
-      "id": "bigdeal-2026-06-24",
-      "podcast": "BigDeal",
-      "guest": "Chris Do",
-      "title": "This Mindset Shift Can 10x Your Income | Chris Do",
-      "date_str": "24 Jun 2026",
-      "date_short": "Jun 24",
-      "published_at": "2026-06-24T11:30:00",
-      "hook": "Chris Do argues that most creatives and entrepreneurs don't have a pricing problem — they have a positioning problem rooted in neediness and a lack of belief in their own value. By mastering techniques like price bracketing, 'with or without you' energy, and brand differentiation, you can stop compe",
-      "page_url": "https://readingsis.github.io/reading-sis/bigdeal-2026-06-24.html",
-      "lang": "en"
-    },
-    {
       "id": "call-her-daddy-2026-06-24",
       "podcast": "Call Her Daddy",
       "guest": "Katie Couric",
@@ -3129,8 +3093,8 @@
   "preview": [],
   "awaiting_video": [],
   "sent_count_today": {
-    "date": "2026-06-24",
-    "count": 6
+    "date": "2026-06-25",
+    "count": 3
   },
   "backfill_queued": [],
   "fallback_sent_date": "2026-06-23"
