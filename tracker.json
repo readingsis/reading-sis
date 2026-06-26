@@ -3136,18 +3136,6 @@
   "queued": [],
   "pending_send": [
     {
-      "id": "freakonomics-2026-06-26",
-      "podcast": "Freakonomics Radio",
-      "guest": "Daniel Diermeier",
-      "title": "679. Why Does Vanderbilt Keep Winning?",
-      "date_str": "26 Jun 2026",
-      "date_short": "Jun 26",
-      "published_at": "2026-06-26T13:00:00",
-      "hook": "Vanderbilt Chancellor Daniel Diermeier argues that universities survive and thrive by acting as 'magnets' — drawing people together around shared intellectual purpose — rather than 'wedges' that divide along political lines. In a moment of low public trust and high political pressure, he has kept Va",
-      "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-06-26.html",
-      "lang": "en"
-    },
-    {
       "id": "hard-fork-2026-06-26",
       "podcast": "Hard Fork",
       "guest": "Various",
@@ -3158,30 +3146,6 @@
       "hook": "AI companions are moving from novelty to genuine emotional infrastructure in people's homes, raising urgent questions about dependency and loneliness. Meanwhile, Silicon Valley's obsession with 'taste' signals a broader cultural shift: as AI commoditizes execution, the ability to make aesthetic and ",
       "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-06-26.html",
       "lang": "en"
-    },
-    {
-      "id": "pivot-2026-06-26",
-      "podcast": "Pivot",
-      "guest": "Various",
-      "title": "Meta’s Prediction Market App, Europe vs. Big Tech, and Hollywood’s Comeback",
-      "date_str": "26 Jun 2026",
-      "date_short": "Jun 26",
-      "published_at": "2026-06-26T13:00:00",
-      "hook": "Recorded live at Cannes Lions 2026, Kara and Scott dig into Meta's push into prediction markets, the creator economy's dominance over traditional advertising, and Europe's escalating effort to reduce dependency on U.S. tech giants. Hollywood's box office recovery and Instagram's TV ambitions signal ",
-      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-26.html",
-      "lang": "en"
-    },
-    {
-      "id": "geekonomy-2026-06-26",
-      "podcast": "גיקונומי",
-      "guest": "מוטי ענברי",
-      "title": "פרק #1218 - ד״ר מוטי ענברי והאוונגליסטים",
-      "date_str": "26 Jun 2026",
-      "date_short": "Jun 26",
-      "published_at": "2026-06-26T12:32:28",
-      "hook": "הזרם האוונגליסטי בארצות הברית הוא כוח פוליטי ותרבותי עצום שלעיתים קרובות מובן לא נכון מחוץ לארה״ב. ד״ר ענברי מסביר כיצד האוונגליסטים תומכים בישראל מטעמים תיאולוגיים ייחודיים, שאינם זהים בהכרח לאהדה ליהודים. הוא גם בוחן את הקשר בין האורתודוקסיה היהודית לציונות — קשר מלא סתירות ומתחים היסטוריים.",
-      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-26.html",
-      "lang": "he"
     }
   ],
   "preview": [],
@@ -3245,7 +3209,7 @@
   ],
   "sent_count_today": {
     "date": "2026-06-26",
-    "count": 2
+    "count": 5
   },
   "backfill_queued": [],
   "fallback_sent_date": "2026-06-23"
