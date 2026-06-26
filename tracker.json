@@ -3091,25 +3091,156 @@
       "published_at": "2026-06-26T03:50:00",
       "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-06-26.html",
       "pushed_at": "2026-06-26"
+    },
+    {
+      "id": "freakonomics-2026-06-26",
+      "podcast": "Freakonomics Radio",
+      "guest": "Daniel Diermeier",
+      "title": "679. Why Does Vanderbilt Keep Winning?",
+      "date": "2026-06-26",
+      "published_at": "2026-06-26T13:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-06-26.html",
+      "pushed_at": "2026-06-26"
+    },
+    {
+      "id": "hard-fork-2026-06-26",
+      "podcast": "Hard Fork",
+      "guest": "Various",
+      "title": "‘The Daily’ and ‘The Opinions’: How A.I. Is Changing Loneliness and Taste",
+      "date": "2026-06-26",
+      "published_at": "2026-06-26T14:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-06-26.html",
+      "pushed_at": "2026-06-26"
+    },
+    {
+      "id": "pivot-2026-06-26",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "Meta’s Prediction Market App, Europe vs. Big Tech, and Hollywood’s Comeback",
+      "date": "2026-06-26",
+      "published_at": "2026-06-26T13:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-26.html",
+      "pushed_at": "2026-06-26"
+    },
+    {
+      "id": "geekonomy-2026-06-26",
+      "podcast": "גיקונומי",
+      "guest": "מוטי ענברי",
+      "title": "פרק #1218 - ד״ר מוטי ענברי והאוונגליסטים",
+      "date": "2026-06-26",
+      "published_at": "2026-06-26T12:32:28",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-26.html",
+      "pushed_at": "2026-06-26"
     }
   ],
   "queued": [],
-  "pending_send": [],
+  "pending_send": [
+    {
+      "id": "freakonomics-2026-06-26",
+      "podcast": "Freakonomics Radio",
+      "guest": "Daniel Diermeier",
+      "title": "679. Why Does Vanderbilt Keep Winning?",
+      "date_str": "26 Jun 2026",
+      "date_short": "Jun 26",
+      "published_at": "2026-06-26T13:00:00",
+      "hook": "Vanderbilt Chancellor Daniel Diermeier argues that universities survive and thrive by acting as 'magnets' — drawing people together around shared intellectual purpose — rather than 'wedges' that divide along political lines. In a moment of low public trust and high political pressure, he has kept Va",
+      "page_url": "https://readingsis.github.io/reading-sis/freakonomics-2026-06-26.html",
+      "lang": "en"
+    },
+    {
+      "id": "hard-fork-2026-06-26",
+      "podcast": "Hard Fork",
+      "guest": "Various",
+      "title": "‘The Daily’ and ‘The Opinions’: How A.I. Is Changing Loneliness and Taste",
+      "date_str": "26 Jun 2026",
+      "date_short": "Jun 26",
+      "published_at": "2026-06-26T14:00:00",
+      "hook": "AI companions are moving from novelty to genuine emotional infrastructure in people's homes, raising urgent questions about dependency and loneliness. Meanwhile, Silicon Valley's obsession with 'taste' signals a broader cultural shift: as AI commoditizes execution, the ability to make aesthetic and ",
+      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-06-26.html",
+      "lang": "en"
+    },
+    {
+      "id": "pivot-2026-06-26",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "Meta’s Prediction Market App, Europe vs. Big Tech, and Hollywood’s Comeback",
+      "date_str": "26 Jun 2026",
+      "date_short": "Jun 26",
+      "published_at": "2026-06-26T13:00:00",
+      "hook": "Recorded live at Cannes Lions 2026, Kara and Scott dig into Meta's push into prediction markets, the creator economy's dominance over traditional advertising, and Europe's escalating effort to reduce dependency on U.S. tech giants. Hollywood's box office recovery and Instagram's TV ambitions signal ",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-26.html",
+      "lang": "en"
+    },
+    {
+      "id": "geekonomy-2026-06-26",
+      "podcast": "גיקונומי",
+      "guest": "מוטי ענברי",
+      "title": "פרק #1218 - ד״ר מוטי ענברי והאוונגליסטים",
+      "date_str": "26 Jun 2026",
+      "date_short": "Jun 26",
+      "published_at": "2026-06-26T12:32:28",
+      "hook": "הזרם האוונגליסטי בארצות הברית הוא כוח פוליטי ותרבותי עצום שלעיתים קרובות מובן לא נכון מחוץ לארה״ב. ד״ר ענברי מסביר כיצד האוונגליסטים תומכים בישראל מטעמים תיאולוגיים ייחודיים, שאינם זהים בהכרח לאהדה ליהודים. הוא גם בוחן את הקשר בין האורתודוקסיה היהודית לציונות — קשר מלא סתירות ומתחים היסטוריים.",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-26.html",
+      "lang": "he"
+    }
+  ],
   "preview": [],
   "awaiting_video": [
     {
-      "id": "doac-2026-06-25",
-      "podcast": "The Diary Of A CEO",
-      "slug_prefix": "doac",
-      "title": "Stock Market EMERGENCY: Sell Your Stocks Now, The Collapse Is Weeks Away!",
-      "date": "2026-06-25",
-      "description": "The man who predicted the dot-com crash and the 2007 housing collapse warns that the AI bubble is the biggest in American history. Billionaire investor Jeremy Grantham reveals why it will burst, the exact strategy to protect your money, and why house prices need to fall 30%. \nJeremy Grantham is the co-founder of GMO, an institutional investment firm in Boston, and serves as the firm’s long-term investment strategist. He is also the chairman of the Grantham Foundation For the Preservation of the Environment, and co-author of “The Making of a Permabear: The Perils of Long-term Investing in a Short-term World”.\nJeremy Grantham's comments are all his personal opinions and not the opinions of GMO.\nHe explains: \n◼ Why Wall Street will never warn you when to get out of the market, and what to do instead\n◼ The exact portfolio Jeremy recommends to protect your money before the crash\n◼ What everyday chemicals in your food and cosmetics are doing to your fertility\n◼ Why house prices need to fall 30%, and what it means for your finances\n◼ Why the AI boom won't automatically lead to higher profits, and what to buy instead\nChapters\n\n00:00:00 Who Is Jeremy Grantham?\n00:02:34 Will AI Become The Next Financial Bubble?\n00:06:38 How Jeremy Grantham Built An Investing Empire\n00:07:45 The Most Money He's Ever Managed\n00:08:09 Are You A Billionaire?\n00:08:58 What Happens When The AI Bubble Bursts?\n00:11:15 How AI Will Change Everyday Life\n00:12:33 The Investing Strategy For Right Now\n00:17:52 Why You Should Avoid US Stocks\n00:19:54 Why Investment Advisors Mislead Clients\n00:25:32 Advice For Entrepreneurs Right Now\n00:28:22 The Real Risks Of AI\n00:29:21 Should AI Have A Maternal Instinct?\n00:34:06 What Happens If AI Lacks Benevolence?\n00:35:44 The Battle Between The Magnificent 7\n00:39:10 Ads\n00:41:19 Which Jobs AI Will Replace First\n00:43:41 Will SpaceX Eventually Fail?\n00:49:52 Should You Invest In SpaceX?\n00:50:02 The Most Valuable Skill For The Future\n00:51:04 Is Society Declining And What Comes Next?\n00:53:25 What History Says About Wealth Inequality\n00:55:58 Should The Rich Pay More Tax?\n00:57:21 How To Build Wealth In Your 30s Today\n00:59:31 How To Invest Your Salary Wisely\n01:02:20 Should You Own Crypto?\n01:03:14 Will Bitcoin Eventually Go To Zero?\n01:03:27 Is Property Still A Good Investment?\n01:04:37 Ads\n01:06:50 What's Really Causing The Baby Bust?\n01:10:50 When Could Sperm Counts Reach Zero?\n01:13:47 How Microplastics Affect Fertility\n01:16:04 How Pesticides Impact Fertility\n01:21:05 How To Reduce Toxic Chemical Exposure\n01:22:16 Why US Products Are More Toxic\n01:26:52 How To Stay Healthy In A Toxic World\n01:33:17 The Most Important Thing We Missed\n01:34:57 Should You Move Countries Right Now?\n01:35:18 The Flaw That Destroys Societies\n01:38:44 The Best Places To Live Today\n01:40:02 What Would You Do If Failure Was Impossible?\n\nYou can purchase ‘The Making of a Permabear: The Perils of Long-term Investing in a Short-term World’, here: https://link.thediaryofaceo.com/8zyh6RB \nThe Diary Of A CEO:\n◼ Join DOAC circle here - https://doaccircle.com/ \n◼ Buy The Diary Of A CEO book here - https://smarturl.it/DOACbook \n◼ The 1% Diary is back - limited time only: https://bit.ly/3YFbJbt \n◼ The Diary Of A CEO Conversation Cards: https://linkly.link/2hm7r \n◼ Get email updates - https://bit.ly/diary-of-a-ceo-yt \n◼ Follow Steven - https://g2ul0.app.link/gnGqL4IsKKb \nSponsors:\nStan - Visit https://coach.stan.store/?ref=stevenbartlett&utm_source=youtube&utm_medium=podcast&utm_campaign=episode11\nPipedrive - https://pipedrive.com/CEO\nHeyGen - https://heygen.com/doac",
-      "duration_sec": 6321,
+      "id": "freakonomics-2026-06-26",
+      "podcast": "Freakonomics Radio",
+      "slug_prefix": "freakonomics",
+      "title": "679. Why Does Vanderbilt Keep Winning?",
+      "date": "2026-06-26",
+      "description": "It’s a hard time to run a university: public trust is low, political pressure is high, and finances are fragile. But Daniel Diermeier, who trained as a political scientist, has Vanderbilt humming. How? He says the key is choosing magnets over wedges.",
+      "duration_sec": 3846,
       "spotify_show": "",
       "lex_filter": false,
       "show_format": "interview",
       "lang": "en",
-      "published_at": "2026-06-25T08:00:00"
+      "published_at": "2026-06-26T13:00:00"
+    },
+    {
+      "id": "hard-fork-2026-06-26",
+      "podcast": "Hard Fork",
+      "slug_prefix": "hard-fork",
+      "title": "‘The Daily’ and ‘The Opinions’: How A.I. Is Changing Loneliness and Taste",
+      "date": "2026-06-26",
+      "description": "The story of a woman who let a robot into her home. Plus, a discussion about why Silicon Valley has taken such an interest in taste.",
+      "duration_sec": 3573,
+      "spotify_show": "https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj",
+      "lex_filter": false,
+      "show_format": "interview",
+      "lang": "en",
+      "published_at": "2026-06-26T14:00:00"
+    },
+    {
+      "id": "pivot-2026-06-26",
+      "podcast": "Pivot",
+      "slug_prefix": "pivot",
+      "title": "Meta’s Prediction Market App, Europe vs. Big Tech, and Hollywood’s Comeback",
+      "date": "2026-06-26",
+      "description": "Live from Cannes, Kara and Scott unpack the rise of the creator economy, Meta’s prediction market ambitions, and Europe’s push to break free from U.S. tech dominance. Then, they discuss Hollywood’s blockbuster comeback, Instagram’s plans for TV, and the staggering amount of money flowing into World Cup betting markets.This episode was recorded live at ADWEEK House in Cannes, France on June 24, 2026.Watch this episode on the ⁠⁠Pivot YouTube channel⁠⁠.Follow us on Instagram and Threads at ⁠⁠@pivotpodcastofficial⁠⁠.Follow us on Bluesky at ⁠⁠@pivotpod.bsky.social⁠⁠Follow us on TikTok at ⁠⁠@pivotpodcast⁠⁠.Send us your questions by calling us at 855-51-PIVOT, or email pivot@voxmedia.com \nLearn more about your ad choices. Visit podcastchoices.com/adchoices",
+      "duration_sec": 3375,
+      "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
+      "lex_filter": false,
+      "show_format": "interview",
+      "lang": "en",
+      "published_at": "2026-06-26T13:00:00"
+    },
+    {
+      "id": "geekonomy-2026-06-26",
+      "podcast": "גיקונומי",
+      "slug_prefix": "geekonomy",
+      "title": "פרק #1218 - ד״ר מוטי ענברי והאוונגליסטים",
+      "date": "2026-06-26",
+      "description": "פרופ' מוטי ענברי הוא מרצה למדע הדתות באוניברסיטה של קרוליינה הצפונית פמברוק, ומומחה ליחסה של האורתודוקסיה היהודית (ציונות דתית וחרדים) לאתגר הציונות ובשנים האחרונות חוקר את הזרם האוונגליסטי בארצות הברית.\n \nנותני החסות לפרק:\n\nחברת 2sit שבה תקבלו 25% הנחה על הכסא הראשון שתקנו אם תגידו שהגעתם דרך גיקונומי\n \n \nחברת חפשו בגוגל R&amp;D משכנתאות וגיקונומי",
+      "duration_sec": 4364,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "interview",
+      "lang": "he",
+      "published_at": "2026-06-26T12:32:28"
     }
   ],
   "sent_count_today": {
