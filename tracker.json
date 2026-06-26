@@ -3094,32 +3094,7 @@
     }
   ],
   "queued": [],
-  "pending_send": [
-    {
-      "id": "doac-2026-06-25",
-      "podcast": "The Diary Of A CEO",
-      "guest": "Jeremy Grantham",
-      "title": "Stock Market EMERGENCY: Sell Your Stocks Now, The Collapse Is Weeks Away!",
-      "date_str": "25 Jun 2026",
-      "date_short": "Jun 25",
-      "published_at": "2026-06-25T08:00:00",
-      "hook": "Jeremy Grantham argues the current AI-driven stock market is the biggest bubble in American history and is weeks away from bursting — dwarfing the dot-com and housing crashes he previously called. He recommends abandoning US equities in favour of international and emerging market stocks, resources, ",
-      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-25.html",
-      "lang": "en"
-    },
-    {
-      "id": "theo-von-2026-06-26",
-      "podcast": "This Past Weekend w/ Theo Von",
-      "guest": "Jeff Bridges",
-      "title": "#665 - Jeff Bridges",
-      "date_str": "26 Jun 2026",
-      "date_short": "Jun 26",
-      "published_at": "2026-06-26T03:50:00",
-      "hook": "Jeff Bridges opens up about 49 years of marriage, tracing it back to the moment a girl with two black eyes turned him down in a Montana hot tub — and explaining how a practice of silent, non-defensive listening has kept their intimacy growing. He also connects The Big Lebowski's philosophy to Zen Bu",
-      "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-06-26.html",
-      "lang": "en"
-    }
-  ],
+  "pending_send": [],
   "preview": [],
   "awaiting_video": [
     {
@@ -3138,8 +3113,8 @@
     }
   ],
   "sent_count_today": {
-    "date": "2026-06-25",
-    "count": 6
+    "date": "2026-06-26",
+    "count": 2
   },
   "backfill_queued": [],
   "fallback_sent_date": "2026-06-23"
