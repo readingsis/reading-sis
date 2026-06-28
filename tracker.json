@@ -3166,42 +3166,6 @@
   "queued": [],
   "pending_send": [
     {
-      "id": "hard-fork-2026-06-26",
-      "podcast": "Hard Fork",
-      "guest": "Various",
-      "title": "‘The Daily’ and ‘The Opinions’: How A.I. Is Changing Loneliness and Taste",
-      "date_str": "26 Jun 2026",
-      "date_short": "Jun 26",
-      "published_at": "2026-06-26T14:00:00",
-      "hook": "AI companions are moving from novelty to genuine emotional infrastructure in people's homes, raising urgent questions about dependency and loneliness. Meanwhile, Silicon Valley's obsession with 'taste' signals a broader cultural shift: as AI commoditizes execution, the ability to make aesthetic and ",
-      "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-06-26.html",
-      "lang": "en"
-    },
-    {
-      "id": "all-in-2026-06-27",
-      "podcast": "All-In",
-      "guest": "Various",
-      "title": "Socialists Sweep NYC, China Catches Up in Coding, AI Memory Crunch, Micron's Blowout Quarter",
-      "date_str": "27 Jun 2026",
-      "date_short": "Jun 27",
-      "published_at": "2026-06-27T02:53:00",
-      "hook": "DSA-aligned socialist candidates swept New York City's Democratic congressional primaries, with Mayor Zohran Mamdani going 3-for-3 in endorsements — a result Polymarket had at just 26% odds. The panel argues this is driven by a coalition of downwardly mobile educated whites and mass migrants, organi",
-      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-27.html",
-      "lang": "en"
-    },
-    {
-      "id": "echad-beyom-2026-06-28",
-      "podcast": "אחד ביום",
-      "guest": "אמיר גבעתי",
-      "title": "אירופה רותחת",
-      "date_str": "28 Jun 2026",
-      "date_short": "Jun 28",
-      "published_at": "2026-06-28T04:45:00",
-      "hook": "גל החום שמכה באירופה ביוני 2026 הוא חסר תקדים מבחינת עוצמה, משך ומספר האנשים שמושפעים ממנו. הסיבה: שילוב של התחממות גלובלית מתמשכת עם תופעת 'סופר אל-ניניו' – מים חמים במיוחד בפאסיפיק שמשפיעים על כל כדור הארץ. ישראל פחות חוששת מגלי חום ויותר מהצפות סוערות שיגיעו בסתיו – תרחיש שתשתיות הניקוז שלנו אינן",
-      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-28.html",
-      "lang": "he"
-    },
-    {
       "id": "trashtech-2026-06-28",
       "podcast": "טראשטק",
       "guest": "דני כהן",
@@ -3232,8 +3196,8 @@
     }
   ],
   "sent_count_today": {
-    "date": "2026-06-26",
-    "count": 5
+    "date": "2026-06-28",
+    "count": 3
   },
   "backfill_queued": [],
   "fallback_sent_date": "2026-06-23"
