@@ -3131,6 +3131,36 @@
       "published_at": "2026-06-26T12:32:28",
       "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-26.html",
       "pushed_at": "2026-06-26"
+    },
+    {
+      "id": "all-in-2026-06-27",
+      "podcast": "All-In",
+      "guest": "Various",
+      "title": "Socialists Sweep NYC, China Catches Up in Coding, AI Memory Crunch, Micron's Blowout Quarter",
+      "date": "2026-06-27",
+      "published_at": "2026-06-27T02:53:00",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-27.html",
+      "pushed_at": "2026-06-28"
+    },
+    {
+      "id": "echad-beyom-2026-06-28",
+      "podcast": "אחד ביום",
+      "guest": "אמיר גבעתי",
+      "title": "אירופה רותחת",
+      "date": "2026-06-28",
+      "published_at": "2026-06-28T04:45:00",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-28.html",
+      "pushed_at": "2026-06-28"
+    },
+    {
+      "id": "trashtech-2026-06-28",
+      "podcast": "טראשטק",
+      "guest": "דני כהן",
+      "title": "האם ההיסטוריה חוזרת? החשש מבועה בשוק; עם דני כהן",
+      "date": "2026-06-28",
+      "published_at": "2026-06-28T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-28.html",
+      "pushed_at": "2026-06-28"
     }
   ],
   "queued": [],
@@ -3146,65 +3176,59 @@
       "hook": "AI companions are moving from novelty to genuine emotional infrastructure in people's homes, raising urgent questions about dependency and loneliness. Meanwhile, Silicon Valley's obsession with 'taste' signals a broader cultural shift: as AI commoditizes execution, the ability to make aesthetic and ",
       "page_url": "https://readingsis.github.io/reading-sis/hard-fork-2026-06-26.html",
       "lang": "en"
+    },
+    {
+      "id": "all-in-2026-06-27",
+      "podcast": "All-In",
+      "guest": "Various",
+      "title": "Socialists Sweep NYC, China Catches Up in Coding, AI Memory Crunch, Micron's Blowout Quarter",
+      "date_str": "27 Jun 2026",
+      "date_short": "Jun 27",
+      "published_at": "2026-06-27T02:53:00",
+      "hook": "DSA-aligned socialist candidates swept New York City's Democratic congressional primaries, with Mayor Zohran Mamdani going 3-for-3 in endorsements — a result Polymarket had at just 26% odds. The panel argues this is driven by a coalition of downwardly mobile educated whites and mass migrants, organi",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-27.html",
+      "lang": "en"
+    },
+    {
+      "id": "echad-beyom-2026-06-28",
+      "podcast": "אחד ביום",
+      "guest": "אמיר גבעתי",
+      "title": "אירופה רותחת",
+      "date_str": "28 Jun 2026",
+      "date_short": "Jun 28",
+      "published_at": "2026-06-28T04:45:00",
+      "hook": "גל החום שמכה באירופה ביוני 2026 הוא חסר תקדים מבחינת עוצמה, משך ומספר האנשים שמושפעים ממנו. הסיבה: שילוב של התחממות גלובלית מתמשכת עם תופעת 'סופר אל-ניניו' – מים חמים במיוחד בפאסיפיק שמשפיעים על כל כדור הארץ. ישראל פחות חוששת מגלי חום ויותר מהצפות סוערות שיגיעו בסתיו – תרחיש שתשתיות הניקוז שלנו אינן",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-28.html",
+      "lang": "he"
+    },
+    {
+      "id": "trashtech-2026-06-28",
+      "podcast": "טראשטק",
+      "guest": "דני כהן",
+      "title": "האם ההיסטוריה חוזרת? החשש מבועה בשוק; עם דני כהן",
+      "date_str": "28 Jun 2026",
+      "date_short": "Jun 28",
+      "published_at": "2026-06-28T05:00:00",
+      "hook": "דני כהן טוען שאנחנו אכן בבועת AI, אך הבועה לא אומרת שהמהפכה לא אמיתית — כמו בועת הדוט-קום, חלק מהחברות ישרדו ויהפכו לענקיות. השינוי האמיתי הוא שה-AI מאפשר לחברה של שניים בלבד להגיע ל-30 מיליון דולר הכנסות רווחיות, דבר ששינה לחלוטין את הגיון ההשקעה. ההמלצה שלו ליזמים ישראלים חד משמעית: תתחילו ישירות ",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-06-28.html",
+      "lang": "he"
     }
   ],
   "preview": [],
   "awaiting_video": [
     {
-      "id": "freakonomics-2026-06-26",
-      "podcast": "Freakonomics Radio",
-      "slug_prefix": "freakonomics",
-      "title": "679. Why Does Vanderbilt Keep Winning?",
-      "date": "2026-06-26",
-      "description": "It’s a hard time to run a university: public trust is low, political pressure is high, and finances are fragile. But Daniel Diermeier, who trained as a political scientist, has Vanderbilt humming. How? He says the key is choosing magnets over wedges.",
-      "duration_sec": 3846,
-      "spotify_show": "",
-      "lex_filter": false,
-      "show_format": "interview",
-      "lang": "en",
-      "published_at": "2026-06-26T13:00:00"
-    },
-    {
-      "id": "hard-fork-2026-06-26",
-      "podcast": "Hard Fork",
-      "slug_prefix": "hard-fork",
-      "title": "‘The Daily’ and ‘The Opinions’: How A.I. Is Changing Loneliness and Taste",
-      "date": "2026-06-26",
-      "description": "The story of a woman who let a robot into her home. Plus, a discussion about why Silicon Valley has taken such an interest in taste.",
-      "duration_sec": 3573,
-      "spotify_show": "https://open.spotify.com/show/44fllCS2FTFr2x1ouYggDj",
-      "lex_filter": false,
-      "show_format": "interview",
-      "lang": "en",
-      "published_at": "2026-06-26T14:00:00"
-    },
-    {
-      "id": "pivot-2026-06-26",
-      "podcast": "Pivot",
-      "slug_prefix": "pivot",
-      "title": "Meta’s Prediction Market App, Europe vs. Big Tech, and Hollywood’s Comeback",
-      "date": "2026-06-26",
-      "description": "Live from Cannes, Kara and Scott unpack the rise of the creator economy, Meta’s prediction market ambitions, and Europe’s push to break free from U.S. tech dominance. Then, they discuss Hollywood’s blockbuster comeback, Instagram’s plans for TV, and the staggering amount of money flowing into World Cup betting markets.This episode was recorded live at ADWEEK House in Cannes, France on June 24, 2026.Watch this episode on the ⁠⁠Pivot YouTube channel⁠⁠.Follow us on Instagram and Threads at ⁠⁠@pivotpodcastofficial⁠⁠.Follow us on Bluesky at ⁠⁠@pivotpod.bsky.social⁠⁠Follow us on TikTok at ⁠⁠@pivotpodcast⁠⁠.Send us your questions by calling us at 855-51-PIVOT, or email pivot@voxmedia.com \nLearn more about your ad choices. Visit podcastchoices.com/adchoices",
-      "duration_sec": 3375,
-      "spotify_show": "https://open.spotify.com/show/6UNmc4j2KaJTDr4gKXqYci",
-      "lex_filter": false,
-      "show_format": "interview",
-      "lang": "en",
-      "published_at": "2026-06-26T13:00:00"
-    },
-    {
-      "id": "geekonomy-2026-06-26",
-      "podcast": "גיקונומי",
-      "slug_prefix": "geekonomy",
-      "title": "פרק #1218 - ד״ר מוטי ענברי והאוונגליסטים",
-      "date": "2026-06-26",
-      "description": "פרופ' מוטי ענברי הוא מרצה למדע הדתות באוניברסיטה של קרוליינה הצפונית פמברוק, ומומחה ליחסה של האורתודוקסיה היהודית (ציונות דתית וחרדים) לאתגר הציונות ובשנים האחרונות חוקר את הזרם האוונגליסטי בארצות הברית.\n \nנותני החסות לפרק:\n\nחברת 2sit שבה תקבלו 25% הנחה על הכסא הראשון שתקנו אם תגידו שהגעתם דרך גיקונומי\n \n \nחברת חפשו בגוגל R&amp;D משכנתאות וגיקונומי",
-      "duration_sec": 4364,
-      "spotify_show": "",
+      "id": "trashtech-2026-06-28",
+      "podcast": "טראשטק",
+      "slug_prefix": "trashtech",
+      "title": "האם ההיסטוריה חוזרת? החשש מבועה בשוק; עם דני כהן",
+      "date": "2026-06-28",
+      "description": "<p>הנפקות ענק, גיוסים בשוויים מטורפים ומוצרים לא רווחיים - אלו היו סימני האזהרה של בועת הדוט-קום בשנות ה-2000, וזה בדיוק מה שקורה היום בשוק ה-AI. אז האם ההיסטוריה חוזרת? אז השבוע בטראשטק: דני כהן, איש הון סיכון שחווה על בשרו לא מעט בועות, מגיע לעשות לנו סדר בשאלה שכולם שואלים: האם אנחנו בבועת AI?</p><p>ואחרי שהקים לאחרונה את קרן ה-B2C שלו, Sticker Ventures, דני מסביר איך עידן ה-AI משנה את גודל החברות (השקעה בסטארטאפ של שני אנשים בלבד שמכניס 30 מיליון דולר בשנה ורווחי)? וגם: למה דווקא עכשיו יש הזדמנות למוצרים שמחברים בין הדיגיטלי לפיזי?</p><p>_________________________</p><p>(00:00) - פתיחה</p><p>(06:35) - בועה או מהפכה?</p><p>(09:28) - הקרן החדשה של דני: למה דווקא B2C?</p><p>(16:13) - כמה אנשים צריך לחברה בעידן הזה?</p><p>(19:34) - איך השתנתה אסטרטגיית בחירת החברות שלך?</p><p>(23:04) - ״אנשים מפטרים כי עכשיו יש להם אישור לפטר״</p><p>(31:30) - מה המפתח להצלחה? ולמה הישראלים יותר טובים ב-B2C?</p><p>(37:40) - הטרנד החדש: מוצרים פיזיים</p><p>(41:13) - ״תפסיקו להתחיל בישראל. רק ארצות הברית״</p><p>(49:39) - מה היית מנקה מהתעשייה הזו?</p><p>(54:00) - הכשלונות שבדרך: ״ראיתי את WIX ו-Waze בהתחלה ואמרתי ׳לא׳״</p><p>(55:09) - סיום: שאלון מהיר</p><p>_________________________</p><p>רוצים לקחת חלק באירוע טראשטק לייב מיוחד לקהילה? אנחנו מזמינים אתכם לפגוש את האנשים המובילים בתעשייה ולהנות מערב מיוחד איתנו עם מלא הפתעות שוות… השאירו פרטים בלינק וקבלו הנחה מיוחדת לקהילה שלנו &gt;&gt; <a href=\"https://forms.gle/Hugwt21wn4rG7MV38\"><u>https://forms.gle/Hugwt21wn4rG7MV38</u></a> </p><p>על מעלית הבינה שמעתם? הכירו את הפורמט החדש מבית טראשטק - 30 יזמים, 30 קומות, 30 יוזקייסים על AI.היכנסו עכשיו - <a href=\"https://linktr.ee/elevator_ai\"><u>https://linktr.ee/elevator_ai</u></a> _________________________</p><p>תודה ל-⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠Guts⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠, מעבדת החדשנות והסטארטאפים של הראל</p><p>  <a href=\"https://www.gutsinnovation.com/\"><u>https://www.gutsinnovation.com/</u></a> <a href=\"https://www.guts.co.il\"> </a></p><p>רוצים להצטרף למועדון הוט? פותחים חשבון בבנק לאומי ויכולים להנות ממגוון הטבות ייחודיות </p><p><a href=\"https://web.leumi.co.il/trashtech-hot\"><u>https://web.leumi.co.il/trashtech-hot</u></a><u> </u></p><p>ענב - יוצרים מציאות חדשה</p><p><a href=\"https://tinyurl.com/2zthurvf\"><u>https://tinyurl.com/2zthurvf</u></a><u> </u></p><p>_________________________</p><p>אנחנו רוצים להמשיך וליצור עוד תוכן במיוחד בשבילכם! נשמח ל-2 דקות מזמנכם לענות על הסקר שלנו: <a href=\"https://did.li/5lJZH\">https://did.li/5lJZH</a> </p><p>📲❤️ אהבתם את הפרק? נשמח אם תרשמו לערוץ ותכתבו לנו! </p><p>_________________________</p><p>הירשמו לערוץ: </p><p><a href=\"https://www.youtube.com/channel/UCwywdccdYsNS_Cs6tS0U_dg?sub_confirmation=1\">https://www.youtube.com/channel/UCwywdccdYsNS_Cs6tS0U_dg?sub_confirmation=1</a> </p><p>לאינסטגרם של טראשטק:</p><p><a href=\"https://www.instagram.com/trashtechnewsig/\">https://www.instagram.com/trashtechnewsig/</a> </p><p>לטיקטוק של טראשטק:</p><p><a href=\"https://www.tiktok.com/@trashtechnews\">https://www.tiktok.com/@trashtechnews</a> </p><p>לערוץ הוואצאפ של טראשטק:</p><p><a href=\"https://www.whatsapp.com/channel/0029VagGRsoGOj9obvapMw27\">https://www.whatsapp.com/channel/0029VagGRsoGOj9obvapMw27</a> </p><p>לפודקאסט בספוטיפיי:</p><p><a href=\"https://open.spotify.com/show/0nGv2IY8OATmjMtkJ7eLHG?si=9b6a1be00e2344ff\">https://open.spotify.com/show/0nGv2IY8OATmjMtkJ7eLHG?si=9b6a1be00e2344ff</a> </p><p>ללינקים שלנו:</p><p><a href=\"https://linktr.ee/trashtechnews\">https://linktr.ee/trashtechnews</a> </p><p><br /></p>",
+      "duration_sec": 3446,
+      "spotify_show": "https://open.spotify.com/show/0nGv2IY8OATmjMtkJ7eLHG",
       "lex_filter": false,
       "show_format": "interview",
       "lang": "he",
-      "published_at": "2026-06-26T12:32:28"
+      "published_at": "2026-06-28T05:00:00"
     }
   ],
   "sent_count_today": {
