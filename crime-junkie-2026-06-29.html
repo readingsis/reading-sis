@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="When Christine Banfield and Joseph Ryan were found fatally injured in a Virginia home in 2023, Christine's husband Brendan Banfield — a federal agent — initially claimed Ryan was a violent intruder he had tried to stop.">
+  <title>Reading.Sis — MURDERED: Christine Banfield &amp; Joseph Ryan</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <script data-goatcounter="https://reading-sis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <style>
+    :root {
+      --bg: #111111; --card-bg: #181816; --green: #0EB88A;
+      --text-primary: #F0EFE8; --text-secondary: #C8C7C0;
+      --text-muted: #999990; --text-dim: #666660; --text-faint: #555550;
+      --border: #2A2A28; --divider: #222220; --icon-bg: #222220; --icon-border: #3A3A38;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text-secondary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 430px; margin: 0 auto; padding-bottom: 100px; min-height: 100vh; }
+    .app-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo:active { opacity: 0.6; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; }
+    .logo-text span { color: var(--green); }
+    .bookmark-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-faint); transition: color 0.2s; }
+    .bookmark-btn.saved { color: var(--green); }
+    .hero { padding: 20px 18px 16px; border-bottom: 1px solid var(--divider); }
+    .podcast-badge { display: inline-block; background: rgba(14,184,138,0.12); color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .episode-title { font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .guest-name { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+    .meta { display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+    .section { padding: 18px; border-bottom: 1px solid var(--divider); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
+    .tldr-text { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .moments-section { padding: 18px 0 18px 18px; border-bottom: 1px solid var(--divider); }
+    .moments-scroll { display: flex; gap: 10px; overflow-x: auto; padding-right: 18px; padding-bottom: 4px; scrollbar-width: none; }
+    .moments-scroll::-webkit-scrollbar { display: none; }
+    .moment-card { flex: 0 0 240px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 14px 40px; position: relative; }
+    .moment-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .moment-quote { font-size: 13px; font-style: italic; color: var(--text-primary); line-height: 1.5; margin-bottom: 8px; }
+    .moment-rm-link { color: var(--text-primary); text-decoration: underline; cursor: pointer; }
+    .qsheet-back { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.55); display: none; align-items: flex-end; justify-content: center; }
+    .qsheet-back.show { display: flex; }
+    .qsheet { width: 100%; max-width: 430px; background: var(--card-bg); border-top-left-radius: 20px; border-top-right-radius: 20px; border-top: 1px solid var(--border); padding: 10px 22px calc(26px + env(safe-area-inset-bottom)); }
+    .qsheet-grip { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 0 auto 18px; }
+    .qsheet-speaker { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+    .qsheet-quote { font-size: 14px; font-style: italic; color: var(--text-primary); line-height: 1.65; margin-bottom: 14px; }
+    .qsheet-ctx { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }
+    .qsheet-close { width: 100%; background: var(--icon-bg); border: 1px solid var(--icon-border); color: var(--text-primary); font-size: 14px; font-weight: 600; padding: 13px; border-radius: 11px; cursor: pointer; font-family: inherit; }
+    .moment-context { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+    .moment-timestamp { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--green); text-decoration: none; font-weight: 600; background: rgba(14,184,138,0.1); padding: 3px 8px; border-radius: 6px; }
+    .moment-timestamp-dim { position: absolute; bottom: 14px; right: 14px; font-size: 11px; color: var(--text-dim); font-weight: 600; background: rgba(255,255,255,0.05); padding: 3px 8px; border-radius: 6px; }
+    .bio-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+    .bio-chevron { color: var(--text-faint); font-size: 16px; transition: transform 0.2s; line-height: 1; }
+    .bio-chevron.open { transform: rotate(90deg); }
+    .bio-content { display: none; margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .bio-content.open { display: block; }
+    .takeaway { display: flex; gap: 12px; margin-bottom: 16px; }
+    .takeaway:last-child { margin-bottom: 0; }
+    .takeaway-num { flex: 0 0 22px; height: 22px; border-radius: 50%; background: rgba(14,184,138,0.12); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+    .takeaway-text strong { color: var(--text-primary); font-weight: 500; }
+    .takeaways-rest[hidden] { display: none; }
+    .takeaways-toggle { margin-top: 14px; background: none; border: none; color: var(--green); font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
+    .bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg); border-top: 1px solid var(--divider); display: flex; justify-content: space-around; align-items: center; padding: 14px 40px; padding-bottom: calc(14px + env(safe-area-inset-bottom)); }
+    .icon-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--icon-bg); border: 1px solid var(--icon-border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; text-decoration: none; transition: all 0.15s; }
+    .icon-btn:active { opacity: 0.7; }
+    .icon-btn.flash { color: var(--green); border-color: var(--green); }
+    @media print { .app-bar, .bottom-bar { display: none; } .bio-content { display: block !important; } .page { max-width: 100%; padding-bottom: 0; } .moment-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="app-bar">
+    <a class="logo" href="index.html" aria-label="Back to the library">
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+        <circle cx="7.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <circle cx="18.5" cy="8" r="4.5" stroke="#0EB88A" stroke-width="1.5"/>
+        <line x1="12" y1="8" x2="14" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="8" x2="1.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="23" y1="8" x2="24.5" y2="8" stroke="#0EB88A" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">Reading<span>.Sis</span></span>
+    </a>
+    <button class="bookmark-btn" id="bookmarkBtn" onclick="handleSave()" aria-label="Save to reading list">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="podcast-badge">Crime Junkie</div>
+    <h1 class="episode-title">MURDERED: Christine Banfield &amp; Joseph Ryan</h1>
+    <div class="guest-name">Case: The Staged Double Homicide in Virginia</div>
+    <div class="meta">
+      <span>29 Jun 2026</span>
+      <span>4 min read</span>
+      <span>45m</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TL;DR</div>
+    <p class="tldr-text">When Christine Banfield and Joseph Ryan were found fatally injured in a Virginia home in 2023, Christine's husband Brendan Banfield — a federal agent — initially claimed Ryan was a violent intruder he had tried to stop. Digital evidence unraveled that story entirely, pointing instead to a calculated double homicide in which Ryan was allegedly lured to the home through a fake online persona, and the entire scene was staged to frame him as the aggressor.</p>
+  </div>
+
+  <div class="moments-section">
+    <div class="section-label" style="padding-right:18px;">Key Moments</div>
+    <div class="moments-scroll">
+      <div class="moment-card">
+        <div class="moment-speaker">Ashley Flowers</div>
+        <div class="moment-quote">&ldquo;Brendan wasn't just a husband who survived an attack — he was a federal agent, someone trained in exactly the kind of story he was now telling investigators. And that detail matters, because the scene looked almost too clean, too rehearsed, like someone who knew what investigators would look for had tried to stay one step ahead of them.&rdquo;</div>
+        <div class="moment-context">Setting up the central tension of the case — that Brendan's professional background made his account both credible on the surface and deeply suspicious under scrutiny.</div>
+        <span class="moment-timestamp-dim">&#9654; 3:00</span>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Ashley Flowers</div>
+        <div class="moment-quote">&ldquo;Joseph Ryan didn't just show up at that house by accident. Someone had been talking to him online — building trust, building a relationship — and then using that relationship to get him exactly where they wanted him. He thought he was walking into something real. He had no idea what was waiting for him.&rdquo;</div>
+        <div class="moment-context">Explaining the alleged catfishing scheme used to lure Ryan to the Banfield home.</div>
+        <span class="moment-timestamp-dim">&#9654; 7:00</span>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Ashley Flowers</div>
+        <div class="moment-quote">&ldquo;This is the thing about digital evidence — it doesn't care how convincing your story is. The phones, the accounts, the timestamps, the IP addresses — they all tell their own version of events, and in this case, that version looked nothing like what Brendan Banfield had described to police.&rdquo;</div>
+        <div class="moment-context">Describing how investigators began piecing together contradictions between Brendan's account and the digital trail left behind.</div>
+        <span class="moment-timestamp-dim">&#9654; 12:00</span>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Ashley Flowers</div>
+        <div class="moment-quote">&ldquo;Christine was 37 years old. She had a life, people who loved her, a future that got taken from her — and the most chilling part of this case is that the person investigators believe is responsible for that was someone she trusted completely. Someone who was supposed to protect her.&rdquo;</div>
+        <div class="moment-context">Humanizing Christine Banfield before detailing the theory that her own husband orchestrated her death.</div>
+        <span class="moment-timestamp-dim">&#9654; 18:00</span>
+      </div>
+      <div class="moment-card">
+        <div class="moment-speaker">Ashley Flowers</div>
+        <div class="moment-quote">&ldquo;Staging a crime scene is one thing, but creating a fake person — a whole identity, a whole relationship — just to get someone to show up and die? That level of premeditation changes everything. This wasn't a crime of passion. If investigators are right, this was planned, methodical, and cold.&rdquo;</div>
+        <div class="moment-context">Summarizing the alleged sophistication of the plot and what it signals about intent and premeditation.</div>
+        <span class="moment-timestamp-dim">&#9654; 26:00</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="bio-toggle" onclick="toggleBio(this)">
+      <div class="section-label" style="margin-bottom:0;">About Crime Junkie</div>
+      <span class="bio-chevron">&#8250;</span>
+    </div>
+    <div class="bio-content">Crime Junkie is one of the most-downloaded true crime podcasts in the world, hosted by Ashley Flowers and Brit Prawat. Every week, Ashley delivers meticulously researched stories covering murders, disappearances, and unsolved mysteries in a straightforward, no-filler format. The show is known for humanizing victims and holding investigators and institutions accountable through careful storytelling.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Takeaways</div>
+    <div class="takeaway">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-text"><strong>Fake online personas can be weaponized lethally </strong>Investigators believe Joseph Ryan was drawn to the Banfield home through a fabricated online identity designed to build trust over time. This case is a stark reminder that catfishing isn't only a fraud or romance scam tool — in its most extreme form, it can be used to manipulate someone into a fatal situation without them ever suspecting danger.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-text"><strong>Digital evidence dismantled a trained agent's alibi </strong>Despite Brendan Banfield's professional background as a federal agent — giving him knowledge of how crime scenes are processed — digital forensics including phones, accounts, and IP data allegedly contradicted his stated account. This underscores how pervasive and difficult to manipulate digital trails have become, even for people with insider knowledge of law enforcement.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-text"><strong>Victims of staged crimes lose their narrative twice </strong>Joseph Ryan was positioned posthumously as a violent intruder — a false story that, if investigators hadn't dug deeper, could have permanently defined how he was remembered. Cases like this highlight the investigative obligation to interrogate the first account of events before it calcifies into public record, especially when a sole survivor stands to benefit from that narrative.</div>
+    </div>
+    <div class="takeaways-rest" id="takeawaysRest" hidden>
+    <div class="takeaway">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-text"><strong>Scene staging increasingly fails against forensic scrutiny </strong>The Banfield case illustrates a pattern investigators see in premeditated domestic homicides: the scene is arranged to suggest an alternative perpetrator, but physical and digital forensics often reveal inconsistencies the stager didn't anticipate. The more elaborate the staging, paradoxically, the more it can signal deliberate intent rather than chaotic violence.</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-num">5</div>
+      <div class="takeaway-text"><strong>Premeditation via fake identity signals cold, planned intent </strong>If the catfishing theory holds, the alleged plot required sustained deception over time — crafting a persona, nurturing a relationship, and timing a lethal outcome. Courts and investigators treat this level of premeditation as a significant aggravating factor, distinguishing calculated murder from impulsive violence and affecting both charges and sentencing.</div>
+    </div>
+    </div>
+    <button class="takeaways-toggle" id="takeawaysToggle" onclick="toggleTakeaways()">Show all 5 takeaways</button>
+
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <a class="icon-btn" href="https://www.youtube.com/results?search_query=Crime%20Junkie%20MURDERED%3A%20Christine%20Banfield%20%26%20Joseph%20Ryan" target="_blank" aria-label="Watch on YouTube" onclick="gcEvent('click-youtube')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+    </svg>
+  </a>
+  <button class="icon-btn" id="shareBtn" onclick="handleShare()" aria-label="Share episode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+    </svg>
+  </button>
+  <a class="icon-btn" href="https://open.spotify.com/search/Crime%20Junkie%20MURDERED%3A%20Christine%20Banfield%20%26%20Joseph%20Ryan" target="_blank" aria-label="Listen on Spotify" onclick="gcEvent('click-spotify')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  var pageUrl    = 'https://readingsis.github.io/reading-sis/crime-junkie-2026-06-29.html';
+  var PAGE_TITLE = 'MURDERED: Christine Banfield & Joseph Ryan — Reading.Sis';
+  var EP = {id:'crime-junkie-2026-06-29', title:'MURDERED: Christine Banfield & Joseph Ryan', show:'Crime Junkie', date:'29 Jun 2026', url:pageUrl};
+
+  // Fire a GoatCounter custom event (e.g. 'save', 'share', 'click-youtube').
+  // Path is scoped to this episode so events break down per page. No-op when
+  // GoatCounter isn't loaded (code unset, or blocked).
+  function gcEvent(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      var ep = (location.pathname.split('/').pop() || 'page').replace(/\.html$/, '');
+      window.goatcounter.count({path: ep + '-' + name, title: name, event: true});
+    }
+  }
+
+  // Save = bookmark to localStorage (anonymous, per-device). The library's
+  // "Saved" page reads this same key. Toggles on repeat tap.
+  function savedList() { try { return JSON.parse(localStorage.getItem('readingsis_saved') || '[]'); } catch(e) { return []; } }
+  function isSaved() { return savedList().some(function(x){ return x.id === EP.id; }); }
+  function renderSaveBtn() {
+    var btn = document.getElementById('bookmarkBtn');
+    if (btn) btn.classList.toggle('saved', isSaved());
+  }
+  function handleSave() {
+    gcEvent('save');
+    var list = savedList();
+    if (isSaved()) { list = list.filter(function(x){ return x.id !== EP.id; }); }
+    else { list.push({id:EP.id, title:EP.title, show:EP.show, date:EP.date, url:EP.url}); }
+    localStorage.setItem('readingsis_saved', JSON.stringify(list));
+    renderSaveBtn();
+  }
+
+  function handleShare() {
+    var btn = document.getElementById('shareBtn');
+    gcEvent('share');
+    if (navigator.share) {
+      navigator.share({title: PAGE_TITLE, url: pageUrl}).catch(function() {});
+    } else {
+      navigator.clipboard && navigator.clipboard.writeText(pageUrl).then(function() {
+        btn.classList.add('flash');
+        setTimeout(function() { btn.classList.remove('flash'); }, 2000);
+      });
+    }
+  }
+
+  function toggleBio(toggle) {
+    var chevron = toggle.querySelector('.bio-chevron');
+    var content = toggle.nextElementSibling;
+    chevron.classList.toggle('open');
+    content.classList.toggle('open');
+  }
+
+  function toggleTakeaways() {
+    var rest = document.getElementById('takeawaysRest');
+    var btn = document.getElementById('takeawaysToggle');
+    if (rest.hasAttribute('hidden')) {
+      rest.removeAttribute('hidden');
+      btn.textContent = 'Show fewer';
+    } else {
+      rest.setAttribute('hidden', '');
+      btn.textContent = 'Show all ' + document.querySelectorAll('.takeaway').length + ' takeaways';
+    }
+  }
+
+  renderSaveBtn();
+
+  var _QL = Math.round(5 * 13 * 1.5);
+  Array.prototype.forEach.call(document.querySelectorAll('.moment-card'), function(card) {
+    var q = card.querySelector('.moment-quote');
+    if (!q || q.scrollHeight <= _QL + 2) return;
+    var sp = (card.querySelector('.moment-speaker') || {}).textContent || '';
+    var ctx = (card.querySelector('.moment-context') || {}).textContent || '';
+    var full = q.textContent;
+    var words = full.split(' '), lo = 0, hi = words.length - 1, mid;
+    while (lo < hi) {
+      mid = Math.ceil((lo + hi) / 2);
+      q.textContent = words.slice(0, mid).join(' ') + '...';
+      if (q.scrollHeight <= _QL + 2) lo = mid; else hi = mid - 1;
+    }
+    q.textContent = '';
+    q.appendChild(document.createTextNode(words.slice(0, lo).join(' ') + '... '));
+    var rm = document.createElement('span');
+    rm.className = 'moment-rm-link';
+    rm.textContent = 'Read more';
+    (function(s, f, c) { rm.onclick = function() { openQuote(s, f, c); }; })(sp, full, ctx);
+    q.appendChild(rm);
+  });
+  function openQuote(sp, q, ctx) {
+    document.getElementById('qsheetSp').textContent = sp;
+    document.getElementById('qsheetQ').textContent = q;
+    document.getElementById('qsheetCtx').textContent = ctx;
+    document.getElementById('qsheetBack').classList.add('show');
+  }
+  function closeQuote(e) {
+    if (e && e.target !== e.currentTarget) return;
+    document.getElementById('qsheetBack').classList.remove('show');
+  }
+</script>
+<div class="qsheet-back" id="qsheetBack" onclick="closeQuote(event)"><div class="qsheet"><div class="qsheet-grip"></div><div class="qsheet-speaker" id="qsheetSp"></div><div class="qsheet-quote" id="qsheetQ"></div><div class="qsheet-ctx" id="qsheetCtx"></div><button class="qsheet-close" onclick="closeQuote()">Close</button></div></div>
+</body>
+</html>
