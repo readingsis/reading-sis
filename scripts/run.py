@@ -2210,19 +2210,22 @@ def _episode_line(p: dict) -> str:
 
 
 def generate_batch_opener(episodes: list, model: str = MODEL) -> str:
-    """Rory's one-sentence warm opener for a grouped batch message.
+    """Rory's warm intro sentence for a grouped batch message.
+    Always references 'this morning' or 'this afternoon' based on send time.
     Falls back to a plain template on any error."""
     n = len(episodes)
-    shows = ", ".join(dict.fromkeys(p["podcast"] for p in episodes))
     now = now_israel()
-    time_str = now.strftime("%-I:%M %p on a %A")
+    time_label = _run_label(now)  # "morning" | "noon" | "evening"
+    # Map "noon" → "afternoon" for natural phrasing in the group message
+    time_phrase = "this afternoon" if time_label in ("noon", "evening") else "this morning"
+    shows = ", ".join(dict.fromkeys(p["podcast"] for p in episodes))
     prompt = (
         f'You are "Rory" — a smart friend texting a small group chat about podcast reads. '
-        f'It\'s {time_str} in Israel. You have {n} new read{"s" if n != 1 else ""} to share: {shows}.\n\n'
-        f'Write exactly ONE warm, natural sentence (10–25 words) as an opener. '
-        f'Casual and smart — never corporate, never hype-y. Time-of-day aware but vary whether '
-        f'you name the time explicitly or just let your energy carry it. '
-        f'No 🎙️. One emoji max if it truly fits. No markdown.\n\n'
+        f'You have {n} new read{"s" if n != 1 else ""} to share: {shows}.\n\n'
+        f'Write exactly ONE warm, natural opener sentence (10–25 words). Rules:\n'
+        f'- Must naturally include the phrase "{time_phrase}" (not bolted-on — make it flow).\n'
+        f'- Casual and smart, never corporate, never hype-y.\n'
+        f'- No 🎙️. One emoji max if it truly fits. No markdown.\n\n'
         f'Return only the sentence, nothing else.'
     )
     try:
@@ -2238,11 +2241,12 @@ def generate_batch_opener(episodes: list, model: str = MODEL) -> str:
     except Exception as e:
         print(f"  Batch opener gen failed: {e} — using fallback")
     reads = "reads" if n != 1 else "read"
-    return f"{n} new {reads} just in."
+    return f"{n} new {reads} {time_phrase}."
 
 
 def build_batch_message(episodes: list, opener: str) -> str:
-    """Assemble the full grouped WhatsApp message: opener + genre-organised episode lines."""
+    """Assemble the full grouped WhatsApp message: opener + genre-organised episode lines.
+    Each genre section opens with 'In *Genre* we have:' followed by bullet lines."""
     by_genre: dict = {}
     for p in episodes:
         genre = _PODCAST_META.get(p["podcast"], {}).get("genre", "other")
@@ -2252,13 +2256,14 @@ def build_batch_message(episodes: list, opener: str) -> str:
     for genre in _GENRE_ORDER:
         if genre not in by_genre:
             continue
-        parts.append(f"\n*{_GENRE_LABELS[genre]}*")
+        label = _GENRE_LABELS[genre]
+        parts.append(f"\nIn *{label}* we have:")
         for p in by_genre[genre]:
             parts.append(_episode_line(p))
-    # Catch any genre not in _GENRE_ORDER (e.g. future "other")
+    # Catch any genre not in _GENRE_ORDER (e.g. "other")
     for genre, eps in by_genre.items():
         if genre not in _GENRE_ORDER:
-            parts.append(f"\n*{genre.title()}*")
+            parts.append(f"\nIn *{genre.title()}* we have:")
             for p in eps:
                 parts.append(_episode_line(p))
     return "\n".join(parts)
