@@ -3191,12 +3191,144 @@
       "published_at": "2026-06-28T21:02:59",
       "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-28.html",
       "pushed_at": "2026-06-29"
+    },
+    {
+      "id": "conan-2026-06-29",
+      "podcast": "Conan O'Brien Needs A Friend",
+      "guest": "Eric Andre",
+      "title": "Eric Andre Returns Again",
+      "date": "2026-06-29",
+      "published_at": "2026-06-29T07:05:00",
+      "page_url": "https://readingsis.github.io/reading-sis/conan-2026-06-29.html",
+      "pushed_at": "2026-06-29"
+    },
+    {
+      "id": "crime-junkie-2026-06-29",
+      "podcast": "Crime Junkie",
+      "guest": "Christine Banfield & Joseph Ryan",
+      "title": "MURDERED: Christine Banfield & Joseph Ryan",
+      "date": "2026-06-29",
+      "published_at": "2026-06-29T10:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-29.html",
+      "pushed_at": "2026-06-29"
+    },
+    {
+      "id": "doac-2026-06-29",
+      "podcast": "The Diary Of A CEO",
+      "guest": "Dr. Stephanie Estima",
+      "title": "Women’s Fitness Expert: What You NEED To Know About Dieting & Exercise | Dr. Stephanie Estima",
+      "date": "2026-06-29",
+      "published_at": "2026-06-29T08:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-29.html",
+      "pushed_at": "2026-06-29"
+    },
+    {
+      "id": "smartless-2026-06-29",
+      "podcast": "SmartLess",
+      "guest": "Emma Thompson",
+      "title": "\"Emma Thompson\"",
+      "date": "2026-06-29",
+      "published_at": "2026-06-29T10:01:00",
+      "page_url": "https://readingsis.github.io/reading-sis/smartless-2026-06-29.html",
+      "pushed_at": "2026-06-29"
     }
   ],
   "queued": [],
-  "pending_send": [],
+  "pending_send": [
+    {
+      "id": "conan-2026-06-29",
+      "podcast": "Conan O'Brien Needs A Friend",
+      "guest": "Eric Andre",
+      "title": "Eric Andre Returns Again",
+      "date_str": "29 Jun 2026",
+      "date_short": "Jun 29",
+      "published_at": "2026-06-29T07:05:00",
+      "hook": "Eric Andre returns to Conan's podcast to open up about his mental health journey, his quirky preferences around small talk with Uber drivers, and his upcoming action-comedy Little Brother alongside John Cena. The conversation blends Andre's signature chaotic energy with surprisingly candid personal ",
+      "page_url": "https://readingsis.github.io/reading-sis/conan-2026-06-29.html",
+      "lang": "en"
+    },
+    {
+      "id": "crime-junkie-2026-06-29",
+      "podcast": "Crime Junkie",
+      "guest": "Christine Banfield & Joseph Ryan",
+      "title": "MURDERED: Christine Banfield & Joseph Ryan",
+      "date_str": "29 Jun 2026",
+      "date_short": "Jun 29",
+      "published_at": "2026-06-29T10:00:00",
+      "hook": "When Christine Banfield and Joseph Ryan were found fatally injured in a Virginia home in 2023, Christine's husband Brendan Banfield — a federal agent — initially claimed Ryan was a violent intruder he had tried to stop. Digital evidence unraveled that story entirely, pointing instead to a calculated",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-29.html",
+      "lang": "en"
+    },
+    {
+      "id": "doac-2026-06-29",
+      "podcast": "The Diary Of A CEO",
+      "guest": "Dr. Stephanie Estima",
+      "title": "Women’s Fitness Expert: What You NEED To Know About Dieting & Exercise | Dr. Stephanie Estima",
+      "date_str": "29 Jun 2026",
+      "date_short": "Jun 29",
+      "published_at": "2026-06-29T08:00:00",
+      "hook": "Dr. Stephanie Estima argues that decades of advice telling women to pursue thinness above all else has caused measurable harm — from osteoporosis to hormonal collapse — and that the real goal should be gaining muscle, bone density, and strength. She identifies four female fitness archetypes (Overwhe",
+      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-29.html",
+      "lang": "en"
+    },
+    {
+      "id": "smartless-2026-06-29",
+      "podcast": "SmartLess",
+      "guest": "Emma Thompson",
+      "title": "\"Emma Thompson\"",
+      "date_str": "29 Jun 2026",
+      "date_short": "Jun 29",
+      "published_at": "2026-06-29T10:01:00",
+      "hook": "Oscar-winning actress and screenwriter Emma Thompson joins Jason Bateman, Sean Hayes, and Will Arnett for a characteristically unhinged SmartLess session touching on vanity, boredom, Scottish food, and cold-water therapy. Thompson brings her signature no-nonsense British wit and self-deprecating hum",
+      "page_url": "https://readingsis.github.io/reading-sis/smartless-2026-06-29.html",
+      "lang": "en"
+    }
+  ],
   "preview": [],
-  "awaiting_video": [],
+  "awaiting_video": [
+    {
+      "id": "conan-2026-06-29",
+      "podcast": "Conan O'Brien Needs A Friend",
+      "slug_prefix": "conan",
+      "title": "Eric Andre Returns Again",
+      "date": "2026-06-29",
+      "description": "Comedian, writer, and actor Eric Andre feels like sandpaper about being Conan O’Brien’s friend.\n\n \nEric sits down with Conan to discuss and his mental health, his Uber conversation preferences, and his new film with John Cena, Little Brother. Plus, the gang consider Conan as a terminator in a new installment of Review The Reviewer.\n\n \nFor Conan videos, tour dates and more visit TeamCoco.com.\n\nGot a question for Conan? Call our voicemail: (669) 587-2847.",
+      "duration_sec": 3658,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "interview",
+      "lang": "en",
+      "published_at": "2026-06-29T07:05:00"
+    },
+    {
+      "id": "crime-junkie-2026-06-29",
+      "podcast": "Crime Junkie",
+      "slug_prefix": "crime-junkie",
+      "title": "MURDERED: Christine Banfield & Joseph Ryan",
+      "date": "2026-06-29",
+      "description": "When 37-year-old Christine Banfield and 39-year-old Joseph Ryan were found fatally injured inside a Virginia home in 2023, investigators were initially told that Ryan was a violent intruder and that Christine’s husband, Brendan Banfield, a federal agent, had tried to save her. But as investigators examined digital evidence, they uncovered a different possibility: that Ryan had been lured to the home through a fake online persona and that the scene had been staged to conceal a double homicide.",
+      "duration_sec": 4088,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "true_crime",
+      "lang": "en",
+      "published_at": "2026-06-29T10:00:00"
+    },
+    {
+      "id": "smartless-2026-06-29",
+      "podcast": "SmartLess",
+      "slug_prefix": "smartless",
+      "title": "\"Emma Thompson\"",
+      "date": "2026-06-29",
+      "description": "Have you been working on your faces in the mirror all morning? It’s Emma Thompson. Barney’s, Boredom, and Haggis. “Get in the ice, you’re gonna love it!” On an all-new SmartLess.",
+      "duration_sec": 3506,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "panel",
+      "lang": "en",
+      "published_at": "2026-06-29T10:01:00"
+    }
+  ],
   "sent_count_today": {
     "date": "2026-06-29",
     "count": 3
