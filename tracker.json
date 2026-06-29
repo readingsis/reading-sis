@@ -3194,49 +3194,12 @@
     }
   ],
   "queued": [],
-  "pending_send": [
-    {
-      "id": "lennys-2026-06-28",
-      "podcast": "Lenny's Podcast",
-      "guest": "Andrew Ambrosino",
-      "title": "OpenAI Codex lead on the new shape of product work | Andrew Ambrosino",
-      "date_str": "28 Jun 2026",
-      "date_short": "Jun 28",
-      "published_at": "2026-06-28T15:31:54",
-      "hook": "Andrew Ambrosino argues that AI has inverted the product development process — implementation is now cheap and abundant, making taste, curation, and judgment the scarce and valuable resources. The old design process was built on the assumption that building was expensive, and that assumption is simp",
-      "page_url": "https://readingsis.github.io/reading-sis/lennys-2026-06-28.html",
-      "lang": "en"
-    },
-    {
-      "id": "echad-beyom-2026-06-29",
-      "podcast": "אחד ביום",
-      "guest": "עודד חמו",
-      "title": "בדרך לשלום עם לבנון?",
-      "date_str": "29 Jun 2026",
-      "date_short": "Jun 29",
-      "published_at": "2026-06-29T04:45:00",
-      "hook": "ישראל ולבנון חתמו על הפסקת אש היסטורית הכוללת מסגרת לקידום שלום, אך ההצלחה תלויה ביכולת צבא לבנון לפרק את חזבאללה מנשקו — משימה שספק אם תצליח. באופן פרדוקסלי, דווקא האיום האיראני הוא שקירב את ישראל וממשלת לבנון זו לזו, שכן שתיהן רואות באיראן אויב משותף.",
-      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-29.html",
-      "lang": "he"
-    },
-    {
-      "id": "geekonomy-2026-06-28",
-      "podcast": "גיקונומי",
-      "guest": "ניר הירשמן",
-      "title": "פרק #1219 - ניר הירשמן",
-      "date_str": "28 Jun 2026",
-      "date_short": "Jun 28",
-      "published_at": "2026-06-28T21:02:59",
-      "hook": "ארה\"ב עוברת מהפכה רגולטורית בקריפטו — סטייבלקוינס כבר מעבדים 9 טריליון דולר בשנה (יותר ממחצית מוויזה), והחקיקה הצפויה תאפשר הנפקת מניות על הבלוקצ'יין 24/7. ישראל, לעומת זאת, מפגרת בגלל בעיות רגולציה חמורות שמאיימות לדחוק אותה מחוץ למפה הגלובלית.",
-      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-28.html",
-      "lang": "he"
-    }
-  ],
+  "pending_send": [],
   "preview": [],
   "awaiting_video": [],
   "sent_count_today": {
-    "date": "2026-06-28",
-    "count": 4
+    "date": "2026-06-29",
+    "count": 3
   },
   "backfill_queued": [],
   "fallback_sent_date": "2026-06-23"
