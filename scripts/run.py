@@ -306,6 +306,16 @@ PODCASTS = [
     },
 ]
 
+# Genre lookup built once from PODCASTS — used by the grouped WhatsApp message.
+_PODCAST_META: dict = {p["name"]: p for p in PODCASTS}
+_GENRE_ORDER = ["tech", "business", "storytelling", "entertainment"]
+_GENRE_LABELS = {
+    "tech": "Tech",
+    "business": "Business",
+    "storytelling": "Storytelling",
+    "entertainment": "Entertainment",
+}
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 # SCHEDULING
@@ -2173,6 +2183,87 @@ Return only the message text, nothing else."""
     return _fallback_sis_message(p)
 
 
+def _trunc(s: str, n: int) -> str:
+    """Truncate s to at most n chars, breaking at the last word boundary."""
+    if len(s) <= n:
+        return s
+    cut = s[:n].rsplit(" ", 1)[0]
+    return cut.rstrip("—,;: ") + "…"
+
+
+def _episode_line(p: dict) -> str:
+    """One-line episode entry for the grouped WhatsApp message.
+    Format: • Show: <description> — <url>"""
+    guest = (p.get("guest") or "").strip()
+    hook = (p.get("hook") or "").strip()
+    title = (p.get("title") or "").strip()
+    if guest and guest.lower() not in ("various", ""):
+        if hook:
+            desc = f"{guest} on {_trunc(hook, 70)}"
+        else:
+            desc = guest
+    elif hook:
+        desc = _trunc(hook, 90)
+    else:
+        desc = _trunc(title, 90) if title else "new episode"
+    return f"• {p['podcast']}: {desc} — {p['page_url']}"
+
+
+def generate_batch_opener(episodes: list, model: str = MODEL) -> str:
+    """Rory's one-sentence warm opener for a grouped batch message.
+    Falls back to a plain template on any error."""
+    n = len(episodes)
+    shows = ", ".join(dict.fromkeys(p["podcast"] for p in episodes))
+    now = now_israel()
+    time_str = now.strftime("%-I:%M %p on a %A")
+    prompt = (
+        f'You are "Rory" — a smart friend texting a small group chat about podcast reads. '
+        f'It\'s {time_str} in Israel. You have {n} new read{"s" if n != 1 else ""} to share: {shows}.\n\n'
+        f'Write exactly ONE warm, natural sentence (10–25 words) as an opener. '
+        f'Casual and smart — never corporate, never hype-y. Time-of-day aware but vary whether '
+        f'you name the time explicitly or just let your energy carry it. '
+        f'No 🎙️. One emoji max if it truly fits. No markdown.\n\n'
+        f'Return only the sentence, nothing else.'
+    )
+    try:
+        client = Anthropic(api_key=ANTHROPIC_KEY)
+        msg = client.messages.create(
+            model=model, max_tokens=80,
+            messages=[{"role": "user", "content": prompt}])
+        text = (msg.content[0].text if msg.content else "").strip()
+        words = len(text.split())
+        if text and "http" not in text.lower() and 5 <= words <= 40:
+            return text
+        print(f"  Batch opener failed QA (words={words}) — using fallback")
+    except Exception as e:
+        print(f"  Batch opener gen failed: {e} — using fallback")
+    reads = "reads" if n != 1 else "read"
+    return f"{n} new {reads} just in."
+
+
+def build_batch_message(episodes: list, opener: str) -> str:
+    """Assemble the full grouped WhatsApp message: opener + genre-organised episode lines."""
+    by_genre: dict = {}
+    for p in episodes:
+        genre = _PODCAST_META.get(p["podcast"], {}).get("genre", "other")
+        by_genre.setdefault(genre, []).append(p)
+
+    parts = [opener]
+    for genre in _GENRE_ORDER:
+        if genre not in by_genre:
+            continue
+        parts.append(f"\n*{_GENRE_LABELS[genre]}*")
+        for p in by_genre[genre]:
+            parts.append(_episode_line(p))
+    # Catch any genre not in _GENRE_ORDER (e.g. future "other")
+    for genre, eps in by_genre.items():
+        if genre not in _GENRE_ORDER:
+            parts.append(f"\n*{genre.title()}*")
+            for p in eps:
+                parts.append(_episode_line(p))
+    return "\n".join(parts)
+
+
 def _maybe_send_no_content_fallback(tracker: dict, now: datetime.datetime) -> bool:
     """If today ends with zero episodes sent across all its slots, send ONE
     message to the group at today's final scheduled send. Idempotent — won't
@@ -2266,37 +2357,40 @@ def send_pending(manual: bool = False) -> None:
         batch = sendable
         deferred = []
     else:
-        slots = _remaining_slots_today(now)
-        target = min(3, len(sendable)) if sendable else 0
-        batch, deferred = [], []
-        seen_shows: set = set()
-        for p in sendable:
-            show = p.get("podcast")
-            if len(batch) < target and show not in seen_shows:
-                batch.append(p)
-                seen_shows.add(show)
-            else:
-                deferred.append(p)  # same-show dedup or over target — next run
-        print(f"  {len(slots)} slot(s) left today, {len(sendable)} sendable → "
-              f"sending {len(batch)} this run, {len(deferred)} deferred")
+        # Grouped mode: send ALL sendable episodes in ONE message — no cap, no dedup.
+        batch = sendable
+        deferred = []
+        print(f"  {len(sendable)} sendable → sending all in one grouped message")
 
-    # Pass 3: generate each Sis message (aware of its position) and send.
-    total = len(batch)
+    # Pass 3: generate and send.
     sent = 0
-    for idx, p in enumerate(batch):
-        if not manual and idx > 0:
-            time.sleep(60)  # 1-min stagger between sends in the same run
-        body = generate_sis_message(p, idx, total)
-        date_short = p.get("date_short") or p.get("date_str", "")
-        footer = f"🎙️ {p.get('podcast','')}, {date_short}, {p['page_url']}"
-        message = f"{body}\n\n{footer}"
-        try:
-            resp = send_personal_message(message) if manual else send_group_message(message)
-            print(f"  WhatsApp sent ✓  {resp}")
-            sent += 1
-        except Exception as e:
-            print(f"  WhatsApp failed: {e} — keeping for next send run")
-            (deferred if not manual else remaining).append(p)
+    if manual:
+        # Manual mode: individual per-episode messages to Noam's personal WA (unchanged).
+        total = len(batch)
+        for idx, p in enumerate(batch):
+            body = generate_sis_message(p, idx, total)
+            date_short = p.get("date_short") or p.get("date_str", "")
+            footer = f"🎙️ {p.get('podcast','')}, {date_short}, {p['page_url']}"
+            message = f"{body}\n\n{footer}"
+            try:
+                resp = send_personal_message(message)
+                print(f"  WhatsApp sent ✓  {resp}")
+                sent += 1
+            except Exception as e:
+                print(f"  WhatsApp failed: {e} — keeping for next send run")
+                remaining.append(p)
+    else:
+        # Auto mode: one grouped message to the group (all episodes, genre-organised).
+        if batch:
+            opener = generate_batch_opener(batch)
+            message = build_batch_message(batch, opener)
+            try:
+                resp = send_group_message(message)
+                print(f"  WhatsApp grouped message sent ✓  ({len(batch)} episodes)  {resp}")
+                sent = len(batch)
+            except Exception as e:
+                print(f"  WhatsApp grouped send failed: {e} — keeping all for next run")
+                remaining.extend(batch)
 
     tracker["pending_send"] = remaining + (deferred if not manual else [])
 
