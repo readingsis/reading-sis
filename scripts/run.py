@@ -2073,13 +2073,13 @@ def send_personal_message(message: str) -> dict:
 # digest, or fallback message — the queue simply rolls into Sunday).
 # Python weekday(): Mon=0 … Sun=6.
 SEND_SCHEDULE: dict[int, list[tuple[int, int]]] = {
-    6: [(7, 30), (12, 30)],          # Sunday
-    0: [(7, 30), (12, 30)],          # Monday
-    1: [(7, 30), (12, 30)],          # Tuesday
-    2: [(7, 30), (12, 30)],          # Wednesday
-    3: [(7, 30), (12, 30)],          # Thursday
-    4: [(7, 30), (11, 30), (14, 30)], # Friday — front-loaded before Shabbat
-    5: [],                            # Saturday — dark
+    6: [(7, 30)],  # Sunday
+    0: [(7, 30)],  # Monday
+    1: [(7, 30)],  # Tuesday
+    2: [(7, 30)],  # Wednesday
+    3: [(7, 30)],  # Thursday
+    4: [(7, 30)],  # Friday — one morning send before Shabbat
+    5: [],          # Saturday — dark
 }
 SATURDAY = 5
 
@@ -2183,29 +2183,23 @@ Return only the message text, nothing else."""
     return _fallback_sis_message(p)
 
 
-def _trunc(s: str, n: int) -> str:
-    """Truncate s to at most n chars, breaking at the last word boundary."""
-    if len(s) <= n:
-        return s
-    cut = s[:n].rsplit(" ", 1)[0]
-    return cut.rstrip("—,;: ") + "…"
-
-
 def _episode_line(p: dict) -> str:
     """One-line episode entry for the grouped WhatsApp message.
-    Format: • Show: <description> — <url>"""
+    Format: • Show: <description> — <url>
+    Hook is always shown in full — no truncation. Hook is required; title is
+    the fallback only when hook is genuinely absent (should be rare)."""
     guest = (p.get("guest") or "").strip()
     hook = (p.get("hook") or "").strip()
     title = (p.get("title") or "").strip()
-    if guest and guest.lower() not in ("various", ""):
-        if hook:
-            desc = f"{guest} on {_trunc(hook, 70)}"
+    if hook:
+        if guest and guest.lower() not in ("various", ""):
+            desc = f"{guest} on {hook}"
         else:
-            desc = guest
-    elif hook:
-        desc = _trunc(hook, 90)
+            desc = hook
+    elif guest and guest.lower() not in ("various", ""):
+        desc = f"{guest} — {title}" if title else guest
     else:
-        desc = _trunc(title, 90) if title else "new episode"
+        desc = title if title else "new episode"
     return f"• {p['podcast']}: {desc} — {p['page_url']}"
 
 
@@ -2214,16 +2208,12 @@ def generate_batch_opener(episodes: list, model: str = MODEL) -> str:
     Always references 'this morning' or 'this afternoon' based on send time.
     Falls back to a plain template on any error."""
     n = len(episodes)
-    now = now_israel()
-    time_label = _run_label(now)  # "morning" | "noon" | "evening"
-    # Map "noon" → "afternoon" for natural phrasing in the group message
-    time_phrase = "this afternoon" if time_label in ("noon", "evening") else "this morning"
     shows = ", ".join(dict.fromkeys(p["podcast"] for p in episodes))
     prompt = (
         f'You are "Rory" — a smart friend texting a small group chat about podcast reads. '
-        f'You have {n} new read{"s" if n != 1 else ""} to share: {shows}.\n\n'
+        f'You have {n} new read{"s" if n != 1 else ""} to share from the past 24 hours: {shows}.\n\n'
         f'Write exactly ONE warm, natural opener sentence (10–25 words). Rules:\n'
-        f'- Must naturally include the phrase "{time_phrase}" (not bolted-on — make it flow).\n'
+        f'- Must naturally include the phrase "this morning" (not bolted-on — make it flow).\n'
         f'- Casual and smart, never corporate, never hype-y.\n'
         f'- No 🎙️. One emoji max if it truly fits. No markdown.\n\n'
         f'Return only the sentence, nothing else.'
@@ -2241,7 +2231,7 @@ def generate_batch_opener(episodes: list, model: str = MODEL) -> str:
     except Exception as e:
         print(f"  Batch opener gen failed: {e} — using fallback")
     reads = "reads" if n != 1 else "read"
-    return f"{n} new {reads} {time_phrase}."
+    return f"{n} new {reads} this morning."
 
 
 def build_batch_message(episodes: list, opener: str) -> str:
