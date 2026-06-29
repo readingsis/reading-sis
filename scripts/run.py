@@ -699,7 +699,7 @@ Return a single JSON object (no markdown fences) with exactly these keys:
   "bio_text": "3-4 sentences about the guest (interview) OR 2-3 sentences about the show and hosts (panel)",
   "duration_str": "Estimated episode duration e.g. '1h 23m'",
   "read_time": <integer — word count of tldr+moments+takeaways divided by 150, rounded up>,
-  "tldr": "2-3 sentences. The core argument or biggest insight. Be specific — not generic.",
+  "tldr": "REQUIRED — never blank. 2-3 sentences. The core argument or biggest insight, written as a confident claim. Name real people, numbers, and examples — not generic summaries.",
   "moments": [
     {{
       "speaker": "Name of speaker",
@@ -2557,6 +2557,14 @@ def backfill(since: datetime.date, model: str = HAIKU) -> None:
             processed_ids.add(ep_id)
             continue
 
+        if not (content.get("tldr") or "").strip():
+            teaser = (content.get("whatsapp_teaser") or "").strip()
+            takeaways = content.get("takeaways") or []
+            first_body = ((takeaways[0].get("body") or "") if takeaways else "").strip()
+            fallback_tldr = teaser or first_body or (episode.get("title") or "")
+            content["tldr"] = fallback_tldr
+            print(f"  tldr was empty — patched from {'whatsapp_teaser' if teaser else 'takeaway' if first_body else 'title'}")
+
         passed, html, content, qa_issues = qa_episode(
             episode, content, video_id, video_duration, transcript, gen_model=model, prior_feedback=prior_feedback)
         for level, msg in qa_issues:
@@ -2657,6 +2665,11 @@ def _retry_awaiting_video(tracker: dict) -> bool:
             transcript = get_transcript(video_id, lang=episode.get("lang", "en"))
             content = generate_content(episode, transcript, video_id)
             if content and not content.get("skip"):
+                if not (content.get("tldr") or "").strip():
+                    teaser = (content.get("whatsapp_teaser") or "").strip()
+                    takeaways = content.get("takeaways") or []
+                    first_body = ((takeaways[0].get("body") or "") if takeaways else "").strip()
+                    content["tldr"] = teaser or first_body or (episode.get("title") or "")
                 passed, html, content, qa_issues = qa_episode(
                     episode, content, video_id, video_duration, transcript)
                 if passed:
@@ -2829,6 +2842,18 @@ def _run_generate(window_override: datetime.timedelta | None = None,
             continue
 
         print(f"  Guest: {content.get('guest', '?')}")
+
+        # ── tldr fallback ─────────────────────────────────────────────────────
+        # tldr powers the hook line in grouped WhatsApp messages — it must never
+        # be blank. If the model returned an empty tldr, patch it before QA runs
+        # (so the fix propagates to both the HTML page and pending_send hook).
+        if not (content.get("tldr") or "").strip():
+            teaser = (content.get("whatsapp_teaser") or "").strip()
+            takeaways = content.get("takeaways") or []
+            first_body = ((takeaways[0].get("body") or "") if takeaways else "").strip()
+            fallback_tldr = teaser or first_body or (episode.get("title") or "")
+            content["tldr"] = fallback_tldr
+            print(f"  tldr was empty — patched from {'whatsapp_teaser' if teaser else 'takeaway' if first_body else 'title'}")
 
         # ── QA stage: auto-fix and gate ───────────────────────────────────────
         passed, html, content, qa_issues = qa_episode(
