@@ -3264,92 +3264,7 @@
     }
   ],
   "queued": [],
-  "pending_send": [
-    {
-      "id": "conan-2026-06-29",
-      "podcast": "Conan O'Brien Needs A Friend",
-      "guest": "Eric Andre",
-      "title": "Eric Andre Returns Again",
-      "date_str": "29 Jun 2026",
-      "date_short": "Jun 29",
-      "published_at": "2026-06-29T07:05:00",
-      "hook": "Eric Andre returns to Conan's podcast to open up about his mental health journey, his quirky preferences around small talk with Uber drivers, and his upcoming action-comedy Little Brother alongside John Cena. The conversation blends Andre's signature chaotic energy with surprisingly candid personal ",
-      "page_url": "https://readingsis.github.io/reading-sis/conan-2026-06-29.html",
-      "lang": "en"
-    },
-    {
-      "id": "crime-junkie-2026-06-29",
-      "podcast": "Crime Junkie",
-      "guest": "Christine Banfield & Joseph Ryan",
-      "title": "MURDERED: Christine Banfield & Joseph Ryan",
-      "date_str": "29 Jun 2026",
-      "date_short": "Jun 29",
-      "published_at": "2026-06-29T10:00:00",
-      "hook": "When Christine Banfield and Joseph Ryan were found fatally injured in a Virginia home in 2023, Christine's husband Brendan Banfield — a federal agent — initially claimed Ryan was a violent intruder he had tried to stop. Digital evidence unraveled that story entirely, pointing instead to a calculated",
-      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-29.html",
-      "lang": "en"
-    },
-    {
-      "id": "doac-2026-06-29",
-      "podcast": "The Diary Of A CEO",
-      "guest": "Dr. Stephanie Estima",
-      "title": "Women’s Fitness Expert: What You NEED To Know About Dieting & Exercise | Dr. Stephanie Estima",
-      "date_str": "29 Jun 2026",
-      "date_short": "Jun 29",
-      "published_at": "2026-06-29T08:00:00",
-      "hook": "Dr. Stephanie Estima argues that decades of advice telling women to pursue thinness above all else has caused measurable harm — from osteoporosis to hormonal collapse — and that the real goal should be gaining muscle, bone density, and strength. She identifies four female fitness archetypes (Overwhe",
-      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-29.html",
-      "lang": "en"
-    },
-    {
-      "id": "smartless-2026-06-29",
-      "podcast": "SmartLess",
-      "guest": "Emma Thompson",
-      "title": "\"Emma Thompson\"",
-      "date_str": "29 Jun 2026",
-      "date_short": "Jun 29",
-      "published_at": "2026-06-29T10:01:00",
-      "hook": "Oscar-winning actress and screenwriter Emma Thompson joins Jason Bateman, Sean Hayes, and Will Arnett for a characteristically unhinged SmartLess session touching on vanity, boredom, Scottish food, and cold-water therapy. Thompson brings her signature no-nonsense British wit and self-deprecating hum",
-      "page_url": "https://readingsis.github.io/reading-sis/smartless-2026-06-29.html",
-      "lang": "en"
-    },
-    {
-      "id": "all-in-2026-06-29",
-      "podcast": "All-In",
-      "guest": "Nate Silver",
-      "title": "Nate Silver Predicts: Democrats Take the House, Newsom Is Fading & AOC Might Win It All in 2028",
-      "date_str": "29 Jun 2026",
-      "date_short": "Jun 29",
-      "published_at": "2026-06-29T18:47:00",
-      "hook": "Nate Silver argues that partisanship — not fraud — explains California's slow vote counts and Democratic dominance, noting that 43 of 50 states can be predicted with 97% confidence for 2028. He sees Democrats as slight favorites in 2028 but warns their establishment strategy of picking 'least unacce",
-      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-29.html",
-      "lang": "en"
-    },
-    {
-      "id": "startup-for-startup-2026-06-30",
-      "podcast": "Startup for Startup",
-      "guest": "עדי דר",
-      "title": "356: איך צמצמנו את הנטישה דרך התמקדות אמיתית בלקוחות הקיימים",
-      "date_str": "30 Jun 2026",
-      "date_short": "Jun 30",
-      "published_at": "2026-06-30T05:00:00",
-      "hook": "מאנדיי הקימה לפני כשנה ארגון CCO כדי לאחד את כל גופי השירות ולעבור ממשחק התקפי (רכישת לקוחות) למשחק הגנתי (שימור לקוחות). באמצעות AI שפותר אוטומטית מעל 70% מתיקי התמיכה ומנוע סיכון שמזהה סימני נטישה לפני שהלקוח בכלל יודע שיש בעיה, החברה שינתה את האופן שבו היא מסתכלת על 250 אלף הלקוחות שלה. קישור מוד",
-      "page_url": "https://readingsis.github.io/reading-sis/startup-for-startup-2026-06-30.html",
-      "lang": "he"
-    },
-    {
-      "id": "echad-beyom-2026-06-30",
-      "podcast": "אחד ביום",
-      "guest": "תומר פדלון",
-      "title": "הכסף של המונדיאל",
-      "date_str": "30 Jun 2026",
-      "date_short": "Jun 30",
-      "published_at": "2026-06-30T04:45:00",
-      "hook": "מונדיאל 2026 הוא אירוע הספורט היקר ביותר בהיסטוריה, עם מעל מיליארד צופים וכרטיסים שעולים אלפי דולרים. פיפ״א הפכה מארגון חובבני קטן למכונת כסף שמגלגלת מיליארדים, תוך שהיא נאשמת שוב ושוב בשחיתות מובנית. מדינות מארחות ממשיכות להוציא מיליארדים למרות שהנתונים מראים שהאירוח לרוב אינו משתלם כלכלית.",
-      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-30.html",
-      "lang": "he"
-    }
-  ],
+  "pending_send": [],
   "preview": [],
   "awaiting_video": [
     {
@@ -3368,8 +3283,8 @@
     }
   ],
   "sent_count_today": {
-    "date": "2026-06-29",
-    "count": 3
+    "date": "2026-06-30",
+    "count": 7
   },
   "backfill_queued": [],
   "fallback_sent_date": "2026-06-23"
