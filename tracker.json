@@ -3191,15 +3191,105 @@
       "published_at": "2026-06-28T21:02:59",
       "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-06-28.html",
       "pushed_at": "2026-06-29"
+    },
+    {
+      "id": "conan-2026-06-29",
+      "podcast": "Conan O'Brien Needs A Friend",
+      "guest": "Eric Andre",
+      "title": "Eric Andre Returns Again",
+      "date": "2026-06-29",
+      "published_at": "2026-06-29T07:05:00",
+      "page_url": "https://readingsis.github.io/reading-sis/conan-2026-06-29.html",
+      "pushed_at": "2026-06-29"
+    },
+    {
+      "id": "crime-junkie-2026-06-29",
+      "podcast": "Crime Junkie",
+      "guest": "Christine Banfield & Joseph Ryan",
+      "title": "MURDERED: Christine Banfield & Joseph Ryan",
+      "date": "2026-06-29",
+      "published_at": "2026-06-29T10:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/crime-junkie-2026-06-29.html",
+      "pushed_at": "2026-06-29"
+    },
+    {
+      "id": "doac-2026-06-29",
+      "podcast": "The Diary Of A CEO",
+      "guest": "Dr. Stephanie Estima",
+      "title": "Women’s Fitness Expert: What You NEED To Know About Dieting & Exercise | Dr. Stephanie Estima",
+      "date": "2026-06-29",
+      "published_at": "2026-06-29T08:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/doac-2026-06-29.html",
+      "pushed_at": "2026-06-29"
+    },
+    {
+      "id": "smartless-2026-06-29",
+      "podcast": "SmartLess",
+      "guest": "Emma Thompson",
+      "title": "\"Emma Thompson\"",
+      "date": "2026-06-29",
+      "published_at": "2026-06-29T10:01:00",
+      "page_url": "https://readingsis.github.io/reading-sis/smartless-2026-06-29.html",
+      "pushed_at": "2026-06-29"
+    },
+    {
+      "id": "all-in-2026-06-29",
+      "podcast": "All-In",
+      "guest": "Nate Silver",
+      "title": "Nate Silver Predicts: Democrats Take the House, Newsom Is Fading & AOC Might Win It All in 2028",
+      "date": "2026-06-29",
+      "published_at": "2026-06-29T18:47:00",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-29.html",
+      "pushed_at": "2026-06-30"
+    },
+    {
+      "id": "startup-for-startup-2026-06-30",
+      "podcast": "Startup for Startup",
+      "guest": "עדי דר",
+      "title": "356: איך צמצמנו את הנטישה דרך התמקדות אמיתית בלקוחות הקיימים",
+      "date": "2026-06-30",
+      "published_at": "2026-06-30T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/startup-for-startup-2026-06-30.html",
+      "pushed_at": "2026-06-30"
+    },
+    {
+      "id": "echad-beyom-2026-06-30",
+      "podcast": "אחד ביום",
+      "guest": "תומר פדלון",
+      "title": "הכסף של המונדיאל",
+      "date": "2026-06-30",
+      "published_at": "2026-06-30T04:45:00",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-30.html",
+      "pushed_at": "2026-06-30"
+    },
+    {
+      "id": "bigdeal-2026-06-30",
+      "skipped": true,
+      "skip_reason": "short/bonus, no video"
     }
   ],
   "queued": [],
   "pending_send": [],
   "preview": [],
-  "awaiting_video": [],
+  "awaiting_video": [
+    {
+      "id": "startup-for-startup-2026-06-30",
+      "podcast": "Startup for Startup",
+      "slug_prefix": "startup-for-startup",
+      "title": "356: איך צמצמנו את הנטישה דרך התמקדות אמיתית בלקוחות הקיימים",
+      "date": "2026-06-30",
+      "description": "<p dir=\"rtl\">במשך תקופה ארוכה הפוקוס המרכזי של מאנדיי היה על צמיחה דרך לקוחות חדשים והגדלת ה-ARR. עם בסיס עצום של מעל ל-250 אלף לקוחות, רק קצה הפירמידה זכה לליווי צמוד ופרואקטיבי, בעוד שאר המשתמשים קיבלו מענה בעיקר כשכבר צצה בעיה בשטח. אבל כשהחברה הגיעה למאסה קריטית, היה ברור שהמשחק ההתקפי של רכישת לקוחות חדשים כבר לא מספיק לבדו. כדי להמשיך לגדול בצורה בריאה, מאנדיי הייתה חייבת לחזק את המשחק ההגנתי שלה, כלומר, להסתכל לאתגר של נטישת הלקוחות בעיניים וללמוד איך לשמור על הנכס הכי גדול שלה: הלקוחות הקיימים.</p> <p dir=\"rtl\">מתוך ההבנה שלכל ארגון יש \"דלי דולף\" ושהרבה יותר זול ומשתלם לשמר לקוח מאשר לגייס חדש, הוקם לפני כשנה ארגון ה-CCO (Chief Customer Officer) במאנדיי. המטרה הייתה לאחד את כל גופי השירות, התמיכה והסאקסס שהיו מפוזרים בחברה תחת קורת גג אחת, ולפתור את בעיית ה-\"Too many cooks in the kitchen\", מצב שבו פונקציות שונות פועלות מול אותו לקוח במקביל ללא סנכרון.</p> <p dir=\"rtl\">בפרק השבוע, דריה ורטהיים משוחחת עם עדי דר, ה-CCO של מאנדיי, על הדרך שבה הם פיצחו את האתגר והפכו את מערך השירות מריאקטיבי לפרואקטיבי. עדי מסביר כיצד ה-AI הפך למנוע, החל מפתרון אוטומטי של מעל 70% מתיקי התמיכה היומיים, ועד לשימוש ב-Risk Engine, מערכת שמזהה ירידה בשימוש וסימני שבר אצל הלקוח עוד לפני שהבעיה בכלל צפה. בנוסף, הוא משתף כיצד הם מייסמים סגמנטציה, איך מנהלים מערך Tech Touch שנוגע בעשרות אלפי לקוחות במקביל, וכיצד חיבור מודל הקומפנסיישן של אנשי השירות לתוצאות השימור בפועל שינה את התמונה.</p><p>See <a href=\"https://omnystudio.com/listener\">omnystudio.com/listener</a> for privacy information.</p>",
+      "duration_sec": 2412,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "interview",
+      "lang": "he",
+      "published_at": "2026-06-30T05:00:00"
+    }
+  ],
   "sent_count_today": {
-    "date": "2026-06-29",
-    "count": 3
+    "date": "2026-06-30",
+    "count": 7
   },
   "backfill_queued": [],
   "fallback_sent_date": "2026-06-23"
