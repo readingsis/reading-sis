@@ -3231,6 +3231,36 @@
       "published_at": "2026-06-29T10:01:00",
       "page_url": "https://readingsis.github.io/reading-sis/smartless-2026-06-29.html",
       "pushed_at": "2026-06-29"
+    },
+    {
+      "id": "all-in-2026-06-29",
+      "podcast": "All-In",
+      "guest": "Nate Silver",
+      "title": "Nate Silver Predicts: Democrats Take the House, Newsom Is Fading & AOC Might Win It All in 2028",
+      "date": "2026-06-29",
+      "published_at": "2026-06-29T18:47:00",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-29.html",
+      "pushed_at": "2026-06-30"
+    },
+    {
+      "id": "startup-for-startup-2026-06-30",
+      "podcast": "Startup for Startup",
+      "guest": "עדי דר",
+      "title": "356: איך צמצמנו את הנטישה דרך התמקדות אמיתית בלקוחות הקיימים",
+      "date": "2026-06-30",
+      "published_at": "2026-06-30T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/startup-for-startup-2026-06-30.html",
+      "pushed_at": "2026-06-30"
+    },
+    {
+      "id": "echad-beyom-2026-06-30",
+      "podcast": "אחד ביום",
+      "guest": "תומר פדלון",
+      "title": "הכסף של המונדיאל",
+      "date": "2026-06-30",
+      "published_at": "2026-06-30T04:45:00",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-30.html",
+      "pushed_at": "2026-06-30"
     }
   ],
   "queued": [],
@@ -3282,51 +3312,59 @@
       "hook": "Oscar-winning actress and screenwriter Emma Thompson joins Jason Bateman, Sean Hayes, and Will Arnett for a characteristically unhinged SmartLess session touching on vanity, boredom, Scottish food, and cold-water therapy. Thompson brings her signature no-nonsense British wit and self-deprecating hum",
       "page_url": "https://readingsis.github.io/reading-sis/smartless-2026-06-29.html",
       "lang": "en"
+    },
+    {
+      "id": "all-in-2026-06-29",
+      "podcast": "All-In",
+      "guest": "Nate Silver",
+      "title": "Nate Silver Predicts: Democrats Take the House, Newsom Is Fading & AOC Might Win It All in 2028",
+      "date_str": "29 Jun 2026",
+      "date_short": "Jun 29",
+      "published_at": "2026-06-29T18:47:00",
+      "hook": "Nate Silver argues that partisanship — not fraud — explains California's slow vote counts and Democratic dominance, noting that 43 of 50 states can be predicted with 97% confidence for 2028. He sees Democrats as slight favorites in 2028 but warns their establishment strategy of picking 'least unacce",
+      "page_url": "https://readingsis.github.io/reading-sis/all-in-2026-06-29.html",
+      "lang": "en"
+    },
+    {
+      "id": "startup-for-startup-2026-06-30",
+      "podcast": "Startup for Startup",
+      "guest": "עדי דר",
+      "title": "356: איך צמצמנו את הנטישה דרך התמקדות אמיתית בלקוחות הקיימים",
+      "date_str": "30 Jun 2026",
+      "date_short": "Jun 30",
+      "published_at": "2026-06-30T05:00:00",
+      "hook": "מאנדיי הקימה לפני כשנה ארגון CCO כדי לאחד את כל גופי השירות ולעבור ממשחק התקפי (רכישת לקוחות) למשחק הגנתי (שימור לקוחות). באמצעות AI שפותר אוטומטית מעל 70% מתיקי התמיכה ומנוע סיכון שמזהה סימני נטישה לפני שהלקוח בכלל יודע שיש בעיה, החברה שינתה את האופן שבו היא מסתכלת על 250 אלף הלקוחות שלה. קישור מוד",
+      "page_url": "https://readingsis.github.io/reading-sis/startup-for-startup-2026-06-30.html",
+      "lang": "he"
+    },
+    {
+      "id": "echad-beyom-2026-06-30",
+      "podcast": "אחד ביום",
+      "guest": "תומר פדלון",
+      "title": "הכסף של המונדיאל",
+      "date_str": "30 Jun 2026",
+      "date_short": "Jun 30",
+      "published_at": "2026-06-30T04:45:00",
+      "hook": "מונדיאל 2026 הוא אירוע הספורט היקר ביותר בהיסטוריה, עם מעל מיליארד צופים וכרטיסים שעולים אלפי דולרים. פיפ״א הפכה מארגון חובבני קטן למכונת כסף שמגלגלת מיליארדים, תוך שהיא נאשמת שוב ושוב בשחיתות מובנית. מדינות מארחות ממשיכות להוציא מיליארדים למרות שהנתונים מראים שהאירוח לרוב אינו משתלם כלכלית.",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-30.html",
+      "lang": "he"
     }
   ],
   "preview": [],
   "awaiting_video": [
     {
-      "id": "conan-2026-06-29",
-      "podcast": "Conan O'Brien Needs A Friend",
-      "slug_prefix": "conan",
-      "title": "Eric Andre Returns Again",
-      "date": "2026-06-29",
-      "description": "Comedian, writer, and actor Eric Andre feels like sandpaper about being Conan O’Brien’s friend.\n\n \nEric sits down with Conan to discuss and his mental health, his Uber conversation preferences, and his new film with John Cena, Little Brother. Plus, the gang consider Conan as a terminator in a new installment of Review The Reviewer.\n\n \nFor Conan videos, tour dates and more visit TeamCoco.com.\n\nGot a question for Conan? Call our voicemail: (669) 587-2847.",
-      "duration_sec": 3658,
+      "id": "startup-for-startup-2026-06-30",
+      "podcast": "Startup for Startup",
+      "slug_prefix": "startup-for-startup",
+      "title": "356: איך צמצמנו את הנטישה דרך התמקדות אמיתית בלקוחות הקיימים",
+      "date": "2026-06-30",
+      "description": "<p dir=\"rtl\">במשך תקופה ארוכה הפוקוס המרכזי של מאנדיי היה על צמיחה דרך לקוחות חדשים והגדלת ה-ARR. עם בסיס עצום של מעל ל-250 אלף לקוחות, רק קצה הפירמידה זכה לליווי צמוד ופרואקטיבי, בעוד שאר המשתמשים קיבלו מענה בעיקר כשכבר צצה בעיה בשטח. אבל כשהחברה הגיעה למאסה קריטית, היה ברור שהמשחק ההתקפי של רכישת לקוחות חדשים כבר לא מספיק לבדו. כדי להמשיך לגדול בצורה בריאה, מאנדיי הייתה חייבת לחזק את המשחק ההגנתי שלה, כלומר, להסתכל לאתגר של נטישת הלקוחות בעיניים וללמוד איך לשמור על הנכס הכי גדול שלה: הלקוחות הקיימים.</p> <p dir=\"rtl\">מתוך ההבנה שלכל ארגון יש \"דלי דולף\" ושהרבה יותר זול ומשתלם לשמר לקוח מאשר לגייס חדש, הוקם לפני כשנה ארגון ה-CCO (Chief Customer Officer) במאנדיי. המטרה הייתה לאחד את כל גופי השירות, התמיכה והסאקסס שהיו מפוזרים בחברה תחת קורת גג אחת, ולפתור את בעיית ה-\"Too many cooks in the kitchen\", מצב שבו פונקציות שונות פועלות מול אותו לקוח במקביל ללא סנכרון.</p> <p dir=\"rtl\">בפרק השבוע, דריה ורטהיים משוחחת עם עדי דר, ה-CCO של מאנדיי, על הדרך שבה הם פיצחו את האתגר והפכו את מערך השירות מריאקטיבי לפרואקטיבי. עדי מסביר כיצד ה-AI הפך למנוע, החל מפתרון אוטומטי של מעל 70% מתיקי התמיכה היומיים, ועד לשימוש ב-Risk Engine, מערכת שמזהה ירידה בשימוש וסימני שבר אצל הלקוח עוד לפני שהבעיה בכלל צפה. בנוסף, הוא משתף כיצד הם מייסמים סגמנטציה, איך מנהלים מערך Tech Touch שנוגע בעשרות אלפי לקוחות במקביל, וכיצד חיבור מודל הקומפנסיישן של אנשי השירות לתוצאות השימור בפועל שינה את התמונה.</p><p>See <a href=\"https://omnystudio.com/listener\">omnystudio.com/listener</a> for privacy information.</p>",
+      "duration_sec": 2412,
       "spotify_show": "",
       "lex_filter": false,
       "show_format": "interview",
-      "lang": "en",
-      "published_at": "2026-06-29T07:05:00"
-    },
-    {
-      "id": "crime-junkie-2026-06-29",
-      "podcast": "Crime Junkie",
-      "slug_prefix": "crime-junkie",
-      "title": "MURDERED: Christine Banfield & Joseph Ryan",
-      "date": "2026-06-29",
-      "description": "When 37-year-old Christine Banfield and 39-year-old Joseph Ryan were found fatally injured inside a Virginia home in 2023, investigators were initially told that Ryan was a violent intruder and that Christine’s husband, Brendan Banfield, a federal agent, had tried to save her. But as investigators examined digital evidence, they uncovered a different possibility: that Ryan had been lured to the home through a fake online persona and that the scene had been staged to conceal a double homicide.",
-      "duration_sec": 4088,
-      "spotify_show": "",
-      "lex_filter": false,
-      "show_format": "true_crime",
-      "lang": "en",
-      "published_at": "2026-06-29T10:00:00"
-    },
-    {
-      "id": "smartless-2026-06-29",
-      "podcast": "SmartLess",
-      "slug_prefix": "smartless",
-      "title": "\"Emma Thompson\"",
-      "date": "2026-06-29",
-      "description": "Have you been working on your faces in the mirror all morning? It’s Emma Thompson. Barney’s, Boredom, and Haggis. “Get in the ice, you’re gonna love it!” On an all-new SmartLess.",
-      "duration_sec": 3506,
-      "spotify_show": "",
-      "lex_filter": false,
-      "show_format": "panel",
-      "lang": "en",
-      "published_at": "2026-06-29T10:01:00"
+      "lang": "he",
+      "published_at": "2026-06-30T05:00:00"
     }
   ],
   "sent_count_today": {
