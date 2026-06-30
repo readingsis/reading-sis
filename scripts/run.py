@@ -2187,11 +2187,11 @@ Return only the message text, nothing else."""
     return _fallback_sis_message(p)
 
 
+_EPISODE_LINE_MAX_CHARS = 90  # keeps each bullet skimmable in WhatsApp
+
 def _episode_line(p: dict) -> str:
     """One-line episode entry for the grouped WhatsApp message.
-    Format: • Show: <description> — <url>
-    Hook is always shown in full — no truncation. Hook is required; title is
-    the fallback only when hook is genuinely absent (should be rare)."""
+    Format: • Show: <description> — <url>"""
     guest = (p.get("guest") or "").strip()
     hook = (p.get("hook") or "").strip()
     title = (p.get("title") or "").strip()
@@ -2204,6 +2204,8 @@ def _episode_line(p: dict) -> str:
         desc = f"{guest} — {title}" if title else guest
     else:
         desc = title if title else "new episode"
+    if len(desc) > _EPISODE_LINE_MAX_CHARS:
+        desc = desc[:_EPISODE_LINE_MAX_CHARS].rsplit(" ", 1)[0] + "…"
     return f"• {p['podcast']}: {desc} — {p['page_url']}"
 
 
