@@ -3261,6 +3261,11 @@
       "published_at": "2026-06-30T04:45:00",
       "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-06-30.html",
       "pushed_at": "2026-06-30"
+    },
+    {
+      "id": "bigdeal-2026-06-30",
+      "skipped": true,
+      "skip_reason": "short/bonus, no video"
     }
   ],
   "queued": [],
