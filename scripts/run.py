@@ -48,6 +48,10 @@ HAIKU = "claude-haiku-4-5"         # backfill generation (cheap, bulk)
 # no secret needed. When unset, no tracking is injected and pages still work.
 GOATCOUNTER_CODE = os.environ.get("GOATCOUNTER_CODE", "")
 
+# Cap on how many episodes Rory bundles into a single grouped group message.
+# Keeps the message skimmable; any overflow stays pending for the next send slot.
+MAX_GROUP_EPISODES = 3
+
 REPO       = "readingsis/reading-sis"
 PAGES_BASE = "https://readingsis.github.io/reading-sis"
 GH_API     = "https://api.github.com"
@@ -2288,10 +2292,11 @@ def _maybe_send_no_content_fallback(tracker: dict, now: datetime.datetime) -> bo
 def send_pending(manual: bool = False) -> None:
     """Deliver pending WhatsApp messages for pages already live.
 
-    Automatic mode (default, launchd-driven): wall-clock self-healing
-    distribution — at most 3 sends per run, same-show deduped, 1-min
-    staggered, oldest-published-first. Dark on Saturday. Fires the
-    no-content fallback to the group if today ends with nothing sent.
+    Automatic mode (default, launchd-driven): sends ONE grouped, genre-organised
+    message to the group, capped at MAX_GROUP_EPISODES episodes (oldest-published
+    first) so it stays skimmable. Any overflow stays pending for the next send
+    slot. Dark on Saturday. Fires the no-content fallback to the group if today
+    ends with nothing sent.
 
     Manual mode (`manual=True`, via `--send --manual`): flushes the entire
     queue immediately for catch-up/testing, ignoring the cap and dedup.
@@ -2352,10 +2357,13 @@ def send_pending(manual: bool = False) -> None:
         batch = sendable
         deferred = []
     else:
-        # Grouped mode: send ALL sendable episodes in ONE message — no cap, no dedup.
-        batch = sendable
-        deferred = []
-        print(f"  {len(sendable)} sendable → sending all in one grouped message")
+        # Grouped mode: ONE message, but at most MAX_GROUP_EPISODES per send so it
+        # never balloons into a wall of text. Extras stay pending (oldest-first) and
+        # go out on the next send slot.
+        batch = sendable[:MAX_GROUP_EPISODES]
+        deferred = sendable[MAX_GROUP_EPISODES:]
+        print(f"  {len(sendable)} sendable → sending {len(batch)} this run, "
+              f"deferring {len(deferred)} to next slot")
 
     # Pass 3: generate and send.
     sent = 0
