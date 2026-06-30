@@ -2187,25 +2187,21 @@ Return only the message text, nothing else."""
     return _fallback_sis_message(p)
 
 
-_EPISODE_LINE_MAX_CHARS = 90  # keeps each bullet skimmable in WhatsApp
-
 def _episode_line(p: dict) -> str:
     """One-line episode entry for the grouped WhatsApp message.
-    Format: • Show: <description> — <url>"""
+    Format: • Show: <description> — <url>
+    Uses the whatsapp_teaser (already a short punchy sentence) when available;
+    falls back to guest+title for older entries that predate teaser storage."""
+    teaser = (p.get("teaser") or "").strip()
+    if teaser:
+        return f"• {p['podcast']}: {teaser} — {p['page_url']}"
+    # Fallback for pending_send entries queued before teaser was stored.
     guest = (p.get("guest") or "").strip()
-    hook = (p.get("hook") or "").strip()
     title = (p.get("title") or "").strip()
-    if hook:
-        if guest and guest.lower() not in ("various", ""):
-            desc = f"{guest} on {hook}"
-        else:
-            desc = hook
-    elif guest and guest.lower() not in ("various", ""):
+    if guest and guest.lower() not in ("various", ""):
         desc = f"{guest} — {title}" if title else guest
     else:
         desc = title if title else "new episode"
-    if len(desc) > _EPISODE_LINE_MAX_CHARS:
-        desc = desc[:_EPISODE_LINE_MAX_CHARS].rsplit(" ", 1)[0] + "…"
     return f"• {p['podcast']}: {desc} — {p['page_url']}"
 
 
@@ -2925,6 +2921,7 @@ def _run_generate(window_override: datetime.timedelta | None = None,
                 "date_short":   pub_dt.strftime("%b %-d"),   # footer format — no year
                 "published_at": pub_dt.isoformat(),          # for oldest-first send ordering
                 "hook":         (content.get("tldr") or "")[:300],
+                "teaser":       (content.get("whatsapp_teaser") or "").strip(),
                 "page_url":     page_url,
                 "lang":         episode.get("lang", "en"),
             })
