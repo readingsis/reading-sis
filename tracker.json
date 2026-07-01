@@ -3325,45 +3325,6 @@
   "queued": [],
   "pending_send": [
     {
-      "id": "pivot-2026-06-30",
-      "podcast": "Pivot",
-      "guest": "Various",
-      "title": "Comcast Splits, OpenAI Weighs IPO Delay, and Buttigieg Targeted",
-      "date_str": "30 Jun 2026",
-      "date_short": "Jun 30",
-      "published_at": "2026-06-30T13:00:00",
-      "hook": "Comcast's spin-off of NBCUniversal unlocks massive shareholder value by separating a fast-growing media/parks business (40% revenue jump last quarter) from a structurally declining broadband unit — the same logic Scott applies to Snap's spectacles drag. Meanwhile, OpenAI's IPO delay signals that sid",
-      "teaser": "Pivot: OpenAI's IPO delay is really a confession — their S-1 next to Anthropic's would show an 8x loss explosion and a company losing the AI race faster than anyone expected.",
-      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-30.html",
-      "lang": "en"
-    },
-    {
-      "id": "echad-beyom-2026-07-01",
-      "podcast": "אחד ביום",
-      "guest": "אלי שמן",
-      "title": "מאבקי הכוח בפוליטיקה החרדית",
-      "date_str": "1 Jul 2026",
-      "date_short": "Jul 1",
-      "published_at": "2026-07-01T04:45:00",
-      "hook": "אריה דרעי לא הגיע להפגנת ש\"ס נגד גיוס חרדים כי הוא חושש שההמון יתהפך עליו — ולפני חודש כבר נשמעו קריאות 'דרעי הביתה' באירוע של הרב יצחק יוסף. משבר הגיוס יצר זם עצום בתוך כל החברה החרדית: מפגינים מדברים על חרם על הקלפי, בן גביר מנסה לגנוב מנדט מש\"ס, ופוליטיקאים ותיקים כמו גפני עומדים בפני לחץ להחלפה.",
-      "teaser": "אלי שמן חושף: דרעי לא יכול להופיע בכנסי ש\"ס שלו עצמו — וזה רק הסימן הראשון לרעידת אדמה פוליטית בתוך הציבור החרדי.",
-      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-07-01.html",
-      "lang": "he"
-    },
-    {
-      "id": "geekonomy-2026-07-01",
-      "podcast": "גיקונומי",
-      "guest": "נועם סולמון",
-      "title": "פרק #1220 - ד״ר נועם סולמון ומערכת החיסון",
-      "date_str": "1 Jul 2026",
-      "date_short": "Jul 1",
-      "published_at": "2026-07-01T00:36:41",
-      "hook": "ד״ר נועם סולמון עזב את עולם המתמטיקה האקדמית כדי להקים את Immunai – חברה שממפה את מערכת החיסון האנושית ברמת תא בודד. המטרה: לאפשר לחברות פארמה להבין למה תרופות עובדות על חלק מהמטופלים ולא על אחרים, ולקצר את זמן פיתוח התרופות. Immunai הפכה לשחקן מרכזי בתחום ה-computational immunology עם שיתופי פעולה ",
-      "teaser": "נועם עזב קריירה אקדמית מבריקה במתמטיקה כדי למפות את מערכת החיסון – וחברות הפארמה הגדולות בעולם משלמות לו על זה.",
-      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-07-01.html",
-      "lang": "he"
-    },
-    {
       "id": "hayot-kis-2026-07-01",
       "podcast": "חיות כיס",
       "guest": "ד\"ר נועם מגור",
@@ -3436,8 +3397,8 @@
     }
   ],
   "sent_count_today": {
-    "date": "2026-06-30",
-    "count": 7
+    "date": "2026-07-01",
+    "count": 3
   },
   "backfill_queued": [],
   "fallback_sent_date": "2026-06-23"
