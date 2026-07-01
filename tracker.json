@@ -3320,6 +3320,16 @@
       "published_at": "2026-07-01T05:00:00",
       "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-07-01.html",
       "pushed_at": "2026-07-01"
+    },
+    {
+      "id": "theo-von-2026-07-01",
+      "podcast": "This Past Weekend w/ Theo Von",
+      "guest": "John Kennedy",
+      "title": "#666 - Sen. John Kennedy",
+      "date": "2026-07-01",
+      "published_at": "2026-07-01T07:05:00",
+      "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-07-01.html",
+      "pushed_at": "2026-07-01"
     }
   ],
   "queued": [],
@@ -3349,24 +3359,23 @@
       "teaser": "טראשטק: לראשונה בהיסטוריה ממשלת ארה״ב עצרה מודל AI — ו-GPT-5.6 לא יצא לאוויר העולם. מה זה אומר על עתיד הבינה המלאכותית ועל הסייבר הישראלי?",
       "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-07-01.html",
       "lang": "he"
+    },
+    {
+      "id": "theo-von-2026-07-01",
+      "podcast": "This Past Weekend w/ Theo Von",
+      "guest": "John Kennedy",
+      "title": "#666 - Sen. John Kennedy",
+      "date_str": "1 Jul 2026",
+      "date_short": "Jul 1",
+      "published_at": "2026-07-01T07:05:00",
+      "hook": "Senator John Kennedy tells Theo Von that Chuck Schumer will likely manufacture a government shutdown before the midterms to create political chaos, warning it's a deliberate strategy not a policy dispute. Kennedy, who sits on the Senate Appropriations Committee and oversees the Department of Energy ",
+      "teaser": "John Kennedy tells Theo Von that Schumer is deliberately engineering a government shutdown to win the midterms — and says he'll apologize if he's wrong.",
+      "page_url": "https://readingsis.github.io/reading-sis/theo-von-2026-07-01.html",
+      "lang": "en"
     }
   ],
   "preview": [],
   "awaiting_video": [
-    {
-      "id": "geekonomy-2026-07-01",
-      "podcast": "גיקונומי",
-      "slug_prefix": "geekonomy",
-      "title": "פרק #1220 - ד״ר נועם סולמון ומערכת החיסון",
-      "date": "2026-07-01",
-      "description": "ד״ר נועם סולמון היה אחד מהמתמטיקאים הבולטים בעולם בתחומו, עד שהחליט לצאת לדרך יזמית שאפתנית במיוחד. חברת Immunai, אותה הקים ובשבילה עזב את עולם האקדמיה, ממפה את מערכת החיסון האנושית ועל הדרך מסייעת לחברות הפרמה לפתח תרופות בצורה יעילה יותר.\n \nנותני החסות לפרק:\n\nחברת קבלו 18 מטבעות USDT אם אתם פותחים חשבון מסחר ומעבירים מאה דולר ב-Bybit\n \nהאימייל של ראם",
-      "duration_sec": 9685,
-      "spotify_show": "",
-      "lex_filter": false,
-      "show_format": "interview",
-      "lang": "he",
-      "published_at": "2026-07-01T00:36:41"
-    },
     {
       "id": "hayot-kis-2026-07-01",
       "podcast": "חיות כיס",
