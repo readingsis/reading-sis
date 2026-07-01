@@ -3266,25 +3266,173 @@
       "id": "bigdeal-2026-06-30",
       "skipped": true,
       "skip_reason": "short/bonus, no video"
+    },
+    {
+      "id": "lex-fridman-2026-07-01",
+      "skipped": true
+    },
+    {
+      "id": "pivot-2026-06-30",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "Comcast Splits, OpenAI Weighs IPO Delay, and Buttigieg Targeted",
+      "date": "2026-06-30",
+      "published_at": "2026-06-30T13:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-30.html",
+      "pushed_at": "2026-07-01"
+    },
+    {
+      "id": "echad-beyom-2026-07-01",
+      "podcast": "אחד ביום",
+      "guest": "אלי שמן",
+      "title": "מאבקי הכוח בפוליטיקה החרדית",
+      "date": "2026-07-01",
+      "published_at": "2026-07-01T04:45:00",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-07-01.html",
+      "pushed_at": "2026-07-01"
+    },
+    {
+      "id": "geekonomy-2026-07-01",
+      "podcast": "גיקונומי",
+      "guest": "נועם סולמון",
+      "title": "פרק #1220 - ד״ר נועם סולמון ומערכת החיסון",
+      "date": "2026-07-01",
+      "published_at": "2026-07-01T00:36:41",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-07-01.html",
+      "pushed_at": "2026-07-01"
+    },
+    {
+      "id": "hayot-kis-2026-07-01",
+      "podcast": "חיות כיס",
+      "guest": "ד\"ר נועם מגור",
+      "title": "פרק 356: איך הפכה ארצות הברית לאמריקה",
+      "date": "2026-07-01",
+      "published_at": "2026-07-01T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/hayot-kis-2026-07-01.html",
+      "pushed_at": "2026-07-01"
+    },
+    {
+      "id": "trashtech-2026-07-01",
+      "podcast": "טראשטק",
+      "guest": "Various",
+      "title": "כשהבינה המלאכותית נאסרת לשימוש + הצרות של צוקרברג",
+      "date": "2026-07-01",
+      "published_at": "2026-07-01T05:00:00",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-07-01.html",
+      "pushed_at": "2026-07-01"
     }
   ],
   "queued": [],
-  "pending_send": [],
+  "pending_send": [
+    {
+      "id": "pivot-2026-06-30",
+      "podcast": "Pivot",
+      "guest": "Various",
+      "title": "Comcast Splits, OpenAI Weighs IPO Delay, and Buttigieg Targeted",
+      "date_str": "30 Jun 2026",
+      "date_short": "Jun 30",
+      "published_at": "2026-06-30T13:00:00",
+      "hook": "Comcast's spin-off of NBCUniversal unlocks massive shareholder value by separating a fast-growing media/parks business (40% revenue jump last quarter) from a structurally declining broadband unit — the same logic Scott applies to Snap's spectacles drag. Meanwhile, OpenAI's IPO delay signals that sid",
+      "teaser": "Pivot: OpenAI's IPO delay is really a confession — their S-1 next to Anthropic's would show an 8x loss explosion and a company losing the AI race faster than anyone expected.",
+      "page_url": "https://readingsis.github.io/reading-sis/pivot-2026-06-30.html",
+      "lang": "en"
+    },
+    {
+      "id": "echad-beyom-2026-07-01",
+      "podcast": "אחד ביום",
+      "guest": "אלי שמן",
+      "title": "מאבקי הכוח בפוליטיקה החרדית",
+      "date_str": "1 Jul 2026",
+      "date_short": "Jul 1",
+      "published_at": "2026-07-01T04:45:00",
+      "hook": "אריה דרעי לא הגיע להפגנת ש\"ס נגד גיוס חרדים כי הוא חושש שההמון יתהפך עליו — ולפני חודש כבר נשמעו קריאות 'דרעי הביתה' באירוע של הרב יצחק יוסף. משבר הגיוס יצר זם עצום בתוך כל החברה החרדית: מפגינים מדברים על חרם על הקלפי, בן גביר מנסה לגנוב מנדט מש\"ס, ופוליטיקאים ותיקים כמו גפני עומדים בפני לחץ להחלפה.",
+      "teaser": "אלי שמן חושף: דרעי לא יכול להופיע בכנסי ש\"ס שלו עצמו — וזה רק הסימן הראשון לרעידת אדמה פוליטית בתוך הציבור החרדי.",
+      "page_url": "https://readingsis.github.io/reading-sis/echad-beyom-2026-07-01.html",
+      "lang": "he"
+    },
+    {
+      "id": "geekonomy-2026-07-01",
+      "podcast": "גיקונומי",
+      "guest": "נועם סולמון",
+      "title": "פרק #1220 - ד״ר נועם סולמון ומערכת החיסון",
+      "date_str": "1 Jul 2026",
+      "date_short": "Jul 1",
+      "published_at": "2026-07-01T00:36:41",
+      "hook": "ד״ר נועם סולמון עזב את עולם המתמטיקה האקדמית כדי להקים את Immunai – חברה שממפה את מערכת החיסון האנושית ברמת תא בודד. המטרה: לאפשר לחברות פארמה להבין למה תרופות עובדות על חלק מהמטופלים ולא על אחרים, ולקצר את זמן פיתוח התרופות. Immunai הפכה לשחקן מרכזי בתחום ה-computational immunology עם שיתופי פעולה ",
+      "teaser": "נועם עזב קריירה אקדמית מבריקה במתמטיקה כדי למפות את מערכת החיסון – וחברות הפארמה הגדולות בעולם משלמות לו על זה.",
+      "page_url": "https://readingsis.github.io/reading-sis/geekonomy-2026-07-01.html",
+      "lang": "he"
+    },
+    {
+      "id": "hayot-kis-2026-07-01",
+      "podcast": "חיות כיס",
+      "guest": "ד\"ר נועם מגור",
+      "title": "פרק 356: איך הפכה ארצות הברית לאמריקה",
+      "date_str": "1 Jul 2026",
+      "date_short": "Jul 1",
+      "published_at": "2026-07-01T05:00:00",
+      "hook": "ארצות הברית לא הפכה לכלכלה העולמית המובילה בזכות שוק חופשי, אלא דווקא בזכות מדיניות תעשייתית אקטיבית ורגולציה ממשלתית כבר מהמאה ה-19. מדינה שהתבססה על כותנה ועבדות הצליחה לבצע מהפך כלכלי דרמטי באמצעות התערבות מכוונת של המדינה בשוק. השיעור הזה רלוונטי במיוחד לעידן הבינה המלאכותית, שבו מדינות מתמודדות",
+      "teaser": "נועם מגור חושף: ארה\"ב לא בנתה את עוצמתה דרך שוק חופשי – אלא דרך מדיניות תעשייתית אגרסיבית, והשיעור הזה קריטי להבנת מרוץ ה-AI של היום.",
+      "page_url": "https://readingsis.github.io/reading-sis/hayot-kis-2026-07-01.html",
+      "lang": "he"
+    },
+    {
+      "id": "trashtech-2026-07-01",
+      "podcast": "טראשטק",
+      "guest": "Various",
+      "title": "כשהבינה המלאכותית נאסרת לשימוש + הצרות של צוקרברג",
+      "date_str": "1 Jul 2026",
+      "date_short": "Jul 1",
+      "published_at": "2026-07-01T05:00:00",
+      "hook": "לראשונה בהיסטוריה ממשלת ארה״ב עצרה את שחרור GPT-5.6 של OpenAI, מה שמסמן עידן חדש של פיקוח ממשלתי על מודלי AI. בו-זמנית מטא סובלת ממשבר מורל פנימי קשה בקרב העובדים, ו-OpenAI דחתה את ההנפקה ל-2027. שני יוטיוברים צעירים מוכיחים שסרטי אימה זולים עם קהל דור Z יכולים להכניס מאות מיליוני דולרים ולערער את ה",
+      "teaser": "טראשטק: לראשונה בהיסטוריה ממשלת ארה״ב עצרה מודל AI — ו-GPT-5.6 לא יצא לאוויר העולם. מה זה אומר על עתיד הבינה המלאכותית ועל הסייבר הישראלי?",
+      "page_url": "https://readingsis.github.io/reading-sis/trashtech-2026-07-01.html",
+      "lang": "he"
+    }
+  ],
   "preview": [],
   "awaiting_video": [
     {
-      "id": "startup-for-startup-2026-06-30",
-      "podcast": "Startup for Startup",
-      "slug_prefix": "startup-for-startup",
-      "title": "356: איך צמצמנו את הנטישה דרך התמקדות אמיתית בלקוחות הקיימים",
-      "date": "2026-06-30",
-      "description": "<p dir=\"rtl\">במשך תקופה ארוכה הפוקוס המרכזי של מאנדיי היה על צמיחה דרך לקוחות חדשים והגדלת ה-ARR. עם בסיס עצום של מעל ל-250 אלף לקוחות, רק קצה הפירמידה זכה לליווי צמוד ופרואקטיבי, בעוד שאר המשתמשים קיבלו מענה בעיקר כשכבר צצה בעיה בשטח. אבל כשהחברה הגיעה למאסה קריטית, היה ברור שהמשחק ההתקפי של רכישת לקוחות חדשים כבר לא מספיק לבדו. כדי להמשיך לגדול בצורה בריאה, מאנדיי הייתה חייבת לחזק את המשחק ההגנתי שלה, כלומר, להסתכל לאתגר של נטישת הלקוחות בעיניים וללמוד איך לשמור על הנכס הכי גדול שלה: הלקוחות הקיימים.</p> <p dir=\"rtl\">מתוך ההבנה שלכל ארגון יש \"דלי דולף\" ושהרבה יותר זול ומשתלם לשמר לקוח מאשר לגייס חדש, הוקם לפני כשנה ארגון ה-CCO (Chief Customer Officer) במאנדיי. המטרה הייתה לאחד את כל גופי השירות, התמיכה והסאקסס שהיו מפוזרים בחברה תחת קורת גג אחת, ולפתור את בעיית ה-\"Too many cooks in the kitchen\", מצב שבו פונקציות שונות פועלות מול אותו לקוח במקביל ללא סנכרון.</p> <p dir=\"rtl\">בפרק השבוע, דריה ורטהיים משוחחת עם עדי דר, ה-CCO של מאנדיי, על הדרך שבה הם פיצחו את האתגר והפכו את מערך השירות מריאקטיבי לפרואקטיבי. עדי מסביר כיצד ה-AI הפך למנוע, החל מפתרון אוטומטי של מעל 70% מתיקי התמיכה היומיים, ועד לשימוש ב-Risk Engine, מערכת שמזהה ירידה בשימוש וסימני שבר אצל הלקוח עוד לפני שהבעיה בכלל צפה. בנוסף, הוא משתף כיצד הם מייסמים סגמנטציה, איך מנהלים מערך Tech Touch שנוגע בעשרות אלפי לקוחות במקביל, וכיצד חיבור מודל הקומפנסיישן של אנשי השירות לתוצאות השימור בפועל שינה את התמונה.</p><p>See <a href=\"https://omnystudio.com/listener\">omnystudio.com/listener</a> for privacy information.</p>",
-      "duration_sec": 2412,
+      "id": "geekonomy-2026-07-01",
+      "podcast": "גיקונומי",
+      "slug_prefix": "geekonomy",
+      "title": "פרק #1220 - ד״ר נועם סולמון ומערכת החיסון",
+      "date": "2026-07-01",
+      "description": "ד״ר נועם סולמון היה אחד מהמתמטיקאים הבולטים בעולם בתחומו, עד שהחליט לצאת לדרך יזמית שאפתנית במיוחד. חברת Immunai, אותה הקים ובשבילה עזב את עולם האקדמיה, ממפה את מערכת החיסון האנושית ועל הדרך מסייעת לחברות הפרמה לפתח תרופות בצורה יעילה יותר.\n \nנותני החסות לפרק:\n\nחברת קבלו 18 מטבעות USDT אם אתם פותחים חשבון מסחר ומעבירים מאה דולר ב-Bybit\n \nהאימייל של ראם",
+      "duration_sec": 9685,
       "spotify_show": "",
       "lex_filter": false,
       "show_format": "interview",
       "lang": "he",
-      "published_at": "2026-06-30T05:00:00"
+      "published_at": "2026-07-01T00:36:41"
+    },
+    {
+      "id": "hayot-kis-2026-07-01",
+      "podcast": "חיות כיס",
+      "slug_prefix": "hayot-kis",
+      "title": "פרק 356: איך הפכה ארצות הברית לאמריקה",
+      "date": "2026-07-01",
+      "description": "<p dir=\"rtl\">למה דווקא ארצות הברית, מדינה חקלאית שרוב כלכלתה התבססה על כותנה, הפכה לכלכלה המפותחת והעשירה בעולם, איך זה קשור לרגולציה יותר מאשר לשוק חופשי, והאם זה לקח שכדאי לזכור גם בעידן ה-AI?<br /><br />מגישה: צליל אברהם; עורכת: ליהיא צדוק; מפיק: טל נרונסקי; עורך סאונד: טל וניג; מרואיין: ד\"ר נועם מגור, תמונה: Shutterstock</p><p>See <a href=\"https://omnystudio.com/listener\">omnystudio.com/listener</a> for privacy information.</p>",
+      "duration_sec": 2070,
+      "spotify_show": "",
+      "lex_filter": false,
+      "show_format": "interview",
+      "lang": "he",
+      "published_at": "2026-07-01T05:00:00"
+    },
+    {
+      "id": "trashtech-2026-07-01",
+      "podcast": "טראשטק",
+      "slug_prefix": "trashtech",
+      "title": "כשהבינה המלאכותית נאסרת לשימוש + הצרות של צוקרברג",
+      "date": "2026-07-01",
+      "description": "<p>השבוע בטראשטק: לראשונה בהיסטוריה - ממשלת ארה״ב עוצרת הפצה של מודל בינה מלאכותית ומונעת את צאתו של ה-GPT 5.6. במקביל אנתרופיק והממשל במו״מ על חזרת מיתוס ופייבל, והמודלים הסיניים בקוד פתוח צוברים תאוצה.</p><p>אז מה המשמעויות, האם המודלים החזקים יערערו את עליונות הסייבר הישראלית? איתנו גיל מסינג, ראש המטה של צ׳ק פוינט.</p><p>נדבר על OpenAI שדוחה את ההנפקה לשנה הבאה, הביקוש לשבבים מעלה את המחירים של האייפונים, ועל הצרות של מטא וצוקרברג: מצב הרוח של העובדים בשפל.</p><p>וגם: איך שני יוטיוברים צעירים הצליחו להחזיר את דור ה-Z לקולנוע עם סרטי אימה זולים שמכניסים מאות מיליוני דולרים? עם רן פינקלשטיין, יוצר תוכן ואיש קריאייטיב.</p><p>_________________________</p><p>(00:00) - פתיחה</p><p>(00:33) - ארה״ב מנעה את שחרור המודל החדש של OpenAI</p><p>(07:34) - דיווח: OpenAI תדחה את ההנפקה הצפויה ל-2027</p><p>(10:48) - הביקוש האדיר לשבבים: TSMC הודיעה על העלאת מחירים</p><p>(12:04) -  אפל מייקרת את האייפון והמק</p><p>(13:32) - הצרות של צוקרברג ומטא</p><p>(21:07) - ה-AI מסוכן לשימוש? עם גיל מסינג</p><p>(25:54) - הממשל יבחן את המודל לפני השקה?</p><p>(34:19) - האם עליונות הסייבר הישראלית בסכנה?</p><p>(44:11) - ״אובססיה״: היוטיוברים שמצילים את הוליווד (עם רן פינקלשטיין)</p><p>(55:15) - האם הוליווד משנה את פניה בעידן ה-AI?</p><p>_________________________</p><p>רוצים לקחת חלק באירוע טראשטק לייב מיוחד לקהילה? אנחנו מזמינים אתכם לפגוש את האנשים המובילים בתעשייה ולהנות מערב מיוחד איתנו עם מלא הפתעות שוות… השאירו פרטים בלינק וקבלו הנחה מיוחדת לקהילה שלנו: <a href=\"https://forms.gle/Hugwt21wn4rG7MV38\"><u>https://forms.gle/Hugwt21wn4rG7MV38</u></a> </p><p>על מעלית הבינה שמעתם? הכירו את הפורמט החדש מבית טראשטק - 30 יזמים, 30 קומות, 30 יוזקייסים על AI.היכנסו עכשיו - <a href=\"https://linktr.ee/elevator_ai\"><u>https://linktr.ee/el</u>evator_ai</a> </p><p>_________________________</p><p>תודה ל-⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠Guts⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠⁠, מעבדת החדשנות והסטארטאפים של הראל</p><p>  <a href=\"https://www.gutsinnovation.com/\">https://www.gutsinnovation.com/</a> <a href=\"https://www.guts.co.il\"> </a> </p><p>רוצים להצטרף למועדון הוט? פותחים חשבון בבנק לאומי ויכולים להנות ממגוון הטבות ייחודיות </p><p><a href=\"https://web.leumi.co.il/trashtech-hot\"><u>https://web.leumi.co.il/trashtech-hot</u></a> </p><p>ענב - יוצרים מציאות חדשה</p><p><a href=\"https://tinyurl.com/2zthurvf\"><u>https://tinyurl.com/2zthurvf</u></a> </p><p>_________________________</p><p>אנחנו רוצים להמשיך וליצור עוד תוכן במיוחד בשבילכם! נשמח ל-2 דקות מזמנכם לענות על הסקר שלנו: <a href=\"https://did.li/5lJZH\">https://did.li/5lJZH</a> </p><p>📲❤️ אהבתם את הפרק? נשמח אם תרשמו לערוץ ותכתבו לנו! </p><p>_________________________</p><p>הירשמו לערוץ: </p><p><a href=\"https://www.youtube.com/channel/UCwywdccdYsNS_Cs6tS0U_dg?sub_confirmation=1\">https://www.youtube.com/channel/UCwywdccdYsNS_Cs6tS0U_dg?sub_confirmation=1</a> </p><p>לאינסטגרם של טראשטק:</p><p><a href=\"https://www.instagram.com/trashtechnewsig/\">https://www.instagram.com/trashtechnewsig/</a> </p><p>לטיקטוק של טראשטק:</p><p><a href=\"https://www.tiktok.com/@trashtechnews\">https://www.tiktok.com/@trashtechnews</a> </p><p>לערוץ הוואצאפ של טראשטק:</p><p><a href=\"https://www.whatsapp.com/channel/0029VagGRsoGOj9obvapMw27\">https://www.whatsapp.com/channel/0029VagGRsoGOj9obvapMw27</a> </p><p>לפודקאסט בספוטיפיי:</p><p><a href=\"https://open.spotify.com/show/0nGv2IY8OATmjMtkJ7eLHG?si=9b6a1be00e2344ff\">https://open.spotify.com/show/0nGv2IY8OATmjMtkJ7eLHG?si=9b6a1be00e2344ff</a> </p><p>ללינקים שלנו:</p><p><a href=\"https://linktr.ee/trashtechnews\">https://linktr.ee/trashtechnews</a> </p><p><br /></p>",
+      "duration_sec": 3604,
+      "spotify_show": "https://open.spotify.com/show/0nGv2IY8OATmjMtkJ7eLHG",
+      "lex_filter": false,
+      "show_format": "interview",
+      "lang": "he",
+      "published_at": "2026-07-01T05:00:00"
     }
   ],
   "sent_count_today": {
